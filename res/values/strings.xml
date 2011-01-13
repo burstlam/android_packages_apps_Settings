@@ -3920,4 +3920,6 @@ found in the list of installed apps.</string>
     <string name="safe_headset_restore_title">Safe headset volume</string>
     <string name="safe_headset_restore_summary">Prevent loud volume levels when headset is first plugged in</string>
 
+    <!-- Hostname setting -->
+    <string name="device_hostname">Device hostname</string>
 </resources>

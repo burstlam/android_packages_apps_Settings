@@ -1689,4 +1689,6 @@
     <string name="safe_headset_restore_title">耳機音量安全保護</string>
     <string name="safe_headset_restore_summary">避免首次插入時聲量過大損壞耳機和傷害聽覺</string>
 
+    <!-- Hostname setting -->
+    <string name="device_hostname">自定主機名稱</string>
 </resources>
