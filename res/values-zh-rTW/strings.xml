@@ -1644,4 +1644,10 @@
     <string name="quiet_hours_active_to">至</string>
     <string name="start_time_title">開始</string>
     <string name="end_time_title">結束</string>
+
+    <!-- AOKP CM9 MOD -->
+    <!-- About device screen, Cpu info. -->
+    <string name="cpu_info">CPU架構</string>
+    <!-- About phone screen, Free memory info -->
+    <string name="mem_info">內存</string>
 </resources>

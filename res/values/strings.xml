@@ -989,7 +989,6 @@
 
     <!-- Message when bluetooth dialog for passkey entry is showing. [CHAR LIMIT=NONE] -->
     <string name="bluetooth_enter_passkey_msg">To pair with:<xliff:g id="bold">&lt;br>&lt;b></xliff:g><xliff:g id="device_name">%1$s</xliff:g><xliff:g id="end_bold">&lt;/b>&lt;br>&lt;br></xliff:g>Type the device\'s required passkey:</string>
-
     <!-- Checkbox label for alphanumeric PIN entry (default is numeric PIN). [CHAR LIMIT=50] -->
     <string name="bluetooth_enable_alphanumeric_pin">PIN contains letters or symbols</string>
 
@@ -1725,6 +1724,10 @@
     <string name="firmware_version">Android version</string>
     <!-- About phone screen, status item label-->
     <string name="model_number">Model number</string>
+    <!-- About device screen, Cpu info. -->
+    <string name="cpu_info">CPU</string>
+    <!-- About phone screen, Free memory info -->
+    <string name="mem_info">Memory</string>
     <!-- About phone screen,  setting option name-->
     <string name="baseband_version">Baseband version</string>
     <!-- About phone screen,  setting option name-->
