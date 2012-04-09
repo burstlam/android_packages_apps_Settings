@@ -2136,9 +2136,9 @@
     <string name="use_location_summary">Let Google use your location to improve search results and other services</string>
     <!-- GPS Source selection -->
     <string name="location_gps_source_title">GPS source</string>
-    <string name="location_gps_source_summary">Use external bluetooth gps mouse instead of internal as location provider</string>
+    <string name="location_gps_source_summary">Choose to use either an external Bluetooth GPS antenna or the internal GPS antenna as location provider</string>
     <string name="location_gps_source_notification_title">Alert</string>
-    <string name="location_gps_source_notification">GPS source has been switched! GPS will be disabled. Please re-enable before use!</string>
+    <string name="location_gps_source_notification">The GPS source has been switched! GPS will be disabled. Please re-enable before use!</string>
 
     <!-- About --> <skip />
     <!-- Main settings screen, setting title for the user to go into the About phone screen -->
