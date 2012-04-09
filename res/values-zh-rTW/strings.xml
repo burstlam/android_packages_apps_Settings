@@ -1680,4 +1680,7 @@
     <string name="storage_switch_summary_on">使用內部儲存</string>
     <string name="storage_switch_summary_off">使用SD卡作安裝及儲存用途</string>
     <string name="storage_switch_unavailable">此機器沒有任何擴充儲存</string>
+
+    <!-- Display settings screen, battery light repeat pulsing title -->
+    <string name="battery_pulse_title">低電亮閃燈提示</string>
 </resources>
