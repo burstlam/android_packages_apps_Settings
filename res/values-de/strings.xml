@@ -1620,14 +1620,22 @@
     <string name="ll_lcd">Bildschirm:</string>
     <string name="ll_btn">Tasten:</string>
     <string name="ll_kb">Tastatur:</string>
-    <string name="ll_disabled">deaktiviert</string>
-    <string name="ll_default">Lade Standardeinstellungen</string>
-    <string name="ll_save">Save &amp; apply</string>
-    <string name="ll_reload">Aktuelle neu laden</string>
-    <string name="ll_bad_levels">Stufen müssen aufsteigend sein</string>
-    <string name="ll_num_levels">Anzahl an Stufen festlegen</string>
-    
+
     <string name="mod_version">Mod Version</string>
     <string name="link_volume_ringtones">Link volumes</string>
     <string name="link_volume_mutes">Link mute states</string>
+
+    <string name="ll_disabled">ausgeschaltet</string>
+    <string name="ll_default">Standardwerte laden</string>
+    <string name="ll_save">Sichern &amp; anwenden</string>
+    <string name="ll_reload">Aktuelle Werte neu laden</string>
+    <string name="ll_bad_levels">Stufen nicht aufsteigend</string>
+    <string name="ll_num_levels">Anzahl der Stufen setzen</string>
+
+    <!-- Advanced, Device specific (DeviceParts) settings #CM -->
+    <string name="advanced_settings_title">Erweitert</string>
+
+    <!-- Advanced tethering settings -->
+    <string name="tethering_advanced_text">Erweitert</string>
+    <string name="tethering_lease_time_text">DHCP-Lease-Gültigkeit</string>
 </resources>
