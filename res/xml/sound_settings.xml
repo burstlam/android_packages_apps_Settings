@@ -48,6 +48,10 @@
             android:key="category_calls_and_notification"
             android:title="@string/sound_category_calls_and_notification_title"/>
 
+    <CheckBoxPreference android:key="flipping-mutes-ringer" 
+                        android:title="@string/sound_flipping_down_mutes_ringer_title"
+                        android:summary="@string/sound_flipping_down_mutes_ringer_summary"/>
+
     <!-- Do not nest these, or removals in code will break -->
     <com.android.settings.DefaultRingtonePreference
             android:key="ringtone"

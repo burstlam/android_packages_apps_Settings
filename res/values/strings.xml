@@ -3908,4 +3908,9 @@ found in the list of installed apps.</string>
     <!-- time range preference -->
     <string name="start_time_title">Start</string>
     <string name="end_time_title">End</string>
+
+    <!-- Call Flipper -->
+    <string name="sound_flipping_down_mutes_ringer_title">Flip down to mutes ringer</string>
+    <string name="sound_flipping_down_mutes_ringer_summary">No responsibility for being fired!</string>
+
 </resources>

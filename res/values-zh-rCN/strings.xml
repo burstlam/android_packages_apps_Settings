@@ -1685,6 +1685,10 @@
     <!-- About phone screen, Free memory info -->
     <string name="mem_info">内存</string>
 
+    <!-- Call Flipper -->
+    <string name="sound_flipping_down_mutes_ringer_title">反转静音</string>
+    <string name="sound_flipping_down_mutes_ringer_summary">手机反转静音!</string>
+
     <!-- Advanced tethering settings -->
     <string name="tethering_advanced_text">进阶设定</string>
     <string name="tethering_lease_time_text">DHCP 使用时间</string>

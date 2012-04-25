@@ -1658,4 +1658,8 @@
     <string name="adb_over_network">偵錯模式(網絡)</string>
     <string name="adb_over_network_summary">支持網絡介面(Wi-Fi, Usb內聯)下以 TCP/IP 偵錯 . 這設置會在手機重啟後自動取消</string>
     <string name="adb_over_network_warning">警告: 開啟此模式你的手機有可能被黑客或手機病毒入侵(包括GSM網絡) !\n\n僅記在可信任的網絡中才啟用.\n\n你是否真的決定啟用這設置 ?</string>
+
+    <!-- Call Flipper -->
+    <string name="sound_flipping_down_mutes_ringer_title">反轉靜音</string>
+    <string name="sound_flipping_down_mutes_ringer_summary">手機反轉靜音!</string>
 </resources>

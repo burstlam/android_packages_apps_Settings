@@ -82,6 +82,8 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String SILENT_MODE_VIBRATE = "vibrate";
     private static final String SILENT_MODE_MUTE = "mute";
 
+    private static final String FLIPPING_DOWN_MUTES_RINGER = "flipping-mutes-ringer";
+
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
             KEY_EMERGENCY_TONE
@@ -102,6 +104,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mRingtonePreference;
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
+    private CheckBoxPreference mFlipperMuteRingers;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -179,6 +182,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mCameraSounds.setPersistent(false);
         mCameraSounds.setChecked(SystemProperties.getBoolean(
                 PROP_CAMERA_SOUND, true));
+
+        mFlipperMuteRingers= (CheckBoxPreference) findPreference(FLIPPING_DOWN_MUTES_RINGER);
+        mFlipperMuteRingers.setPersistent(false);
+        mFlipperMuteRingers.setChecked(Settings.System.getInt(resolver,
+                Settings.System.FLIPPING_DOWN_MUTES_RINGER, 1) != 0);
         
         mLockSounds = (CheckBoxPreference) findPreference(KEY_LOCK_SOUNDS);
         mLockSounds.setPersistent(false);
@@ -212,6 +220,8 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         }
 
         mSoundSettings = (PreferenceGroup) findPreference(KEY_SOUND_SETTINGS);
+
+
 
         mMusicFx = mSoundSettings.findPreference(KEY_MUSICFX);
         Intent i = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
@@ -369,6 +379,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             }
             Settings.System.putInt(getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED,
                     mSoundEffects.isChecked() ? 1 : 0);
+
+        } else if (preference == mFlipperMuteRingers) {
+            Settings.System.putInt(getContentResolver(), Settings.System.FLIPPING_DOWN_MUTES_RINGER,
+                    mFlipperMuteRingers.isChecked()  ? 1 : 0);
 
         } else if (preference == mHapticFeedback) {
             Settings.System.putInt(getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED,
