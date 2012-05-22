@@ -1683,4 +1683,9 @@
 
     <!-- Display settings screen, battery light repeat pulsing title -->
     <string name="battery_pulse_title">低電亮閃燈提示</string>
+
+    <!-- Safe headset volume restore checkbox -->
+    <string name="safe_headset_restore_title">耳機音量安全保護</string>
+    <string name="safe_headset_restore_summary">避免首次插入時聲量過大損壞耳機和傷害聽覺</string>
+
 </resources>

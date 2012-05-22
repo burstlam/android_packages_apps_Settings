@@ -340,7 +340,6 @@
 
     <!-- Bluetooth phone book permission Alert Activity text [CHAR LIMIT=none] -->
     <string name="bluetooth_pb_acceptance_dialog_text">%1$s would like to access your contacts and call history. Give access to %2$s?</string>
-
     <!-- Bluetooth phone book permission Alert Activity checkbox text [CHAR LIMIT=none] -->
     <string name="bluetooth_pb_remember_choice">Don\'t ask again</string>
 
@@ -3916,5 +3915,9 @@ found in the list of installed apps.</string>
     <!-- Call Flipper -->
     <string name="sound_flipping_down_mutes_ringer_title">Flip down to mutes ringer</string>
     <string name="sound_flipping_down_mutes_ringer_summary">No responsibility for being fired!</string>
+
+    <!-- Safe headset volume restore checkbox -->
+    <string name="safe_headset_restore_title">Safe headset volume</string>
+    <string name="safe_headset_restore_summary">Prevent loud volume levels when headset is first plugged in</string>
 
 </resources>

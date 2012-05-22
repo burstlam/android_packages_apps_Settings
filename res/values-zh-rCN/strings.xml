@@ -1706,6 +1706,10 @@
     <string name="location_gps_source_notification_title">注意</string>
     <string name="location_gps_source_notification">GPS来源已切换, GPS服务已关闭, 请重新打开.</string>
 
+    <!-- Safe headset volume restore checkbox -->
+    <string name="safe_headset_restore_title">耳机音量安全保护</string>
+    <string name="safe_headset_restore_summary">避免首次插入时声量过大损坏耳机和伤害听觉</string>
+
     <!-- Storage selection -->
     <string name="storage_menu_storage">存储</string>
     <string name="storage_title_storage">存储设置</string>
