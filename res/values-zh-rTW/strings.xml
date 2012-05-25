@@ -1655,6 +1655,9 @@
     <string name="tethering_advanced_text">進階設定</string>
     <string name="tethering_lease_time_text">DHCP 使用時間</string>
 
+    <!-- Wi-Fi settings. text displayed when Wi-Fi is on and network list is empty [CHAR LIMIT=50]-->
+    <string name="wifi_empty_list_wifi_on">Wi-Fi 已啟用但沒有可用連接點.</string>
+
     <string name="adb_over_network">偵錯模式(網絡)</string>
     <string name="adb_over_network_summary">支持網絡介面(Wi-Fi, Usb內聯)下以 TCP/IP 偵錯 . 這設置會在手機重啟後自動取消</string>
     <string name="adb_over_network_warning">警告: 開啟此模式你的手機有可能被黑客或手機病毒入侵(包括GSM網絡) !\n\n僅記在可信任的網絡中才啟用.\n\n你是否真的決定啟用這設置 ?</string>
@@ -1662,4 +1665,19 @@
     <!-- Call Flipper -->
     <string name="sound_flipping_down_mutes_ringer_title">反轉靜音</string>
     <string name="sound_flipping_down_mutes_ringer_summary">手機反轉靜音!</string>
+
+    <!-- GPS Source selection -->
+    <string name="location_gps_source_title">切換GPS來源</string>
+    <string name="location_gps_source_summary">選擇使用外置GPS裝置提供定位訊息</string>
+    <string name="location_gps_source_notification_title">注意</string>
+    <string name="location_gps_source_notification">GPS來源已切換, GPS服務已關閉, 請重新打開.</string>
+
+    <!-- Storage selection -->
+    <string name="storage_menu_storage">儲存</string>
+    <string name="storage_title_storage">儲存設定</string>
+    <string name="storage_layout">安裝位置設定</string>
+    <string name="storage_switch_title">使用內部記憶體安裝及儲存用途</string>
+    <string name="storage_switch_summary_on">使用內部儲存</string>
+    <string name="storage_switch_summary_off">使用SD卡作安裝及儲存用途</string>
+    <string name="storage_switch_unavailable">此機器沒有任何擴充儲存</string>
 </resources>

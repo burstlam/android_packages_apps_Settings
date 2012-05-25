@@ -1693,8 +1693,27 @@
     <string name="tethering_advanced_text">进阶设定</string>
     <string name="tethering_lease_time_text">DHCP 使用时间</string>
 
+    <!-- Wi-Fi settings. text displayed when Wi-Fi is on and network list is empty [CHAR LIMIT=50]-->
+    <string name="wifi_empty_list_wifi_on">Wi-Fi 已启用但没有可用连接点.</string>
+
     <string name="adb_over_network">侦错模式(网络)</string>
     <string name="adb_over_network_summary">支持网络界面(Wi-Fi, Usb内联)下以 TCP/IP 侦错 . 这设置会在手机重启后自动取消</string>
     <string name="adb_over_network_warning">警告: 打开此模式你的手机有可能被黑客或手机病毒入侵(包括GSM网络) !\n\n仅记在可信任的网络中才启用.\n\n你是否真的决定启用这设置 ?</string>
+
+    <!-- GPS Source selection -->
+    <string name="location_gps_source_title">切换GPS来源</string>
+    <string name="location_gps_source_summary">选择使用外置GPS设备提供定位消息</string>
+    <string name="location_gps_source_notification_title">注意</string>
+    <string name="location_gps_source_notification">GPS来源已切换, GPS服务已关闭, 请重新打开.</string>
+
+    <!-- Storage selection -->
+    <string name="storage_menu_storage">存储</string>
+    <string name="storage_title_storage">存储设置</string>
+    <string name="storage_layout">安装位置设置</string>
+    <string name="storage_switch_title">使用内部内存安装及存储用途</string>
+    <string name="storage_switch_summary_on">使用内部存储</string>
+    <string name="storage_switch_summary_off">使用SD卡作安装及存储用途</string>
+    <string name="storage_switch_unavailable">此机器没有任何扩充存储</string>
+
 </resources>
 
