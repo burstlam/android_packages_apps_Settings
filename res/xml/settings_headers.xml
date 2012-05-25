@@ -67,16 +67,19 @@
                 android:targetPackage="com.aokp.romcontrol" />
     </header>
 
-    <header android:icon="@drawable/ic_settings_themes"
-            android:title="@string/themes_title">
-        <intent
-                android:action="android.intent.action.MAIN"
-                android:targetPackage="com.tmobile.themechooser"
-                android:targetClass="com.tmobile.themechooser.ThemeChooser" />
-    </header>
-
     <!-- CYANOGENMOD -->
-    <header android:title="@string/header_category_cyanogenmod" />
+<!--    <header android:title="@string/header_category_cyanogenmod" /> -->
+
+    <!-- Device Specific settings -->
+    <header
+        android:id="@+id/device_settings"
+        android:title="@string/device_settings_title"
+        android:icon="@drawable/ic_settings_cmdevice">
+        <intent
+            android:action="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS"
+            android:targetPackage="com.cyanogenmod.settings.device"
+            android:targetClass="com.cyanogenmod.settings.device.DeviceSettings" />
+    </header>
 
     <!-- Launcher settings -->
     <header
@@ -89,15 +92,12 @@
             android:targetClass="com.cyanogenmod.trebuchet.preference.Preferences" />
     </header>
 
-    <!-- Device Specific settings -->
-    <header
-        android:id="@+id/device_settings"
-        android:title="@string/device_settings_title"
-        android:icon="@drawable/ic_settings_cmdevice">
+    <header android:icon="@drawable/ic_settings_themes"
+            android:title="@string/themes_title">
         <intent
-            android:action="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS"
-            android:targetPackage="com.cyanogenmod.settings.device"
-            android:targetClass="com.cyanogenmod.settings.device.DeviceSettings" />
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.tmobile.themechooser"
+                android:targetClass="com.tmobile.themechooser.ThemeChooser" />
     </header>
 
     <!-- DEVICE -->
