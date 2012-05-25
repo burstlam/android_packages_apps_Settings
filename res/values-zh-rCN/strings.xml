@@ -1684,5 +1684,13 @@
     <string name="cpu_info">CPU结构</string>
     <!-- About phone screen, Free memory info -->
     <string name="mem_info">内存</string>
+
+    <!-- Advanced tethering settings -->
+    <string name="tethering_advanced_text">进阶设定</string>
+    <string name="tethering_lease_time_text">DHCP 使用时间</string>
+
+    <string name="adb_over_network">侦错模式(网络)</string>
+    <string name="adb_over_network_summary">支持网络界面(Wi-Fi, Usb内联)下以 TCP/IP 侦错 . 这设置会在手机重启后自动取消</string>
+    <string name="adb_over_network_warning">警告: 打开此模式你的手机有可能被黑客或手机病毒入侵(包括GSM网络) !\n\n仅记在可信任的网络中才启用.\n\n你是否真的决定启用这设置 ?</string>
 </resources>
 
