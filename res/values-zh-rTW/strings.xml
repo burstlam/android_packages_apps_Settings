@@ -1584,7 +1584,7 @@
     <string name="additional_system_update_settings_list_item_title" msgid="214987609894661992">"其他系統更新"</string>
     <string name="quick_links_title">第三方 ROM</string>
     <string name="rom_control_title">AOKP 功能設定</string>
-    <string name="advanced_settings_title">裝置設定</string>
+    <string name="device_settings_title">裝置設定</string>
     <string name="launcher_settings_title">桌面設定</string>
     <string name="themes_title">主題選擇</string>
     <string name="backlight_title">背光設定</string>
@@ -1650,6 +1650,7 @@
     <string name="cpu_info">CPU架構</string>
     <!-- About phone screen, Free memory info -->
     <string name="mem_info">內存</string>
+    <string name="build_date">版本釋出日期</string>
 
     <!-- Advanced tethering settings -->
     <string name="tethering_advanced_text">進階設定</string>
