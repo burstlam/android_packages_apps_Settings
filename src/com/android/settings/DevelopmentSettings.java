@@ -431,7 +431,7 @@ public class DevelopmentSettings extends PreferenceFragment
                 mOkDialog = new AlertDialog.Builder(getActivity()).setMessage(
                         getActivity().getResources().getString(R.string.adb_warning_message))
                         .setTitle(R.string.adb_warning_title)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setIconAttribute(android.R.attr.alertDialogIcon)
                         .setPositiveButton(android.R.string.yes, this)
                         .setNegativeButton(android.R.string.no, this)
                         .show();
@@ -448,7 +448,7 @@ public class DevelopmentSettings extends PreferenceFragment
                 mOkDialog = new AlertDialog.Builder(getActivity()).setMessage(
                     getResources().getString(R.string.adb_over_network_warning))
                     .setTitle(R.string.adb_over_network)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setIconAttribute(android.R.attr.alertDialogIcon)
                     .setPositiveButton(android.R.string.yes, this)
                     .setNegativeButton(android.R.string.no, this)
                     .show();
@@ -503,7 +503,7 @@ public class DevelopmentSettings extends PreferenceFragment
         } else if (preference == mAppProcessLimit) {
             writeAppProcessLimitOptions(newValue);
             return true;
-        }
+       }
         return false;
     }
 
