@@ -93,7 +93,7 @@ final class Utils {
         Context activity = manager.getForegroundActivity();
         if(manager.isForegroundActivity()) {
             new AlertDialog.Builder(activity)
-                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(R.string.bluetooth_error_title)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, null)
