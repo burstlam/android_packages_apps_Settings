@@ -1722,5 +1722,20 @@
     <string name="gpu_info">GPU核心</string>
     <string name="cpu_info">CPU结构</string>
     <string name="mem_info">内存</string>
+
+    <string name="increasing_ring_title">渐进铃声</string>
+    <!-- Sound settings screen, the caption of the checkbox for making incoming calls increase in volume -->
+    <string name="checkbox_increasing_ring">启用</string>
+    <!-- Sound settings screen, the title of the volume bar to adjust the minimum increasing ring volume -->
+    <string name="increasing_ring_min_volume_title">初始化音量</string>
+    <string name="increasing_ring_volume_notice">注意:\n若初始化设置大过系统铃声音量设置，则会使用较小的为初始化值.</string>
+    <string name="increasing_ring_interval_title">渐进间隔</string>
+    <string name="increasing_ring_interval_eachring">每一下铃声</string>
+    <string name="increasing_ring_interval_half_秒">0.5 秒</string>
+    <string name="increasing_ring_interval_1秒">1 秒</string>
+    <string name="increasing_ring_interval_2秒s">2 秒</string>
+    <string name="increasing_ring_interval_3秒s">3 秒</string>
+    <string name="increasing_ring_interval_5秒s">5 秒</string>
+    <string name="increasing_ring_interval_10秒s">10 秒</string>
 </resources>
 

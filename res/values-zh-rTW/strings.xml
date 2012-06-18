@@ -542,9 +542,9 @@
     <string name="wifi_disabled_password_failure" msgid="8659805351763133575">"驗證問題"</string>
     <string name="wifi_not_in_range" msgid="1136191511238508967">"不在有效範圍內"</string>
     <string name="wifi_wps_available_first_item" msgid="3538912605343585226">"有可用的受保護網路"</string>
-    <string name="wifi_wps_available_second_item" msgid="6121307881706347616">" (有可用的受保護網路)"</string>
+    <string name="wifi_wps_available_秒_item" msgid="6121307881706347616">" (有可用的受保護網路)"</string>
     <string name="wifi_secured_first_item" msgid="4072076186051083451">"透過 <xliff:g id="WIFI_SECURITY_SHORT">%1$s</xliff:g> 加密保護"</string>
-    <string name="wifi_secured_second_item" msgid="1326000076939056265">"，透過 <xliff:g id="WIFI_SECURITY_SHORT">%1$s</xliff:g> 加密保護"</string>
+    <string name="wifi_secured_秒_item" msgid="1326000076939056265">"，透過 <xliff:g id="WIFI_SECURITY_SHORT">%1$s</xliff:g> 加密保護"</string>
     <string name="wifi_security_none" msgid="7985461072596594400">"無"</string>
     <string name="wifi_connect" msgid="1076622875777072845">"連線"</string>
     <string name="wifi_forget" msgid="8168174695608386644">"清除"</string>
@@ -1147,10 +1147,10 @@
     <string name="adb_warning_message" msgid="7316799925425402244">"USB 偵錯是針對應用程式開發而設計的功能，可讓您複製電腦和裝置中的資料、不需經由通知即可在裝置上安裝應用程式，以及讀取記錄資料。"</string>
     <string name="gadget_picker_title" msgid="98374951396755811">"選擇小工具"</string>
     <string name="widget_picker_title" msgid="9130684134213467557">"選擇小工具"</string>
-    <string name="battery_history_days" msgid="7110262897769622564">"<xliff:g id="DAYS">%1$d</xliff:g> 天 <xliff:g id="HOURS">%2$d</xliff:g> 小時 <xliff:g id="MINUTES">%3$d</xliff:g> 分 <xliff:g id="SECONDS">%4$d</xliff:g> 秒"</string>
-    <string name="battery_history_hours" msgid="7525170329826274999">"<xliff:g id="HOURS">%1$d</xliff:g> 小時 <xliff:g id="MINUTES">%2$d</xliff:g> 分 <xliff:g id="SECONDS">%3$d</xliff:g> 秒"</string>
-    <string name="battery_history_minutes" msgid="1467775596084148610">"<xliff:g id="MINUTES">%1$d</xliff:g> 分 <xliff:g id="SECONDS">%2$d</xliff:g> 秒"</string>
-    <string name="battery_history_seconds" msgid="4283492130945761685">"<xliff:g id="SECONDS">%1$d</xliff:g> 秒"</string>
+    <string name="battery_history_days" msgid="7110262897769622564">"<xliff:g id="DAYS">%1$d</xliff:g> 天 <xliff:g id="HOURS">%2$d</xliff:g> 小時 <xliff:g id="MINUTES">%3$d</xliff:g> 分 <xliff:g id="秒S">%4$d</xliff:g> 秒"</string>
+    <string name="battery_history_hours" msgid="7525170329826274999">"<xliff:g id="HOURS">%1$d</xliff:g> 小時 <xliff:g id="MINUTES">%2$d</xliff:g> 分 <xliff:g id="秒S">%3$d</xliff:g> 秒"</string>
+    <string name="battery_history_minutes" msgid="1467775596084148610">"<xliff:g id="MINUTES">%1$d</xliff:g> 分 <xliff:g id="秒S">%2$d</xliff:g> 秒"</string>
+    <string name="battery_history_秒s" msgid="4283492130945761685">"<xliff:g id="秒S">%1$d</xliff:g> 秒"</string>
     <string name="usage_stats_label" msgid="5890846333487083609">"使用情形統計資料"</string>
     <string name="testing_usage_stats" msgid="7823048598893937339">"使用情形統計資料"</string>
     <string name="display_order_text" msgid="8592776965827565271">"排序依據："</string>
@@ -1694,5 +1694,20 @@
 
     <!-- Hostname setting -->
     <string name="device_hostname">自定主機名稱</string>
+
+    <string name="increasing_ring_title">漸進鈴聲</string>
+    <!-- Sound settings screen, the caption of the checkbox for making incoming calls increase in volume -->
+    <string name="checkbox_increasing_ring">啟用</string>
+    <!-- Sound settings screen, the title of the volume bar to adjust the minimum increasing ring volume -->
+    <string name="increasing_ring_min_volume_title">起始音量</string>
+    <string name="increasing_ring_volume_notice">注意:\n若起始設定大過系統鈴聲音量設定，則會使用較小的為起始值.</string>
+    <string name="increasing_ring_interval_title">漸進間隔</string>
+    <string name="increasing_ring_interval_eachring">每一下鈴聲</string>
+    <string name="increasing_ring_interval_half_秒">0.5 秒</string>
+    <string name="increasing_ring_interval_1秒">1 秒</string>
+    <string name="increasing_ring_interval_2秒s">2 秒</string>
+    <string name="increasing_ring_interval_3秒s">3 秒</string>
+    <string name="increasing_ring_interval_5秒s">5 秒</string>
+    <string name="increasing_ring_interval_10秒s">10 秒</string>
 
 </resources>
