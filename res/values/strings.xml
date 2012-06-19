@@ -3910,6 +3910,10 @@ found in the list of installed apps.</string>
     <string name="preview_carrier_title">Carrier</string>
 
     <!-- Burst Mod -->
+
+    <!-- Launcher settings -->
+    <string name="launcher_settings_title">Trebuchet</string>
+
     <!-- Sound Settings - Flip to Mute Ringer -->
     <string name="sound_flipping_down_mutes_ringer_title">Flip down to mutes ringer</string>
     <string name="sound_flipping_down_mutes_ringer_summary">No responsibility for being fired!</string>
