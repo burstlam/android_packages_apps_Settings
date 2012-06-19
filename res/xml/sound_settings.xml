@@ -68,6 +68,11 @@
             android:title="@string/vibrate_on_ring_title"
             android:defaultValue="false" />
 
+    <CheckBoxPreference 
+            android:key="flipping_down_mutes_ringer" 
+            android:title="@string/sound_flipping_down_mutes_ringer_title"
+            android:summary="@string/sound_flipping_down_mutes_ringer_summary"/>
+
     <PreferenceCategory
             android:title="@string/sound_category_feedback_title"/>
 

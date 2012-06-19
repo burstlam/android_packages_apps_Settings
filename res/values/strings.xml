@@ -3908,4 +3908,9 @@ found in the list of installed apps.</string>
     <string name="preview_version_title">Version</string>
     <string name="preview_country_title">Country</string>
     <string name="preview_carrier_title">Carrier</string>
+
+    <!-- Burst Mod -->
+    <!-- Sound Settings - Flip to Mute Ringer -->
+    <string name="sound_flipping_down_mutes_ringer_title">Flip down to mutes ringer</string>
+    <string name="sound_flipping_down_mutes_ringer_summary">No responsibility for being fired!</string>
 </resources>

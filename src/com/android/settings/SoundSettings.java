@@ -75,6 +75,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_QUIET_HOURS = "quiet_hours";
     private static final String KEY_VOLUME_ADJUST_SOUNDS = "volume_adjust_sounds";
     private static final String KEY_CAMERA_SOUNDS = "camera_sounds";
+    private static final String FLIPPING_DOWN_MUTES_RINGER = "flipping_down_mutes_ringer";
     
     private static final String PROP_CAMERA_SOUND = "persist.sys.camera-sound";
 
@@ -102,6 +103,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mRingtonePreference;
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
+    private CheckBoxPreference mFlipToMuteRinger;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -179,6 +181,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mCameraSounds.setPersistent(false);
         mCameraSounds.setChecked(SystemProperties.getBoolean(
                 PROP_CAMERA_SOUND, true));
+
+        mFlipToMuteRinger = (CheckBoxPreference) findPreference(FLIPPING_DOWN_MUTES_RINGER);
+        mFlipToMuteRinger.setPersistent(false);
+        mFlipToMuteRinger.setChecked(Settings.System.getInt(resolver,
+                Settings.System.FLIPPING_DOWN_MUTES_RINGER, 1) != 0);
         
         mLockSounds = (CheckBoxPreference) findPreference(KEY_LOCK_SOUNDS);
         mLockSounds.setPersistent(false);
@@ -384,6 +391,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mLockSounds) {
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SOUNDS_ENABLED,
                     mLockSounds.isChecked() ? 1 : 0);
+
+        } else if (preference == mFlipToMuteRinger) {
+            Settings.System.putInt(getContentResolver(), Settings.System.FLIPPING_DOWN_MUTES_RINGER,
+                    mFlipToMuteRinger.isChecked() ? 1 : 0);
 
         } else if (preference == mMusicFx) {
             // let the framework fire off the intent
