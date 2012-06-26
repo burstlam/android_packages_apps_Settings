@@ -1731,11 +1731,11 @@
     <string name="increasing_ring_volume_notice">注意:\n若初始化设置大过系统铃声音量设置，则会使用较小的为初始化值.</string>
     <string name="increasing_ring_interval_title">渐进间隔</string>
     <string name="increasing_ring_interval_eachring">每一下铃声</string>
-    <string name="increasing_ring_interval_half_秒">0.5 秒</string>
-    <string name="increasing_ring_interval_1秒">1 秒</string>
-    <string name="increasing_ring_interval_2秒s">2 秒</string>
-    <string name="increasing_ring_interval_3秒s">3 秒</string>
-    <string name="increasing_ring_interval_5秒s">5 秒</string>
-    <string name="increasing_ring_interval_10秒s">10 秒</string>
+    <string name="increasing_ring_interval_half_second">0.5 秒</string>
+    <string name="increasing_ring_interval_1second">1 秒</string>
+    <string name="increasing_ring_interval_2seconds">2 秒</string>
+    <string name="increasing_ring_interval_3seconds">3 秒</string>
+    <string name="increasing_ring_interval_5seconds">5 秒</string>
+    <string name="increasing_ring_interval_10seconds">10 秒</string>
 </resources>
 
