@@ -1714,9 +1714,13 @@
     <string name="safe_headset_restore_title">耳机音量安全保护</string>
     <string name="safe_headset_restore_summary">避免首次插入时声量过大损坏耳机和伤害听觉</string>
 
-    <!-- About device screen, Cpu info. -->
+    <!--  About device screen, Hardware info -->
+    <string name="hardware_info">硬件信息</string>
+    <string name="device_rear_camera">后置镜头</string>
+    <string name="device_front_camera">前缀镜头</string>
+    <string name="device_screen_resolution">屏幕解像度</string>
+    <string name="gpu_info">GPU核心</string>
     <string name="cpu_info">CPU结构</string>
-    <!-- About phone screen, Free memory info -->
     <string name="mem_info">内存</string>
 </resources>
 
