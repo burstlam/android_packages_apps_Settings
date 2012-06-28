@@ -185,6 +185,11 @@
     <item msgid="4473276491748503377">"無"</item>
     <item msgid="8673874894887358090">"手動"</item>
   </string-array>
+  <string-array name="nfc_polling_mode_entries">
+    <item>屏幕關閉</item>
+    <item>鎖屏狀態</item>
+    <item>屏幕點亮並已解鎖</item>
+  </string-array>
   <string-array name="emergency_tone_entries">
     <item msgid="5165439859689033665">"關閉"</item>
     <item msgid="3165868966179561687">"警示"</item>
