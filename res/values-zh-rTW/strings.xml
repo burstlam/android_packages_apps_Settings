@@ -1648,27 +1648,6 @@
     <string name="start_time_title">開始</string>
     <string name="end_time_title">結束</string>
 
-    <!-- Anonymous Statistics #AOKP -->
-    <!-- About device screen, list item title. Takes the user to the screen about opting in or out of anonymous statistics. -->
-    <string name="anonymous_statistics_title">AOKP 統計</string>
-    <string name="anonymous_statistics_summary">傳送匿名的統計報告輔助說明 AOKP 更好發展</string>
-    <string name="anonymous_statistics_warning_title">關於</string>
-    <string name="anonymous_statistics_warning">AOKP 統計允許將非個人資料提交給開發者用於統計使用裝置的數量。提交的資料包括裝置唯一ID，這不會損害您的隱私和個人資料。資料將在裝置啟動啟動時提交，每周提交一次。\n\n提交的資料示例請檢視預覽資料。</string>
-    <string name="enable_reporting_title">啟用報告</string>
-    <string name="preview_data_title">預覽資料</string>
-    <string name="view_stats_title">檢視統計資訊</string>
-    <string name="anonymous_learn_more">更多資訊</string>
-
-
-    <string name="anonymous_notification_desc">啟用/禁用 AOKP 統計</string>
-
-    <string name="preview_id_title">裝置唯一 ID</string>
-    <string name="preview_device_title">裝置</string>
-    <string name="preview_version_title">版本</string>
-    <string name="preview_country_title">國家或地區</string>
-    <string name="preview_carrier_title">運營商</string>
-
-
     <!-- Burst - AOKP-CM9 Mod -->
 
     <string name="advanced_settings_title">裝置設定</string>
