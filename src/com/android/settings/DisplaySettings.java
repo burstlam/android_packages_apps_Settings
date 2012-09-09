@@ -63,6 +63,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_ELECTRON_BEAM_CATEGORY_ANIMATION = "category_animation_options";
     private static final String KEY_WAKEUP_CATEGORY = "category_wakeup_options";
     private static final String KEY_VOLUME_WAKE = "pref_volume_wake";
+    private static final String KEY_DUAL_DISP = "dual_disp";
 
     private static final String LOCKSCREEN_ROTATION_MODE = "Lock screen";
     private static final String ROTATION_ANGLE_0 = "0";
@@ -76,6 +77,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mVolumeWake;
     private CheckBoxPreference mElectronBeamAnimationOn;
     private CheckBoxPreference mElectronBeamAnimationOff;
+    private CheckBoxPreference mDualDispPref;
     private PreferenceScreen mNotificationPulse;
     private PreferenceScreen mBatteryPulse;
 
@@ -201,6 +203,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                         Settings.System.VOLUME_WAKE_SCREEN, 0) == 1);
             }
         }
+
+	mDualDispPref = (CheckBoxPreference) findPreference(KEY_DUAL_DISP);
+	if (mDualDispPref != null) {
+	    mDualDispPref.setChecked(Settings.System.getInt(getContentResolver(),
+		Settings.System.HDMI_DUAL_DISP, 1) != 0);
+	}
 
     }
 
@@ -410,7 +418,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                     mLockScreenRotation.isChecked() ? 1 : 0);
             updateDisplayRotationPreferenceDescription();
             return true;
-        }
+        } else  if (preference == mDualDispPref) {
+            Settings.System.putInt(getContentResolver(), Settings.System.HDMI_DUAL_DISP,
+                    mDualDispPref.isChecked() ? 1 : 0);
+	}
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }

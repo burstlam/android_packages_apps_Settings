@@ -4899,4 +4899,9 @@
     <string name="volume_key_cursor_control_on_reverse">Volume up/down moves cursor right/left</string>
 
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
+    
+    <string name="hdmi_dual">Enable HDMI dual display</string>
+    <string name="hdmi_dual_on">HDMI dual display enabled</string>
+    <string name="hdmi_dual_off">HDMI dual display disabled</string>
+
 </resources>
