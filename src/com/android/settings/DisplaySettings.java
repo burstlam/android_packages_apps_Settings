@@ -64,6 +64,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_WAKEUP_CATEGORY = "category_wakeup_options";
     private static final String KEY_VOLUME_WAKE = "pref_volume_wake";
     private static final String KEY_DUAL_DISP = "dual_disp";
+    private static final String KEY_TABLET_UI = "tablet_ui";
 
     private static final String LOCKSCREEN_ROTATION_MODE = "Lock screen";
     private static final String ROTATION_ANGLE_0 = "0";
@@ -78,6 +79,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mElectronBeamAnimationOn;
     private CheckBoxPreference mElectronBeamAnimationOff;
     private CheckBoxPreference mDualDispPref;
+    private CheckBoxPreference mTabletUi;
     private PreferenceScreen mNotificationPulse;
     private PreferenceScreen mBatteryPulse;
 
@@ -208,6 +210,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
 	if (mDualDispPref != null) {
 	    mDualDispPref.setChecked(Settings.System.getInt(getContentResolver(),
 		Settings.System.HDMI_DUAL_DISP, 1) != 0);
+	}
+
+	mTabletUi = (CheckBoxPreference) findPreference(KEY_TABLET_UI);
+	if (mTabletUi != null) {
+	    mTabletUi.setChecked(Settings.System.getInt(getContentResolver(),
+		Settings.System.TABLET_UI, 1) != 0);
 	}
 
     }
@@ -421,6 +429,9 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         } else  if (preference == mDualDispPref) {
             Settings.System.putInt(getContentResolver(), Settings.System.HDMI_DUAL_DISP,
                     mDualDispPref.isChecked() ? 1 : 0);
+        } else  if (preference == mTabletUi) {
+            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_UI,
+                    mTabletUi.isChecked() ? 1 : 0);
 	}
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
