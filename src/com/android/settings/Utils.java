@@ -34,6 +34,8 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity.Header;
 import android.preference.PreferenceFrameLayout;
 import android.preference.PreferenceGroup;
+import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -503,11 +505,19 @@ public class Utils {
             int shortSize = Math.min(display.getRawHeight(), display.getRawWidth());
             int shortSizeDp = shortSize * DisplayMetrics.DENSITY_DEFAULT / DisplayMetrics.DENSITY_DEVICE;
             if (shortSizeDp < 600) {
-                // 0-599dp: "phone" UI with a separate status & navigation bar
-                mDeviceType =  DEVICE_PHONE;
+                // 0-599dp: "phone" UI with a separate status & navigation bar (unless we're forcing tablet UI)
+		if (Settings.System.getInt(con.getContentResolver(),Settings.System.TABLET_UI, 1) == 1) {
+		      mDeviceType = DEVICE_TABLET;
+		} else {
+		      mDeviceType =  DEVICE_PHONE;
+		}
             } else if (shortSizeDp < 720) {
-                // 600-719dp: "phone" UI with modifications for larger screens
-                mDeviceType = DEVICE_HYBRID;
+                // 600-719dp: "phone" UI with modifications for larger screens (unless we're forcing tablet UI)
+		if (Settings.System.getInt(con.getContentResolver(),Settings.System.TABLET_UI, 1) == 1) {
+		      mDeviceType = DEVICE_TABLET;
+		} else {
+		      mDeviceType = DEVICE_HYBRID;
+		}
             } else {
                 // 720dp: "tablet" UI with a single combined status & navigation bar
                 mDeviceType = DEVICE_TABLET;
