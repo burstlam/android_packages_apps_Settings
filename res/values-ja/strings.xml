@@ -301,7 +301,7 @@
     <string name="owner_info_settings_title" msgid="2723190010708381889">"所有者情報"</string>
     <string name="owner_info_settings_summary" msgid="3800834657847339570"></string>
     <string name="owner_info_settings_edit_text_hint" msgid="4608681417960923911">"ロック画面に表示するテキストを入力します"</string>
-    <string name="location_settings_title" msgid="8935806698251432196">"位置情報サービス"</string>
+    <string name="location_settings_title" msgid="4483843407328665068">"位置情報アクセス"</string>
     <string name="security_settings_title" msgid="7945465324818485460">"セキュリティ"</string>
     <string name="security_settings_summary" msgid="967393342537986570">"現在地、画面ロック、SIMカードロック、認証情報ストレージのロック"</string>
     <string name="cdma_security_settings_summary" msgid="6068799952798901542">"現在地、画面のロック解除、認証情報ストレージのロックを設定します"</string>
@@ -901,16 +901,20 @@
     <string name="tethering_help_button_text" msgid="656117495547173630">"ヘルプ"</string>
     <string name="network_settings_title" msgid="7967552516440151852">"モバイルネットワーク"</string>
     <string name="location_title" msgid="1029961368397484576">"現在地"</string>
-    <string name="location_network_based" msgid="5569673665032992664">"Googleの位置情報サービス"</string>
-    <string name="location_neighborhood_level" msgid="2948129720516513300">"匿名の現在地データのGoogleへの送信を許可します。Wi-Fi、モバイルネットワークなどのデータを使用したおおよその位置の特定もアプリに許可します。"</string>
+    <string name="location_network_based" msgid="7472814266821714527">"Wi-Fi/モバイル接続時の位置情報"</string>
+    <string name="location_neighborhood_level" msgid="5626515380188353712">"Googleの位置情報サービスで現在地をすばやく推定することをアプリに許可します。匿名の現在地データが収集され、Googleに送信されます。"</string>
     <string name="location_neighborhood_level_wifi" msgid="7457348712272184793">"Wi-Fiで検出される現在地"</string>
     <string name="location_gps" msgid="8392461023569708478">"GPS機能"</string>
-    <string name="location_street_level" msgid="4244496898967415234">"GPSを使用して現在地を特定することをアプリに許可する"</string>
+    <string name="location_street_level" product="tablet" msgid="1669562198260860802">"タブレットでGPSを使用して現在地を特定することをアプリに許可する"</string>
+    <string name="location_street_level" product="default" msgid="4617445745492014203">"携帯端末でGPSを使用して現在地を特定することをアプリに許可する"</string>
     <string name="assisted_gps" msgid="4649317129586736885">"A-GPSを使用"</string>
     <string name="assisted_gps_enabled" msgid="8751899609589792803">"サーバーでGPSを補助します（OFFにするとネットワーク使用率が減少します）"</string>
     <string name="assisted_gps_disabled" msgid="6982698333968010748">"サーバーでGPSを補助します（OFFにするとGPS性能が向上します）"</string>
     <string name="use_location_title" msgid="5206937465504979977">"位置情報とGoogle検索"</string>
     <string name="use_location_summary" msgid="3978805802386162520">"検索結果やサービスの品質向上にGoogleが現在地情報を使用することを許可する"</string>
+    <string name="location_access_title" msgid="7064108942964081243">"位置情報にアクセス"</string>
+    <string name="location_access_summary" msgid="69031404093194341">"ユーザーの許可をリクエストしたアプリに位置情報の使用を許可する"</string>
+    <string name="location_sources_heading" msgid="1278732419851088319">"位置情報源"</string>
     <string name="about_settings" product="tablet" msgid="593457295516533765">"タブレット情報"</string>
     <string name="about_settings" product="default" msgid="1743378368185371685">"端末情報"</string>
     <string name="about_settings_summary" msgid="3371517697156165959">"規約、ステータス、ソフトウェアバージョン"</string>
@@ -1201,7 +1205,6 @@
     <string name="keep_screen_on" msgid="1146389631208760344">"スリープモードにしない"</string>
     <string name="keep_screen_on_summary" msgid="2173114350754293009">"充電中に画面をスリープにしない"</string>
     <string name="allow_mock_location" msgid="2787962564578664888">"擬似ロケーションを許可"</string>
-    <string name="allow_mock_location_summary" msgid="317615105156345626">"擬似ロケーションを許可する"</string>
     <string name="adb_warning_title" msgid="6234463310896563253">"USBデバッグを許可しますか？"</string>
     <string name="adb_warning_message" msgid="7316799925425402244">"USBデバッグは開発専用に設計されています。パソコンと端末の間でデータをコピーする場合や、アプリを通知なしで端末にインストールする場合、ログデータを読み取る場合に使用できます。"</string>
     <string name="dev_settings_warning_title" msgid="7244607768088540165">"開発用の設定を許可しますか？"</string>
@@ -1710,6 +1713,19 @@
     <string name="wifi_idle_30mn">30分</string>
     <string name="wifi_idle_1h">1時間</string>
     <string name="wifi_idle_3h">3時間</string>
+    <!-- Wi-Fi settings screen, advanced, title of the item to show the Wi-Fi device's MAC address. -->
+    <string name="wifi_setting_countrycode_title">Wi-Fi地域コード</string>
+    <!-- Wi-Fi settings screen, setting summary for setting the wifi frequency band [CHAR LIMIT=50]-->
+    <string name="wifi_setting_countrycode_summary">Wi-Fiの地域コードを指定する</string>
+    <!-- Wi-Fi settings screen, error message when the frequency band could not be set [CHAR LIMIT=50]. -->
+    <string name="wifi_setting_countrycode_error">地域コードの設定に問題がありました</string>
+
+    <string name="lockpattern_settings_enable_error_path_title">パターンエラーを表示</string>
+    <string name="lockpattern_settings_enable_dots_title">パターンドットを表示</string>
+
+    <string name="accessibility_home_button_answers_call_title">ホームボタンで着信に応答</string>
+    <string name="tts_play_example_not_found_title">警告</string>
+    <string name="tts_play_example_not_found_msg">要求された言語ではサンプルのテキストは見つかりませんでした。</string>
 
     <string name="battery_info_status_full">フル</string>
 
@@ -1889,6 +1905,8 @@
     <string name="navigation_bar_reset_message">現在の設定を破棄し、デフォルトに戻しますか?</string>
     <string name="navigation_bar_save_message">ナビゲーションバーの設定を保存しました</string>
     <string name="navigation_bar_reset_toast">ナビゲーションバーをデフォルトに戻しました</string>
+    <string name="navigation_bar_menu_editable">編集可能</string>
+    <string name="navigation_bar_menu_locked">ロック中</string>
 
     <!-- Hardware keys #CM -->
     <string name="hardware_keys_title">ハードウェアキー</string>
@@ -1971,9 +1989,10 @@
     <string name="status_bar_toggle_brightness_summary">ステータスバーをスライディングすることで明るさの調整ができるようにする</string>
     <string name="status_bar_toggle_info">自動明るさ調整は有効</string>
     <string name="status_bar_signal_text_title">代替の電波強度表示</string>
-    <string name="status_bar_signal_text_show_bars">シグナルバー</string>
+    <string name="status_bar_style_icon">アイコン</string>
+    <string name="status_bar_style_hidden">非表示</string>
     <string name="status_bar_signal_text_show_text">シグナルテキスト</string>
-    <string name="status_bar_signal_text_hidden">非表示</string>
+    <string name="status_bar_battery_status_percentage">パーセンテージ</string>
 
     <!-- Lock screen #CM -->
     <string name="lock_screen_title">ロック画面</string>
@@ -2063,6 +2082,11 @@
     <string name="lockscreen_battery_status_title">バッテリーステータス</string>
     <string name="lockscreen_battery_status_charging">充電中のみ</string>
     <string name="lockscreen_battery_status_alwayson">常に表示</string>
+
+    <string name="lockscreen_clock_align_title">時計の位置</string>
+    <string name="lockscreen_clock_align_left">左</string>
+    <string name="lockscreen_clock_align_center">中央</string>
+    <string name="lockscreen_clock_align_right">右</string>
 
     <!-- Profiles settings #CM -->
     <string name="profiles_settings_title">プロファイル</string>
@@ -2233,6 +2257,17 @@
     <string name="cpu_max_freq_title">最大CPUクロック</string>
     <string name="cpu_set_on_boot">起動時に適用</string>
     <string name="cpu_set_on_boot_summary">起動時にCPU設定を適用する</string>
+
+    <!-- Performance Settings : I/O scheduler settings title -->
+    <string name="io_scheds_title">I/O スケジューラ</string>
+    <!-- Performance Settings : I/O scheduler settings summary. -->
+    <string name="io_scheds_summary">I/O スケジューラを変更する</string>
+
+    <!-- Performance Settings : I/O scheduler settings sub items -->
+    <string name="io_sched_title">I/O スケジューラ</string>
+    <string name="io_sched_summary">%S</string>
+    <string name="io_sched_set_on_boot">起動時に設定</string>
+    <string name="io_sched_set_on_boot_summary">I/O スケジューラの変更を起動時に適用する</string>
 
     <!-- Memory Management -->
     <string name="memory_management_title">メモリマネジメント</string>
@@ -2439,5 +2474,19 @@
 
     <!-- Launches Dev Tools -->
     <string name="development_tools_title">開発ツールの起動</string>
+    <string name="allow_mock_sms">擬似SMSを許可</string>
 
+    <!-- USB Mass Storage -->
+    <string name="usb_mass_storage_title">マスストレージ</string>
+    <string name="usb_mass_storage_summary">USBマスストレージを有効にする</string>
+
+    <!--- Volume key cursor control -->
+    <string name="volume_key_cursor_control_title">音量キーカーソル制御</string>
+    <string name="volume_key_cursor_control_off">無効</string>
+    <string name="volume_key_cursor_control_on">音量アップ/ダウンでカーソルを左/右に移動する</string>
+    <string name="volume_key_cursor_control_on_reverse">音量アップ/ダウンでカーソルを右/左に移動する</string>
+
+    <!-- CM Updater -->
+    <string name="cmupdate_settings_title">CyanogenModアップデート</string>
+    <string name="cmupdate_settings_summary">利用できるアップデートのチェック、表示及びインストール</string>
 </resources>
