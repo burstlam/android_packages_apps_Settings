@@ -4937,4 +4937,9 @@
     <string name="sms_security_check_limit_default">30 (Default)</string>
 
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
+
+    <!-- Burst Mod -->
+    <!-- Sound Settings - Flip to Mute Ringer -->
+    <string name="sound_flipping_down_mutes_ringer_title">Flip down to mutes ringer</string>
+    <string name="sound_flipping_down_mutes_ringer_summary">No responsibility for being fired!</string>
 </resources>

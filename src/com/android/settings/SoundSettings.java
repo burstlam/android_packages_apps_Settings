@@ -87,6 +87,8 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final int MSG_UPDATE_RINGTONE_SUMMARY = 1;
     private static final int MSG_UPDATE_NOTIFICATION_SUMMARY = 2;
 
+    private static final String FLIPPING_DOWN_MUTES_RINGER = "flipping_down_mutes_ringer";
+
     private CheckBoxPreference mVibrateWhenRinging;
     private ListPreference mVolumeOverlay;
     private ListPreference mSilentMode;
@@ -100,7 +102,8 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mSafeHeadsetRestore;
-
+    private CheckBoxPreference mFlipToMuteRinger;
+ 
     private Runnable mRingtoneLookupRunnable;
 
     private AudioManager mAudioManager;
@@ -151,6 +154,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
                 VolumePanel.VOLUME_OVERLAY_EXPANDABLE);
         mVolumeOverlay.setValue(Integer.toString(volumeOverlay));
         mVolumeOverlay.setSummary(mVolumeOverlay.getEntry());
+
+        mFlipToMuteRinger = (CheckBoxPreference) findPreference(FLIPPING_DOWN_MUTES_RINGER);
+        mFlipToMuteRinger.setPersistent(false);
+        mFlipToMuteRinger.setChecked(Settings.System.getInt(resolver,
+                Settings.System.FLIPPING_DOWN_MUTES_RINGER, 1) != 0);
 
         mSilentMode = (ListPreference) findPreference(KEY_SILENT_MODE);
         if (!getResources().getBoolean(R.bool.has_silent_mode)) {
@@ -372,6 +380,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mLockSounds) {
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SOUNDS_ENABLED,
                     mLockSounds.isChecked() ? 1 : 0);
+
+        } else if (preference == mFlipToMuteRinger) {
+            Settings.System.putInt(getContentResolver(), Settings.System.FLIPPING_DOWN_MUTES_RINGER,
+                    mFlipToMuteRinger.isChecked() ? 1 : 0);
 
         } else if (preference == mMusicFx) {
             // let the framework fire off the intent

@@ -2481,4 +2481,9 @@
     <string name="volume_key_cursor_control_on_reverse">音量上/下将会使光标右/左移动</string>
 
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
+
+    <!-- Burst Mod -->
+    <!-- Sound Settings - Flip to Mute Ringer -->
+    <string name="sound_flipping_down_mutes_ringer_title">铃声：反转静音</string>
+    <string name="sound_flipping_down_mutes_ringer_summary">慎用，小心迟到!</string>
 </resources>

@@ -38,6 +38,11 @@
             android:entries="@array/volume_overlay_entries"
             android:entryValues="@array/volume_overlay_values" />
 
+    <CheckBoxPreference 
+            android:key="flipping_down_mutes_ringer" 
+            android:title="@string/sound_flipping_down_mutes_ringer_title"
+            android:summary="@string/sound_flipping_down_mutes_ringer_summary"/>
+
     <Preference
             android:key="musicfx"
             android:title="@string/musicfx_title">
