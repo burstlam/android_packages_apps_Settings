@@ -1990,6 +1990,9 @@
     <string name="status_bar_style_hidden">Rejtett</string>
     <string name="status_bar_signal_text_show_text">Szöveg</string>
     <string name="status_bar_battery_status_percentage">Százalék</string>
+    <string name="status_bar_battery_status_circle">Kör</string>
+    <string name="status_bar_battery_status_circle_percentage">Kör százalékkal</string>
+
 
     <string name="lock_screen_title">Képernyőzár</string>
 
@@ -2207,8 +2210,10 @@
     <string name="screen_security_title">Képernyőzár</string>
     <string name="screen_security_summary">Képernyőzár beállítások, biztonság, késleltetés</string>
     <string name="additional_options_title">További lehetőségek</string>
-    <string name="unlock_menu_unlock_title">Menü feloldás</string>
-    <string name="unlock_menu_unlock_summary">Készülék feloldása menü gomb megnyomásával</string>
+    <string name="unlock_menu_unlock_title">Menü gomb feloldás</string>
+    <string name="unlock_menu_unlock_summary">Készülék feloldása a menü gomb megnyomásával</string>
+    <string name="unlock_home_unlock_title">Kezdő gomb feloldás</string>
+    <string name="unlock_home_unlock_summary">Készülék feloldása a kezdő gomb megnyomásával</string>
     <string name="unlock_quick_unlock_control_title">Gyors feloldás</string>
     <string name="unlock_quick_unlock_control_summary">Automatikus feloldás a helyes jelszó/PIN kód beütése után</string>
 
@@ -2486,6 +2491,8 @@
     <string name="power_menu_reboot_title">Újraindítás</string>
     <string name="power_menu_screenshot_title">Képernyőmentés</string>
     <string name="power_menu_profiles_title">Profil választó</string>
+    <string name="power_menu_airplane_title">Repülőgép üzemmód</string>
+    <string name="power_menu_silent_title">Csendes mód</string>
 
     <!-- Launches Dev Tools -->
     <string name="development_tools_title">Fejlesztői eszközök</string>
@@ -2503,6 +2510,12 @@
     <!-- CM Updater -->
     <string name="cmupdate_settings_title">CyanogenMod frissítések</string>
     <string name="cmupdate_settings_summary">Elérhető frissítések keresése, megtekintése, vagy telepítése</string>
+
+    <!--- Sms security limit -->
+    <string name="app_security_title">Alkalmazásbiztonság</string>
+    <string name="sms_security_check_limit_title">Üzenet korlát</string>
+    <string name="sms_security_check_limit_summary">Figyelmeztető ablak megjelenítése a túl gyakori üzenetküldés megakadályozására. Jelenlegi limit: %d üzenet 15 percenként</string>
+    <string name="sms_security_check_limit_default">30 (Alapbeállítás)</string>
 
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
 
