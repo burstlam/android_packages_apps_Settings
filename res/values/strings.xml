@@ -4942,4 +4942,8 @@
     <!-- Sound Settings - Flip to Mute Ringer -->
     <string name="sound_flipping_down_mutes_ringer_title">Flip down to mutes ringer</string>
     <string name="sound_flipping_down_mutes_ringer_summary">No responsibility for being fired!</string>
+    <!-- Performance : Disable bootanimation -from KonstaKang-->
+    <string name="pref_disable_bootanimation_title">Disable boot animation</string>
+    <string name="pref_disable_bootanimation_summary">Don\'t show the boot animation for faster boot</string>
+
 </resources>

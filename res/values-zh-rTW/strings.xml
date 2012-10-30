@@ -1707,4 +1707,7 @@
     <!-- Sound Settings - Flip to Mute Ringer -->
     <string name="sound_flipping_down_mutes_ringer_title">鈴聲：反轉靜音</string>
     <string name="sound_flipping_down_mutes_ringer_summary">慎用，小心遲到!</string>
+    <!-- Performance : Disable bootanimation -from KonstaKang-->
+    <string name="pref_disable_bootanimation_title">停用開機動畫</string>
+    <string name="pref_disable_bootanimation_summary">停用開機動畫加快開機速度</string>
 </resources>
