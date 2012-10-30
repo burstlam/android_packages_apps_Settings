@@ -512,4 +512,8 @@
     <string name="cm_sound_mode_soundVibrate">Sound + Vibrate</string>
     <string name="pref_flash_mode_title">Flash mode</string>
     <string name="expanded_haptic_feedback_title">Haptic feedback</string>
+
+    <!-- Power Widget toggle color -->
+    <string name="toggle_icon_color_on_title">Color for notification toggle icons (on)</string>
+    <string name="toggle_icon_color_off_title">Color for notification toggle icons (off)</string>
 </resources>
