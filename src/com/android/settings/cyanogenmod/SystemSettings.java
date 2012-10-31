@@ -26,6 +26,8 @@ import android.os.ServiceManager;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 import android.view.IWindowManager;
 
@@ -41,12 +43,15 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
     private static final String KEY_NOTIFICATION_DRAWER_TABLET = "notification_drawer_tablet";
     private static final String KEY_NAVIGATION_BAR = "navigation_bar";
+    private static final String KEY_NAV_BUTTONS_EDIT = "nav_buttons_edit";
+    private static final String KEY_NAV_BUTTONS_HEIGHT = "nav_buttons_height";
     private static final String KEY_HARDWARE_KEYS = "hardware_keys";
 
     private ListPreference mFontSizePref;
     private PreferenceScreen mPhoneDrawer;
     private PreferenceScreen mTabletDrawer;
     private PreferenceScreen mNavigationBar;
+    private ListPreference mNavButtonsHeight;
 
     private final Configuration mCurConfig = new Configuration();
 
@@ -61,6 +66,12 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
         mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
         mNavigationBar = (PreferenceScreen) findPreference(KEY_NAVIGATION_BAR);
+        mNavButtonsHeight = (ListPreference) findPreference(KEY_NAV_BUTTONS_HEIGHT);
+        mNavButtonsHeight.setOnPreferenceChangeListener(this);
+        int statusNavButtonsHeight = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                 Settings.System.NAV_BUTTONS_HEIGHT, 48);
+        mNavButtonsHeight.setValue(String.valueOf(statusNavButtonsHeight));
+        mNavButtonsHeight.setSummary(mNavButtonsHeight.getEntry());
 
         if (Utils.isTablet(getActivity())) {
             if (mPhoneDrawer != null) {
@@ -68,6 +79,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
             }
             if (mNavigationBar != null) {
                 getPreferenceScreen().removePreference(mNavigationBar);
+                getPreferenceScreen().removePreference(mNavButtonsHeight);
             }
         } else {
             if (mTabletDrawer != null) {
@@ -145,11 +157,20 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        final String key = preference.getKey();
-        if (KEY_FONT_SIZE.equals(key)) {
-            writeFontSizePreference(objValue);
+        if (preference == mFontSizePref) {
+            final String key = preference.getKey();
+            if (KEY_FONT_SIZE.equals(key)) {
+                writeFontSizePreference(objValue);
+            }
+            return true;
+        } else if (preference == mNavButtonsHeight) {
+            int statusNavButtonsHeight = Integer.valueOf((String) objValue);
+            int index = mNavButtonsHeight.findIndexOfValue((String) objValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.NAV_BUTTONS_HEIGHT, statusNavButtonsHeight);
+            mNavButtonsHeight.setSummary(mNavButtonsHeight.getEntries()[index]);
+            return true;
         }
-
-        return true;
+        return false;
     }
 }
