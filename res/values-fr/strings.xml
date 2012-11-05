@@ -738,7 +738,10 @@
     <string name="power_menu_title">Menu marche/arrêt</string>
     <string name="power_menu_reboot_title">Redémarrer</string>
     <string name="power_menu_screenshot_title">Capture d\'écran</string>
+    <string name="power_menu_expanded_desktop">Bureau étendu</string>
     <string name="power_menu_profiles_title">Profils</string>
+    <string name="power_menu_airplane_title">Mode avion</string>
+    <string name="power_menu_silent_title">Panneau acoustique</string>
 
     <!-- Launches Dev Tools -->
     <string name="development_tools_title">Outils dév.</string>
@@ -2434,4 +2437,8 @@
     <string name="help_label" msgid="1107174367904110532">"Aide"</string>
     <string name="cell_broadcast_settings" msgid="8415582011920085222">"Diffusions cellulaires"</string>
     <string name="cell_broadcast_settings_summary" msgid="3301339398950905913">"Sélectionnez les types d\'alertes d\'urgence à afficher."</string>
+
+    <!-- CM Updater -->
+    <string name="cmupdate_settings_title">Mises à jour CyanogenMod</string>
+    <string name="cmupdate_settings_summary">Vérifier, afficher ou installer les mises à jour disponibles</string>
 </resources>
