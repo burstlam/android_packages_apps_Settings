@@ -44,6 +44,12 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
             "notification_alpha";
     private static final String QUICK_PULLDOWN = "quick_pulldown";
 
+    private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
+    private static final String KEY_NOTIFICATION_DRAWER_TABLET = "notification_drawer_tablet";
+
+    private PreferenceScreen mPhoneDrawer;
+    private PreferenceScreen mTabletDrawer;
+
     CheckBoxPreference mHideCarrier;
     SeekBarPreference mNotificationAlpha;
     ListPreference mQuickPulldown;
@@ -85,6 +91,19 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
         mNotificationAlpha.setInitValue((int) (transparency * 100));
         mNotificationAlpha.setProperty(Settings.System.NOTIFICATION_ALPHA);
         mNotificationAlpha.setOnPreferenceChangeListener(this);
+
+	mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
+        mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
+
+        /*if (Utils.isTablet(getActivity())) {
+            if (mPhoneDrawer != null) {
+                getPreferenceScreen().removePreference(mPhoneDrawer);
+            }
+        } else*/ {
+            if (mTabletDrawer != null) {
+                getPreferenceScreen().removePreference(mTabletDrawer);
+            }
+        }
 
         mQuickPulldown = (ListPreference) findPreference(QUICK_PULLDOWN);
         if (!DeviceUtils.isPhone(getActivity())) {
