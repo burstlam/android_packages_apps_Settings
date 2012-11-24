@@ -1706,4 +1706,12 @@
     <string name="help_label" msgid="1107174367904110532">"說明"</string>
     <string name="cell_broadcast_settings" msgid="8415582011920085222">"區域廣播"</string>
     <string name="cell_broadcast_settings_summary" msgid="3301339398950905913">"選取要顯示的緊急警示類型。"</string>
+
+    <!-- Wifi sleep timeout -->
+    <string name="wifi_idle_mn_title">Wi-Fi 待機逾時</string>
+    <string name="wifi_idle_5mn">5 分鐘</string>
+    <string name="wifi_idle_15mn">15 分鐘 (默認)</string>
+    <string name="wifi_idle_30mn">30 分鐘</string>
+    <string name="wifi_idle_1h">1 小時</string>
+    <string name="wifi_idle_3h">3 小時</string>
 </resources>
