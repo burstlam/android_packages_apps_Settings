@@ -69,12 +69,10 @@
                 android:targetPackage="com.aokp.romcontrol" />
     </header>
 
-    <header android:icon="@drawable/ic_settings_themes"
-            android:title="@string/themes_title">
-        <intent
-                android:action="android.intent.action.MAIN"
-                android:targetPackage="com.tmobile.themechooser"
-                android:targetClass="com.tmobile.themechooser.ThemeChooser" />
+    <header
+        android:id="@+id/launcher_settings"
+        android:title="@string/launcher_settings_title"
+        android:icon="@drawable/ic_settings_cmlauncher">
     </header>
 
     <header android:id="@+id/advanced_settings"
@@ -84,6 +82,14 @@
                 android:action="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS"
                 android:targetPackage="com.cyanogenmod.settings.device"
                 android:targetClass="com.cyanogenmod.settings.device.DeviceSettings" />
+    </header>
+
+    <header android:icon="@drawable/ic_settings_themes"
+            android:title="@string/themes_title">
+        <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.tmobile.themechooser"
+                android:targetClass="com.tmobile.themechooser.ThemeChooser" />
     </header>
 
     <!-- DEVICE -->
