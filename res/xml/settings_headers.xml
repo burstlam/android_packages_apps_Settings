@@ -62,6 +62,12 @@
     <header android:id="@+id/quick_links"
             android:title="@string/quick_links_title" />
 
+    <header
+        android:id="@+id/launcher_settings"
+        android:title="@string/launcher_settings_title"
+        android:icon="@drawable/ic_settings_cmlauncher">
+    </header>
+
     <header android:id="@+id/rom_control"
             android:title="@string/rom_control_title"
             android:icon="@drawable/ic_settings_rom_control" >
