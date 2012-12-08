@@ -1207,11 +1207,6 @@
     <!-- Wifi Display settings. Summary shown in Display settings. Text used for 'Disabled' state. [CHAR LIMIT=40] -->
     <string name="wifi_display_summary_disabled">Disabled</string>
 
-    <!-- Substring of status line when the network is a ad-hoc network and string is listed first -->
-    <string name="wifi_adhoc_first_item">Ad-hoc network</string>
-    <!-- Substring of wifi status when the network is a ad-hoc network and string is listed after a wifi_secured_* string-->
-    <string name="wifi_adhoc_second_item">\u0020(ad-hoc network)</string>
-
     <!-- NFC settings -->
     <!-- Used in the 1st-level settings screen to turn on NFC -->
     <string name="nfc_quick_toggle_title">NFC</string>

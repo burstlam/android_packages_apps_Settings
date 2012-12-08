@@ -141,8 +141,6 @@ public class WifiSettings extends SettingsPreferenceFragment
 
     private TextView mEmptyView;
 
-	private boolean mShowAdhoc;
-
     /* Used in Wifi Setup context */
 
     // this boolean extra specifies whether to disable the Next button when not connected
@@ -280,8 +278,6 @@ public class WifiSettings extends SettingsPreferenceFragment
 
         mP2pSupported = getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT);
         mWifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-
-		mShowAdhoc = getResources().getBoolean(R.bool.config_show_adhoc_network);
 
         mConnectListener = new WifiManager.ActionListener() {
                                    public void onSuccess() {
@@ -776,13 +772,9 @@ public class WifiSettings extends SettingsPreferenceFragment
         final List<ScanResult> results = mWifiManager.getScanResults();
         if (results != null) {
             for (ScanResult result : results) {
-                // Ignore hidden networks.
-                if (result.SSID == null || result.SSID.length() == 0) {
-                    continue;
-                }
-
-                // Ignore ad-hoc network on unsupported devices
-                if (result.capabilities.contains("[IBSS]") && !mShowAdhoc) {
+                // Ignore hidden and ad-hoc networks.
+                if (result.SSID == null || result.SSID.length() == 0 ||
+                        result.capabilities.contains("[IBSS]")) {
                     continue;
                 }
 
