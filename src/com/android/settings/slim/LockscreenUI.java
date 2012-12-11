@@ -35,6 +35,9 @@ import com.android.settings.SettingsPreferenceFragment;
 public class LockscreenUI extends SettingsPreferenceFragment
         implements OnPreferenceChangeListener {
 
+    private static final String LOCKSCREEN_GENERAL_CATEGORY = "lockscreen_general_category";
+    private static final String KEY_LOCKSCREEN_BUTTONS = "lockscreen_buttons";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +45,28 @@ public class LockscreenUI extends SettingsPreferenceFragment
 
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
+
+        // Find categories
+        PreferenceCategory generalCategory = (PreferenceCategory)
+                findPreference(LOCKSCREEN_GENERAL_CATEGORY);
+
+        // Remove lockscreen button actions if device doesn't have hardware keys
+        if (!hasButtons()) {
+            generalCategory.removePreference(findPreference(KEY_LOCKSCREEN_BUTTONS));
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    /**
+     * Checks if the device has hardware buttons.
+     * @return has Buttons
+     */
+    public boolean hasButtons() {
+        return !getResources().getBoolean(com.android.internal.R.bool.config_showNavigationBar);
     }
 
     @Override
