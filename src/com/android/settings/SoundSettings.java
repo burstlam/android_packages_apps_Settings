@@ -20,6 +20,7 @@ package com.android.settings;
 import com.android.settings.bluetooth.DockEventReceiver;
 
 import android.app.AlertDialog;
+import android.app.ActivityManagerNative;
 import android.app.Dialog;
 import android.bluetooth.BluetoothDevice;
 import android.app.DialogFragment;
@@ -86,6 +87,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_DOCK_AUDIO_MEDIA_ENABLED = "dock_audio_media_enabled";
     private static final String KEY_QUIET_HOURS = "quiet_hours";
     private static final String KEY_VOLUME_ADJUST_SOUNDS = "volume_adjust_sounds";
+    private static final String KEY_SAFE_HEADSET_RESTORE = "safe_headset_restore";
 
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
@@ -117,6 +119,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mDockSounds;
     private Intent mDockIntent;
     private CheckBoxPreference mDockAudioMediaEnabled;
+    private CheckBoxPreference mSafeHeadsetRestore;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -174,6 +177,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         if (!getResources().getBoolean(R.bool.has_silent_mode)) {
             findPreference(KEY_RING_VOLUME).setDependency(null);
         }
+
+        mSafeHeadsetRestore = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_RESTORE);
+        mSafeHeadsetRestore.setPersistent(false);
+        mSafeHeadsetRestore.setChecked(Settings.System.getInt(resolver,
+                Settings.System.SAFE_HEADSET_VOLUME_RESTORE, 1) != 0);
 
         mVibrateWhenRinging = (CheckBoxPreference) findPreference(KEY_VIBRATE);
         mVibrateWhenRinging.setPersistent(false);
@@ -365,6 +373,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         if (preference == mVibrateWhenRinging) {
             Settings.System.putInt(getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING,
                     mVibrateWhenRinging.isChecked() ? 1 : 0);
+        } else if (preference == mSafeHeadsetRestore) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.SAFE_HEADSET_VOLUME_RESTORE,
+                    mSafeHeadsetRestore.isChecked() ? 1 : 0);
         } else if (preference == mDtmfTone) {
             Settings.System.putInt(getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING,
                     mDtmfTone.isChecked() ? 1 : 0);
