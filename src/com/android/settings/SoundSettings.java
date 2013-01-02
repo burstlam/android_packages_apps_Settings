@@ -88,6 +88,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_QUIET_HOURS = "quiet_hours";
     private static final String KEY_VOLUME_ADJUST_SOUNDS = "volume_adjust_sounds";
     private static final String KEY_SAFE_HEADSET_RESTORE = "safe_headset_restore";
+    private static final String KEY_SAFE_HEADSET_VOLUME = "safe_headset_volume";
 
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
@@ -110,6 +111,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mVolumeAdjustSounds;
+    private CheckBoxPreference mSafeHeadsetVolume;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -223,6 +225,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else {
             mQuietHours.setSummary(getString(R.string.quiet_hours_summary));
         }
+
+        mSafeHeadsetVolume = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_VOLUME);
+        mSafeHeadsetVolume.setPersistent(false);
+        mSafeHeadsetVolume.setChecked(Settings.System.getBoolean(resolver,
+                Settings.System.MANUAL_SAFE_MEDIA_VOLUME, true));
 
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (vibrator == null || !vibrator.hasVibrator()) {
@@ -401,6 +408,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mLockSounds) {
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SOUNDS_ENABLED,
                     mLockSounds.isChecked() ? 1 : 0);
+
+        } else if (preference == mSafeHeadsetVolume) {
+            Settings.System.putBoolean(getContentResolver(), Settings.System.MANUAL_SAFE_MEDIA_VOLUME,
+                    mSafeHeadsetVolume.isChecked());
 
         } else if (preference == mMusicFx) {
             // let the framework fire off the intent

@@ -4478,7 +4478,7 @@
     <string name="preview_country_title">Country</string>
     <string name="preview_carrier_title">Carrier</string>
 
-        <!-- Quiet hours #CM -->
+    <!-- Quiet hours #CM -->
     <string name="quiet_hours_title">Quiet hours</string>
     <string name="quiet_hours_summary">Configure the hours the device should be quiet</string>
     <string name="quiet_hours_enabled_title">Enable quiet hours</string>
@@ -4592,5 +4592,9 @@
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_restore_title">Safe headset volume</string>
     <string name="safe_headset_restore_summary">Prevent loud volume levels when headset is first plugged in</string>
+
+    <!-- AOKP specific sound settings
+    <string name="camera_sounds">Camera sounds</string> ** TODO ** -->
+    <string name="safe_headset_volume_title">Safe headset volume Warning</string>
 
 </resources>
