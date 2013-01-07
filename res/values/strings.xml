@@ -4570,22 +4570,6 @@
     <string name="pref_purgeable_assets_title">Allow purging of assets</string>
     <string name="pref_purgeable_assets_summary">Purging of bitmap memory assets allows the freeing of more RAM when needed (requires reboot)</string>
 
-    <!-- minfree -->
-    <string name="dt_free_memory">Minfree Taskkiller</string>
-    <string name="pt_free_memory">Free memory</string>
-    <string name="ps_free_memory">Amount of RAM the minfree taskkiller will keep | Current: %s</string>
-    <string name="pt_free_memory_boot">Set at boot</string>
-    <string name="ps_free_memory_boot">Apply the amount above at boot</string>
-    <string name="performance_daily_reboot_title">Daily reboot</string>
-    <string name="performance_daily_reboot_summary">Reboot scheduled at %1$s</string>
-    <string name="performance_daily_reboot_summary_unscheduled">Not scheduled</string>
-    <string name="size_25_mb">25mb</string>
-    <string name="size_50_mb">50mb</string>
-    <string name="size_75_mb">75mb</string>
-    <string name="size_80_mb">80mb</string>
-    <string name="size_100_mb">100mb</string>
-
-
     <!-- Performance Settings : Dithering -->
     <string name="pref_use_dithering_title">Surface improvement</string>
     <string name="dithering_no_dither">Disable dithering</string>

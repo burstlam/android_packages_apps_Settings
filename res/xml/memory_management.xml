@@ -37,24 +37,4 @@
         android:title="@string/pref_ksm_title"
         android:summary="@string/pref_ksm_summary" />
 
-    <ListPreference
-        android:key="free_memory"
-        android:title="@string/pt_free_memory"
-        android:summary="@string/ps_free_memory"
-        android:dialogTitle="@string/dt_free_memory"
-        android:persistent="true"
-        android:entries="@array/minfree"
-        android:entryValues="@array/minfree_values" />
-
-    <CheckBoxPreference
-        android:key="free_memory_boot"
-        android:defaultValue="false"
-        android:title="@string/pt_free_memory_boot"
-        android:summary="@string/ps_free_memory_boot" />
-
-     <CheckBoxPreference
-            android:key="daily_reboot"
-            android:defaultValue="false"
-            android:title="@string/performance_daily_reboot_title" />
-
 </PreferenceScreen>
