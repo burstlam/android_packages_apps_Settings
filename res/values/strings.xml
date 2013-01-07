@@ -4580,6 +4580,23 @@
     <string name="pref_use_16bpp_alpha_title">16bit transparency</string>
     <string name="pref_use_16bpp_alpha_summary">Better graphics performance, but lower quality and may cause visual artifacts (requires reboot)</string>
 
+    <!-- Performance | Voltage Control -->
+
+    <string name="cpu_voltage">Voltage control</string>
+    <string name="cpu_voltage_summary">Change CPU voltage of each frequency</string>
+    <string name="ps_volt_mhz_voltage">" MHz Voltage"</string>
+    <string name="ps_volt_save">"Save"</string>
+    <string name="ps_volt_current_voltage">"Current voltage: "</string>
+    <string name="ps_volt_setting_to_apply">"Setting to apply: "</string>
+    <string name="pt_volt_control">Voltage control</string>
+    <string name="ps_volt_control">Set voltages for each frequency</string>
+    <string name="not_supported">Your kernel does not support voltage control</string>
+    <string name="apply_values">Apply values</string>
+    <string name="freq">Frequency</string>
+    <string name="current">mV current</string>
+    <string name="saved">mV saved</string>
+    <string name="sob">Set on boot</string>
+
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
 
     <string name="link_volume_ringtones">Link volumes</string>
