@@ -89,6 +89,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_VOLUME_ADJUST_SOUNDS = "volume_adjust_sounds";
     private static final String KEY_SAFE_HEADSET_RESTORE = "safe_headset_restore";
     private static final String KEY_HEADSET_CONNECT_PLAYER = "headset_connect_player";
+    private static final String PREF_VOLUME_MUSIC = "volume_music_controls";
 
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
@@ -112,6 +113,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mVolumeAdjustSounds;
+    private CheckBoxPreference mVolumeMusic;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -219,6 +221,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mRingtonePreference = findPreference(KEY_RINGTONE);
         mVibrationPreference = findPreference(KEY_VIBRATION);
         mNotificationPreference = findPreference(KEY_NOTIFICATION_SOUND);
+
+        mVolumeMusic = (CheckBoxPreference) findPreference(PREF_VOLUME_MUSIC);
+        mVolumeMusic.setChecked(Settings.System.getBoolean(resolver,
+                Settings.System.VOLUME_MUSIC_CONTROLS, false));
         
         mQuietHours = (PreferenceScreen) findPreference(KEY_QUIET_HOURS);
         if (Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_ENABLED, 0) == 1) {
@@ -405,7 +411,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mLockSounds) {
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SOUNDS_ENABLED,
                     mLockSounds.isChecked() ? 1 : 0);
-
+        } else if (preference == mVolumeMusic) {
+            Settings.System.putBoolean(getContentResolver(), Settings.System.VOLUME_MUSIC_CONTROLS,
+                    ((CheckBoxPreference) preference).isChecked());
         } else if (preference == mMusicFx) {
             // let the framework fire off the intent
             return false;

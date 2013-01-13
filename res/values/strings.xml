@@ -4662,4 +4662,7 @@
     <string name="safe_headset_restore_title">Safe headset volume</string>
     <string name="safe_headset_restore_summary">Prevent loud volume levels when headset is first plugged in</string>
 
+    <string name="volume_music_controls_title">Volume music controls</string>
+    <string name="volume_music_controls_summary">Long press volume buttons to skip tracks while screen is off. Volume wake will not work when music is playing.</string>
+
 </resources>
