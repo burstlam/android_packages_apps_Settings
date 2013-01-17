@@ -90,6 +90,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_SAFE_HEADSET_RESTORE = "safe_headset_restore";
     private static final String KEY_HEADSET_CONNECT_PLAYER = "headset_connect_player";
     private static final String PREF_VOLUME_MUSIC = "volume_music_controls";
+    private static final String KEY_CONVERT_SOUND_TO_VIBRATE = "notification_convert_sound_to_vibration";
 
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
@@ -105,6 +106,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mDtmfTone;
     private CheckBoxPreference mSoundEffects;
     private CheckBoxPreference mHapticFeedback;
+    private CheckBoxPreference mConvertSoundToVibration;
     private Preference mMusicFx;
     private CheckBoxPreference mLockSounds;
     private CheckBoxPreference mHeadsetConnectPlayer;
@@ -225,6 +227,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mVolumeMusic = (CheckBoxPreference) findPreference(PREF_VOLUME_MUSIC);
         mVolumeMusic.setChecked(Settings.System.getBoolean(resolver,
                 Settings.System.VOLUME_MUSIC_CONTROLS, false));
+
+        mConvertSoundToVibration = (CheckBoxPreference) findPreference(KEY_CONVERT_SOUND_TO_VIBRATE);
+        mConvertSoundToVibration.setPersistent(false);
+        mConvertSoundToVibration.setChecked(Settings.System.getBoolean(resolver,
+                Settings.System.NOTIFICATION_CONVERT_SOUND_TO_VIBRATION, false));
         
         mQuietHours = (PreferenceScreen) findPreference(KEY_QUIET_HOURS);
         if (Settings.System.getInt(resolver, Settings.System.QUIET_HOURS_ENABLED, 0) == 1) {
@@ -414,6 +421,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mVolumeMusic) {
             Settings.System.putBoolean(getContentResolver(), Settings.System.VOLUME_MUSIC_CONTROLS,
                     ((CheckBoxPreference) preference).isChecked());
+        } else if (preference == mConvertSoundToVibration) {
+            Settings.System.putBoolean(getContentResolver(), Settings.System.NOTIFICATION_CONVERT_SOUND_TO_VIBRATION,
+                    mConvertSoundToVibration.isChecked());
         } else if (preference == mMusicFx) {
             // let the framework fire off the intent
             return false;
