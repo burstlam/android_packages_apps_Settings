@@ -126,7 +126,8 @@ public class Settings extends PreferenceActivity
             R.id.rom_control,
             R.id.launcher_settings,
             R.id.themes,
-            R.id.advanced_settings
+            R.id.advanced_settings,
+            R.id.performance
     };
 
     private SharedPreferences mDevelopmentPreferences;
