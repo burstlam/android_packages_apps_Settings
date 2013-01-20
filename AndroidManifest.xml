@@ -797,10 +797,6 @@
                 android:resource="@id/security_settings" />
         </activity>
 
-        <!-- CyanogenMod activities Start -->
-        <activity android:name=".cyanogenmod.PerformanceSettings" />
-        <activity android:name=".cyanogenmod.VoltageControlSettings" />
-
         <!-- Keep compatibility with old shortcuts. -->
         <activity-alias android:name="SecuritySettings"
                 android:label="@string/security_settings_title"
@@ -1514,12 +1510,6 @@
         <receiver android:name=".bluetooth.BluetoothDiscoverableTimeoutReceiver">
             <intent-filter>
                 <action android:name="android.bluetooth.intent.DISCOVERABLE_TIMEOUT" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".cyanogenmod.BootReceiver" android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
