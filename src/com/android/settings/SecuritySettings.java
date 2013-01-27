@@ -35,6 +35,7 @@ import android.os.UserHandle;
 import android.os.UserManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
@@ -120,7 +121,7 @@ public class SecuritySettings extends SettingsPreferenceFragment
     private CheckBoxPreference mMenuUnlock;
     private CheckBoxPreference mHomeUnlock;
     private CheckBoxPreference mQuickUnlockScreen;
-    private ListPreference mSmsSecurityCheck;
+    private EditTextPreference mSmsSecurityCheck;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -387,9 +388,9 @@ public class SecuritySettings extends SettingsPreferenceFragment
         boolean isTelephony = pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
         if (isTelephony) {
             addPreferencesFromResource(R.xml.security_settings_app_cyanogenmod);
-            mSmsSecurityCheck = (ListPreference) root.findPreference(KEY_SMS_SECURITY_CHECK_PREF);
+            mSmsSecurityCheck = (EditTextPreference) root.findPreference(KEY_SMS_SECURITY_CHECK_PREF);
             mSmsSecurityCheck.setOnPreferenceChangeListener(this);
-            int smsSecurityCheck = Integer.valueOf(mSmsSecurityCheck.getValue());
+            int smsSecurityCheck = Integer.valueOf(mSmsSecurityCheck.getText());
             updateSmsSecuritySummary(smsSecurityCheck);
          }
 
@@ -728,10 +729,16 @@ public class SecuritySettings extends SettingsPreferenceFragment
                     Settings.System.SCREEN_LOCK_SLIDE_SCREENOFF_DELAY, slideScreenOffDelay);
             updateSlideAfterScreenOffSummary();
         } else if (preference == mSmsSecurityCheck) {
-            int smsSecurityCheck = Integer.valueOf((String) value);
-            Settings.Global.putInt(getContentResolver(), Settings.Global.SMS_OUTGOING_CHECK_MAX_COUNT,
-                     smsSecurityCheck);
-            updateSmsSecuritySummary(smsSecurityCheck);
+            String s = (String) value;
+            if (s.length() > 0) {
+                int smsSecurityCheck = Integer.valueOf((String) value);
+                Settings.Global.putInt(getContentResolver(), 
+                        Settings.Global.SMS_OUTGOING_CHECK_MAX_COUNT,
+                        smsSecurityCheck);
+                updateSmsSecuritySummary(smsSecurityCheck);
+            } else {
+                return false;
+            }
         }
         return true;
     }
