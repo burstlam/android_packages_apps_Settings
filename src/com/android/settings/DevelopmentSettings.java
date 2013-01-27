@@ -77,6 +77,7 @@ import java.util.List;
 public class DevelopmentSettings extends PreferenceFragment
         implements DialogInterface.OnClickListener, DialogInterface.OnDismissListener,
                 OnPreferenceChangeListener, CompoundButton.OnCheckedChangeListener {
+    private static final String TAG = "DevelopmentSettings";
 
     /**
      * Preference file were development settings prefs are stored.
@@ -88,11 +89,9 @@ public class DevelopmentSettings extends PreferenceFragment
      */
     public static final String PREF_SHOW = "show";
 
-
-	private static final String TAG = "DevelopmentSettings";
     private static final String ENABLE_ADB = "enable_adb";
-	private static final String ADB_TCPIP  = "adb_over_network";
-	private static final String ADB_NOTIFY = "adb_notify";
+    private static final String ADB_NOTIFY = "adb_notify";
+    private static final String ADB_TCPIP  = "adb_over_network";
     private static final String KEEP_SCREEN_ON = "keep_screen_on";
     private static final String ALLOW_MOCK_LOCATION = "allow_mock_location";
     private static final String HDCP_CHECKING_KEY = "hdcp_checking";
@@ -154,10 +153,10 @@ public class DevelopmentSettings extends PreferenceFragment
     private boolean mDontPokeProperties;
 
     private CheckBoxPreference mEnableAdb;
-	private CheckBoxPreference mAdbOverNetwork;
-	private CheckBoxPreference mAdbNotify;
+    private CheckBoxPreference mAdbNotify;
     private Preference mBugreport;
     private CheckBoxPreference mBugreportInPower;
+    private CheckBoxPreference mAdbOverNetwork;
     private CheckBoxPreference mKeepScreenOn;
     private CheckBoxPreference mEnforceReadExternal;
     private CheckBoxPreference mAllowMockLocation;
@@ -205,7 +204,7 @@ public class DevelopmentSettings extends PreferenceFragment
     private boolean mDialogClicked;
     private Dialog mEnableDialog;
     private Dialog mAdbDialog;
-	private Dialog mAdbTcpDialog;
+    private Dialog mAdbTcpDialog;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -219,10 +218,10 @@ public class DevelopmentSettings extends PreferenceFragment
         addPreferencesFromResource(R.xml.development_prefs);
 
         mEnableAdb = findAndInitCheckboxPref(ENABLE_ADB);
-		mAdbOverNetwork = findAndInitCheckboxPref(ADB_TCPIP);
-		mAdbNotify = findAndInitCheckboxPref(ADB_NOTIFY);
+        mAdbNotify = findAndInitCheckboxPref(ADB_NOTIFY);
         mBugreport = findPreference(BUGREPORT);
         mBugreportInPower = findAndInitCheckboxPref(BUGREPORT_IN_POWER_KEY);
+        mAdbOverNetwork = findAndInitCheckboxPref(ADB_TCPIP);
         mKeepScreenOn = findAndInitCheckboxPref(KEEP_SCREEN_ON);
         mEnforceReadExternal = findAndInitCheckboxPref(ENFORCE_READ_EXTERNAL);
         mAllowMockLocation = findAndInitCheckboxPref(ALLOW_MOCK_LOCATION);
@@ -409,16 +408,14 @@ public class DevelopmentSettings extends PreferenceFragment
         mHaveDebugSettings = false;
         updateCheckBox(mEnableAdb, Settings.Global.getInt(cr,
                 Settings.Global.ADB_ENABLED, 0) != 0);
-		updateAdbOverNetwork();
-        updateCheckBox(mAdbOverNetwork, Settings.Secure.getInt(cr,
-                Settings.Secure.ADB_PORT, 0) != 0);
-        updateCheckBox(mAdbNotify, Settings.Secure.getInt(cr,
+        mAdbNotify.setChecked(Settings.Secure.getInt(cr,
                 Settings.Secure.ADB_NOTIFY, 1) != 0);
         updateCheckBox(mBugreportInPower, Settings.Secure.getInt(cr,
                 Settings.Secure.BUGREPORT_IN_POWER_MENU, 0) != 0);
         updateCheckBox(mKeepScreenOn, Settings.Global.getInt(cr,
                 Settings.Global.STAY_ON_WHILE_PLUGGED_IN, 0) != 0);
         updateCheckBox(mEnforceReadExternal, isPermissionEnforced(READ_EXTERNAL_STORAGE));
+        updateAdbOverNetwork();
         updateCheckBox(mAllowMockLocation, Settings.Secure.getInt(cr,
                 Settings.Secure.ALLOW_MOCK_LOCATION, 0) != 0);
         updateHdcpValues();
@@ -805,7 +802,7 @@ public class DevelopmentSettings extends PreferenceFragment
         updateCheckBox(mShowCpuUsage, Settings.Global.getInt(getActivity().getContentResolver(),
                 Settings.Global.SHOW_PROCESSES, 0) != 0);
     }
-    
+
     private void writeCpuUsageOptions() {
         boolean value = mShowCpuUsage.isChecked();
         Settings.Global.putInt(getActivity().getContentResolver(),
@@ -1051,7 +1048,7 @@ public class DevelopmentSettings extends PreferenceFragment
         if (preference == mEnableAdb) {
             if (mEnableAdb.isChecked()) {
                 mDialogClicked = false;
-				if (mAdbDialog != null) {
+                if (mAdbDialog != null) {
                     dismissDialogs();
                 }
                 mAdbDialog = new AlertDialog.Builder(getActivity()).setMessage(
@@ -1062,13 +1059,21 @@ public class DevelopmentSettings extends PreferenceFragment
                         .setNegativeButton(android.R.string.no, this)
                         .show();
                 mAdbDialog.setOnDismissListener(this);
-                mVerifyAppsOverUsb.setEnabled(false);
-                mVerifyAppsOverUsb.setChecked(false);
-                updateBugreportOptions();
             } else {
                 Settings.Global.putInt(getActivity().getContentResolver(),
                         Settings.Global.ADB_ENABLED, 0);
+                mVerifyAppsOverUsb.setEnabled(false);
+                mVerifyAppsOverUsb.setChecked(false);
+                updateBugreportOptions();
             }
+        } else if (preference == mBugreportInPower) {
+            Settings.Secure.putInt(getActivity().getContentResolver(),
+                    Settings.Secure.BUGREPORT_IN_POWER_MENU, 
+                    mBugreportInPower.isChecked() ? 1 : 0);
+        } else if (preference == mAdbNotify) {
+            Settings.Secure.putInt(getActivity().getContentResolver(),
+                    Settings.Secure.ADB_NOTIFY,
+                    mAdbNotify.isChecked() ? 1 : 0);
         } else if (preference == mAdbOverNetwork) {
             if (mAdbOverNetwork.isChecked()) {
                 if (mAdbTcpDialog != null) {
@@ -1087,14 +1092,6 @@ public class DevelopmentSettings extends PreferenceFragment
                         Settings.Secure.ADB_PORT, -1);
                 updateAdbOverNetwork();
             }
-		} else if (preference == mAdbNotify) {
-            Settings.Secure.putInt(getActivity().getContentResolver(),
-                    Settings.Secure.ADB_NOTIFY,
-                    mAdbNotify.isChecked() ? 1 : 0);
-        } else if (preference == mBugreportInPower) {
-            Settings.Secure.putInt(getActivity().getContentResolver(),
-                    Settings.Secure.BUGREPORT_IN_POWER_MENU, 
-                    mBugreportInPower.isChecked() ? 1 : 0);
         } else if (preference == mKeepScreenOn) {
             Settings.Global.putInt(getActivity().getContentResolver(),
                     Settings.Global.STAY_ON_WHILE_PLUGGED_IN,
@@ -1188,7 +1185,7 @@ public class DevelopmentSettings extends PreferenceFragment
             mAdbDialog.dismiss();
             mAdbDialog = null;
         }
-		if (mAdbTcpDialog != null) {
+        if (mAdbTcpDialog != null) {
             mAdbTcpDialog.dismiss();
             mAdbTcpDialog = null;
         }
@@ -1202,8 +1199,11 @@ public class DevelopmentSettings extends PreferenceFragment
         if (dialog == mAdbDialog) {
             if (which == DialogInterface.BUTTON_POSITIVE) {
                 mDialogClicked = true;
-                Settings.Secure.putInt(getActivity().getContentResolver(),
-                        Settings.Secure.ADB_ENABLED, 1);
+                Settings.Global.putInt(getActivity().getContentResolver(),
+                        Settings.Global.ADB_ENABLED, 1);
+                mVerifyAppsOverUsb.setEnabled(true);
+                updateVerifyAppsOverUsbOptions();
+                updateBugreportOptions();
             }
         } else if (dialog == mAdbTcpDialog) {
             if (which == DialogInterface.BUTTON_POSITIVE) {
@@ -1220,7 +1220,6 @@ public class DevelopmentSettings extends PreferenceFragment
             }
         }
     }
-
 
     public void onDismiss(DialogInterface dialog) {
         // Assuming that onClick gets called first
