@@ -87,7 +87,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_DOCK_AUDIO_MEDIA_ENABLED = "dock_audio_media_enabled";
     private static final String KEY_QUIET_HOURS = "quiet_hours";
     private static final String KEY_VOLUME_ADJUST_SOUNDS = "volume_adjust_sounds";
-    private static final String KEY_SAFE_HEADSET_RESTORE = "safe_headset_restore";
+    private static final String KEY_SAFE_HEADSET_VOLUME = "safe_headset_volume";
     private static final String KEY_HEADSET_CONNECT_PLAYER = "headset_connect_player";
     private static final String PREF_VOLUME_MUSIC = "volume_music_controls";
     private static final String KEY_CONVERT_SOUND_TO_VIBRATE = "notification_convert_sound_to_vibration";
@@ -125,7 +125,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mDockSounds;
     private Intent mDockIntent;
     private CheckBoxPreference mDockAudioMediaEnabled;
-    private CheckBoxPreference mSafeHeadsetRestore;
+    private CheckBoxPreference mSafeHeadsetVolume;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -184,10 +184,12 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             findPreference(KEY_RING_VOLUME).setDependency(null);
         }
 
-        mSafeHeadsetRestore = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_RESTORE);
-        mSafeHeadsetRestore.setPersistent(false);
-        mSafeHeadsetRestore.setChecked(Settings.System.getInt(resolver,
-                Settings.System.SAFE_HEADSET_VOLUME_RESTORE, 1) != 0);
+        mSafeHeadsetVolume = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_VOLUME);
+        mSafeHeadsetVolume.setPersistent(false);
+        boolean safeMediaVolumeEnabled = getResources().getBoolean(
+                com.android.internal.R.bool.config_safe_media_volume_enabled);
+        mSafeHeadsetVolume.setChecked(Settings.System.getInt(resolver,
+                Settings.System.SAFE_HEADSET_VOLUME, safeMediaVolumeEnabled ? 1 : 0) != 0);
 
         mVibrateWhenRinging = (CheckBoxPreference) findPreference(KEY_VIBRATE);
         mVibrateWhenRinging.setPersistent(false);
@@ -390,10 +392,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         if (preference == mVibrateWhenRinging) {
             Settings.System.putInt(getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING,
                     mVibrateWhenRinging.isChecked() ? 1 : 0);
-        } else if (preference == mSafeHeadsetRestore) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.SAFE_HEADSET_VOLUME_RESTORE,
-                    mSafeHeadsetRestore.isChecked() ? 1 : 0);
+        } else if (preference == mSafeHeadsetVolume) {
+            Settings.System.putInt(getContentResolver(), Settings.System.SAFE_HEADSET_VOLUME,
+                    mSafeHeadsetVolume.isChecked() ? 1 : 0);
         } else if (preference == mDtmfTone) {
             Settings.System.putInt(getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING,
                     mDtmfTone.isChecked() ? 1 : 0);
