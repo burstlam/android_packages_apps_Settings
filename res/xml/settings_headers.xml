@@ -93,8 +93,8 @@
             android:icon="@drawable/ic_settings_performance" >
         <intent
                 android:action="android.intent.action.MAIN"
-                android:targetPackage="com.brewcrewfoo.performance"
-                android:targetClass="com.brewcrewfoo.performance.activities.MainActivity" />
+                android:targetPackage="com.aokp.romcontrol"
+                android:targetClass="com.aokp.romcontrol.performance.Performance" />
     </header>
 
     <!-- CM Profiles -->
