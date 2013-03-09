@@ -4463,6 +4463,8 @@
     <string name="launcher_settings_title">Launcher Menu</string>
     <string name="themes_title">Themes</string>
     <string name="performance_title">Performance Control</string>
+    <!-- TRDS Settings -->
+    <string name="trds_settings_title">The Real Dark Slim</string>
 
     <string name="mod_version">AOKP version</string>
     <string name="mod_version_default">Unknown</string>
