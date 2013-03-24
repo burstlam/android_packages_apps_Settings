@@ -4771,4 +4771,8 @@
     <string name="key_rotation_timeout_20s">20 seconds</string>
     <string name="key_rotation_timeout_30s">30 seconds</string>
     <string name="key_rotation_timeout_60s">60 seconds</string>
+
+    <!-- Swap volume buttons when the screen is rotated -->
+    <string name="swap_volume_buttons_title">Swap volume buttons</string>
+    <string name="swap_volume_buttons_summary">Swap volume buttons when the screen is rotated</string>
 </resources>
