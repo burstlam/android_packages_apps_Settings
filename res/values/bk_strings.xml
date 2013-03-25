@@ -41,6 +41,10 @@
     <string name="key_rotation_timeout_30s">30 seconds</string>
     <string name="key_rotation_timeout_60s">60 seconds</string>
 
+    <!-- Whether to display IME switcher notifcation -->
+    <string name="ime_switcher_notify">Selector notification</string>
+    <string name="ime_switcher_notify_summary">Display input method selector notification</string>
+
     <!-- Swap volume buttons when the screen is rotated -->
     <string name="swap_volume_buttons_title">Swap volume buttons</string>
     <string name="swap_volume_buttons_summary">Swap volume buttons when the screen is rotated</string>
