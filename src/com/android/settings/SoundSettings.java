@@ -91,6 +91,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_HEADSET_CONNECT_PLAYER = "headset_connect_player";
     private static final String PREF_VOLUME_MUSIC = "volume_music_controls";
     private static final String KEY_CONVERT_SOUND_TO_VIBRATE = "notification_convert_sound_to_vibration";
+    private static final String KEY_LOCK_VOLUME_KEYS = "lock_volume_keys";
 
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
@@ -116,6 +117,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mVolumeAdjustSounds;
     private CheckBoxPreference mVolumeMusic;
+    private CheckBoxPreference mLockVolumeKeys;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -190,6 +192,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
                 com.android.internal.R.bool.config_safe_media_volume_enabled);
         mSafeHeadsetVolume.setChecked(Settings.System.getInt(resolver,
                 Settings.System.SAFE_HEADSET_VOLUME, safeMediaVolumeEnabled ? 1 : 0) != 0);
+
+        mLockVolumeKeys = (CheckBoxPreference) findPreference(KEY_LOCK_VOLUME_KEYS);
+        mLockVolumeKeys.setChecked(Settings.System.getInt(resolver,
+                Settings.System.LOCK_VOLUME_KEYS, 0) != 0);
 
         mVibrateWhenRinging = (CheckBoxPreference) findPreference(KEY_VIBRATE);
         mVibrateWhenRinging.setPersistent(false);
@@ -395,6 +401,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mSafeHeadsetVolume) {
             Settings.System.putInt(getContentResolver(), Settings.System.SAFE_HEADSET_VOLUME,
                     mSafeHeadsetVolume.isChecked() ? 1 : 0);
+        } else if (preference == mLockVolumeKeys) {
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCK_VOLUME_KEYS,
+                    mLockVolumeKeys.isChecked() ? 1 : 0); 
         } else if (preference == mDtmfTone) {
             Settings.System.putInt(getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING,
                     mDtmfTone.isChecked() ? 1 : 0);

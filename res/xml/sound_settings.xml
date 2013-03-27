@@ -24,6 +24,12 @@
             android:fragment="com.android.settings.QuietHours"
             android:title="@string/quiet_hours_title" />
 
+    <CheckBoxPreference
+            android:key="lock_volume_keys"
+            android:title="@string/sound_lock_volume_keys_title"
+            android:summary="@string/sound_lock_volume_keys_summary"
+            android:persistent="false" />
+
     <com.android.settings.RingerVolumePreference
             android:key="ring_volume"
             android:title="@string/all_volume_title"
