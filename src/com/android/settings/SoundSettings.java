@@ -98,6 +98,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_CONVERT_SOUND_TO_VIBRATE = "notification_convert_sound_to_vibration";
     private static final String KEY_LOCK_VOLUME_KEYS = "lock_volume_keys";
     private static final String KEY_POWER_NOTIFICATIONS = "power_notifications";
+    private static final String KEY_POWER_NOTIFICATIONS_VIBRATE = "power_notifications_vibrate";
     private static final String KEY_POWER_NOTIFICATIONS_RINGTONE = "power_notifications_ringtone";
 
     private static final String[] NEED_VOICE_CAPABILITY = {
@@ -143,6 +144,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mDockAudioMediaEnabled;
     private CheckBoxPreference mSafeHeadsetVolume;
     private CheckBoxPreference mPowerSounds;
+    private CheckBoxPreference mPowerSoundsVibrate;
     private Preference mPowerSoundsRingtone;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -332,6 +334,12 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mPowerSounds = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS);
         mPowerSounds.setChecked(Settings.Global.getInt(resolver,
                 Settings.Global.POWER_NOTIFICATIONS_ENABLED, 0) != 0);
+        mPowerSoundsVibrate = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
+        mPowerSoundsVibrate.setChecked(Settings.Global.getInt(resolver,
+                Settings.Global.POWER_NOTIFICATIONS_VIBRATE, 1) != 0);
+        if (vibrator == null || !vibrator.hasVibrator()) {
+                removePreference(KEY_POWER_NOTIFICATIONS_VIBRATE);
+        }
 
         mPowerSoundsRingtone = findPreference(KEY_POWER_NOTIFICATIONS_RINGTONE);
         String currentPowerRingtonePath =
@@ -530,6 +538,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             Settings.Global.putInt(getContentResolver(),
                     Settings.Global.POWER_NOTIFICATIONS_ENABLED,
                     mPowerSounds.isChecked() ? 1 : 0);
+
+        } else if (preference == mPowerSoundsVibrate) {
+            Settings.Global.putInt(getContentResolver(),
+                    Settings.Global.POWER_NOTIFICATIONS_VIBRATE,
+                    mPowerSoundsVibrate.isChecked() ? 1 : 0);
 
         } else if (preference == mPowerSoundsRingtone) {
             launchNotificationSoundPicker(REQUEST_CODE_POWER_NOTIFICATIONS_RINGTONE,
