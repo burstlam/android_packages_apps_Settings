@@ -72,6 +72,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
     // false: on ICS or later
     private static final boolean SHOW_INPUT_METHOD_SWITCHER_SETTINGS = false;
 
+    private static final String SHOW_ENTER_KEY = "show_enter_key";
     private static final String PREF_DISABLE_FULLSCREEN_KEYBOARD = "disable_fullscreen_keyboard";
     private static final String[] sSystemSettingNames = {
         System.TEXT_AUTO_REPLACE, System.TEXT_AUTO_CAPS, System.TEXT_AUTO_PUNCTUATE,
@@ -104,6 +105,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
     private CheckBoxPreference mDisableFullscreenKeyboard;
     private CheckBoxPreference mKeyboardRotationToggle;
     private ListPreference mKeyboardRotationTimeout;
+    private CheckBoxPreference mShowEnterKey;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -212,6 +214,12 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
         mKeyboardRotationTimeout.setOnPreferenceChangeListener(this);
         updateRotationTimeout(Settings.System.getInt(getActivity()
                     .getContentResolver(), Settings.System.KEYBOARD_ROTATION_TIMEOUT, KEYBOARD_ROTATION_TIMEOUT_DEFAULT));
+        }
+
+        mShowEnterKey = (CheckBoxPreference) findPreference(SHOW_ENTER_KEY);
+        if (mShowEnterKey != null) {
+        mShowEnterKey.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.FORMAL_TEXT_INPUT, 0) == 1);
         }
 
         mHandler = new Handler();
@@ -410,6 +418,11 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
             if (chkPref == mGameControllerCategory.findPreference("vibrate_input_devices")) {
                 System.putInt(getContentResolver(), Settings.System.VIBRATE_INPUT_DEVICES,
                         chkPref.isChecked() ? 1 : 0);
+                return true;
+            }
+            if (chkPref == mShowEnterKey) {
+                Settings.System.putInt(getActivity().getContentResolver(),
+                Settings.System.FORMAL_TEXT_INPUT, mShowEnterKey.isChecked() ? 1 : 0);
                 return true;
             }
             if (chkPref == mKeyboardRotationToggle) {
