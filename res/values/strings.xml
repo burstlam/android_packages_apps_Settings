@@ -4526,6 +4526,7 @@
     <!-- Hostname setting -->
     <string name="device_hostname">Device hostname</string>
 
+    <string name="volume_keys_control_ring_stream">Volume keys control ringtone volume</string>
     <string name="increasing_ring_title">Ascending ringtone</string>
     <!-- Sound settings screen, the caption of the checkbox for making incoming calls increase in volume -->
     <string name="checkbox_increasing_ring">Enable</string>
