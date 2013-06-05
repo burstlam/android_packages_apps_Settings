@@ -4852,4 +4852,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Proximity work-around -->
     <string name="is_inaccurate_proximity_title">In-accurate proximity</string>
     <string name="is_inaccurate_proximity_summary">Work-around for inaccurate proximity sensors, this will force phone to turn on the screen after the call is ended.</string>
+
+    <!-- Delete apn confirmation dialog message -->
+    <string name="confirm_delete_apn">The APN will be deleted.</string>
 </resources>
