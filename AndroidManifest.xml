@@ -1634,6 +1634,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".profiles.ProfilesAppPicker"
+                android:label="@string/select_application"
+                android:theme="@*android:style/Theme.Holo.Dialog" />
+
         <receiver android:name=".widget.SettingsAppWidgetProvider"
                 android:label="@string/gadget_title"
                 android:exported="true"
