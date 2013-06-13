@@ -41,6 +41,12 @@
                 android:entries="@array/screen_timeout_entries"
                 android:entryValues="@array/screen_timeout_values" />
 
+        <!-- Proximity wake workaround -->
+        <CheckBoxPreference
+                android:key="is_inaccurate_proximity"
+                android:title="@string/is_inaccurate_proximity_title"
+                android:summary="@string/is_inaccurate_proximity_summary" />
+
         <PreferenceScreen
                 android:key="screensaver"
                 android:title="@string/screensaver_settings_title"
