@@ -146,12 +146,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
         addPreferencesFromResource(R.xml.security_settings);
         root = getPreferenceScreen();
 
-        // CM - allows for calling the settings screen with stock or cm view
-        boolean isCmSecurity = true;
-        Bundle args = getArguments();
-        if (args != null) {
-            isCmSecurity = args.getBoolean("cm_security");
-        }
         ContentResolver resolver = getActivity().getApplicationContext().getContentResolver();
 
         // Add package manager to check if features are available
@@ -190,40 +184,12 @@ public class SecuritySettings extends SettingsPreferenceFragment
         }
         addPreferencesFromResource(resid);
 
-
-        // Add options for device encryption
-        DevicePolicyManager dpm =
-                (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-
-        mIsPrimary = UserHandle.myUserId() == UserHandle.USER_OWNER;
-
-        if (!mIsPrimary) {
-            // Rename owner info settings
-            Preference ownerInfoPref = findPreference(KEY_OWNER_INFO_SETTINGS);
-            if (ownerInfoPref != null) {
-                ownerInfoPref.setTitle(R.string.user_info_settings_title);
-            }
-        }
-
-        if (mIsPrimary && !isCmSecurity) {
-            switch (dpm.getStorageEncryptionStatus()) {
-            case DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE:
-                // The device is currently encrypted.
-                addPreferencesFromResource(R.xml.security_settings_encrypted);
-                break;
-            case DevicePolicyManager.ENCRYPTION_STATUS_INACTIVE:
-                // This device supports encryption but isn't encrypted.
-                addPreferencesFromResource(R.xml.security_settings_unencrypted);
-                break;
-            }
-        }
-
         // lock after preference
         mLockAfter = (ListPreference) root.findPreference(KEY_LOCK_AFTER_TIMEOUT);
         if (mLockAfter != null) {
             setupLockAfterPreference();
             updateLockAfterPreferenceSummary();
-        } else if (!mLockPatternUtils.isLockScreenDisabled() && isCmSecurity) {
+        } else if (!mLockPatternUtils.isLockScreenDisabled()) {
             addPreferencesFromResource(R.xml.security_settings_slide_delay_cyanogenmod);
 
             mSlideLockDelayToggle = (CheckBoxPreference) root
@@ -248,68 +214,65 @@ public class SecuritySettings extends SettingsPreferenceFragment
             mSlideLockScreenOffDelay.setOnPreferenceChangeListener(this);
         }
 
-        if (isCmSecurity) {
-            // lock instantly on power key press
-            mPowerButtonInstantlyLocks = (CheckBoxPreference) root.findPreference(
-                    KEY_POWER_INSTANTLY_LOCKS);
-            checkPowerInstantLockDependency();
+        // lock instantly on power key press
+        mPowerButtonInstantlyLocks = (CheckBoxPreference) root.findPreference(
+                KEY_POWER_INSTANTLY_LOCKS);
+        checkPowerInstantLockDependency();
 
-            // Add the additional CyanogenMod settings
-            addPreferencesFromResource(R.xml.security_settings_cyanogenmod);
+        // Add the additional CyanogenMod settings
+        addPreferencesFromResource(R.xml.security_settings_cyanogenmod);
 
-            // Quick Unlock Screen Control
-            mQuickUnlockScreen = (CheckBoxPreference) root
-                    .findPreference(LOCKSCREEN_QUICK_UNLOCK_CONTROL);
-            mQuickUnlockScreen.setChecked(Settings.System.getInt(resolver,
-                    Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL, 0) == 1);
+        // Quick Unlock Screen Control
+        mQuickUnlockScreen = (CheckBoxPreference) root
+                .findPreference(LOCKSCREEN_QUICK_UNLOCK_CONTROL);
+        mQuickUnlockScreen.setChecked(Settings.System.getInt(resolver,
+                Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL, 0) == 1);
 
-            // Menu Unlock
-            mMenuUnlock = (CheckBoxPreference) root.findPreference(MENU_UNLOCK_PREF);
-            mMenuUnlock.setChecked(Settings.System.getInt(resolver,
-                    Settings.System.MENU_UNLOCK_SCREEN, 0) == 1);
+        // Menu Unlock
+        mMenuUnlock = (CheckBoxPreference) root.findPreference(MENU_UNLOCK_PREF);
+        mMenuUnlock.setChecked(Settings.System.getInt(resolver,
+                Settings.System.MENU_UNLOCK_SCREEN, 0) == 1);
 
-            // Home Unlock
-            mHomeUnlock = (CheckBoxPreference) root.findPreference(HOME_UNLOCK_PREF);
-            mHomeUnlock.setChecked(Settings.System.getInt(resolver,
-                    Settings.System.HOME_UNLOCK_SCREEN, 0) == 1);
+        // Home Unlock
+        mHomeUnlock = (CheckBoxPreference) root.findPreference(HOME_UNLOCK_PREF);
+        mHomeUnlock.setChecked(Settings.System.getInt(resolver,
+                Settings.System.HOME_UNLOCK_SCREEN, 0) == 1);
 
-            // Vibrate on unlock
-            mVibratePref = (CheckBoxPreference) findPreference(KEY_VIBRATE_PREF);
-            mVibratePref.setChecked(Settings.System.getInt(resolver,
-                    Settings.System.LOCKSCREEN_VIBRATE_ENABLED, 1) == 1);
+        // Vibrate on unlock
+        mVibratePref = (CheckBoxPreference) findPreference(KEY_VIBRATE_PREF);
+        mVibratePref.setChecked(Settings.System.getInt(resolver,
+                Settings.System.LOCKSCREEN_VIBRATE_ENABLED, 1) == 1);
+        // disable lock options if lock screen set to NONE
+        // or if using pattern as a primary lock screen or
+        // as a backup to biometric
+        if ((!mLockPatternUtils.isSecure() && mLockPatternUtils.isLockScreenDisabled())
+            || (mLockPatternUtils.isLockPatternEnabled())) {
+            mQuickUnlockScreen.setEnabled(false);
+            mMenuUnlock.setEnabled(false);
+            mHomeUnlock.setEnabled(false);
+            mVibratePref.setEnabled(false);
+        // disable menu unlock and vibrate on unlock options if
+        // using PIN/password as primary lock screen or as
+        // backup to biometric
+        } else if (mLockPatternUtils.isLockPasswordEnabled()) {
+            mQuickUnlockScreen.setEnabled(true);
+            mMenuUnlock.setEnabled(false);
+            mHomeUnlock.setEnabled(false);
+            mVibratePref.setEnabled(false);
+        // Disable the quick unlock if its not using PIN/password
+        // as a primary lock screen or as a backup to biometric
+        } else {
+            mQuickUnlockScreen.setEnabled(false);            }
 
-            // disable lock options if lock screen set to NONE
-            // or if using pattern as a primary lock screen or
-            // as a backup to biometric
-            if ((!mLockPatternUtils.isSecure() && mLockPatternUtils.isLockScreenDisabled())
-                || (mLockPatternUtils.isLockPatternEnabled())) {
-                mQuickUnlockScreen.setEnabled(false);
-                mMenuUnlock.setEnabled(false);
-                mHomeUnlock.setEnabled(false);
-                mVibratePref.setEnabled(false);
-            // disable menu unlock and vibrate on unlock options if
-            // using PIN/password as primary lock screen or as
-            // backup to biometric
-            } else if (mLockPatternUtils.isLockPasswordEnabled()) {
-                mQuickUnlockScreen.setEnabled(true);
-                mMenuUnlock.setEnabled(false);
-                mHomeUnlock.setEnabled(false);
-                mVibratePref.setEnabled(false);
-            // Disable the quick unlock if its not using PIN/password
-            // as a primary lock screen or as a backup to biometric
-            } else {
-                mQuickUnlockScreen.setEnabled(false);            }
-
-            // Disable the MenuUnlock setting if no menu button is available
-            if (getActivity().getApplicationContext().getResources()
-                    .getBoolean(com.android.internal.R.bool.config_showNavigationBar)) {
-                mMenuUnlock.setEnabled(false);
-            }
-            // Disable the HomeUnlock setting if no home button is available
-            if (getActivity().getApplicationContext().getResources()
-                    .getBoolean(com.android.internal.R.bool.config_disableHomeUnlockSetting)) {
-                mHomeUnlock.setEnabled(false);
-            }
+        // Disable the MenuUnlock setting if no menu button is available
+        if (getActivity().getApplicationContext().getResources()
+                .getBoolean(com.android.internal.R.bool.config_showNavigationBar)) {
+            mMenuUnlock.setEnabled(false);
+        }
+        // Disable the HomeUnlock setting if no home button is available
+        if (getActivity().getApplicationContext().getResources()
+                .getBoolean(com.android.internal.R.bool.config_disableHomeUnlockSetting)) {
+            mHomeUnlock.setEnabled(false);
         }
 
         // biometric weak liveliness
@@ -344,65 +307,90 @@ public class SecuritySettings extends SettingsPreferenceFragment
         }
 
         // Append the rest of the settings
-        if (!isCmSecurity) {
-            addPreferencesFromResource(R.xml.security_settings_misc);
+        addPreferencesFromResource(R.xml.security_settings_misc);
 
-            // Do not display SIM lock for devices without an Icc card
-            TelephonyManager tm = TelephonyManager.getDefault();
-            if (!mIsPrimary || !tm.hasIccCard()) {
-                root.removePreference(root.findPreference(KEY_SIM_LOCK));
-            } else {
-                // Disable SIM lock if sim card is missing or unknown
-                if ((TelephonyManager.getDefault().getSimState() ==
-                                     TelephonyManager.SIM_STATE_ABSENT) ||
-                    (TelephonyManager.getDefault().getSimState() ==
-                                     TelephonyManager.SIM_STATE_UNKNOWN)) {
-                    root.findPreference(KEY_SIM_LOCK).setEnabled(false);
-                }
+        // Do not display SIM lock for devices without an Icc card
+        TelephonyManager tm = TelephonyManager.getDefault();
+        if (!mIsPrimary || !tm.hasIccCard()) {
+            root.removePreference(root.findPreference(KEY_SIM_LOCK));
+        } else {
+            // Disable SIM lock if sim card is missing or unknown
+            if ((TelephonyManager.getDefault().getSimState() ==
+                                 TelephonyManager.SIM_STATE_ABSENT) ||
+                (TelephonyManager.getDefault().getSimState() ==
+                                 TelephonyManager.SIM_STATE_UNKNOWN)) {
+                root.findPreference(KEY_SIM_LOCK).setEnabled(false);
             }
+        }
 
-            // Show password
-            mShowPassword = (CheckBoxPreference) root.findPreference(KEY_SHOW_PASSWORD);
+        // Show password
+        mShowPassword = (CheckBoxPreference) root.findPreference(KEY_SHOW_PASSWORD);
 
-            // Credential storage, only for primary user
-            if (mIsPrimary) {
-                mResetCredentials = root.findPreference(KEY_RESET_CREDENTIALS);
-            } else {
-                removePreference(KEY_CREDENTIALS_MANAGER);
+        // Add options for device encryption
+        DevicePolicyManager dpm =
+                (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+
+        mIsPrimary = UserHandle.myUserId() == UserHandle.USER_OWNER;
+
+        if (!mIsPrimary) {
+            // Rename owner info settings
+            Preference ownerInfoPref = findPreference(KEY_OWNER_INFO_SETTINGS);
+            if (ownerInfoPref != null) {
+                ownerInfoPref.setTitle(R.string.user_info_settings_title);
             }
+        }
 
-            mToggleAppInstallation = (CheckBoxPreference) findPreference(
-                    KEY_TOGGLE_INSTALL_APPLICATIONS);
-            mToggleAppInstallation.setChecked(isNonMarketAppsAllowed());
+        if (mIsPrimary) {
+            switch (dpm.getStorageEncryptionStatus()) {
+            case DevicePolicyManager.ENCRYPTION_STATUS_ACTIVE:
+                // The device is currently encrypted.
+                addPreferencesFromResource(R.xml.security_settings_encrypted);
+                break;
+            case DevicePolicyManager.ENCRYPTION_STATUS_INACTIVE:
+                // This device supports encryption but isn't encrypted.
+                addPreferencesFromResource(R.xml.security_settings_unencrypted);
+                break;
+            }
+        }
 
-            // Package verification, only visible to primary user and if enabled
-            mToggleVerifyApps = (CheckBoxPreference) findPreference(KEY_TOGGLE_VERIFY_APPLICATIONS);
-            if (mIsPrimary && showVerifierSetting()) {
-                if (isVerifierInstalled()) {
-                    mToggleVerifyApps.setChecked(isVerifyAppsEnabled());
-                } else {
-                    mToggleVerifyApps.setChecked(false);
-                    mToggleVerifyApps.setEnabled(false);
-                }
+        // Credential storage, only for primary user
+        if (mIsPrimary) {
+            mResetCredentials = root.findPreference(KEY_RESET_CREDENTIALS);
+        } else {
+            removePreference(KEY_CREDENTIALS_MANAGER);
+        }
+
+        mToggleAppInstallation = (CheckBoxPreference) findPreference(
+                KEY_TOGGLE_INSTALL_APPLICATIONS);
+        mToggleAppInstallation.setChecked(isNonMarketAppsAllowed());
+
+        // Package verification, only visible to primary user and if enabled
+        mToggleVerifyApps = (CheckBoxPreference) findPreference(KEY_TOGGLE_VERIFY_APPLICATIONS);
+        if (mIsPrimary && showVerifierSetting()) {
+            if (isVerifierInstalled()) {
+                mToggleVerifyApps.setChecked(isVerifyAppsEnabled());
             } else {
-                PreferenceGroup deviceAdminCategory= (PreferenceGroup)
-                        root.findPreference(KEY_DEVICE_ADMIN_CATEGORY);
-                if (deviceAdminCategory != null) {
-                    deviceAdminCategory.removePreference(mToggleVerifyApps);
-                } else {
-                    mToggleVerifyApps.setEnabled(false);
-                }
+                mToggleVerifyApps.setChecked(false);
+                mToggleVerifyApps.setEnabled(false);
+            }
+        } else {
+            PreferenceGroup deviceAdminCategory= (PreferenceGroup)
+                    root.findPreference(KEY_DEVICE_ADMIN_CATEGORY);
+            if (deviceAdminCategory != null) {
+                deviceAdminCategory.removePreference(mToggleVerifyApps);
+            } else {
+                mToggleVerifyApps.setEnabled(false);
             }
         }
 
         boolean isTelephony = pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
         if (isTelephony) {
-            addPreferencesFromResource(R.xml.security_settings_app_cyanogenmod);
-            mSmsSecurityCheck = (EditTextPreference) root.findPreference(KEY_SMS_SECURITY_CHECK_PREF);
-            mSmsSecurityCheck.setOnPreferenceChangeListener(this);
-            int smsSecurityCheck = Integer.valueOf(mSmsSecurityCheck.getText());
-            updateSmsSecuritySummary(smsSecurityCheck);
-         }
+        addPreferencesFromResource(R.xml.security_settings_app_cyanogenmod);
+        mSmsSecurityCheck = (EditTextPreference) root.findPreference(KEY_SMS_SECURITY_CHECK_PREF);
+        mSmsSecurityCheck.setOnPreferenceChangeListener(this);
+        int smsSecurityCheck = Integer.valueOf(mSmsSecurityCheck.getText());
+        updateSmsSecuritySummary(smsSecurityCheck);
+        }
 
         return root;
     }
