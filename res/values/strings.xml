@@ -4723,6 +4723,11 @@
     <string name="toggleWimax">WiMAX</string>
     <string name="toggleNfc">NFC</string>
 
+    <!-- Profile network mode -->
+    <string name="profile_networkmode_2g">2G</string>
+    <string name="profile_networkmode_3g">3G</string>
+    <string name="profile_networkmode_2g3g">2G/3G</string>
+
     <string name="profile_trigger_configure">Configure trigger</string>
     <string name="profile_triggers">Triggers</string>
     <string name="profile_trigger_filter_all">All triggers</string>

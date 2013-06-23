@@ -103,6 +103,7 @@ public class ProfileConfig extends SettingsPreferenceFragment
         if (deviceSupportsMobileData(getActivity())) {
             mConnections.add(new ConnectionItem(ConnectionSettings.PROFILE_CONNECTION_MOBILEDATA, getString(R.string.toggleData)));
             mConnections.add(new ConnectionItem(ConnectionSettings.PROFILE_CONNECTION_WIFIAP, getString(R.string.toggleWifiAp)));
+            mConnections.add(new ConnectionItem(ConnectionSettings.PROFILE_CONNECTION_2G3G, getString(R.string.toggle2g3g), R.array.profile_networkmode_entries));
         }
         if (WimaxHelper.isWimaxSupported(getActivity())) {
             mConnections.add(new ConnectionItem(ConnectionSettings.PROFILE_CONNECTION_WIMAX, getString(R.string.toggleWimax)));
@@ -299,6 +300,7 @@ public class ProfileConfig extends SettingsPreferenceFragment
         if (connectionList != null) {
             connectionList.removeAll();
             for (ConnectionItem connection : mConnections) {
+                String[] connectionstrings = getResources().getStringArray(connection.mChoices);
                 ConnectionSettings settings = mProfile.getSettingsForConnection(connection.mConnectionId);
                 if (settings == null) {
                     settings = new ConnectionSettings(connection.mConnectionId);
@@ -308,8 +310,7 @@ public class ProfileConfig extends SettingsPreferenceFragment
                 ProfileConnectionPreference pref = new ProfileConnectionPreference(getActivity());
                 pref.setKey("connection_" + connection.mConnectionId);
                 pref.setTitle(connection.mLabel);
-                pref.setSummary(settings.getValue() == 1 ? getString(R.string.connection_state_enabled) 
-                        : getString(R.string.connection_state_disabled));
+                pref.setSummary(connectionstrings[settings.getValue()]);
                 pref.setPersistent(false);
                 pref.setConnectionItem(connection);
                 connection.mCheckbox = pref;
@@ -439,10 +440,18 @@ public class ProfileConfig extends SettingsPreferenceFragment
         String mLabel;
         ConnectionSettings mSettings;
         ProfileConnectionPreference mCheckbox;
+        int mChoices;
 
         public ConnectionItem(int connectionId, String label) {
             mConnectionId = connectionId;
+            mChoices = R.array.profile_connection_entries;
             mLabel = label;
+        }
+
+        public ConnectionItem(int connectionId, String label, int choices) {
+            mConnectionId = connectionId;
+            mLabel = label;
+            mChoices = choices;
         }
     }
 
