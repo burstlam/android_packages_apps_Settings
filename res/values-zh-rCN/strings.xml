@@ -3178,16 +3178,16 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="advanced_reboot_show_always">Show always</string>
 
     <!-- Lock volume keys -->
-    <string name="sound_lock_volume_keys_title">Lock volume keys</string>
+    <string name="sound_lock_volume_keys_title">锁定音量键</string>
     <string name="sound_lock_volume_keys_summary">Prevents accidental unset of silent mode by pressing volume keys</string>
 
     <!-- Auto-Hide Status Bar -->
-    <string name="auto_hide_statusbar">Auto Hide statusbar</string>
-    <string name="auto_hide_statusbar_summary_nonperm">Auto Hide statusbar if no non-permanent notifications are present</string>
-    <string name="auto_hide_statusbar_summary_all">Auto Hide statusbar if no notifications are present</string>
-    <string name="auto_hide_statusbar_off">Off</string>
-    <string name="auto_hide_statusbar_nonperm">Non-permanent only</string>
-    <string name="auto_hide_statusbar_all">All Notifications</string>
+    <string name="auto_hide_statusbar">自动隐藏状态栏</string>
+    <string name="auto_hide_statusbar_summary_nonperm">如果当前没有非永久性通知驻留将会自动隐藏状态栏</string>
+    <string name="auto_hide_statusbar_summary_all">如果当前没有通知驻留那么自动隐藏状态栏</string>
+    <string name="auto_hide_statusbar_off">关闭</string>
+    <string name="auto_hide_statusbar_nonperm">只对非永久性通知生效</string>
+    <string name="auto_hide_statusbar_all">对所有通知生效</string>
 
     <!-- Quick/Pie Control -->
     <string name="pie_control_title">SlimPIE</string>
@@ -3288,8 +3288,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="statusbar_quick_peek_summary">Peek at statusbar by swiping from top edge of screen</string>
 
     <!-- Privacy Guard -->
-    <string name="privacy_guard_switch_label">Enable Privacy Guard</string>
-    <string name="privacy_guard_dlg_title">Enable Privacy Guard?</string>
+    <string name="privacy_guard_switch_label">打开隐私卫士</string>
+    <string name="privacy_guard_dlg_title">启用隐私卫士?</string>
     <string name="privacy_guard_dlg_text">When Privacy Guard is enabled, the app will not be able to access personal data such as contacts, messages or call logs.</string>
     <string name="privacy_guard_dlg_system_app_text">When enabling Privacy Guard for a built-in app, the app will not be able to access or provide personal data. This may cause other apps to misbehave.</string>
     <string name="privacy_guard_default_title">Enabled by default</string>
