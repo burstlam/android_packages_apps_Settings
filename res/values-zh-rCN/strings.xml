@@ -1275,7 +1275,7 @@
     <string name="enforce_read_external_summary" product="default" msgid="2750027486786530064">"应用必须请求读取 SD 卡的权限"</string>
     <string name="enforce_read_external_confirm_title" product="default" msgid="273220585729800783">"要对 SD 卡进行读写保护吗？"</string>
     <string name="enforce_read_external_confirm_message" product="default" msgid="3858482712337574407">"如果 SD 卡受到读写保护，则应用必须请求相关权限才能读取外部存储设备中的数据。"\n\n"某些应用需要其开发者更新之后才能正常使用。"</string>
-    <string name="gadget_picker_title" msgid="98374951396755811">"选择小工具"</string>
+    <string name="gadget_picker_title" msgid="98374951396755811">"选择小部件"</string>
     <string name="widget_picker_title" msgid="9130684134213467557">"选择小部件"</string>
     <string name="allow_bind_app_widget_activity_allow_bind_title" msgid="2538303018392590627">"是否允许该应用创建并访问小部件？"</string>
     <string name="allow_bind_app_widget_activity_allow_bind" msgid="1584388129273282080">"当您创建小部件后，<xliff:g id="WIDGET_HOST_NAME">%1$s</xliff:g>能够访问其显示的所有数据。"</string>
@@ -2481,10 +2481,10 @@
     <!-- Quick settings panel -->
     <string name="quick_settings_panel_title">快速设置面板</string>
     <string name="quick_settings_title">快速设置</string>
-    <string name="title_static_tiles">静态小工具</string>
-    <string name="tile_picker_title">小工具和布局</string>
-    <string name="tile_picker_summary">查看，选择或改变显示小工具的布局</string>
-    <string name="tile_choose_title">选择一个小工具</string>
+    <string name="title_static_tiles">静态小部件</string>
+    <string name="tile_picker_title">小部件和布局</string>
+    <string name="tile_picker_summary">查看，选择或改变显示小部件的布局</string>
+    <string name="tile_choose_title">选择一个小部件</string>
 
     <string name="title_tile_airplane">飞行模式</string>
     <string name="title_tile_battery">电池状态</string>
@@ -2517,9 +2517,9 @@
     <string name="title_tile_customshortcut">自定义快捷键</string>
     <string name="title_tile_fcharge">快速充电</string>
     <string name="title_tile_quiet_hours">安静时段</string>
-    <string name="title_dynamic_tiles">动态小工具</string>
+    <string name="title_dynamic_tiles">动态小部件</string>
     <string name="dynamic_tiles_note_title">注意</string>
-    <string name="dynamic_tiles_note_summary">动态小工具只在被系统事件触发时显示</string>
+    <string name="dynamic_tiles_note_summary">动态小部件只在被系统事件触发时显示</string>
     <string name="title_dynamic_alarm">闹钟</string>
     <string name="title_dynamic_bugreport">BUG反馈</string>
     <string name="title_dynamic_ime">输入法切换</string>
@@ -2528,7 +2528,7 @@
 
     <string name="title_general">全局</string>
     <string name="title_quick_pulldown">快速下拉</string>
-    <string name="summary_quick_pulldown">状态栏 %1$s 边可以快速下拉设置面板</string>
+    <string name="summary_quick_pulldown">状态栏%1$s边可以快速下拉设置面板</string>
     <string name="quick_pulldown_summary_left">左</string>
     <string name="quick_pulldown_summary_right">右</string>
     <string name="quick_pulldown_off">关闭</string>
@@ -2537,7 +2537,7 @@
     <string name="no_notifications_pulldown_summary_nonperm">没有非永久通知时下拉快速设置</string>
     <string name="no_notifications_pulldown_summary_all">没有通知时下拉快速设置</string>
     <string name="no_notifications_pulldown_off">关闭</string>
-    <string name="no_notifications_pulldown_nonperm">仅无非永久通知时</string>
+    <string name="no_notifications_pulldown_nonperm">仅在无非永久通知时</string>
     <string name="no_notifications_pulldown_all">全部通知</string>
     <string name="title_collapse_panel">改变后自动关闭</string>
     <string name="summary_collapse_panel">切换后关闭快速设置面板</string>
@@ -2551,17 +2551,17 @@
     <string name="quicksettings_tiles_style">快速设置风格</string>
     <string name="summary_quicksettings_tiles_style">显示或改变快速设置风格</string>
     <string name="quicksettings_tiles_style_additional_options">附加选项</string>
-    <string name="tiles_per_row_title">每行小工具数量</string>
+    <string name="tiles_per_row_title">每行小部件数量</string>
     <string name="tiles_per_row_duplicate_landscape_title">横屏模式</string>
     <string name="tiles_per_row_duplicate_landscape_summary">横屏时每行显示双倍数量</string>
-    <string name="quick_tiles_bg_color_title">小工具背景色</string>
+    <string name="quick_tiles_bg_color_title">小部件背景色</string>
     <string name="quick_tiles_bg_pressed_color_title">按下时背景色</string>
     <string name="quick_tiles_text_color_title">文本颜色</string>
     <string name="quick_settings_style_reset">重置颜色</string>
 
     <!-- Reset tiles -->
     <string name="tiles_reset_title">重置</string>
-    <string name="tiles_reset_message">恢复默认小工具和风格?</string>
+    <string name="tiles_reset_message">恢复默认小部件和风格?</string>
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">颜色选择器</string>
@@ -2707,8 +2707,8 @@
     <string name="lockscreen_battery_status_charging">仅充电</string>
     <string name="lockscreen_battery_status_alwayson">总是</string>
     <string name="lockscreen_auto_rotate_title">允许锁屏旋转</string>
-    <string name="lockscreen_auto_rotate_summary">锁屏将有能力旋转. 这依赖于“显示”中的自动旋转</string>
-    <string name="lockscreen_no_rotate_summary">系统自动旋转已禁用. 为此，请你打开它.</string>
+    <string name="lockscreen_auto_rotate_summary">锁屏将可以进行旋转. 这取决于"显示"中的自动旋转是否打开</string>
+    <string name="lockscreen_no_rotate_summary">系统自动旋转已禁用. 为了启用锁屏旋转，请您启用它.</string>
 
     <!-- Lock screen background -->
     <string name="lockscreen_style_options_title">锁屏风格</string>
@@ -2902,7 +2902,7 @@
     <string name="menu">菜单</string>
     <string name="open_ime_switcher">打开输入法切换器</string>
     <string name="kill_app">结束应用</string>
-    <string name="widgets">小工具</string>
+    <string name="widgets">小部件</string>
     <string name="lastapp">上个应用</string>
     <string name="power">关屏</string>
     <string name="quicksettings">快速设置面板</string>
@@ -2964,7 +2964,7 @@
     <string name="navbar_action_menu">菜单</string>
     <string name="navbar_action_ime">打开输入法选择器</string>
     <string name="navbar_action_kill">结束任务</string>
-    <string name="navbar_action_widgets">小工具</string>
+    <string name="navbar_action_widgets">小部件</string>
     <string name="navbar_action_power">关屏</string>
     <string name="navbar_action_notifications">通知</string>
     <string name="navbar_action_quicksettings">快速设置面板</string>
@@ -3032,7 +3032,7 @@
     <string name="interface_softkeys_ring_silent_title">切换 铃声/静音</string>
     <string name="interface_softkeys_ring_vib_silent_title">切换 铃声/震动/静音</string>
     <string name="interface_softkeys_kill_process_title">结束应用</string>
-    <string name="interface_softkeys_widgets">小工具</string>
+    <string name="interface_softkeys_widgets">小部件</string>
     <string name="interface_softkey_package_removed">找不到先前选择的包</string>
     <string name="interface_navring_settings_title">导航环</string>
     <string name="interface_navring_settings_summary">编辑自定义导航环目标</string>
@@ -3055,22 +3055,22 @@
     <string name="navbar_dimen_cat">导航栏尺寸</string>
 
     <string name="navbar_widgets_note_title">注意</string>
-    <string name="navbar_widgets_note_summary">为了显示小工具，启用硬件按键、导航栏按钮或导航环目标.</string>
-    <string name="navbar_widgets_title">小工具</string>
-    <string name="navbar_widgets_style_settings_title">小工具风格</string>
-    <string name="navbar_widgets_style_settings_summary">修改小工具背景风格</string>
-    <string name="navbar_widgets_summary">添加自定义小工具</string>
+    <string name="navbar_widgets_note_summary">为了显示小部件，启用硬件按键、导航栏按钮或导航环目标.</string>
+    <string name="navbar_widgets_title">小部件</string>
+    <string name="navbar_widgets_style_settings_title">小部件风格</string>
+    <string name="navbar_widgets_style_settings_summary">修改小部件背景风格</string>
+    <string name="navbar_widgets_summary">添加自定义小部件</string>
     <string name="navbar_widgets_instructions">扫动预览 - 点击选择</string>
-    <string name="navbar_widgets_reset">重置小工具</string>
-    <string name="navbar_widget_summary">小工具 %1$s of %2$s</string>
-    <string name="navbar_widget_summary_add">添加小工具</string>
+    <string name="navbar_widgets_reset">重置小部件</string>
+    <string name="navbar_widget_summary">小部件 %1$s of %2$s</string>
+    <string name="navbar_widget_summary_add">添加小部件</string>
     <string name="navbar_widgets_shiftLeft">左移</string>
     <string name="navbar_widgets_shiftRight">右移</string>
-    <string name="navbar_widgets_delete">删除小工具</string>
+    <string name="navbar_widgets_delete">删除小部件</string>
 
-    <string name="navbar_widgets_text_color_title">小工具文本颜色</string>
-    <string name="navbar_widgets_bg_color_title">小工具背景颜色</string>
-    <string name="navbar_widgets_transparency_title">小工具透明度</string>
+    <string name="navbar_widgets_text_color_title">小部件文本颜色</string>
+    <string name="navbar_widgets_bg_color_title">小部件背景颜色</string>
+    <string name="navbar_widgets_transparency_title">小部件透明度</string>
     <string name="navbar_widgets_style_reset">重置风格</string>
 
     <!-- cLock settings -->
@@ -3333,22 +3333,22 @@
     <!-- About phone screen, status item label -->
 
     <!-- Lockscreen widget settings -->
-    <string name="lockscreen_widgets_category">锁屏小工具</string>
-    <string name="lockscreen_widgets_title">小工具</string>
-    <string name="lockscreen_widgets_summary">查看或修改锁屏小工具选项</string>
-    <string name="lockscreen_widgets_all_title">启用小工具</string>
-    <string name="lockscreen_widgets_all_summary">新增锁屏小工具</string>
-    <string name="lockscreen_camera_widget_title">打开相机小工具</string>
+    <string name="lockscreen_widgets_category">锁屏小部件</string>
+    <string name="lockscreen_widgets_title">小部件</string>
+    <string name="lockscreen_widgets_summary">查看或修改锁屏小部件选项</string>
+    <string name="lockscreen_widgets_all_title">启用小部件</string>
+    <string name="lockscreen_widgets_all_summary">新增锁屏小部件</string>
+    <string name="lockscreen_camera_widget_title">打开相机小部件</string>
     <string name="lockscreen_camera_widget_summary">在锁定屏幕上显示安全摄像头部件</string>
     <string name="lockscreen_maximize_widgets_title">最大化</string>
     <string name="lockscreen_maximize_widgets_summary">屏幕开启时最大化/全屏显示部件</string>
     <string name="lockscreen_disable_hints_title">禁用可用性显示</string>
-    <string name="lockscreen_disable_hints_summary">禁用锁屏小工具周围的光圈</string>
+    <string name="lockscreen_disable_hints_summary">禁用锁屏小部件周围的光圈</string>
     <string name="lockscreen_use_widget_container_carousel_title">立体锁屏动画</string>
     <string name="lockscreen_use_widget_container_carousel_summary">在锁屏页面间切换时使用立体的锁屏动画</string>
 
     <!-- Lockscreen All widgets toggle -->
-    <string name="keyguard_picker_all_widgets_title">显示所有小工具</string>
+    <string name="keyguard_picker_all_widgets_title">显示所有小部件</string>
 
     <!-- Power menu enable disable -->
     <string name="power_menu_title">电源菜单</string>
