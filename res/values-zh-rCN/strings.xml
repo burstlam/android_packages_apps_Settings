@@ -2631,7 +2631,7 @@
     <string name="adb_over_network">网络ADB调试</string>
     <string name="adb_over_network_summary">启用通过网络的 TCP/IP 调试 (Wi-Fi, USB 网络). 重启时此选项自动关闭</string>
     <!-- Warning for Adb over Network -->
-    <string name="adb_over_network_warning">警告: 当 ADB 网络调试开启时, 你的手机将开放于一切网络指令, 甚至是移动数据网络!\n\n请仅在您信任的网络中使用本功能.\n\n你真的要启用本功能吗?</string>
+    <string name="adb_over_network_warning">警告：网络 ADB 调试启用后,您的设备将会在已连接的网络(包括 GSM 数据网络)上被视为是开放的,并且有可能被侵入!\n\n请仅在您所信任的网络上使用此功能.\n\n您确实要启用该功能吗?</string>
 
     <!-- Setting checkbox title for root access -->
     <string name="root_access">ROOT访问</string>
