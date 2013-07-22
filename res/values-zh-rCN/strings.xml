@@ -2372,7 +2372,7 @@
 <b>如何编辑亮度曲线?</b>
 \n\n
 亮度列表中的每一行对应曲线中的每个<i>控制点</i>. 你现在可以在每一行使用滑块来编辑每一点的亮度水平. 触摸滑块将预览光照水平，屏幕亮度也将改变.\n
-长按某行可以进入附加设置. 选择'调整'，你既可以编辑环境亮度等级控制点以及手动输入所需的屏幕亮度. 选择“分割”可以将一行一分为二以便插入新的控制点. “删除”将删除选择的行.
+长按某行可以进入附加设置. 选择\'调整\'，你既可以编辑环境亮度等级控制点以及手动输入所需的屏幕亮度. 选择“分割”可以将一行一分为二以便插入新的控制点. “删除”将删除选择的行.
     </string>
 
     <string name="auto_brightness_sensitivity_title">调节灵敏度</string>
@@ -2969,8 +2969,8 @@
     <string name="navbar_action_notifications">通知</string>
     <string name="navbar_action_quicksettings">快速设置面板</string>
     <string name="navbar_action_none">无</string>
-    <string name="navbar_enable_bar">启用快速设置面板</string>
-    <string name="navbar_enable_bar_summary">启用导航栏</string>
+    <string name="navbar_enable_bar">启用导航栏</string>
+    <string name="navbar_enable_bar_summary">在屏幕上显示导航栏</string>
     <string name="navigation_bar_height_title">导航栏高度</string>
     <string name="navigation_bar_height_summary">正常导航栏高度.</string>
     <string name="navigation_bar_height_landscape_title">横屏导航栏高度</string>
@@ -3331,4 +3331,49 @@
     <!-- About phone screen, Free memory info -->
     <string name="mem_info">内存</string>
     <!-- About phone screen, status item label -->
+
+    <!-- Lockscreen widget settings -->
+    <string name="lockscreen_widgets_category">锁屏小工具</string>
+    <string name="lockscreen_widgets_title">小工具</string>
+    <string name="lockscreen_widgets_summary">查看或修改锁屏小工具选项</string>
+    <string name="lockscreen_widgets_all_title">启用小工具</string>
+    <string name="lockscreen_widgets_all_summary">新增锁屏小工具</string>
+    <string name="lockscreen_camera_widget_title">打开相机小工具</string>
+    <string name="lockscreen_camera_widget_summary">在锁定屏幕上显示安全摄像头部件</string>
+    <string name="lockscreen_maximize_widgets_title">最大化</string>
+    <string name="lockscreen_maximize_widgets_summary">屏幕开启时最大化/全屏显示部件</string>
+    <string name="lockscreen_disable_hints_title">禁用可用性显示</string>
+    <string name="lockscreen_disable_hints_summary">禁用锁屏小工具周围的光圈</string>
+    <string name="lockscreen_use_widget_container_carousel_title">立体锁屏动画</string>
+    <string name="lockscreen_use_widget_container_carousel_summary">在锁屏页面间切换时使用立体的锁屏动画</string>
+
+    <!-- Lockscreen All widgets toggle -->
+    <string name="keyguard_picker_all_widgets_title">显示所有小工具</string>
+
+    <!-- Power menu enable disable -->
+    <string name="power_menu_title">电源菜单</string>
+    <string name="power_menu_reboot_title">重启菜单</string>
+    <string name="power_menu_screenshot_title">截屏</string>
+    <string name="power_menu_expanded_desktop">扩展桌面</string>
+    <string name="power_menu_profiles_title">情景模式</string>
+    <string name="power_menu_profiles_disabled">禁用</string>
+    <string name="power_menu_profiles_lock">锁屏时禁用</string>
+    <string name="power_menu_profiles_all">总是显示</string>
+    <string name="power_menu_airplane_title">飞行模式</string>
+    <string name="power_menu_sound_title">声音面板</string>
+    <string name="summary_expanded_desktop">%1$s</string>
+    <string name="expanded_desktop_summary">显示和改变扩展桌面模式</string>
+    <string name="expanded_desktop_disabled">关闭</string>
+    <string name="expanded_desktop_only_nav_bar">隐藏导航栏</string>
+    <string name="expanded_desktop_only_status_bar">隐藏状态栏</string>
+    <string name="expanded_desktop_both_hidden">隐藏导航栏和状态栏</string>
+    <!-- Sound settings screen, setting check box label -->
+    <string name="camera_sounds_title">相机快门音</string>
+    <string name="camera_sounds_summary">警告: 在一些地区，禁用相机快门音是非法的!</string>
+    <!-- convert sound to vibration toggle -->
+    <string name="notification_convert_sound_to_vibration_title">通知音转换</string>
+    <string name="notification_convert_sound_to_vibration_summary">震动模式转换通知音为震动</string>
+    <!-- vibrate during phone calls -->
+    <string name="notification_vibrate_during_calls_title">通话时震动</string>
+    <string name="notification_vibrate_during_calls_summary">通话时，若有通知消息，将轻微震动</string>
 </resources>
