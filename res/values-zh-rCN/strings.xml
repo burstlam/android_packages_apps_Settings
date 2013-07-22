@@ -2496,7 +2496,7 @@
     <string name="title_tile_lockscreen">锁屏</string>
     <string name="title_tile_lte">LTE</string>
     <string name="title_tile_music">音乐</string>
-    <string name="title_tile_mobiledata">移动数据/string>
+    <string name="title_tile_mobiledata">移动数据</string>
     <string name="title_tile_mobilenetwork">移动网络</string>
     <string name="title_tile_expanded_desktop">扩展桌面</string>
     <string name="title_tile_profile">情景模式</string>
@@ -3331,6 +3331,4 @@
     <!-- About phone screen, Free memory info -->
     <string name="mem_info">内存</string>
     <!-- About phone screen, status item label -->
-
-
 </resources>
