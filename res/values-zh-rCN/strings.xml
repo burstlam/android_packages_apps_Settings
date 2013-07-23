@@ -2199,12 +2199,12 @@
     <string name="display_short">显示</string>
     <string name="misc_short">杂项</string>
     <string name="alt_resolver">默认应用程序网格</string>
-    <string name="alt_resolver_summary">使用替代默认的应用程序选择器</string>
-    <string name="dual_pane">平板双界面模式</string>
-    <string name="dual_pane_summary">重启设置生效</string>
-    <string name="custom_carrier_label_title">自定义运营商文本</string>
-    <string name="custom_carrier_label_explain">请输入新文本，留空恢复默认</string>
-    <string name="custom_carrier_label_notset">默认文本未设置</string>
+    <string name="alt_resolver_summary">使用替代的默认应用程序选择器</string>
+    <string name="dual_pane">平板双面板模式</string>
+    <string name="dual_pane_summary">重启后设置生效</string>
+    <string name="custom_carrier_label_title">自定义运营商名称</string>
+    <string name="custom_carrier_label_explain">请输入新的运营商名称，留空为恢复默认运营商名称。</string>
+    <string name="custom_carrier_label_notset">当前没有设置运营商名称</string>
     <string name="pref_low_battery_warning_policy_title">低电警告</string>
     <string name="pref_low_battery_warning_policy_dialog_title">低电警告</string>
     <string name="low_battery_warning_policy_popup_sound">弹窗和声音</string>
@@ -2404,7 +2404,7 @@
     <!-- Display : Rotation -->
     <string name="display_rotation_title">旋转</string>
     <string name="display_rotation_disabled">关闭</string>
-    <string name="display_rotation_unit">角度</string>
+    <string name="display_rotation_unit">度</string>
     <string name="display_rotation_category_title">旋转模式</string>
     <string name="display_rotation_0_title">0 度</string>
     <string name="display_rotation_90_title">90 度</string>
@@ -3376,4 +3376,7 @@
     <!-- vibrate during phone calls -->
     <string name="notification_vibrate_during_calls_title">通话时震动</string>
     <string name="notification_vibrate_during_calls_summary">通话时，若有通知消息，将轻微震动</string>
+     <!-- additional settings -->
+	<string name="notification_behaviour_title">通知行为</string>
+    <string name="notification_settings_btn_title">总是显示设置按钮</string>
 </resources>
