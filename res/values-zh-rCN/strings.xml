@@ -3377,6 +3377,7 @@
     <string name="notification_vibrate_during_calls_title">通话时震动</string>
     <string name="notification_vibrate_during_calls_summary">通话时，若有通知消息，将轻微震动</string>
      <!-- additional settings -->
-	<string name="notification_behaviour_title">通知行为</string>
+    <string name="notification_behaviour_title">通知行为</string>
     <string name="notification_settings_btn_title">总是显示设置按钮</string>
+    <string name="wifi_menu_forget_all">取消保存所有网络</string>
 </resources>
