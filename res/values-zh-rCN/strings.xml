@@ -1825,7 +1825,7 @@
     <string name="cell_broadcast_settings_summary" msgid="3301339398950905913">"请选择要显示的紧急消息类型。"</string>
     <!-- INTERFACE Settings  -->
     <!-- Settings main menu category heading. Rom (Launcher, Themes, System). [CHAR LIMIT=40] -->
-    <string name="header_category_rom_settings">Slim高级设置</string>
+    <string name="header_category_rom_settings">高级设置</string>
     <string name="header_category_rom_system_settings">高级系统设置</string>
     <string name="ok">确认</string>
     <!-- Interface settings  and general strings-->
@@ -2215,7 +2215,7 @@
     <string name="low_battery_warning_policy_disabled">禁用</string>
 
     <!-- TRDS Settings -->
-    <string name="trds_settings_title">暗黑Slim</string>
+    <string name="trds_settings_title">暗黑</string>
 
     <!-- LCD Density -->
     <string name="dpi">DPI</string>
@@ -2621,7 +2621,7 @@
     <string name="show_enter_key_summary">强制键盘显示回车而不是表情符号键</string>
 
     <!-- About phone screen,  setting option name-->
-    <string name="mod_version">Slim 版本</string>
+    <string name="mod_version">LOSP 版本</string>
     <string name="mod_version_default">未知</string>
 
     <!-- Launches Dev Tools -->
@@ -3177,8 +3177,8 @@
     <string name="auto_hide_statusbar_all">对所有通知生效</string>
 
     <!-- Quick/Pie Control -->
-    <string name="pie_control_title">SlimPIE</string>
-    <string name="pie_control_dialog_title">SlimPIE</string>
+    <string name="pie_control_title">PIE</string>
+    <string name="pie_control_dialog_title">PIE</string>
     <string name="pie_control_always">总是显示</string>
     <string name="pie_control_expanded">仅在扩展桌面模式下显示</string>
     <string name="pie_control_disabled">禁用</string>
@@ -3290,9 +3290,6 @@
     <string name="privacy_guard_help_text">在此屏幕中,只要轻点一下,您就可以选择哪些应用应该启用隐私保护,选定的应用将无法再访问您的个人数据,如联系人,信息或者通话记录.长按其中一条项目查看该应用的详细信息.\n\n默认情况下内置应用将不会被显示.如果您要显示他们或者要过滤出通过对应权限请求访问个人数据的应用,请在菜单中调整其各自的设置.</string>
     <string name="privacy_guard_manager_show_system_apps">显示内置应用</string>
     <string name="privacy_guard_manager_filter_permissions">权限过滤器</string>
-
-
-    <string name="slim_center_title">Slim中心</string>
 
     <!-- Quiet hours -->
     <string name="quiet_hours_title">安静时段</string>
