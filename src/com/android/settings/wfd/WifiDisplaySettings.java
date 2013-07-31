@@ -95,7 +95,7 @@ public final class WifiDisplaySettings extends SettingsPreferenceFragment {
         mActionBarSwitch = new Switch(activity);
         if (activity instanceof PreferenceActivity) {
             PreferenceActivity preferenceActivity = (PreferenceActivity) activity;
-            if (preferenceActivity.onIsHidingHeaders() || !preferenceActivity.onIsMultiPane()) {
+            // if (preferenceActivity.onIsHidingHeaders() || !preferenceActivity.onIsMultiPane()) {
                 final int padding = activity.getResources().getDimensionPixelSize(
                         R.dimen.action_bar_switch_padding);
                 mActionBarSwitch.setPadding(0, 0, padding, 0);
@@ -106,7 +106,7 @@ public final class WifiDisplaySettings extends SettingsPreferenceFragment {
                                 ActionBar.LayoutParams.WRAP_CONTENT,
                                 ActionBar.LayoutParams.WRAP_CONTENT,
                                 Gravity.CENTER_VERTICAL | Gravity.END));
-            }
+        //    }
         }
 
         mActionBarSwitch.setOnCheckedChangeListener(mSwitchOnCheckedChangedListener);
@@ -146,6 +146,15 @@ public final class WifiDisplaySettings extends SettingsPreferenceFragment {
         context.unregisterReceiver(mReceiver);
 
         getContentResolver().unregisterContentObserver(mSettingsObserver);
+    }
+
+    @Override
+    public void onDestroyView() {
+        Activity activity = getActivity();
+        if (activity instanceof PreferenceActivity) {
+            activity.getActionBar().setCustomView(null);
+        }
+        super.onDestroyView();
     }
 
     @Override
