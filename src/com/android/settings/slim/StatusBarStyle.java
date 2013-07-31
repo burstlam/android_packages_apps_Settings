@@ -90,8 +90,8 @@ public class StatusBarStyle extends SettingsPreferenceFragment implements
             statBarTransparency = Settings.System.getFloat(getActivity()
                  .getContentResolver(), Settings.System.STATUS_BAR_ALPHA);
         } catch (Exception e) {
-            statBarTransparency = 0.0f;
-            Settings.System.putFloat(getActivity().getContentResolver(), Settings.System.STATUS_BAR_ALPHA, 0.0f);
+            statBarTransparency = 0.5f;
+            Settings.System.putFloat(getActivity().getContentResolver(), Settings.System.STATUS_BAR_ALPHA, 0.5f);
         }
         mStatusbarTransparency = (SeekBarPreference) findPreference(PREF_STATUS_BAR_ALPHA);
         mStatusbarTransparency.setProperty(Settings.System.STATUS_BAR_ALPHA);
@@ -126,7 +126,7 @@ public class StatusBarStyle extends SettingsPreferenceFragment implements
                         Settings.System.STATUS_BAR_COLOR, -2);
 
                 Settings.System.putFloat(getActivity().getContentResolver(),
-                       Settings.System.STATUS_BAR_ALPHA, 0.0f);
+                       Settings.System.STATUS_BAR_ALPHA, 0.5f);
 
                 refreshSettings();
                 return true;
