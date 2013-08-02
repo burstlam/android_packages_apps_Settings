@@ -3393,4 +3393,9 @@
     <string name="halo_state_summary">HALO通过ping命令对黑/白名单通知</string>
     <string name="halo_state_black">黑名单</string>
     <string name="halo_state_white">白名单</string>
+
+    <!-- Traffic -->
+    <string name="statusbar_show_traffic_title">显示网速</string>
+    <string name="statusbar_show_traffic_summary">在状态栏上显示网速状态.</string>
+
 </resources>

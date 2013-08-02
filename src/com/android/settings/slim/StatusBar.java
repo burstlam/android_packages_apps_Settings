@@ -43,6 +43,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     private static final String STATUS_BAR_AUTO_HIDE = "status_bar_auto_hide";
     private static final String STATUS_BAR_QUICK_PEEK = "status_bar_quick_peek";
+    private static final String STATUS_BAR_SHOW_TRAFFIC = "status_bar_show_traffic";
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -50,6 +51,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private PreferenceScreen mClockStyle;
     private PreferenceCategory mPrefCategoryGeneral;
     private CheckBoxPreference mStatusBarBrightnessControl;
+    private CheckBoxPreference mStatusBarShowTraffic;
     private ListPreference mStatusBarAutoHide;
     private CheckBoxPreference mStatusBarQuickPeek;
 
@@ -71,6 +73,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarBrightnessControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
         mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                             Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
+
+        mStatusBarShowTraffic = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_SHOW_TRAFFIC);
+        mStatusBarShowTraffic.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                            Settings.System.STATUS_BAR_SHOW_TRAFFIC, 1) == 1));
 
         // Start observing for changes on auto brightness
         mStatusBarBrightnessChangedObserver = new StatusBarBrightnessChangedObserver(new Handler());
@@ -136,6 +142,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarQuickPeek.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUSBAR_PEEK, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarShowTraffic) {
+            value = mStatusBarShowTraffic.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_SHOW_TRAFFIC, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
