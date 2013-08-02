@@ -6058,6 +6058,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <!-- Traffic -->
     <string name="statusbar_show_traffic_title">Show network speed</string>
-    <string name="statusbar_show_traffic_summary">Show network speed on status bar.</string>
+    <string name="statusbar_show_traffic_summary">Show network speed on status bar</string>
 
 </resources>
