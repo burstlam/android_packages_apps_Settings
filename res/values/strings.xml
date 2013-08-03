@@ -6056,6 +6056,9 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="halo_state_black">Black list</string>
     <string name="halo_state_white">White list</string>
 
+    <string name="halo_button_show_title">Show HALO Button</string>
+    <string name="halo_button_show_summary">Show HALO Button in Notification Drawer</string>
+
     <!-- Traffic -->
     <string name="statusbar_show_traffic_title">Show network speed</string>
     <string name="statusbar_show_traffic_summary">Show network speed on status bar</string>

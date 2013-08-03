@@ -21,4 +21,10 @@
         android:summary="@string/halo_reversed_summary"
         android:defaultValue="true" />
 
+    <CheckBoxPreference
+        android:key="halo_button_show"
+        android:title="@string/halo_button_show_title"
+        android:summary="@string/halo_button_show_summary"
+        android:defaultValue="true" />
+
 </PreferenceScreen>

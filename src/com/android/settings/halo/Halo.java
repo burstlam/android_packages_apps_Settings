@@ -21,10 +21,12 @@ public class Halo extends SettingsPreferenceFragment implements OnPreferenceChan
     private static final String KEY_HALO_STATE = "halo_state";
     private static final String KEY_HALO_HIDE = "halo_hide";
     private static final String KEY_HALO_REVERSED = "halo_reversed";
+    private static final String KEY_HALO_BUTTON_SHOW = "halo_button_show";
 
     private ListPreference mHaloState;
     private CheckBoxPreference mHaloHide;
     private CheckBoxPreference mHaloReversed;
+    private CheckBoxPreference mHaloButtonShow;
 
     private Context mContext;
     private INotificationManager mNotificationManager;
@@ -52,6 +54,9 @@ public class Halo extends SettingsPreferenceFragment implements OnPreferenceChan
         mHaloReversed.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.HALO_REVERSED, 1) == 1);
 
+        mHaloButtonShow = (CheckBoxPreference) prefSet.findPreference(KEY_HALO_BUTTON_SHOW);
+        mHaloButtonShow.setChecked(Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.HALO_BUTTON_SHOW, 1) == 1);
     }
 
     private boolean isHaloPolicyBlack() {
@@ -72,6 +77,10 @@ public class Halo extends SettingsPreferenceFragment implements OnPreferenceChan
         } else if (preference == mHaloReversed) {	
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.HALO_REVERSED, mHaloReversed.isChecked()
+                    ? 1 : 0);
+        } else if (preference == mHaloButtonShow) {
+            Settings.System.putInt(mContext.getContentResolver(),
+                    Settings.System.HALO_BUTTON_SHOW, mHaloButtonShow.isChecked()
                     ? 1 : 0);
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

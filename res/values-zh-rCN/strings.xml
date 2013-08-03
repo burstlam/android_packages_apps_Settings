@@ -3260,7 +3260,7 @@
     <string name="pie_action_screenshot">截图</string>
     <string name="pie_action_menu">菜单</string>
     <string name="pie_action_ime">打开输入法切换器</string>
-    <string name="pie_action_kill">强制关闭应用ongono</string>
+    <string name="pie_action_kill">强制关闭应用</string>
     <string name="pie_action_widgets">小部件页面查看器</string>
     <string name="pie_action_power">关闭屏幕</string>
     <string name="pie_action_notifications">通知</string>
@@ -3393,6 +3393,9 @@
     <string name="halo_state_summary">HALO通过ping命令对黑/白名单通知</string>
     <string name="halo_state_black">黑名单</string>
     <string name="halo_state_white">白名单</string>
+
+    <string name="halo_button_show_title">显示HALO按钮</string>
+    <string name="halo_button_show_summary">在通知栏顶部显示HALO开关</string>
 
     <!-- Traffic -->
     <string name="statusbar_show_traffic_title">显示网速</string>
