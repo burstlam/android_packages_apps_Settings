@@ -3077,13 +3077,13 @@
     <string name="chronus_title">cLock</string>
 
     <!-- Touckey Light Timeout -->
-    <string name="touchkey_timeout_title">键盘灯超时</string>
+    <string name="touchkey_timeout_title">键盘灯时间</string>
     <string name="touchkey_timeout_1s">1 秒</string>
     <string name="touchkey_timeout_2s">2 秒</string>
     <string name="touchkey_timeout_5s">5 秒</string>
     <string name="touchkey_timeout_10s">10 秒</string>
-    <string name="touchkey_timeout_alwayson">一直打开</string>
-    <string name="touchkey_timeout_alwaysoff">不打开键盘灯</string>
+    <string name="touchkey_timeout_alwayson">总是打开</string>
+    <string name="touchkey_timeout_alwaysoff">关闭键盘灯</string>
 
     <!-- Recents Ram Bar -->
     <string name="ram_bar">最近打开应用界面RAM条</string>
