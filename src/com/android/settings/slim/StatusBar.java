@@ -73,6 +73,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarBrightnessControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
         mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                             Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
+        mStatusBarBrightnessControl.setOnPreferenceChangeListener(this);
 
         mStatusBarShowTraffic = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_SHOW_TRAFFIC);
         mStatusBarShowTraffic.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
@@ -92,6 +93,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarQuickPeek = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_QUICK_PEEK);
         mStatusBarQuickPeek.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUSBAR_PEEK, 0) == 1));
+        mStatusBarQuickPeek.setOnPreferenceChangeListener(this);
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
@@ -119,6 +121,16 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_SIGNAL_TEXT, signalStyle);
             mStatusBarCmSignal.setSummary(mStatusBarCmSignal.getEntries()[index]);
+            return true;
+        } else if (preference == mStatusBarBrightnessControl) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL,
+                    (Boolean) newValue ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarQuickPeek) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUSBAR_PEEK,
+                    (Boolean) newValue ? 1 : 0);
             return true;
         } else if (preference == mStatusBarAutoHide) {
             int statusBarAutoHideValue = Integer.valueOf((String) newValue);

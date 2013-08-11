@@ -17,6 +17,9 @@
 package com.android.settings.slim;
 
 import android.content.ContentResolver;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
@@ -40,6 +43,8 @@ import com.android.settings.widget.SeekBarPreference;
 
 public class PieTriggerSettings extends SettingsPreferenceFragment
                         implements Preference.OnPreferenceChangeListener {
+
+    private static final int MENU_RESET = Menu.FIRST;
 
     private static final int DEFAULT_POSITION = 1 << 0; // this equals Position.LEFT.FLAG
 
@@ -66,6 +71,7 @@ public class PieTriggerSettings extends SettingsPreferenceFragment
     private CheckBoxPreference[] mTrigger = new CheckBoxPreference[4];
 
     Resources mSystemUiResources;
+    PackageManager mPm;
 
     private ContentObserver mPieTriggerObserver = new ContentObserver(new Handler()) {
         @Override
@@ -82,11 +88,11 @@ public class PieTriggerSettings extends SettingsPreferenceFragment
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
-        PackageManager pm = mContext.getPackageManager();
+        mPm = mContext.getPackageManager();
 
-        if (pm != null) {
+        if (mPm != null) {
             try {
-                mSystemUiResources = pm.getResourcesForApplication("com.android.systemui");
+                mSystemUiResources = mPm.getResourcesForApplication("com.android.systemui");
             } catch (Exception e) {
                 mSystemUiResources = null;
                 Log.e("PIETriggerSettings:", "can't access systemui resources",e);
@@ -111,14 +117,56 @@ public class PieTriggerSettings extends SettingsPreferenceFragment
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.pie_trigger_settings, menu);
+        menu.add(0, MENU_RESET, 0, R.string.pie_reset)
+                .setIcon(R.drawable.ic_settings_backup) // use the backup icon
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.reset:
+            case MENU_RESET:
+                resetToDefault();
+                return true;
+             default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void checkFeatureCompatibility() {
+        boolean enabled = false;
+        String[] currentDefaultImePackage = null;
+        try {
+            String defaultImePackage = Settings.Secure.getString(
+                getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
+            if (defaultImePackage != null) {
+                currentDefaultImePackage = defaultImePackage.split("/", 2);
+            }
+            PackageInfo packageInfo = mPm.getPackageInfo(currentDefaultImePackage[0], PackageManager.GET_PERMISSIONS);
+            String[] requestedPermissions = packageInfo.requestedPermissions;
+            if(requestedPermissions != null) {
+                for (int i = 0; i < requestedPermissions.length; i++) {
+                    if (requestedPermissions[i].equals(android.Manifest.permission.WRITE_SETTINGS)) {
+                        enabled = true;
+                    }
+                }
+            }
+        } catch (NameNotFoundException e) {
+        }
+        if (mDisableImeTriggers != null) {
+            mDisableImeTriggers.setEnabled(enabled);
+            if (enabled) {
+                mDisableImeTriggers.setSummary(getString(R.string.ime_does_not_support_feature));
+            }
+        }
+    }
+
+    private void resetToDefault() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle(R.string.pie_reset);
+        alertDialog.setMessage(R.string.pie_trigger_reset_message);
+        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
                 Settings.System.putFloat(getActivity().getContentResolver(),
                     Settings.System.PIE_TRIGGER_THICKNESS,
                     mSystemUiResources.getDimension(
@@ -129,11 +177,11 @@ public class PieTriggerSettings extends SettingsPreferenceFragment
 
                 Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.PIE_TRIGGER_GRAVITY_LEFT_RIGHT, 16);
-                    updatePieTriggers();
-                return true;
-             default:
-                return super.onContextItemSelected(item);
-        }
+                updatePieTriggers();
+            }
+        });
+        alertDialog.setNegativeButton(R.string.cancel, null);
+        alertDialog.create().show();
     }
 
     @Override
@@ -195,6 +243,7 @@ public class PieTriggerSettings extends SettingsPreferenceFragment
                 mPieTriggerObserver);
 
         updatePieTriggers();
+        checkFeatureCompatibility();
     }
 
     @Override

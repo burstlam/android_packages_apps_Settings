@@ -40,6 +40,13 @@
             android:title="@string/device_admin_title"
             android:persistent="false">
 
+        <ListPreference
+                android:key="advanced_reboot"
+                android:title="@string/advanced_reboot_title"
+                android:dialogTitle="@string/advanced_reboot_dialog_title"
+                android:entries="@array/advanced_reboot_entries"
+                android:entryValues="@array/advanced_reboot_values" />
+
         <Preference android:title="@string/manage_device_admin"
                 android:summary="@string/manage_device_admin_summary"
                 android:persistent="false"
@@ -58,11 +65,23 @@
                 android:summaryOff="@string/verify_applications_summary"
                 android:summaryOn="@string/verify_applications_summary"
                 android:persistent="false" />
+
+        <Preference
+                android:key="manage_notification_access"
+                android:title="@string/manage_notification_access"
+                android:persistent="false"
+                android:fragment="com.android.settings.NotificationAccessSettings"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory android:key="credentials_management"
             android:title="@string/credentials_title"
             android:persistent="false">
+        <Preference android:key="credential_storage_type"
+                android:title="@string/credential_storage_type"
+                style="?android:attr/preferenceInformationStyle"
+                android:persistent="false" />
+
         <Preference android:title="@string/trusted_credentials"
                 android:summary="@string/trusted_credentials_summary"
                 android:persistent="false"
