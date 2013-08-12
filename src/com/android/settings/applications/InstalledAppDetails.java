@@ -388,8 +388,8 @@ public class InstalledAppDetails extends Fragment
         boolean enabled = true; // default on
         boolean allowedForHalo = true; // default on
         try {
-            enabled = nm.areNotificationsEnabledForPackage(mAppEntry.info.packageName, mAppEntry.info.uid));
-            allowedForHalo = nm.isPackageAllowedForHalo(mAppEntry.info.packageName);
+            enabled = mNotificationManager.areNotificationsEnabledForPackage(mAppEntry.info.packageName, mAppEntry.info.uid);
+            allowedForHalo = mNotificationManager.isPackageAllowedForHalo(mAppEntry.info.packageName);
         } catch (android.os.RemoteException ex) {
             // this does not bode well
         }
@@ -1341,7 +1341,7 @@ public class InstalledAppDetails extends Fragment
     private void setNotificationsEnabled(boolean enabled) {
         try {
             final boolean enable = mNotificationSwitch.isChecked();
-            nm.setNotificationsEnabledForPackage(packageName, mAppEntry.info.uid, enabled);
+            mNotificationManager.setNotificationsEnabledForPackage(mAppEntry.info.packageName, mAppEntry.info.uid, enabled);
         } catch (android.os.RemoteException ex) {
             mNotificationSwitch.setChecked(!enabled); // revert
         }

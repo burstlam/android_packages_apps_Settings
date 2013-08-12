@@ -34,6 +34,11 @@
         android:fragment="com.android.settings.slim.PieControl"
         android:title="@string/pie_control_title" />
 
+    <PreferenceScreen
+        android:fragment="com.android.settings.halo.Halo"
+        android:key="halo_settings"
+        android:title="@string/title_halo" />
+
     <PreferenceCategory
         android:key="navigation_settings_action_prefs"
         android:title="@string/navigation_settings_options_title">
