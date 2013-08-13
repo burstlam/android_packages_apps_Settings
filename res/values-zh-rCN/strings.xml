@@ -3539,4 +3539,34 @@
     <!-- AppOpsSummary entry title -->
     <string name="app_ops_settings_title">权限管理</string>
 
+    <!-- App sidebar -->
+    <string name="app_sidebar_title">侧边栏</string>
+    <string name="app_sidebar_enable_title">开启侧边栏</string>
+    <string name="app_sidebar_enable_summaryOn">侧边栏已开启</string>
+    <string name="app_sidebar_enable_summaryOff">侧边栏已禁用</string>
+    <string name="app_sidebar_setup_items_title">设置侧边栏内容</string>
+    <string name="app_sidebar_setup_items_summary">添加，删除，或移动侧边栏的项目</string>
+    <string name="app_sidebar_transparency_title">侧边栏透明度</string>
+    <string name="app_sidebar_transparency_summary">调节侧边栏透明度</string>
+    <string name="app_sidebar_position_title">侧边栏位置</string>
+    <string name="app_sidebar_position_summary">将侧边栏放置于屏幕的左侧或右侧</string>
+    <string name="app_sidebar_position_left">左</string>
+    <string name="app_sidebar_position_right">右</string>
+    <string name="app_sidebar_hide_labels_title">隐藏图标名称</string>
+    <string name="app_sidebar_hide_labels_summary">隐藏侧边栏中图标的名称</string>
+    <string name="tab_category">可见标签</string>
+    <string name="use_tab_title">显示标签</string>
+    <string name="use_tab_summary">在侧边栏激活区域显示一个标签.</string>
+    <string name="tab_position_title">标签位置</string>
+    <string name="tab_position_summary">在激活区域的顶部，中间，或底部显示标签.</string>
+    <string name="tab_size_title">标签大小</string>
+    <string name="tab_size_summary">修改可见标签的大小.</string>
+    <string name="trigger_category">触发区域</string>
+    <string name="trigger_width_title">触发宽度</string>
+    <string name="trigger_width_summary">调整触发区域的宽度</string>
+    <string name="trigger_top_title">触发位置</string>
+    <string name="trigger_top_summary">调整触发区域的垂直位置</string>
+    <string name="trigger_bottom_title">触发高度</string>
+    <string name="trigger_bottom_summary">调整触发区域的高度</string>
+
 </resources>
