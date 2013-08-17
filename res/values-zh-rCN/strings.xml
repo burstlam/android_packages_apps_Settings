@@ -3491,7 +3491,14 @@
     <string name="advanced_options_settings_title">高级选项</string>
 
     <string name="additional_options_title">附加选项</string>
-
+    
     <!-- Title for the accessibility preference to home button to answers a call. [CHAR LIMIT=35] -->
     <string name="accessibility_home_button_answers_call_prerefence_title">Home键接听来电</string>
+    <!-- Sound settings screen Slim-->
+   <string name="advanced_sound_title">高级设置</string>
+<!-- [CHAR LIMIT=10] Running services, summary of background processes -->
+    <string name="service_background_processes"><xliff:g id="memory">%1$s</xliff:g> 可用</string>
+    <!-- [CHAR LIMIT=10] Running services, summary of foreground processes -->
+    <string name="service_foreground_processes"><xliff:g id="memory">%1$s</xliff:g> 已用</string>sed</string>
+     
 </resources>
