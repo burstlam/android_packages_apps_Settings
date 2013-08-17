@@ -2708,6 +2708,7 @@
 
     <!-- Lock Screen ASS -->
     <string name="lock_screen_title">锁屏界面</string>
+	<string name="lock_screen_summary">查看或更改锁屏界面设置</string>
     <string name="lockscreen_additional_options_grouptitle">附加选项</string>
     <string name="lockscreen_slider_grouptitle">滑块与快捷方式选项</string>
     <string name="lockscreen_security_grouptitle">安全设置</string>
@@ -3495,10 +3496,39 @@
     <!-- Title for the accessibility preference to home button to answers a call. [CHAR LIMIT=35] -->
     <string name="accessibility_home_button_answers_call_prerefence_title">Home键接听来电</string>
     <!-- Sound settings screen Slim-->
-   <string name="advanced_sound_title">高级设置</string>
-<!-- [CHAR LIMIT=10] Running services, summary of background processes -->
+    <string name="advanced_sound_title">高级设置</string>
+    <!-- [CHAR LIMIT=10] Running services, summary of background processes -->
     <string name="service_background_processes"><xliff:g id="memory">%1$s</xliff:g> 可用</string>
     <!-- [CHAR LIMIT=10] Running services, summary of foreground processes -->
     <string name="service_foreground_processes"><xliff:g id="memory">%1$s</xliff:g> 已用</string>sed</string>
-     
+     <!-- Blacklist preferences -->
+    <string name="blacklist_title">黑名单</string>
+    <string name="blacklist_edit_dialog_title">编辑黑名单中的条目</string>
+    <string name="blacklist_prefs">设置</string>
+    <string name="blacklist_button_delete">删除</string>
+    <string name="blacklist_empty_text">您尚未添加任何要加入黑名单的号码.触摸添加（+）按钮添加一个新条目.</string>
+    <string name="blacklist_disabled_empty_text">要对特定号码设置屏蔽来电或信息,请启用黑名单.</string>
+    <string name="blacklist_summary_disabled">已禁用</string>
+    <string name="blacklist_summary">被添加进黑名单的特定电话号码的电话和信息将会被阻止</string>
+    <string name="blacklist_notify">显示消息</string>
+    <string name="blacklist_private_numbers_title">私人电话号码</string>
+    <string name="blacklist_private_numbers_summary_disabled">不阻止来自私人电话号码的来电</string>
+    <string name="blacklist_private_numbers_summary">阻止来自私人电话号码的<xliff:g id="type">%s</xliff:g></string>
+    <string name="blacklist_unknown_numbers_title">未知号码</string>
+    <string name="blacklist_unknown_numbers_summary_disabled">不阻止不在联系人列表中号码的来电或信息</string>
+    <string name="blacklist_unknown_numbers_summary">阻止非联系人列表中号码的<xliff:g id="type">%s</xliff:g></string>
+    <string name="blacklist_summary_type_calls_only">来电</string>
+    <string name="blacklist_summary_type_messages_only">信息</string>
+    <string name="blacklist_summary_type_calls_and_messages">来电和信息</string>
+    <string name="blacklist_regex_title">使用通配符</string>
+    <string name="blacklist_regex_summary">使用「.」作为通配符和「*」作为重复.例如「123.*」屏蔽以123打头的号码,「.*123.*」屏蔽含有123字样的号码</string>
+    <string name="blacklist_policy_block_calls">屏蔽来电</string>
+    <string name="blacklist_policy_block_messages">屏蔽短信</string>
+
+
+    <!-- Blacklist management -->
+    <string name="add_blacklist_number">添加号码</string>
+    <string name="remove_blacklist_number_title">移除号码Remove number</string>
+    <string name="remove_blacklist_entry">您确定要移除该黑名单条目吗?</string>
+    <string name="select_contact">选取联系人</string>
 </resources>
