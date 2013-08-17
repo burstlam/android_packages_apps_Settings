@@ -677,7 +677,7 @@
     <string name="wifi_tether_enabled_subtext" msgid="8948641212931906143">"便携式热点 <xliff:g id="NETWORK_SSID">%1$s</xliff:g> 已启用"</string>
     <string name="wifi_tether_failed_subtext" msgid="1484941858530919002">"便携式 WLAN 热点错误"</string>
     <string name="wifi_tether_configure_ap_text" msgid="7974681394041609308">"设置 WLAN 热点"</string>
-    <string name="wifi_tether_configure_subtext" msgid="7957547035983257748">"<xliff:g id="NETWORK_SSID">%1$s</xliff:g><xliff:g id="NETWORK_SECURITY">%2$s</xliff:g>便携式 WLAN 热点"</string>
+    <string name="wifi_tether_configure_subtext" msgid="7957547035983257748">"<xliff:g id="NETWORK_SSID">%1$s</xliff:g> <xliff:g id="NETWORK_SECURITY">%2$s</xliff:g>便携式 WLAN 热点"</string>
     <string name="wifi_tether_configure_ssid_default" msgid="8467525402622138547">"Android 热点"</string>
     <string name="display_settings_title" msgid="1708697328627382561">"显示"</string>
     <string name="sound_settings" msgid="5534671337768745343">"声音"</string>
@@ -2314,23 +2314,23 @@
     <string name="group_applications">应用</string>
 
     <!-- Notification Shortcuts -->
-    <string name="notification_shortcuts_grouptitle">快捷键</string>
-    <string name="notification_shortcuts_settings_title">通知快捷键</string>
-    <string name="notification_shortcuts_settings_summary">在通知面板显示快捷键</string>
+    <string name="notification_shortcuts_grouptitle">快捷按钮</string>
+    <string name="notification_shortcuts_settings_title">通知快捷按钮</string>
+    <string name="notification_shortcuts_settings_summary">在通知面板显示快捷按钮</string>
     <string name="notification_shortcuts_empty_title">空</string>
-    <string name="notification_shortcuts_edit_title">编辑快捷键</string>
+    <string name="notification_shortcuts_edit_title">编辑快捷按钮</string>
     <string name="notification_shortcuts_edit_msg">选择或更改所需的应用程序或图标</string>
-    <string name="notification_shortcuts_reset_title">清空快捷键</string>
+    <string name="notification_shortcuts_reset_title">清空快捷按钮</string>
     <string name="notification_shortcuts_category_reset_title">重置</string>
-    <string name="notification_shortcuts_title">快捷键</string>
+    <string name="notification_shortcuts_title">快捷按钮</string>
     <string name="notification_shortcuts_icon_picker_stock_icons_title">默认图标</string>
-    <string name="notification_shortcuts_quantity_title">快捷键数量</string>
-    <string name="notification_shortcuts_quantity_summary">要显示的快捷键数量</string>
+    <string name="notification_shortcuts_quantity_title">快捷按钮数量</string>
+    <string name="notification_shortcuts_quantity_summary">要显示的快捷按钮数量</string>
     <string name="notification_shortcuts_move_text">改变顺序</string>
     <string name="notification_shortcuts_move_up">移动 <xliff:g id="app_name">%s</xliff:g> 向上一格</string>
     <string name="notification_shortcuts_move_down">移动 <xliff:g id="app_name">%s</xliff:g> 向下一格</string>
-    <string name="notification_shortcuts_color_title">快捷键图标颜色</string>
-    <string name="notification_shortcuts_color_summary">改变快捷键图标颜色</string>
+    <string name="notification_shortcuts_color_title">快捷按钮图标颜色</string>
+    <string name="notification_shortcuts_color_summary">改变快捷按钮图标颜色</string>
     <string name="notification_shortcuts_colorize_toggle_title">着色应用程序图标</string>
     <string name="notification_shortcuts_colorize_toggle_summary">用选定颜色着色应用程序图标</string>
     <string name="notification_shortcuts_hide_carrier_title">隐藏运营商文本</string>
@@ -2586,7 +2586,7 @@
 
     <string name="title_general">全局</string>
     <string name="title_quick_pulldown">快速下拉</string>
-    <string name="summary_quick_pulldown">状态栏%1$s边可以快速下拉设置面板</string>
+    <string name="summary_quick_pulldown">从状态栏%1$s边下拉可以快速打开快速设置面板</string>
     <string name="quick_pulldown_summary_left">左</string>
     <string name="quick_pulldown_summary_right">右</string>
     <string name="quick_pulldown_off">关闭</string>
@@ -3531,4 +3531,8 @@
     <string name="remove_blacklist_number_title">移除号码Remove number</string>
     <string name="remove_blacklist_entry">您确定要移除该黑名单条目吗?</string>
     <string name="select_contact">选取联系人</string>
+    <!-- Slim settings screens -->
+    <string name="interface_settings_options_title">界面选项</string>
+	<!-- Toggle switch title for enabling all mobile data network connections. [CHAR LIMIT=32] -->
+    <string name="data_usage_enable_mobile">移动数据</string>
 </resources>
