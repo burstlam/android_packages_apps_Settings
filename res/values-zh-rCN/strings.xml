@@ -3528,7 +3528,7 @@
 
     <!-- Blacklist management -->
     <string name="add_blacklist_number">添加号码</string>
-    <string name="remove_blacklist_number_title">移除号码Remove number</string>
+    <string name="remove_blacklist_number_title">移除号码</string>
     <string name="remove_blacklist_entry">您确定要移除该黑名单条目吗?</string>
     <string name="select_contact">选取联系人</string>
     <!-- Slim settings screens -->
