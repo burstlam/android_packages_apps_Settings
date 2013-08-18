@@ -122,6 +122,7 @@ public class Settings extends PreferenceActivity
             R.id.wireless_section,
             R.id.wifi_settings,
             R.id.bluetooth_settings,
+            R.id.mobile_network_settings,
             R.id.data_usage_settings,
             R.id.wireless_settings,
             R.id.device_section,
@@ -615,6 +616,7 @@ public class Settings extends PreferenceActivity
 
         private final WifiEnabler mWifiEnabler;
         private final BluetoothEnabler mBluetoothEnabler;
+        private final DataEnabler mDataEnabler;
         private final ProfileEnabler mProfileEnabler;
         private final TRDSEnabler mTRDSEnabler;
         private AuthenticatorHelper mAuthHelper;
@@ -633,7 +635,8 @@ public class Settings extends PreferenceActivity
                 return HEADER_TYPE_CATEGORY;
             } else if (header.id == R.id.wifi_settings
                      || header.id == R.id.bluetooth_settings
-                     || header.id == R.id.trds_settings) {
+                     || header.id == R.id.trds_settings
+                     || header.id == R.id.mobile_network_settings) {
                 return HEADER_TYPE_SWITCH;
             } else {
                 return HEADER_TYPE_NORMAL;
@@ -678,6 +681,7 @@ public class Settings extends PreferenceActivity
             mWifiEnabler = new WifiEnabler(context, new Switch(context));
             mBluetoothEnabler = new BluetoothEnabler(context, new Switch(context));
             mProfileEnabler = new ProfileEnabler(context, new Switch(context));
+            mDataEnabler = new DataEnabler(context, new Switch(context));
             mTRDSEnabler = new TRDSEnabler(context, new Switch(context));
         }
 
@@ -740,6 +744,8 @@ public class Settings extends PreferenceActivity
                     } else if (header.id == R.id.trds_settings) {
                         mTRDSSwitch = (Switch) view.findViewById(R.id.switchWidget);
                         mTRDSEnabler.setSwitch(holder.switch_);
+                    } else if (header.id == R.id.mobile_network_settings) {
+                        mDataEnabler.setSwitch(holder.switch_);
                     }
                     // No break, fall through on purpose to update common fields
 
@@ -776,6 +782,7 @@ public class Settings extends PreferenceActivity
         public void resume() {
             mWifiEnabler.resume();
             mBluetoothEnabler.resume();
+            mDataEnabler.resume();
             mProfileEnabler.resume();
             mTRDSEnabler.resume();
         }
@@ -783,6 +790,7 @@ public class Settings extends PreferenceActivity
         public void pause() {
             mWifiEnabler.pause();
             mBluetoothEnabler.pause();
+            mDataEnabler.pause();
             mProfileEnabler.pause();
             mTRDSEnabler.pause();
         }

@@ -36,6 +36,17 @@
         android:title="@string/bluetooth_settings_title"
         android:icon="@drawable/ic_settings_bluetooth2" />
 
+    <!-- Mobile Data -->
+    <header
+        android:id="@+id/mobile_network_settings"
+        android:title="@string/network_settings_title"
+        android:icon="@drawable/ic_network_signal_4">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetPackage="com.android.phone"
+            android:targetClass="com.android.phone.MobileNetworkSettings" />
+    </header>
+
     <!-- Data Usage -->
     <header
         android:id="@+id/data_usage_settings"
