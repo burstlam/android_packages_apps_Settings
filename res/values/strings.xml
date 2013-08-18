@@ -6153,4 +6153,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Text to display in regulatory info screen (from device overlay). -->
     <string name="regulatory_info_text"></string>
 
+    <!-- AppOpsSummary entry title -->
+    <string name="app_ops_settings_title">Permission Manager</string>
+
 </resources>

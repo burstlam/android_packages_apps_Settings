@@ -3500,7 +3500,7 @@
     <!-- [CHAR LIMIT=10] Running services, summary of background processes -->
     <string name="service_background_processes"><xliff:g id="memory">%1$s</xliff:g> 可用</string>
     <!-- [CHAR LIMIT=10] Running services, summary of foreground processes -->
-    <string name="service_foreground_processes"><xliff:g id="memory">%1$s</xliff:g> 已用</string>sed</string>
+    <string name="service_foreground_processes"><xliff:g id="memory">%1$s</xliff:g> 已用</string>
      <!-- Blacklist preferences -->
     <string name="blacklist_title">黑名单</string>
     <string name="blacklist_edit_dialog_title">编辑黑名单中的条目</string>
@@ -3535,4 +3535,8 @@
     <string name="interface_settings_options_title">界面选项</string>
 	<!-- Toggle switch title for enabling all mobile data network connections. [CHAR LIMIT=32] -->
     <string name="data_usage_enable_mobile">移动数据</string>
+
+    <!-- AppOpsSummary entry title -->
+    <string name="app_ops_settings_title">权限管理</string>
+
 </resources>
