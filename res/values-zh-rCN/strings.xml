@@ -3330,8 +3330,8 @@
     <string name="confirm_delete_apn">此APN将会被删除.</string>
 
     <!-- Statusbar Quick Peek -->
-    <string name="statusbar_quick_peek_title">快速下拉</string>
-    <string name="statusbar_quick_peek_summary">从屏幕顶端边缘下拉可呼出状态栏</string>
+    <string name="statusbar_quick_peek_title">全屏下拉</string>
+    <string name="statusbar_quick_peek_summary">全屏时从屏幕顶端下拉可呼出状态栏</string>
 
     <!-- Privacy Guard -->
     <string name="privacy_guard_switch_label">打开隐私保护</string>
