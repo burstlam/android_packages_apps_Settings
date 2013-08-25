@@ -892,6 +892,9 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Launches Dev Tools -->
     <string name="development_tools_title">Launch Tools</string>
 
+    <!-- [CHAR LIMIT=NONE] Device Info screen. Countdown for user taps to enable development settings -->
+    <string name="show_dev_countdown">You are now <xliff:g id="step_count">%1$d</xliff:g> steps away from enabling developer options.</string>
+
     <!-- Android debugging over WiFi -->
     <string name="adb_over_network">ADB over network</string>
     <string name="adb_over_network_summary">Enable TCP/IP debugging over network interfaces (Wi-Fi, USB networks). This setting is reset on reboot</string>
@@ -1463,6 +1466,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="shortcut_action_warning_message">It is not possible to delete last entry</string>
     <string name="shortcut_action_disable_message">Disabled\nAdd an entry to enable this feature</string>
     <string name="shortcut_image_not_valid">The chosen app did not return a valid icon or does not support image cropping. Use another app</string>
+    <string name="shortcut_duplicate_entry">The chosen action cannot be added twice</string>
 
     <string name="shortcut_action_help_shortcut">shortcut</string>
     <string name="shortcut_action_help_button">button</string>
