@@ -2864,7 +2864,7 @@
     <string name="unlock_quick_unlock_control_title">快速解锁</string>
     <string name="unlock_quick_unlock_control_summary">当输入PIN/密码正确时自动解锁</string>
     <string name="lock_before_unlock_title">安全解锁前显示滑块</string>
-    <string name="lock_before_unlock_summary">安全解锁机制之前显示解锁滑块</string>
+    <string name="lock_before_unlock_summary">即使设置了锁屏密码也显示解锁滑块</string>
 
     <!-- Slide lock delay -->
     <string name="delay_and_timeout_title">锁屏延迟</string>
@@ -3510,7 +3510,7 @@
     <string name="blacklist_disabled_empty_text">要对特定号码设置屏蔽来电或信息,请启用黑名单.</string>
     <string name="blacklist_summary_disabled">已禁用</string>
     <string name="blacklist_summary">被添加进黑名单的特定电话号码的电话和信息将会被阻止</string>
-    <string name="blacklist_notify">显示消息</string>
+    <string name="blacklist_notify">显示通知</string>
     <string name="blacklist_private_numbers_title">私人电话号码</string>
     <string name="blacklist_private_numbers_summary_disabled">不阻止来自私人电话号码的来电</string>
     <string name="blacklist_private_numbers_summary">阻止来自私人电话号码的<xliff:g id="type">%s</xliff:g></string>
