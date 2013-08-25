@@ -2522,7 +2522,8 @@
     <string name="notification_style_grouptitle">风格</string>
     <string name="notification_style_title">通知栏风格</string>
     <string name="notification_style_summary">改变你的通知栏风格</string>
-    <string name="notification_widgets">工具</string>
+    <string name="notification_widgets">小部件</string>
+    <string name="notification_hide_carrier_title">不在底部显示运营商名称</string>
     <string name="notification_show_wifi_ssid_title">显示WiFi网络名</string>
     <string name="notification_show_wifi_ssid_summary">显示当前连接的WiFi网络名</string>
 
@@ -3571,5 +3572,7 @@
 
     <!-- [CHAR LIMIT=NONE] Device Info screen. Countdown for user taps to enable development settings -->
     <string name="show_dev_countdown">再敲 <xliff:g id="step_count">%1$d</xliff:g> 次即可启动开发者模式.</string>
+    
+    
 
 </resources>
