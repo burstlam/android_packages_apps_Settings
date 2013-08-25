@@ -2261,7 +2261,7 @@
     <string name="dual_pane">平板双面板模式</string>
     <string name="dual_pane_summary">重启后设置生效</string>
     <string name="custom_carrier_label_title">自定义运营商名称</string>
-    <string name="custom_carrier_label_explain">请输入新的运营商名称，若留空并确认后则不在状态栏显示运营商名称(会覆盖系统配置)。</string>
+    <string name="custom_carrier_label_explain">请输入新的运营商名称，留空为恢复默认运营商名称。</string>
     <string name="custom_carrier_label_notset">当前没有设置运营商名称</string>
     <string name="pref_low_battery_warning_policy_title">低电警告</string>
     <string name="pref_low_battery_warning_policy_dialog_title">低电警告</string>
