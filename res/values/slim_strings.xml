@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="slim_center_title">SlimCenter</string>
+    <string name="slim_center_title">Center</string>
 
     <!-- Bluetooth MAS permission Alert Activity checkbox text [CHAR LIMIT=none] -->
     <string name="bluetooth_mas_remember_choice">Don\'t ask again</string>
@@ -528,7 +528,7 @@
     <string name="low_battery_warning_policy_disabled">Disabled</string>
 
     <!-- TRDS Settings -->
-    <string name="trds_settings_title">The Real Dark Slim</string>
+    <string name="trds_settings_title">Dark</string>
 
     <!-- LCD Density -->
     <string name="dpi">DPI</string>
@@ -885,7 +885,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="show_enter_key_summary">Force keyboard to show enter instead of emoticon key</string>
 
     <!-- About phone screen,  setting option name-->
-    <string name="mod_version">Slim version</string>
+    <string name="mod_version">LOSP version</string>
     <string name="mod_version_default">Unknown</string>
 
     <!-- Launches Dev Tools -->
@@ -1338,8 +1338,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="auto_hide_statusbar_all">All Notifications</string>
 
     <!-- Quick/Pie Control -->
-    <string name="pie_control_title">SlimPIE</string>
-    <string name="pie_control_dialog_title">SlimPIE</string>
+    <string name="pie_control_title">PIE</string>
+    <string name="pie_control_dialog_title">PIE</string>
     <string name="pie_control_always">Show always</string>
     <string name="pie_control_expanded">Only on expanded desktop mode</string>
     <string name="pie_control_disabled">Disabled</string>

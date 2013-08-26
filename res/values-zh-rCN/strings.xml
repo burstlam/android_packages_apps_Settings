@@ -3557,6 +3557,9 @@
     <!-- [CHAR LIMIT=NONE] Device Info screen. Countdown for user taps to enable development settings -->
     <string name="show_dev_countdown">再敲 <xliff:g id="step_count">%1$d</xliff:g> 次即可启动开发者模式.</string>
     
-    
+    <string name="status_nav_bar_alpha_mode_dialog_text_title">导航栏和状态栏透明</string>
+    <string name="status_nav_bar_alpha_mode_text_title">透明模式</string>
+    <string name="status_nav_bar_alpha_mode_home">仅启动器</string>
+    <string name="status_nav_bar_alpha_mode_default">启动器和锁屏</string>
 
 </resources>
