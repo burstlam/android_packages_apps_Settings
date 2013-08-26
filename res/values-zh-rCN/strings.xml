@@ -3456,6 +3456,14 @@
 
     <string name="halo_button_show_title">显示HALO按钮</string>
     <string name="halo_button_show_summary">在通知栏顶部显示HALO开关</string>
+    <string name="halo_size_title">HALO大小</string>
+    <string name="halo_size_summary">设置HALO的显示大小</string>
+    <string name="halo_size_miniscule">迷你</string>
+    <string name="halo_size_small">小</string>
+    <string name="halo_size_default">正常 (默认)</string>
+    <string name="halo_size_large">大</string>
+    <string name="halo_size_gigantic">巨大</string>
+    <string name="halo_size_monster">庞大</string>
 
     <!-- Traffic -->
     <string name="statusbar_show_traffic_title">显示网速</string>
