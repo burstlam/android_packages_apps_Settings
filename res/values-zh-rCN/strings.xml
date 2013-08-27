@@ -3562,4 +3562,15 @@
     <string name="status_nav_bar_alpha_mode_home">仅启动器</string>
     <string name="status_nav_bar_alpha_mode_default">启动器和锁屏</string>
 
+    <!-- Swipe Back Layout -->
+    <string name="title_swipe_back_layout">滑动返回手势</string>
+    <string name="swipe_back_layout_enable_title">启用滑动返回手势</string>
+    <string name="swipe_back_layout_enable_summary">打开或关闭滑动返回手势</string>
+    <string name="swipe_back_layout_edge_title">监听边缘</string>
+    <string name="swipe_back_layout_edge_summary">在屏幕哪一个边缘监听滑动手势</string>
+    <string name="swipe_back_layout_edge_left">左边</string>
+    <string name="swipe_back_layout_edge_right">右边</string>
+    <string name="swipe_back_layout_edge_bottom">底边</string>
+    <string name="swipe_back_layout_edge_all">全部</string>
+
 </resources>
