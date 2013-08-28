@@ -2277,36 +2277,36 @@
 
     <!-- LCD Density -->
     <string name="dpi">DPI</string>
-    <string name="lcd_density_title">像素密度</string>
+    <string name="lcd_density_title">自定义屏幕像素密度</string>
     <string name="lcd_density_summary">未知</string>
     <string name="current_lcd_density">"当前像素密度: "</string>
     <string name="lcd_density_wizard">像素密度向导</string>
     <string name="follow_through_title">紧跟向导!</string>
-    <string name="follow_through_summary">请严格按照向导操作.</string>
-    <string name="stock_density_title">1. 改变像素密度到默认</string>
-    <string name="stock_density_summary">平板和老手机使用160. 大部分手机使用240. Galaxy Nexus 使用320.</string>
+    <string name="follow_through_summary">按照向导中的步骤一步接一步地完成，切勿跳过任何步骤.</string>
+    <string name="stock_density_title">1. 重置像素密度为默认值</string>
+    <string name="stock_density_summary">一般情况下,平板和旧手机使用160.大部分手机多使用240. Galaxy Nexus/小米手机2使用320.</string>
     <string name="stock_density_changed_summary">"像素密度设置为: "</string>
-    <string name="reboot_title">2. 重启!</string>
-    <string name="reboot_summary">重启后回到这里做剩余的步骤!</string>
+    <string name="reboot_title">2. 点我重启!</string>
+    <string name="reboot_summary">重启后记得再到这里完成剩余的步骤!</string>
     <string name="clear_market_data_title">3. 清除所有相关市场数据.</string>
-    <string name="clear_market_data_summary">本步骤清除Google服务有关数据.</string>
+    <string name="clear_market_data_summary">本步骤将会删除Play商店服务以及Google服务框架等应用的数据.</string>
     <string name="clear_market_data_cleared">数据清空成功</string>
     <string name="clear_market_data_donot_cleared">"数据清空失败，请手动操作!"</string>
-    <string name="reboot_cleardata_title">4. 重启!</string>
-    <string name="reboot_cleardata_summary">重启后回到这里做剩余的步骤!</string>
-    <string name="open_market_title">5. 打开市场点击接受</string>
-    <string name="open_market_summary">完成后按返回回到这里.</string>
-    <string name="open_market_summary_could_not_open">"不能打开市场！如果安装了，请手动从启动器打开."</string>
+    <string name="reboot_cleardata_title">4. 再点我重启!</string>
+    <string name="reboot_cleardata_summary">重启后记得再回到这哦!</string>
+    <string name="open_market_title">5. 点我打开Play商店等待一小会并点击接受</string>
+    <string name="open_market_summary">完成后按返回键回到这里.</string>
+    <string name="open_market_summary_could_not_open">"不能打开Play商店！如果安装了，请手动从桌面打开."</string>
     <string name="custom_density_title">6. 随意设置你的像素密度吧!</string>
-    <string name="custom_density_summary">如果你有与市场的兼容性问题，一定要回到这里，并重复这个过程</string>
-    <string name="custom_density_summary_invalid">"不可用的密度!"</string>
+    <string name="custom_density_summary">如果Play商店出现了兼容性问题，一定要回到这里，并重复以上步骤</string>
+    <string name="custom_density_summary_invalid">"无效的密度!"</string>
     <string name="custom_density">自定义</string>
     <string name="set_custom_density_title">设置自定义密度</string>
     <string name="set_custom_density_set">设置</string>
     <string name="custom_density_dialog_title">"警告!"</string>
-    <string name="custom_density_dialog_summary">"更改您的液晶密度可能会导致意外的应用程序行为。如果遇到市场的应用程序不兼容，请回到这里，并从第1步重新启动该进程"</string>
-    <string name="custom_density_dialog_button_got">知道了!</string>
-    <string name="custom_density_dialog_button_reboot">现在重启</string>
+    <string name="custom_density_dialog_summary">"更改您的液晶密度可能会导致应用发生意外情况。若Play商店下载的应用出现不兼容的现象，请回到这里，并再做一遍这些步骤"</string>
+    <string name="custom_density_dialog_button_got">收到!</string>
+    <string name="custom_density_dialog_button_reboot">设置并重启</string>
 
     <!-- Shortcut picker -->
     <string name="use_custom_app_title">使用自定义应用</string>
