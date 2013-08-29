@@ -3263,6 +3263,7 @@
     <string name="shortcut_action_help_main">要添加一个%1$s, 点击"添加( + )"图标. 当一个%1$s被添加后, 点击那一行将可以更改快捷按钮的目标%2$s\n\n要移除一个%1$s,朝左或右边水平滑动即可完成删除操作.  要在列表中重新排列一个%1$s,请上下拖动左边的锚形图标.\n\n要清除设置或者将设置重置回默认值,请点击重置图标.</string>
     <string name="shortcut_action_help_delete_last_entry">移除列表中所有的 %1$s 将会完全禁用该功能.</string>
     <string name="shortcut_action_help">帮助</string>
+    <string name="shortcut_action_expanded_desktop">扩展桌面</string>
     
     <string name="icon_picker_type">选择图标类型:</string>
     <string name="icon_default">默认</string>
@@ -3422,11 +3423,11 @@
     <string name="app_halo_label_white">HALO通知白名单</string>
     
     <string name="halo_hide_title">活动后隐藏HALO</string>
-    <string name="halo_hide_summary">HALO将出现传入的任务和滚动出视线一段时间后</string>
+    <string name="halo_hide_summary">当通知显示后自动隐藏HALO</string>
     <string name="halo_reversed_title">颠倒HALO手势</string>
-    <string name="halo_reversed_summary">适用任务或双击轻扫拖动手势</string>
+    <string name="halo_reversed_summary">颠倒单击和双击拖动手势</string>
     <string name="halo_state_title">HALO策略</string>
-    <string name="halo_state_summary">HALO通过ping命令对黑/白名单通知</string>
+    <string name="halo_state_summary">HALO只显示/隐藏来自黑/白名单程序的通知</string>
     <string name="halo_state_black">黑名单</string>
     <string name="halo_state_white">白名单</string>
 
@@ -3561,6 +3562,8 @@
     <string name="status_nav_bar_alpha_mode_text_title">透明模式</string>
     <string name="status_nav_bar_alpha_mode_home">仅启动器</string>
     <string name="status_nav_bar_alpha_mode_default">启动器和锁屏</string>
+    <string name="status_nav_bar_colormode_title">颜色模式</string>
+    <string name="status_nav_bar_colormode_summary">只在启动器和锁屏着色状态栏</string>
 
     <!-- Swipe Back Layout -->
     <string name="title_swipe_back_layout">滑动返回手势</string>
