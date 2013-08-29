@@ -481,6 +481,8 @@
     <string name="status_nav_bar_alpha_mode_text_title">Transparency mode</string>
     <string name="status_nav_bar_alpha_mode_home">on launcher</string>
     <string name="status_nav_bar_alpha_mode_default">on launcher and lock screen</string>
+    <string name="status_nav_bar_colormode_title">Color mode</string>
+    <string name="status_nav_bar_colormode_summary">Colorize navigation and status bar background only on launcher and lockscreen</string>
     <string name="status_bar_style_reset">Reset</string>
 
     <!-- Status bar | Clock -->
@@ -1447,6 +1449,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="shortcut_action_ring_vib">Ring/Vib</string>
     <string name="shortcut_action_ring_silent">Ring/Silent</string>
     <string name="shortcut_action_ring_vib_silent">Ring/Vib/Silent</string>
+    <string name="shortcut_action_expanded_desktop">Expanded desktop</string>
 
     <string name="shortcut_action_longpress">Longpress:</string>
     <string name="shortcut_action_select_action_longpress">Choose longpress action:</string>
