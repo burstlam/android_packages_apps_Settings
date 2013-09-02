@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
+import android.graphics.Color;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -52,6 +52,8 @@ import android.widget.TextView;
 import com.android.internal.telephony.Phone;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.Utils;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class PowerWidget extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -72,9 +74,8 @@ public class PowerWidget extends SettingsPreferenceFragment implements
     private ListPreference mPowerWidgetHapticFeedback;
     private CheckBoxPreference mEnableToggleColors;
     private CheckBoxPreference mEnableToggleBar;
-
-    private Preference mToggleIconOnColor;
-    private Preference mToggleIconOffColor;
+    private ColorPickerPreference mToggleIconOnColor;
+    private ColorPickerPreference mToggleIconOffColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,8 +119,11 @@ public class PowerWidget extends SettingsPreferenceFragment implements
                     .getContentResolver(),
                     Settings.System.ENABLE_TOGGLE_BAR, 0) == 1));
 
-	    mToggleIconOnColor = (Preference) prefSet.findPreference(TOGGLE_ICON_ON_COLOR);
-            mToggleIconOffColor = (Preference) prefSet.findPreference(TOGGLE_ICON_OFF_COLOR);
+        mToggleIconOnColor = (ColorPickerPreference) findPreference(TOGGLE_ICON_ON_COLOR);
+        mToggleIconOnColor.setOnPreferenceChangeListener(this);
+
+        mToggleIconOffColor = (ColorPickerPreference) findPreference(TOGGLE_ICON_OFF_COLOR);
+        mToggleIconOffColor.setOnPreferenceChangeListener(this);
         }
     }
 
@@ -130,6 +134,22 @@ public class PowerWidget extends SettingsPreferenceFragment implements
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.EXPANDED_HAPTIC_FEEDBACK, intValue);
             mPowerWidgetHapticFeedback.setSummary(mPowerWidgetHapticFeedback.getEntries()[index]);
+            return true;
+        } else if (preference == mToggleIconOnColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.TOGGLE_ICON_ON_COLOR, intHex);
+            return true;
+        } else if (preference == mToggleIconOffColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.TOGGLE_ICON_OFF_COLOR, intHex);
             return true;
         }
         return false;
@@ -163,22 +183,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.ENABLE_TOGGLE_BAR,
                     value ? 1 : 0);
-	} else if (preference == mToggleIconOnColor) {
-            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
-                    mStatusBarColorListener, Settings.System.getInt(getActivity()
-                    .getApplicationContext()
-                    .getContentResolver(), Settings.System.TOGGLE_ICON_ON_COLOR, 0xFF33B5E5));
-            cp.setDefaultColor(0xFF33B5E5);
-            cp.show();
-            return true;
-        } else if (preference == mToggleIconOffColor) {
-            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
-                    mNotificationPanelColorListener, Settings.System.getInt(getActivity()
-                    .getApplicationContext()
-                    .getContentResolver(), Settings.System.TOGGLE_ICON_OFF_COLOR, 0xFFFFBB33));
-            cp.setDefaultColor(0xFFFFBB33);
-            cp.show();
-            return true;
         } else {
             // If we didn't handle it, let preferences handle it.
             return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -186,26 +190,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
 
         return true;
     }
-
-    ColorPickerDialog.OnColorChangedListener mStatusBarColorListener =
-        new ColorPickerDialog.OnColorChangedListener() {
-            public void colorChanged(int color) {
-                Settings.System.putInt(getContentResolver(),
-                        Settings.System.TOGGLE_ICON_ON_COLOR, color);
-            }
-            public void colorUpdate(int color) {
-            }
-    };
-
-    ColorPickerDialog.OnColorChangedListener mNotificationPanelColorListener =
-        new ColorPickerDialog.OnColorChangedListener() {
-            public void colorChanged(int color) {
-                Settings.System.putInt(getContentResolver(),
-                        Settings.System.TOGGLE_ICON_OFF_COLOR, color);
-            }
-            public void colorUpdate(int color) {
-            }
-    };
 
     public static class PowerWidgetChooser extends SettingsPreferenceFragment
             implements Preference.OnPreferenceChangeListener {
