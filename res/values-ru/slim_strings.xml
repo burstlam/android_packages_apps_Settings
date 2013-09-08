@@ -1093,11 +1093,6 @@
     <string name="nav_bar_transparency_title">Прозрачность панели навигации</string>
     <string name="nav_bar_color_title">Цвета панели навигации</string>
     <string name="nav_bar_background_style">Стиль фона панели навигации</string>
-    <string name="nav_bar_alpha_mode_dialog_text_title">Показать прозрачность панелей навигации и состояния</string>
-    <string name="nav_bar_alpha_mode_text_title">Режим прозрачности</string>
-    <string name="nav_bar_alpha_mode_home">на рабочем столе</string>
-    <string name="nav_bar_alpha_mode_default">на рабочем столе и экране блокировки</string>
-    <string name="nav_bar_alpha_mode_always">всегда</string>
     <string name="navbar_style_dimen_title">Стиль и размеры</string>
     <string name="navbar_button_title">Кнопки</string>
     <!-- Nav Ring Targets -->
@@ -1344,6 +1339,7 @@
     <string name="shortcut_action_ring_vib_silent">Звонок/Вибро/Тихо</string>
     <string name="shortcut_action_expanded_desktop">Расширенный рабочий стол</string>
     <string name="shortcut_action_power_menu">Меню управления питанием</string>
+    <string name="shortcut_action_torch">Фонарик</string>
 
     <string name="shortcut_action_longpress">Долгое нажатие:</string>
     <string name="shortcut_action_select_action_longpress">Выберите действие для долгого нажатия:</string>
