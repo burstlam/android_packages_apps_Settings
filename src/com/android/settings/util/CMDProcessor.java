@@ -190,5 +190,9 @@ public class CMDProcessor {
         }
         return null;
     }
+    
+    public static void restartSystemUI() {
+        new CMDProcessor().su.run("pkill -TERM -f com.android.systemui");
+    }
 
 }

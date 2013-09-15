@@ -6110,6 +6110,15 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <string name="halo_button_show_title">Show HALO Button</string>
     <string name="halo_button_show_summary">Show HALO Button in Notification Drawer</string>
+    
+    <!-- HALO Colors -->
+    <string name="halo_colors_title">Custom Colors</string>
+    <string name="halo_colors_summary">Use custom colors for HALO instead</string>
+    <string name="halo_circle_color_title">Circle Color</string>
+    <string name="halo_bubble_color_title">Speech Bubble Color</string>
+    <string name="halo_bubble_text_color_title">Bubble Text Color</string>
+    <string name="halo_effect_color_title">Effect Color</string>
+    <string name="halo_effect_color_summary">Requires statusbar to restart</string>
 
     <!-- Traffic -->
     <string name="statusbar_show_traffic_title">Show network speed</string>
