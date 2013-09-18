@@ -3456,7 +3456,7 @@
     <string name="halo_circle_color_title">圆圈颜色</string>
     <string name="halo_bubble_color_title">气泡颜色</string>
     <string name="halo_bubble_text_color_title">气泡文本颜色</string>
-    <string name="halo_effect_color_title">效果颜色</string>
+    <string name="halo_effect_color_title">涟漪颜色</string>
     <string name="halo_effect_color_summary">需要重启状态栏</string>
 
     <!-- Traffic -->
