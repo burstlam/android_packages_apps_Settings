@@ -110,7 +110,7 @@ public class NotificationDrawerStyle extends SettingsPreferenceFragment implemen
             wallpaperTransparency = Settings.System.getFloat(getActivity().getContentResolver(), Settings.System.NOTIF_WALLPAPER_ALPHA);
         }catch (Exception e) {
             wallpaperTransparency = 0;
-            Settings.System.putFloat(getActivity().getContentResolver(), Settings.System.NOTIF_WALLPAPER_ALPHA, 0.5f);
+            Settings.System.putFloat(getActivity().getContentResolver(), Settings.System.NOTIF_WALLPAPER_ALPHA, 0.1f);
         }
         mWallpaperAlpha = (SeekBarPreference) findPreference(PREF_NOTIFICATION_WALLPAPER_ALPHA);
         mWallpaperAlpha.setInitValue((int) (wallpaperTransparency * 100));
@@ -122,7 +122,7 @@ public class NotificationDrawerStyle extends SettingsPreferenceFragment implemen
             notifTransparency = Settings.System.getFloat(getActivity().getContentResolver(), Settings.System.NOTIF_ALPHA);
         }catch (Exception e) {
             notifTransparency = 0;
-            Settings.System.putFloat(getActivity().getContentResolver(), Settings.System.NOTIF_ALPHA, 0.2f);
+            Settings.System.putFloat(getActivity().getContentResolver(), Settings.System.NOTIF_ALPHA, 0);
         }
         mNotifAlpha = (SeekBarPreference) findPreference(PREF_NOTIFICATION_ALPHA);
         mNotifAlpha.setInitValue((int) (notifTransparency * 100));
@@ -192,7 +192,7 @@ public class NotificationDrawerStyle extends SettingsPreferenceFragment implemen
     public void observerResourceHelper() {
        float helper;
        float first = Settings.System.getFloat(getActivity().getContentResolver(),
-                    Settings.System.NOTIF_WALLPAPER_ALPHA, 0.5f);
+                    Settings.System.NOTIF_WALLPAPER_ALPHA, 0.1f);
         if (first < 0.9f) {
             helper = first + 0.1f;
             Settings.System.putFloat(getActivity().getContentResolver(),
