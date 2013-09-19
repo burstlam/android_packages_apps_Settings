@@ -33,6 +33,8 @@ import android.util.Log;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
+import com.android.settings.util.CMDProcessor;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class StatusBar extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
@@ -44,6 +46,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_AUTO_HIDE = "status_bar_auto_hide";
     private static final String STATUS_BAR_QUICK_PEEK = "status_bar_quick_peek";
     private static final String STATUS_BAR_SHOW_TRAFFIC = "status_bar_show_traffic";
+    private static final String STATUS_BAR_TRAFFIC_COLOR = "status_bar_traffic_color";
+    private static final String STATUS_BAR_TRAFFIC_AUTOHIDE = "status_bar_traffic_autohide";
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -52,6 +56,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private PreferenceCategory mPrefCategoryGeneral;
     private CheckBoxPreference mStatusBarBrightnessControl;
     private CheckBoxPreference mStatusBarShowTraffic;
+    private CheckBoxPreference mStatusBarTraffic_autohide;
+    private ColorPickerPreference mTrafficColorPicker;
     private ListPreference mStatusBarAutoHide;
     private CheckBoxPreference mStatusBarQuickPeek;
 
@@ -62,6 +68,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         addPreferencesFromResource(R.xml.status_bar);
 
         PreferenceScreen prefSet = getPreferenceScreen();
+        int defaultColor;
+        int intColor;
+        String hexColor;
 
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
         int signalStyle = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
@@ -78,6 +87,20 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarShowTraffic = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_SHOW_TRAFFIC);
         mStatusBarShowTraffic.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                             Settings.System.STATUS_BAR_SHOW_TRAFFIC, 1) == 1));
+
+        mStatusBarTraffic_autohide = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_TRAFFIC_AUTOHIDE);
+        mStatusBarTraffic_autohide.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE, 1) == 1));
+
+        mTrafficColorPicker = (ColorPickerPreference) prefSet.findPreference(STATUS_BAR_TRAFFIC_COLOR);
+        mTrafficColorPicker.setOnPreferenceChangeListener(this);
+        defaultColor = getResources().getColor(
+                com.android.internal.R.color.holo_blue_light);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_TRAFFIC_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mTrafficColorPicker.setSummary(hexColor);
+        mTrafficColorPicker.setNewPreviewColor(intColor);
 
         // Start observing for changes on auto brightness
         mStatusBarBrightnessChangedObserver = new StatusBarBrightnessChangedObserver(new Handler());
@@ -138,6 +161,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                     Settings.System.AUTO_HIDE_STATUSBAR, statusBarAutoHideValue);
             updateStatusBarAutoHideSummary(statusBarAutoHideValue);
             return true;
+        } else if (preference == mTrafficColorPicker) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_TRAFFIC_COLOR, intHex);
+            CMDProcessor.restartSystemUI();
+            return true;
         }
         return false;
     }
@@ -159,6 +190,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarShowTraffic.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_SHOW_TRAFFIC, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarTraffic_autohide) {
+            value = mStatusBarTraffic_autohide.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
