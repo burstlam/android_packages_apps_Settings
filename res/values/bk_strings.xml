@@ -15,6 +15,11 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!--Headers-->
+    <!-- Device specific settings -->
+    <string name="advanced_settings_title">Device options</string>
+    <string name="launcher_settings_title">Launcher Menu</string>
+
     <!--StatusBar Traffics-->
     <string name="status_bar_traffic_color_title">Network speed Custom Color</string>
     <string name="hide_network_speed">Hide when there is no traffic</string>
