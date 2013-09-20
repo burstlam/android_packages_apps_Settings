@@ -42,4 +42,11 @@
     <string name="summary_animation_no_override">Prevent apps from overriding transitions.</string>
     <string name="animation_duration_default">Default</string>
 
+    <!-- Glowpad torch -->
+    <string name="lockscreen_glow_torch_title">Glowpad Torch</string>
+    <string name="lockscreen_glow_torch_summary">Longpress center turns on torch</string>
+    <string name="lockscreen_torch_off">Off</string>
+    <string name="lockscreen_torch_lockcircle">Lockring</string>
+    <string name="lockscreen_torch_navring">Navring</string>
+
 </resources>

@@ -102,6 +102,16 @@
             android:title="@string/lockscreen_buttons_title"
             android:summary="@string/lockscreen_buttons_summary" />
 
+         <ListPreference
+            android:key="glowpad_torch"
+            android:persistent="false"
+            android:dialogTitle="@string/lockscreen_glow_torch_title"
+            android:title="@string/lockscreen_glow_torch_title"
+            android:summary="@string/lockscreen_glow_torch_summary"
+            android:entries="@array/pref_lockscreen_glowtorch_entries"
+            android:entryValues="@array/pref_lockscreen_glowtorch_values"
+            android:defaultValue="0" /> 
+
     </PreferenceCategory>
 
 </PreferenceScreen>
