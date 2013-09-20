@@ -86,11 +86,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         mStatusBarShowTraffic = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_SHOW_TRAFFIC);
         mStatusBarShowTraffic.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                            Settings.System.STATUS_BAR_SHOW_TRAFFIC, 1) == 1));
+                            Settings.System.STATUS_BAR_SHOW_TRAFFIC, 0) == 1));
 
         mStatusBarTraffic_autohide = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_TRAFFIC_AUTOHIDE);
         mStatusBarTraffic_autohide.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE, 1) == 1));
+                Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE, 0) == 1));
 
         mTrafficColorPicker = (ColorPickerPreference) prefSet.findPreference(STATUS_BAR_TRAFFIC_COLOR);
         mTrafficColorPicker.setOnPreferenceChangeListener(this);
@@ -167,7 +167,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_TRAFFIC_COLOR, intHex);
-            CMDProcessor.restartSystemUI();
             return true;
         }
         return false;
@@ -190,6 +189,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarShowTraffic.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_SHOW_TRAFFIC, value ? 1 : 0);
+            CMDProcessor.restartSystemUI();
             return true;
         } else if (preference == mStatusBarTraffic_autohide) {
             value = mStatusBarTraffic_autohide.isChecked();
