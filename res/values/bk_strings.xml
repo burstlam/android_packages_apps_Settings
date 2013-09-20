@@ -75,4 +75,12 @@
     <string name="ad_redisplay_1h">1 hour</string>
     <string name="ad_redisplay_2h">2 hours</string>
     <string name="ad_redisplay_5h">5 hours</string>
+
+    <!-- Glowpad torch -->
+    <string name="lockscreen_glow_torch_title">Glowpad Torch</string>
+    <string name="lockscreen_glow_torch_summary">Longpress center turns on torch</string>
+    <string name="lockscreen_torch_off">Off</string>
+    <string name="lockscreen_torch_lockcircle">Lockring</string>
+    <string name="lockscreen_torch_navring">Navring</string>
+
 </resources>
