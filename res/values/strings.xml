@@ -5429,7 +5429,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="show_enter_key_summary">Force keyboard to show enter instead of emoticon key</string>
 
     <!-- About phone screen,  setting option name-->
-    <string name="mod_version">LOSP version</string>
+    <string name="mod_version">Slim version</string>
     <string name="mod_version_default">Unknown</string>
 
     <!-- Launches Dev Tools -->
@@ -5985,8 +5985,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="auto_hide_statusbar_all">All Notifications</string>
 
     <!-- Quick/Pie Control -->
-    <string name="pie_control_title">PIE</string>
-    <string name="pie_control_dialog_title">PIE</string>
+    <string name="pie_control_title">SLIMPIE</string>
+    <string name="pie_control_dialog_title">SLIMPIE</string>
     <string name="pie_control_always">Show always</string>
     <string name="pie_control_expanded">Only on expanded desktop mode</string>
     <string name="pie_control_disabled">Disabled</string>
