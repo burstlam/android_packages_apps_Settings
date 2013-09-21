@@ -36,12 +36,6 @@
         android:title="@string/status_bar_title" />
 
     <PreferenceScreen
-        android:key="active_display"
-        android:fragment="com.android.settings.chameleonos.ActiveDisplaySettings"
-        android:title="@string/ad_settings_title"
-        android:summary="@string/ad_settings_summary" />
-
-    <PreferenceScreen
         android:key="themes_settings"
         android:title="@string/themes_settings_title">
 
