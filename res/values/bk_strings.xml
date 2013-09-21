@@ -42,4 +42,8 @@
     <string name="summary_animation_no_override">Prevent apps from overriding transitions.</string>
     <string name="animation_duration_default">Default</string>
 
+    <string name="normal">Normal</string>
+    <string name="never_expand">Never Expand</string>
+    <string name="always_expand">Always Expand</string>
+    <string name="old_style">Old Style</string>
 </resources>
