@@ -25,6 +25,10 @@
             android:key="pulse_enabled"
             android:title="@string/notification_pulse_title" />
 
+        <CheckBoxPreference
+            android:key="led_screen_on"
+            android:title="@string/title_led_screen_on" />
+
         <com.android.settings.slim.notificationlight.ApplicationLightPreference
             android:key="default"
             android:title="@string/notification_light_default_value"

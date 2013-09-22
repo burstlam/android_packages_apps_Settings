@@ -85,4 +85,6 @@
     <string name="lockscreen_torch_lockcircle">Lockring</string>
     <string name="lockscreen_torch_navring">Navring</string>
 
+    <!-- LED FLASH WHEN SCREEN ON -->
+    <string name="title_led_screen_on">LED flash while screen ON</string> 
 </resources>
