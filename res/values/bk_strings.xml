@@ -87,6 +87,6 @@
 
     <!-- show carrier label -->
     <string name="show_carrier_label_title">carrier label</string>
-    <string name="show_carrier_label_summary">Show Carrier label in statsbar</string>
-
+    <string name="show_carrier_label_summary">Show Carrier label in statusbar</string>
+    <string name="status_bar_carrier_color">Select Statusbar Carrier Label Color</string>
 </resources>
