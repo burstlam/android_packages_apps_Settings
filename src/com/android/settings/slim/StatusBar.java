@@ -48,6 +48,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_SHOW_TRAFFIC = "status_bar_show_traffic";
     private static final String STATUS_BAR_TRAFFIC_COLOR = "status_bar_traffic_color";
     private static final String STATUS_BAR_TRAFFIC_AUTOHIDE = "status_bar_traffic_autohide";
+    private static final String STATUS_BAR_CARRIER_LABEL = "status_bar_carrier_label";
 
     private StatusBarBrightnessChangedObserver mStatusBarBrightnessChangedObserver;
 
@@ -57,6 +58,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarBrightnessControl;
     private CheckBoxPreference mStatusBarShowTraffic;
     private CheckBoxPreference mStatusBarTraffic_autohide;
+    private CheckBoxPreference mStatusBarCarrierLabel;
     private ColorPickerPreference mTrafficColorPicker;
     private ListPreference mStatusBarAutoHide;
     private CheckBoxPreference mStatusBarQuickPeek;
@@ -101,6 +103,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mTrafficColorPicker.setSummary(hexColor);
         mTrafficColorPicker.setNewPreviewColor(intColor);
+
+        mStatusBarCarrierLabel = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_CARRIER_LABEL);
+        mStatusBarCarrierLabel.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_CARRIER, 0) == 1));
 
         // Start observing for changes on auto brightness
         mStatusBarBrightnessChangedObserver = new StatusBarBrightnessChangedObserver(new Handler());
@@ -195,6 +201,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarTraffic_autohide.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_TRAFFIC_AUTOHIDE, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarCarrierLabel) {
+            value = mStatusBarCarrierLabel.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

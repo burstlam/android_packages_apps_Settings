@@ -85,4 +85,8 @@
     <string name="lockscreen_torch_lockcircle">Lockring</string>
     <string name="lockscreen_torch_navring">Navring</string>
 
+    <!-- show carrier label -->
+    <string name="show_carrier_label_title">carrier label</string>
+    <string name="show_carrier_label_summary">Show Carrier label in statsbar</string>
+
 </resources>
