@@ -46,6 +46,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String PREF_HIGH_END_GFX = "high_end_gfx";
     private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String PREF_RECENTS_RAM_BAR = "recents_ram_bar";
+    private static final String KEY_RECENTS_ASSIST = "recents_target_assist";
     private static final String CATEGORY_INTERFACE = "interface_settings_action_prefs";
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
@@ -54,6 +55,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private Preference mLcdDensity;
     private Preference mRamBar;
     private CheckBoxPreference mUseAltResolver;
+    private CheckBoxPreference mShowAssistButton;
     private CheckBoxPreference mHighEndGfx;
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
@@ -77,6 +79,11 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         mUseAltResolver.setChecked(Settings.System.getInt(
                 getActivity().getContentResolver(),
                 Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0) == 1);
+
+        mShowAssistButton = (CheckBoxPreference) findPreference(KEY_RECENTS_ASSIST);
+        mShowAssistButton.setChecked(Settings.System.getInt(
+                getActivity().getContentResolver(),
+                Settings.System.RECENTS_TARGET_ASSIST, 0) == 1);
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         mCustomLabel.setOnPreferenceClickListener(mCustomLabelClicked);
@@ -188,6 +195,11 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
                     Settings.System.LISTVIEW_INTERPOLATOR,
                     listviewinterpolator);
             mListViewInterpolator.setSummary(mListViewInterpolator.getEntries()[index]);
+            return true;
+        } else if (preference == mShowAssistButton) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_TARGET_ASSIST,
+                    (Boolean) newValue ? 1 : 0);
             return true;
         }
         return false;
