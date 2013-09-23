@@ -93,4 +93,12 @@
     <string name="recents_target_assist_title">Show Google Assistant in Recents</string>
     <string name="recents_target_assist_summary">This will show a button in recents to access your Google Now or long-press it to voice search.</string>
 
+    <!-- Clear recents -->
+    <string name="clear_recents_position_title">Clear recents position</string>
+    <string name="clear_recents_position_disabled">Disabled</string>
+    <string name="clear_recents_position_bottom_right">Bottom right</string>
+    <string name="clear_recents_position_bottom_left">Bottom left</string>
+    <string name="clear_recents_position_top_right">Top right</string>
+    <string name="clear_recents_position_top_left">Top left</string>
+
 </resources>

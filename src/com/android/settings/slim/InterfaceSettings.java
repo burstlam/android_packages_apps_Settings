@@ -50,6 +50,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String CATEGORY_INTERFACE = "interface_settings_action_prefs";
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
+    private static final String KEY_CLEAR_RECENTS_POSITION = "clear_recents_position";
 
     private Preference mCustomLabel;
     private Preference mLcdDensity;
@@ -59,6 +60,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mHighEndGfx;
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
+    private ListPreference mClearPosition;
 
     private String mCustomLabelText = null;
     private int newDensityValue;
@@ -84,6 +86,13 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         mShowAssistButton.setChecked(Settings.System.getInt(
                 getActivity().getContentResolver(),
                 Settings.System.RECENTS_TARGET_ASSIST, 0) == 1);
+
+        mClearPosition = (ListPreference) findPreference(KEY_CLEAR_RECENTS_POSITION);
+        int ClearSide = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.CLEAR_RECENTS_POSITION, 1);
+        mClearPosition.setValue(String.valueOf(ClearSide));
+        mClearPosition.setSummary(mClearPosition.getEntry());
+        mClearPosition.setOnPreferenceChangeListener(this);
 
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         mCustomLabel.setOnPreferenceClickListener(mCustomLabelClicked);
@@ -200,6 +209,13 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.RECENTS_TARGET_ASSIST,
                     (Boolean) newValue ? 1 : 0);
+            return true;
+        } else if (preference == mClearPosition) {
+            int position = Integer.valueOf((String) newValue);
+            int index = mClearPosition.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.CLEAR_RECENTS_POSITION, position);
+            mClearPosition.setSummary(mClearPosition.getEntries()[index]);
             return true;
         }
         return false;
