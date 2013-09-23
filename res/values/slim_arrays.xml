@@ -484,10 +484,10 @@
     </string-array>
 
     <string-array name="battery_bar_entries">
-        <item>Hide</item>
-        <item>Statusbar</item>
-        <item>Top of navbar</item>
-        <item>Bottom of navbar</item>
+        <item>@string/battery_bar_pos1</item>
+        <item>@string/battery_bar_pos2</item>
+        <item>@string/battery_bar_pos3</item>
+        <item>@string/battery_bar_pos4</item>
     </string-array>
 
     <string-array name="battery_bar_values" translatable="false">
@@ -498,8 +498,8 @@
     </string-array>
 
     <string-array name="battery_bar_style_entries">
-        <item>Regular</item>
-        <item>Center-mirrored</item>
+        <item>@string/battery_bar_style_regular</item>
+        <item>@string/battery_bar_style_centered</item>
     </string-array>
 
     <string-array name="battery_bar_style_values" translatable="false">

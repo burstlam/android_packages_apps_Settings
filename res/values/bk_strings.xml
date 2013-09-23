@@ -101,4 +101,12 @@
     <string name="clear_recents_position_top_right">Top right</string>
     <string name="clear_recents_position_top_left">Top left</string>
 
+    <!--Battery bar-->
+    <string name="battery_bar_pos1">Hide</string>
+    <string name="battery_bar_pos2">Statusbar</string>
+    <string name="battery_bar_pos3">Top of navbar</string>
+    <string name="battery_bar_pos4">Bottom of navbar</string>
+    <string name="battery_bar_style_regular">Regular</string>
+    <string name="battery_bar_style_centered">Mirror Centered</string>
+
 </resources>
