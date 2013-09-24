@@ -109,4 +109,8 @@
     <string name="battery_bar_style_regular">Regular</string>
     <string name="battery_bar_style_centered">Mirror Centered</string>
 
+    <!-- Lock screen widgets -->
+    <string name="lockscreen_music_controls_title">Music controls</string>
+    <string name="lockscreen_music_controls_summary">Show player controls while music is playing</string>
+
 </resources>

@@ -68,6 +68,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
     private static final String KEY_BACKGROUND_PREF = "lockscreen_background";
     private static final String KEY_BACKGROUND_ALPHA_PREF = "lockscreen_alpha";
     private static final String KEY_GLOWPAD_TORCH = "glowpad_torch";
+    private static final String KEY_LOCKSCREEN_MUSIC_CONTROLS = "lockscreen_music_controls";
 
     private ListPreference mBatteryStatus;
     private PreferenceScreen mLockscreenButtons;
@@ -77,6 +78,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
     private SeekBarPreference mBgAlpha;
     private CheckBoxPreference mLockscreenAutoRotate;
     private CheckBoxPreference mLockscreenEightTargets;
+    private CheckBoxPreference mMusicControls;
     private Preference mShortcuts;
 
     private boolean mIsScreenLarge;
@@ -115,6 +117,9 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
         prefs = getPreferenceScreen();
 
         mAdditionalOptions = (PreferenceCategory) prefs.findPreference(KEY_ADDITIONAL_OPTIONS);
+
+        mMusicControls = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_MUSIC_CONTROLS);
+        mMusicControls.setOnPreferenceChangeListener(this);
 
         mCustomBackground = (ListPreference) findPreference(KEY_BACKGROUND_PREF);
         mCustomBackground.setOnPreferenceChangeListener(this);
@@ -201,6 +206,11 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
     public void onResume() {
         super.onResume();
         createCustomLockscreenView();
+        ContentResolver cr = getActivity().getContentResolver();
+        if (mMusicControls != null) {
+            mMusicControls.setChecked(Settings.System.getInt(cr,
+                    Settings.System.LOCKSCREEN_MUSIC_CONTROLS, 1) == 1);
+        }
     }
 
     @Override
@@ -242,6 +252,11 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.LOCKSCREEN_GLOW_TORCH, value);
             return true;
+        } else if (preference == mMusicControls) {
+            boolean value = (Boolean) objValue;
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_MUSIC_CONTROLS, value ? 1 : 0);
+            return true; 
         } else if (preference == mCustomBackground) {
             int indexOf = mCustomBackground.findIndexOfValue(objValue.toString());
             switch (indexOf) {

@@ -110,7 +110,13 @@
             android:summary="@string/lockscreen_glow_torch_summary"
             android:entries="@array/pref_lockscreen_glowtorch_entries"
             android:entryValues="@array/pref_lockscreen_glowtorch_values"
-            android:defaultValue="0" /> 
+            android:defaultValue="0" />
+
+        <CheckBoxPreference
+            android:key="lockscreen_music_controls"
+            android:persistent="false"
+            android:title="@string/lockscreen_music_controls_title"
+            android:summary="@string/lockscreen_music_controls_summary" /> 
 
     </PreferenceCategory>
 
