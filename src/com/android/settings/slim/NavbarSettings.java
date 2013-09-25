@@ -28,6 +28,7 @@ import android.provider.Settings;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
 import com.android.settings.Utils;
+import com.android.settings.widget.SeekBarPreference;
 
 public class NavbarSettings extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener {
@@ -40,6 +41,10 @@ public class NavbarSettings extends SettingsPreferenceFragment implements
     private static final String PREF_RING = "navbar_targets_settings";
     private static final String PREF_STYLE_DIMEN = "navbar_style_dimen_settings";
     private static final String PREF_NAVIGATION_BAR_CAN_MOVE = "navbar_can_move";
+    private static final String NAVBAR_HIDE_ENABLE = "navbar_hide_enable";
+    private static final String NAVBAR_HIDE_TIMEOUT = "navbar_hide_timeout";
+    private static final String DRAG_HANDLE_OPACITY = "drag_handle_opacity";
+    private static final String DRAG_HANDLE_WIDTH = "drag_handle_width";
     private static final String KEY_ADVANCED_OPTIONS= "advanced_cat";
 
     private boolean mHasNavBarByDefault;
@@ -52,6 +57,11 @@ public class NavbarSettings extends SettingsPreferenceFragment implements
     PreferenceScreen mButtonPreference;
     PreferenceScreen mRingPreference;
     PreferenceScreen mStyleDimenPreference;
+
+    CheckBoxPreference mNavBarHideEnable;
+    ListPreference mNavBarHideTimeout;
+    SeekBarPreference mDragHandleOpacity;
+    SeekBarPreference mDragHandleWidth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,6 +95,27 @@ public class NavbarSettings extends SettingsPreferenceFragment implements
                 Settings.System.NAVIGATION_BAR_SHOW, mHasNavBarByDefault ? 1 : 0) == 1;
         mEnableNavigationBar = (CheckBoxPreference) findPreference(ENABLE_NAVIGATION_BAR);
         mEnableNavigationBar.setChecked(enableNavigationBar);
+
+        mNavBarHideEnable = (CheckBoxPreference) findPreference(NAVBAR_HIDE_ENABLE);
+        mNavBarHideEnable.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
+                Settings.System.NAV_HIDE_ENABLE, false));
+
+        final int defaultDragOpacity = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.DRAG_HANDLE_OPACITY, 50);
+        mDragHandleOpacity = (SeekBarPreference) findPreference(DRAG_HANDLE_OPACITY);
+        mDragHandleOpacity.setInitValue((int) (defaultDragOpacity));
+        mDragHandleOpacity.setOnPreferenceChangeListener(this);
+
+        final int defaultDragWidth = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.DRAG_HANDLE_WEIGHT, 5);
+        mDragHandleWidth = (SeekBarPreference) findPreference(DRAG_HANDLE_WIDTH);
+        mDragHandleWidth.setInitValue((int) (defaultDragWidth));
+        mDragHandleWidth.setOnPreferenceChangeListener(this);
+
+        mNavBarHideTimeout = (ListPreference) findPreference(NAVBAR_HIDE_TIMEOUT);
+        mNavBarHideTimeout.setOnPreferenceChangeListener(this);
+        mNavBarHideTimeout.setValue(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.NAV_HIDE_TIMEOUT, 3000) + "");
 
         mNavigationBarCanMove = (CheckBoxPreference) findPreference(PREF_NAVIGATION_BAR_CAN_MOVE);
         if (!Utils.isPhone(getActivity())) {
@@ -128,6 +159,19 @@ public class NavbarSettings extends SettingsPreferenceFragment implements
                     Settings.System.NAVIGATION_BAR_CAN_MOVE,
                     ((CheckBoxPreference) preference).isChecked() ? 0 : 1);
             return true;
+        } else if (preference == mNavBarHideEnable) {
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.NAV_HIDE_ENABLE,
+                    ((CheckBoxPreference) preference).isChecked());
+            mDragHandleOpacity
+                    .setInitValue(Settings.System.getInt(getActivity().getContentResolver(),
+                            Settings.System.DRAG_HANDLE_OPACITY, 50));
+            mDragHandleWidth.setInitValue(Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.DRAG_HANDLE_WEIGHT, 5));
+            mNavBarHideTimeout.setValue(Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.NAV_HIDE_TIMEOUT, 3000) + "");
+            refreshSettings();
+            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -144,6 +188,24 @@ public class NavbarSettings extends SettingsPreferenceFragment implements
                     Settings.System.MENU_VISIBILITY, mNavBarMenuDisplayValue);
             mMenuDisplayLocation.setEnabled(mNavBarMenuDisplayValue != 1);
             return true;
+        } else if (preference == mNavBarHideTimeout) {
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NAV_HIDE_TIMEOUT, val);
+            return true;
+        } else if (preference == mDragHandleOpacity) {
+            String newVal = (String) newValue;
+            int op = Integer.parseInt(newVal);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.DRAG_HANDLE_OPACITY, op);
+            return true;
+        } else if (preference == mDragHandleWidth) {
+            String newVal = (String) newValue;
+            int dp = Integer.parseInt(newVal);
+            //int height = mapChosenDpToPixels(dp);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.DRAG_HANDLE_WEIGHT, dp);
+            return true;
         }
         return false;
     }
@@ -151,6 +213,12 @@ public class NavbarSettings extends SettingsPreferenceFragment implements
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    public void refreshSettings() {
+        mDragHandleOpacity.setEnabled(mNavBarHideEnable.isChecked());
+        mDragHandleWidth.setEnabled(mNavBarHideEnable.isChecked());
+        mNavBarHideTimeout.setEnabled(mNavBarHideEnable.isChecked());
     }
 
 }
