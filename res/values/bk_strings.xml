@@ -89,10 +89,6 @@
     <string name="show_carrier_label_title">carrier label</string>
     <string name="show_carrier_label_summary">Show Carrier label in statsbar</string>
 
-    <!-- Recents -->
-    <string name="recents_target_assist_title">Show Google Assistant in Recents</string>
-    <string name="recents_target_assist_summary">This will show a button in recents to access your Google Now or long-press it to voice search.</string>
-
     <!-- Clear recents -->
     <string name="clear_recents_position_title">Clear recents position</string>
     <string name="clear_recents_position_disabled">Disabled</string>
