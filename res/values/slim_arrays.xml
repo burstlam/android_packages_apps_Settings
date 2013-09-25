@@ -83,8 +83,8 @@
     </string-array>
 
     <string-array name="entries_flash_widget">
-        <item>@string/flash_normal</item>
-        <item>@string/flash_high</item>
+        <item>Normal</item>
+        <item>High</item>
     </string-array>
 
     <string-array name="values_flash_widget" translatable="false">
@@ -267,9 +267,9 @@
     </string-array>
 
     <string-array name="entries_status_bar_am_pm">
-        <item>@string/statusbar_clock_style_normal</item>
-        <item>@string/statusbar_clock_style_small</item>
-        <item>@string/statusbar_clock_style_none</item>
+        <item>Normal</item>
+        <item>Small</item>
+        <item>None</item>
     </string-array>
 
     <string-array name="values_status_bar_am_pm" translatable="false">
@@ -279,9 +279,9 @@
     </string-array>
 
     <string-array name="clock_date_display_entries">
-        <item>@string/clockdate_style_noshow</item>
-        <item>@string/clockdate_style_small</item>
-        <item>@string/clockdate_style_regular</item>
+        <item>Don\'t show</item>
+        <item>Small date</item>
+        <item>Regular date</item>
     </string-array>
 
     <string-array name="clock_date_display_values" translatable="false">
@@ -291,9 +291,9 @@
     </string-array>
 
     <string-array name="clock_date_style_entries">
-        <item>@string/clockdate_style_normal</item>
-        <item>@string/clockdate_style_lowercase</item>
-        <item>@string/clockdate_style_uppercase</item>
+        <item>Normal</item>
+        <item>Lowercase</item>
+        <item>Uppercase</item>
     </string-array>
 
     <string-array name="clock_date_style_values" translatable="false">
