@@ -21,9 +21,12 @@
     <string name="launcher_settings_title">Launcher Menu</string>
 
     <!--StatusBar Traffics-->
+    <string name="statusbar_network_style_title">Statusbar Carrier and Network Customization</string>
     <string name="status_bar_traffic_color_title">Network speed Custom Color</string>
     <string name="hide_network_speed">Hide when there is no traffic</string>
     <string name="hide_network_speed_summary">Hide network speed indicator when there is no traffic</string>
+    <string name="statusbar_network_style_reset_title">Reset</string>
+    <string name="statusbar_network_style_reset_message">Reset Carrier and Network Style Settings?</string>
 
     <!-- Animation Controls -->
     <string name="title_animation_controls">Animation Controls</string>
