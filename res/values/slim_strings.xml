@@ -61,6 +61,11 @@
     <string name="quiet_hours_haptic_off">Haptic feedback will function as normal</string>
     <string name="quiet_hours_active_from">Active from</string>
     <string name="quiet_hours_active_to">to</string>
+    <string name="profile_connection_enable">Enable</string>
+    <string name="profile_connection_disable">Disable</string>
+    <string name="profile_mode_on">On</string>
+    <string name="profile_mode_off">Off</string>
+    <string name="profile_mode_no_override">No Override</string>
 
     <!-- time range preference -->
     <string name="start_time_title">Start</string>
@@ -1586,5 +1591,11 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="listview_overshoot_interpolator">Overshoot</string>
     <string name="listview_anticipate_overshoot_interpolator">Anticipate and overshoot</string>
     <string name="listview_bounce_interpolator">Bounce</string>
+
+    <!--Volume Panel State-->
+    <string name="volume_overlay_single">Single</string>
+    <string name="volume_overlay_expandable">Expandable</string>
+    <string name="volume_overlay_expanded">Expanded</string>
+    <string name="volume_overlay_none">None</string>
 
 </resources>
