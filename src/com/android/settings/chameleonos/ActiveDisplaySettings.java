@@ -47,6 +47,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_SHOW_DATE = "ad_show_date";
     private static final String KEY_SHOW_AMPM = "ad_show_ampm";
     private static final String KEY_BRIGHTNESS = "ad_brightness";
+    private static final String KEY_DISPLAYACTIVE = "ad_displayactive";
 
     private SwitchPreference mEnabledPref;
     private CheckBoxPreference mShowTextPref;
@@ -58,6 +59,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mSunlightModePref;
     private ListPreference mRedisplayPref;
     private SeekBarPreference mBrightnessLevel;
+    private ListPreference mDisplayActivePref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,13 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         mRedisplayPref.setValue(String.valueOf(timeout));
         updateRedisplaySummary(timeout);
 
+        mDisplayActivePref = (ListPreference) prefSet.findPreference(KEY_DISPLAYACTIVE);
+        mDisplayActivePref.setOnPreferenceChangeListener(this);
+        long displayActiveTimeout = Settings.System.getLong(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_DISPLAYTIMEOUT, 10000);
+        mDisplayActivePref.setValue(String.valueOf(displayActiveTimeout));
+        updateDisplayActiveSummary(displayActiveTimeout); 
+
         mShowDatePref = (CheckBoxPreference) findPreference(KEY_SHOW_DATE);
         mShowDatePref.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.ACTIVE_DISPLAY_SHOW_DATE, 0) == 1));
@@ -122,6 +131,10 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         if (preference == mRedisplayPref) {
             int timeout = Integer.valueOf((String) newValue);
             updateRedisplaySummary(timeout);
+            return true;
+        } else if (preference == mDisplayActivePref) {
+            int timeout = Integer.valueOf((String) newValue);
+            updateDisplayActiveSummary(timeout);
             return true;
         } else if (preference == mEnabledPref) {
             Settings.System.putInt(getContentResolver(),
@@ -187,6 +200,12 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         mRedisplayPref.setSummary(mRedisplayPref.getEntries()[mRedisplayPref.findIndexOfValue("" + value)]);
         Settings.System.putLong(getContentResolver(),
                 Settings.System.ACTIVE_DISPLAY_REDISPLAY, value);
+    }
+
+    private void updateDisplayActiveSummary(long value) {
+        mDisplayActivePref.setSummary(mDisplayActivePref.getEntries()[mDisplayActivePref.findIndexOfValue("" + value)]);
+        Settings.System.putLong(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_DISPLAYTIMEOUT, value);
     }
 
     private boolean hasProximitySensor() {
