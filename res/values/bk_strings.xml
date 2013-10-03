@@ -149,4 +149,8 @@
     <string name="wakelock_blocker_reload">Reload</string>
     <string name="wakelock_blocker_warning_title">Proceed with Caution</string>
     <string name="wakelock_blocker_warning">Blocking wakelocks have the potential to cause instability, crashes or data loss.</string>
+
+    <!-- dim screen when plugged in -->
+    <string name="dim_screen_while_plugged">Dim screen on charging</string>
+    <string name="dim_screen_while_plugged_summary">Should screen be dimmed while charging</string>  
 </resources>
