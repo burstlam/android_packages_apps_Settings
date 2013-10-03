@@ -92,4 +92,12 @@
         <attr name="markerSize" format="dimension" />
         <attr name="margin" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="IntervalSeekBar">
+        <attr name="minf" format="float" />
+        <attr name="maxf" format="float" />
+        <attr name="defaultValue" format="float" />
+        <attr name="digits" format="integer" />
+    </declare-styleable>
+
 </resources>
