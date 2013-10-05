@@ -123,6 +123,13 @@
         android:icon="@drawable/ic_settings_halo" 
         android:title="@string/halo_settings_title" />
 
+    <!-- ChaOS Lab -->
+    <header
+        android:id="@+id/lab_settings"
+        android:fragment="com.android.settings.chameleonos.LabSettings"
+        android:icon="@drawable/ic_settings_lab"
+        android:title="@string/lab_settings_title" />
+
     <header
         android:id="@+id/advanced_settings"
         android:title="@string/device_settings_title"
