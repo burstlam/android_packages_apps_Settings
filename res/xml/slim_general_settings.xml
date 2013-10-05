@@ -33,11 +33,6 @@
         android:title="@string/ad_settings_title"
         android:summary="@string/ad_settings_summary" />
 
-    <PreferenceScreen
-        android:id="@+id/screen_state_service"
-        android:fragment="com.android.settings.maxwen.ScreenStateToggles"
-        android:title="@string/screen_state_toggles_title" />
-
     <!-- Profiles -->
     <PreferenceScreen
         android:fragment="com.android.settings.profiles.ProfilesSettings"

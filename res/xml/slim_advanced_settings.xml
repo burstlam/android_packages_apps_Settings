@@ -31,6 +31,11 @@
     </PreferenceScreen>
 
     <PreferenceScreen
+        android:id="@+id/screen_state_service"
+        android:fragment="com.android.settings.maxwen.ScreenStateToggles"
+        android:title="@string/screen_state_toggles_title" />
+
+    <PreferenceScreen
         android:id="@+id/wakelock_blocker"
         android:fragment="com.android.settings.maxwen.WakeLockBlocker"
         android:title="@string/wakelock_blocker" />
