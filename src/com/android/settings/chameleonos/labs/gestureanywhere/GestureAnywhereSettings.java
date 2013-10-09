@@ -28,7 +28,7 @@ import android.provider.Settings;
 import android.view.Gravity;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.chameleonos.SeekBarPreference;
+import com.android.settings.slim.SeekBarPreference;
 
 public class GestureAnywhereSettings extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener {
