@@ -108,6 +108,12 @@
         android:fragment="com.android.settings.slim.NavigationSettings"
         android:title="@string/navigation_settings_title" />
 
+    <header
+        android:key="pie_settings"
+        android:icon="@drawable/ic_settings_pie"
+        android:fragment="com.android.settings.paranoid.PiePreference"
+        android:title="@string/pie_control_title" />
+
     <!-- TRDS -->
     <header
         android:id="@+id/trds_settings"

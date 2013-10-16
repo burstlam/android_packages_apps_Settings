@@ -40,11 +40,6 @@
         android:title="@string/gesture_anywhere_title" />
 
     <PreferenceScreen
-        android:key="pie_settings"
-        android:fragment="com.android.settings.slim.PieControl"
-        android:title="@string/pie_control_title" />
-
-    <PreferenceScreen
         android:fragment="com.android.settings.halo.Halo"
         android:key="halo_settings"
         android:title="@string/title_halo" />
