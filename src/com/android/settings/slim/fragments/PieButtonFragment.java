@@ -67,7 +67,7 @@ public class PieButtonFragment extends SettingsPreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mSecondLayer) {
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.PIE_SECOND_LAYER_ACTIVE, (Boolean) newValue ? 1 : 0);
+                    Settings.System.SPIE_SECOND_LAYER_ACTIVE, (Boolean) newValue ? 1 : 0);
         }
         return true;
     }
