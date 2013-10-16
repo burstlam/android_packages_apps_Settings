@@ -46,6 +46,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String PREF_HIGH_END_GFX = "high_end_gfx";
     private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String PREF_RECENTS_RAM_BAR = "recents_ram_bar";
+    //private static final String PREF_RECENTS_CLEAR_ALL_ON_RIGHT = "recents_clear_all_on_right";
     private static final String CATEGORY_INTERFACE = "interface_settings_action_prefs";
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
@@ -56,6 +57,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private Preference mRamBar;
     private CheckBoxPreference mUseAltResolver;
     private CheckBoxPreference mHighEndGfx;
+    //private CheckBoxPreference mClearAll;
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
     private ListPreference mClearPosition;
@@ -135,6 +137,10 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         mListViewInterpolator.setOnPreferenceChangeListener(this);
         mListViewInterpolator.setEnabled(listviewanimation > 0);
 
+        //mClearAll = (CheckBoxPreference) findPreference(PREF_RECENTS_CLEAR_ALL_ON_RIGHT);
+        //mClearAll.setOnPreferenceChangeListener(this);
+        //mClearAll.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
+        //    Settings.System.RECENTS_CLEAR_ALL_ON_RIGHT, 0) == 1);
     }
 
     private void updateCustomLabelTextSummary() {
@@ -205,6 +211,11 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
                     Settings.System.CLEAR_RECENTS_POSITION, position);
             mClearPosition.setSummary(mClearPosition.getEntries()[index]);
             return true;
+        //} else if (preference == mClearAll) {
+        //    Settings.System.putInt(getActivity().getContentResolver(),
+        //        Settings.System.RECENTS_CLEAR_ALL_ON_RIGHT,
+        //        (Boolean) newValue ? 1 : 0);
+        //    return true;
         }
         return false;
     }

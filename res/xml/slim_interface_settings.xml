@@ -105,6 +105,12 @@
             android:summary="@string/high_end_gfx_summary"
             android:defaultValue="true" />
 
+        <!--<CheckBoxPreference
+            android:key="recents_clear_all_on_right"
+            android:title="@string/clear_all_on_right"
+            android:summary="@string/clear_all_on_right_summary"
+            android:defaultValue="false"/>-->
+
     </PreferenceCategory>
 
 </PreferenceScreen>
