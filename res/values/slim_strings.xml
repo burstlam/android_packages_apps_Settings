@@ -1616,4 +1616,9 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="volume_overlay_expanded">Expanded</string>
     <string name="volume_overlay_none">None</string>
 
+    <!-- Lockscreen Lid Settings -->
+    <string name="smart_cover_category_title">Smart cover</string>
+    <string name="smart_cover_wake_title">Smart cover wake</string>
+    <string name="smart_cover_wake_summary">Wakeup device when smart cover opens</string>
+
 </resources>
