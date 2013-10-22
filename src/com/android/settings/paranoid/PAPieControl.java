@@ -171,7 +171,7 @@ public class PAPieControl extends SettingsPreferenceFragment
 
         mPieNotifi = (CheckBoxPreference) prefSet.findPreference(PA_PIE_NOTIFICATIONS);
         mPieNotifi.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.PIE_NOTIFICATIONS, 1) == 1)); 
+                Settings.System.PIE_NOTIFICATIONS, 0) == 1)); 
 
         mPieRestart = (CheckBoxPreference) prefSet.findPreference(PA_PIE_RESTART);
         mPieRestart.setChecked(Settings.System.getInt(mContext.getContentResolver(),
