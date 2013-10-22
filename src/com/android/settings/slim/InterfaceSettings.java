@@ -38,6 +38,7 @@ import android.widget.EditText;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.util.CMDProcessor;
 
 public class InterfaceSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -241,6 +242,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
                     Intent i = new Intent();
                     i.setAction("com.android.settings.LABEL_CHANGED");
                     mContext.sendBroadcast(i);
+                    CMDProcessor.restartSystemUI();
                 }
             });
             alert.setNegativeButton(getResources().getString(R.string.cancel),
