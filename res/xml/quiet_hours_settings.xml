@@ -39,6 +39,11 @@
         android:dependency="quiet_hours_enabled" />
 
     <CheckBoxPreference
+        android:key="quiet_hours_system"
+        android:title="@string/quiet_hours_system_title"
+        android:dependency="quiet_hours_enabled" />
+
+    <CheckBoxPreference
         android:key="quiet_hours_still"
         android:title="@string/quiet_hours_still_title"
         android:dependency="quiet_hours_enabled" />
