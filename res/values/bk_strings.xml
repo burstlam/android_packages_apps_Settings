@@ -219,6 +219,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="pie_stick_summary">If checked Pie will stay in place no matter which orientation</string>
     <string name="pie_restart_launcher_title">Restart Launcher</string>
     <string name="pie_restart_launcher_summary">Allows your launcher to regain sanity after a screensize change (recommended)</string>
+    <string name="pie_notifications_title">Enable chevron targets</string>
+    <string name="pie_notifications_summary">Enabling will let the Notification panel and QuickSettings activate when swiped</string>
 
     <!-- Pie Color Settings -->
     <string name="pie_color_title">Pie color settings</string>
