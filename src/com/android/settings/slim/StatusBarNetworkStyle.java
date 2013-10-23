@@ -98,7 +98,7 @@ public class StatusBarNetworkStyle extends SettingsPreferenceFragment
 
         mStatusBarCarrierLabel = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_CARRIER_LABEL);
         mStatusBarCarrierLabel.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.STATUS_BAR_CARRIER, 1) == 1));
+                Settings.System.STATUS_BAR_CARRIER, 0) == 1));
 
         mCarrierColorPicker = (ColorPickerPreference) prefSet.findPreference(STATUS_BAR_CARRIER_COLOR);
         mCarrierColorPicker.setOnPreferenceChangeListener(this);
