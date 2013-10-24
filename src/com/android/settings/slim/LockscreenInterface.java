@@ -59,7 +59,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
     private static final String KEY_ADDITIONAL_OPTIONS = "options_group";
     private static final String KEY_SLIDER_OPTIONS = "slider_group";
     private static final String KEY_WIDGET_OPTIONS = "lockscreen_widgets_group";
-    private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
+    private static final String KEY_BATTERY_STATUS = "lockscreen_battery_status";
     private static final String KEY_LOCKSCREEN_BUTTONS = "lockscreen_buttons";
     private static final String PREF_LOCKSCREEN_AUTO_ROTATE = "lockscreen_auto_rotate";
     private static final String PREF_LOCKSCREEN_EIGHT_TARGETS = "lockscreen_eight_targets";
@@ -150,7 +150,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
             mGlowpadTorch.setOnPreferenceChangeListener(this);
         }
 
-        mBatteryStatus = (ListPreference) findPreference(KEY_ALWAYS_BATTERY_PREF);
+        mBatteryStatus = (ListPreference) findPreference(KEY_BATTERY_STATUS);
         mBatteryStatus.setOnPreferenceChangeListener(this);
         setBatteryStatusSummary();
 
@@ -228,7 +228,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
             int value = Integer.valueOf((String) objValue);
             int index = mBatteryStatus.findIndexOfValue((String) objValue);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, value);
+                    Settings.System.LOCKSCREEN_BATTERY_VISIBILITY, value);
             mBatteryStatus.setSummary(mBatteryStatus.getEntries()[index]);
             return true;
         } else if (preference == mLockscreenAutoRotate) {
@@ -382,7 +382,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements P
         // Set the battery status description text
         if (mBatteryStatus != null) {
             int batteryStatus = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0);
+                    Settings.System.LOCKSCREEN_BATTERY_VISIBILITY, 0);
             mBatteryStatus.setValueIndex(batteryStatus);
             mBatteryStatus.setSummary(mBatteryStatus.getEntries()[batteryStatus]);
         }

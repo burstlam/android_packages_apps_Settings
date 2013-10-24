@@ -1008,6 +1008,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="lockscreen_battery_status_title">Battery status</string>
     <string name="lockscreen_battery_status_charging">Only when charging</string>
     <string name="lockscreen_battery_status_alwayson">Always on</string>
+    <string name="lockscreen_battery_status_alwaysoff">Always off</string>
     <string name="lockscreen_auto_rotate_title">Allow lock screen rotation</string>
     <string name="lockscreen_auto_rotate_summary">Lock screen will have the ability to rotate. This is dependent of Auto-rotation in display</string>
     <string name="lockscreen_no_rotate_summary">System auto rotate is disabled. Enable it for this option.</string>
