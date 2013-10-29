@@ -567,6 +567,7 @@ public class SecuritySettings extends SettingsPreferenceFragment
         if (mQuickUnlock != null) {
             mQuickUnlock.setChecked(Settings.System.getBoolean(getContentResolver(),
                     Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL, false));
+        }
         if (mVisibleErrorPattern != null) {
             mVisibleErrorPattern.setChecked(lockPatternUtils.isShowErrorPath());
         }
