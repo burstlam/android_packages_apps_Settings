@@ -2099,4 +2099,6 @@
     <string name="regulatory_info_text" msgid="5623087902354026557"></string>
     <!-- Roaming Date Settings -->
     <string name="label_global_roaming_settings">国际漫游设置</string>
+
+    <string name="performance_settings">效能设定</string>
 </resources>
