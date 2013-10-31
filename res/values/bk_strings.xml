@@ -21,6 +21,9 @@
 
     <string name="performance_settings">Performance Settings</string>
 
+    <!--Swipeback blacklist -->
+    <string name="app_swipe_back_label_black">Disable Swipe Back Gesture</string>
+
     <!-- Display : Rotation  -->
     <string name="display_rotation_title">Rotation</string>
     <string name="display_rotation_disabled">Disabled</string>

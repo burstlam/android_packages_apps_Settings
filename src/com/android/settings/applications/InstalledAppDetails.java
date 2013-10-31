@@ -143,7 +143,7 @@ public class InstalledAppDetails extends Fragment
     private Button mForceStopButton;
     private Button mClearDataButton;
     private Button mMoveAppButton;
-    private CompoundButton mNotificationSwitch, mHaloState;
+    private CompoundButton mNotificationSwitch, mHaloState, mSwipeBackState;
 
     private PackageMoveObserver mPackageMoveObserver;
 
@@ -419,6 +419,8 @@ public class InstalledAppDetails extends Fragment
         mNotificationSwitch.setChecked(enabled);
         mHaloState.setChecked((mHaloPolicyIsBlack ? !allowedForHalo : allowedForHalo));
         mHaloState.setOnCheckedChangeListener(this);
+        mSwipeBackState.setChecked(!Activity.isAllowedForSwipeBack(mAppEntry.info.packageName));
+        mSwipeBackState.setOnCheckedChangeListener(this);
         if (isThisASystemPackage()) {
             mNotificationSwitch.setEnabled(false);
         } else {
@@ -513,6 +515,7 @@ public class InstalledAppDetails extends Fragment
         mNotificationSwitch = (CompoundButton) view.findViewById(R.id.notification_switch);
         mHaloState = (CompoundButton) view.findViewById(R.id.halo_state);
         mHaloState.setText((mHaloPolicyIsBlack ? R.string.app_halo_label_black : R.string.app_halo_label_white));
+        mSwipeBackState = (CompoundButton) view.findViewById(R.id.swipe_back_state);
 
         return view;
     }
@@ -1319,6 +1322,12 @@ public class InstalledAppDetails extends Fragment
         }
     }
 
+    private boolean setSwipeBackState(boolean state) {
+        boolean ret = Activity.setSwipeBackBlacklistStatus(mAppEntry.info.packageName, state);
+        forceStopPackage(mAppEntry.info.packageName);
+        return ret;
+    }
+
     private int getPremiumSmsPermission(String packageName) {
         try {
             if (mSmsManager != null) {
@@ -1424,6 +1433,10 @@ public class InstalledAppDetails extends Fragment
             }
         } else if (buttonView == mHaloState) {
             setHaloState(isChecked);
+        } else if (buttonView == mSwipeBackState) {
+            if (!setSwipeBackState(isChecked)) {
+                mSwipeBackState.setChecked(!isChecked); //revert
+            }
         }
     }
 }
