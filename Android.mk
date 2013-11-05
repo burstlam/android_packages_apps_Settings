@@ -12,7 +12,7 @@ LOCAL_RESOURCE_DIR += $(LOCAL_PATH)/res
 
 LOCAL_SRC_FILES += $(call all-java-files-under, ../PerformanceControl/src)
 LOCAL_RESOURCE_DIR += packages/apps/PerformanceControl/res
-LOCAL_ASSET_DIR += packages/apps/PerformanceControl/asset
+LOCAL_ASSET_DIR += packages/apps/PerformanceControl/assets
 
 LOCAL_AAPT_FLAGS := --extra-packages com.brewcrewfoo.performance --auto-add-overlay
 
