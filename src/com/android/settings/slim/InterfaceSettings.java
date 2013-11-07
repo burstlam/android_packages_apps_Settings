@@ -20,7 +20,6 @@ import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -32,20 +31,15 @@ import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.PreferenceCategory;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.text.Spannable;
-import android.widget.EditText;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.util.CMDProcessor;
 
 public class InterfaceSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
     private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver";
     private static final String PREF_HIGH_END_GFX = "high_end_gfx";
-    private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String PREF_RECENTS_RAM_BAR = "recents_ram_bar";
     //private static final String PREF_RECENTS_CLEAR_ALL_ON_RIGHT = "recents_clear_all_on_right";
     private static final String CATEGORY_INTERFACE = "interface_settings_action_prefs";
@@ -53,7 +47,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
     private static final String KEY_CLEAR_RECENTS_POSITION = "clear_recents_position";
 
-    private Preference mCustomLabel;
     private Preference mLcdDensity;
     private Preference mRamBar;
     private CheckBoxPreference mUseAltResolver;
@@ -63,7 +56,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private ListPreference mListViewInterpolator;
     private ListPreference mClearPosition;
 
-    private String mCustomLabelText = null;
     private int newDensityValue;
 
     DensityChanger densityFragment;
@@ -89,11 +81,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         mClearPosition.setValue(String.valueOf(ClearSide));
         mClearPosition.setSummary(mClearPosition.getEntry());
         mClearPosition.setOnPreferenceChangeListener(this);
-
-        mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
-        mCustomLabel.setOnPreferenceClickListener(mCustomLabelClicked);
-
-        updateCustomLabelTextSummary();
 
         mLcdDensity = findPreference("lcd_density_setup");
         mLcdDensity.setOnPreferenceChangeListener(this);
@@ -142,16 +129,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         //mClearAll.setOnPreferenceChangeListener(this);
         //mClearAll.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
         //    Settings.System.RECENTS_CLEAR_ALL_ON_RIGHT, 0) == 1);
-    }
-
-    private void updateCustomLabelTextSummary() {
-        mCustomLabelText = Settings.System.getString(getActivity().getContentResolver(),
-                Settings.System.CUSTOM_CARRIER_LABEL);
-        if (mCustomLabelText == null || mCustomLabelText.length() == 0) {
-            mCustomLabel.setSummary(R.string.custom_carrier_label_notset);
-        } else {
-            mCustomLabel.setSummary(mCustomLabelText);
-        }
     }
 
     private void updateRamBar() {
@@ -220,40 +197,4 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         }
         return false;
     }
-
-    public OnPreferenceClickListener mCustomLabelClicked = new OnPreferenceClickListener() {
-        @Override
-        public boolean onPreferenceClick(Preference preference) {
-            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-            alert.setTitle(R.string.custom_carrier_label_title);
-            alert.setMessage(R.string.custom_carrier_label_explain);
-
-            // Set an EditText view to get user input
-            final EditText input = new EditText(getActivity());
-            input.setText(mCustomLabelText != null ? mCustomLabelText : "");
-            alert.setView(input);
-            alert.setPositiveButton(getResources().getString(R.string.ok),
-                    new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    String value = ((Spannable) input.getText()).toString();
-                    Settings.System.putString(getActivity().getContentResolver(),
-                            Settings.System.CUSTOM_CARRIER_LABEL, value);
-                    updateCustomLabelTextSummary();
-                    Intent i = new Intent();
-                    i.setAction("com.android.settings.LABEL_CHANGED");
-                    mContext.sendBroadcast(i);
-                    CMDProcessor.restartSystemUI();
-                }
-            });
-            alert.setNegativeButton(getResources().getString(R.string.cancel),
-                    new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    // Canceled.
-                }
-            });
-
-            alert.show();
-            return true;
-        }
-    };
 }

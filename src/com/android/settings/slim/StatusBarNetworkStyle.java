@@ -20,9 +20,11 @@ import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -31,6 +33,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.text.Spannable;
+import android.widget.EditText;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -48,9 +52,11 @@ public class StatusBarNetworkStyle extends SettingsPreferenceFragment
     private static final String STATUS_BAR_TRAFFIC_AUTOHIDE = "status_bar_traffic_autohide";
     private static final String STATUS_BAR_CARRIER_LABEL = "status_bar_carrier_label";
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
+    private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
 
     private static final int MENU_RESET = Menu.FIRST;
 
+    private Preference mCustomLabel;
     private CheckBoxPreference mStatusBarShowTraffic;
     private CheckBoxPreference mStatusBarTraffic_autohide;
     private CheckBoxPreference mStatusBarCarrierLabel;
@@ -58,6 +64,8 @@ public class StatusBarNetworkStyle extends SettingsPreferenceFragment
     private ColorPickerPreference mCarrierColorPicker;
 
     private boolean mCheckPreferences;
+
+    private String mCustomLabelText = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,9 +118,24 @@ public class StatusBarNetworkStyle extends SettingsPreferenceFragment
         mCarrierColorPicker.setSummary(hexColor);
         mCarrierColorPicker.setNewPreviewColor(intColor);
 
+        mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
+        mCustomLabel.setOnPreferenceClickListener(mCustomLabelClicked);
+
+        updateCustomLabelTextSummary();
+
         setHasOptionsMenu(true);
         mCheckPreferences = true;
         return prefSet;
+    }
+
+    private void updateCustomLabelTextSummary() {
+        mCustomLabelText = Settings.System.getString(getActivity().getContentResolver(),
+                Settings.System.CUSTOM_CARRIER_LABEL);
+        if (mCustomLabelText == null || mCustomLabelText.length() == 0) {
+            mCustomLabel.setSummary(R.string.custom_carrier_label_notset);
+        } else {
+            mCustomLabel.setSummary(mCustomLabelText);
+        }
     }
 
     @Override
@@ -201,4 +224,41 @@ public class StatusBarNetworkStyle extends SettingsPreferenceFragment
         }
         return false;
     }
+
+    public OnPreferenceClickListener mCustomLabelClicked = new OnPreferenceClickListener() {
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+            alert.setTitle(R.string.custom_carrier_label_title);
+            alert.setMessage(R.string.custom_carrier_label_explain);
+
+            // Set an EditText view to get user input
+            final EditText input = new EditText(getActivity());
+            input.setText(mCustomLabelText != null ? mCustomLabelText : "");
+            input.setSelection(input.getText().length());
+            alert.setView(input);
+            alert.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    String value = ((Spannable) input.getText()).toString();
+                    Settings.System.putString(getActivity().getContentResolver(),
+                            Settings.System.CUSTOM_CARRIER_LABEL, value);
+                    updateCustomLabelTextSummary();
+                    Intent i = new Intent();
+                    i.setAction("com.android.settings.LABEL_CHANGED");
+                    mContext.sendBroadcast(i);
+                    //CMDProcessor.restartSystemUI();
+                }
+            });
+            alert.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // Canceled.
+                }
+            });
+
+            alert.show();
+            return true;
+        }
+    };
 }
