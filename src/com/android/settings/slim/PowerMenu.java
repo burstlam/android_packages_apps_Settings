@@ -44,6 +44,7 @@ public class PowerMenu extends SettingsPreferenceFragment implements
     private static final String KEY_PROFILES = "power_menu_profiles";
     private static final String KEY_AIRPLANE = "power_menu_airplane";
     private static final String KEY_SOUND = "power_menu_sound";
+    private static final String KEY_SYSBAR = "power_menu_sysbar";
 
     private CheckBoxPreference mRebootPref;
     private CheckBoxPreference mScreenshotPref;
@@ -52,6 +53,7 @@ public class PowerMenu extends SettingsPreferenceFragment implements
     private ListPreference mProfilesPref;
     private CheckBoxPreference mAirplanePref;
     private CheckBoxPreference mSoundPref;
+    private CheckBoxPreference mSysbarPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +108,11 @@ public class PowerMenu extends SettingsPreferenceFragment implements
 
         mAirplanePref = (CheckBoxPreference) findPreference(KEY_AIRPLANE);
         mAirplanePref.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_MENU_AIRPLANE_ENABLED, 1) == 1));
+                Settings.System.POWER_MENU_AIRPLANE_ENABLED, 0) == 1));
+
+        mSysbarPref = (CheckBoxPreference) findPreference(KEY_SYSBAR);
+        mSysbarPref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_MENU_SYSBAR_ENABLED, 0) == 1));
 
         mSoundPref = (CheckBoxPreference) findPreference(KEY_SOUND);
         mSoundPref.setChecked((Settings.System.getInt(getContentResolver(),
@@ -166,6 +172,11 @@ public class PowerMenu extends SettingsPreferenceFragment implements
             value = mAirplanePref.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.POWER_MENU_AIRPLANE_ENABLED,
+                    value ? 1 : 0);
+       } else if (preference == mSysbarPref) {
+            value = mSysbarPref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_MENU_SYSBAR_ENABLED,
                     value ? 1 : 0);
        } else if (preference == mSoundPref) {
             value = mSoundPref.isChecked();

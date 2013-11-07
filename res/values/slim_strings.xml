@@ -383,6 +383,7 @@
     <string name="power_menu_profiles_lock">Disabled on lockscreen</string>
     <string name="power_menu_profiles_all">Always show</string>
     <string name="power_menu_airplane_title">Airplane mode</string>
+    <string name="power_menu_sysbar_title">Sysbar Control</string>
     <string name="power_menu_sound_title">Sound panel</string>
     <string name="summary_expanded_desktop">%1$s</string>
     <string name="expanded_desktop_summary">Show or change expanded desktop mode</string>
