@@ -1777,6 +1777,8 @@
 
         <activity android:name=".slim.NotificationDrawerSettings"/>
 
+        <activity android:name=".slim.InputMethodsSettings"/>
+
         <activity android:name=".notificationlight.NotificationLightSettings" />
 
         <activity android:name=".notificationlight.BatteryLightSettings" />
