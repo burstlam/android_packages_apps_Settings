@@ -91,6 +91,7 @@ public class SecuritySettings extends SettingsPreferenceFragment
     private static final String KEY_NOTIFICATION_ACCESS = "manage_notification_access";
     private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
     private static final String KEY_SMS_SECURITY_CHECK_PREF = "sms_security_check_limit";
+    private static final String KEY_QUICK_INSTALL = "quickinstall";
 
     private PackageManager mPM;
     DevicePolicyManager mDPM;
@@ -116,6 +117,7 @@ public class SecuritySettings extends SettingsPreferenceFragment
     private DialogInterface mWarnInstallApps;
     private CheckBoxPreference mToggleVerifyApps;
     private CheckBoxPreference mPowerButtonInstantlyLocks;
+    private CheckBoxPreference mQuickInstall;
 
     private Preference mNotificationAccess;
 
@@ -369,6 +371,11 @@ public class SecuritySettings extends SettingsPreferenceFragment
                 mToggleVerifyApps.setEnabled(false);
             }
         }
+
+        // APP quick install
+        mQuickInstall = (CheckBoxPreference) findPreference(KEY_QUICK_INSTALL);
+        mQuickInstall.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.PACKAGE_INSTALLER_QUICK_MODE_ENABLED, 0) == 1);
 
         boolean isTelephony = pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
         if (isTelephony) {
@@ -655,6 +662,9 @@ public class SecuritySettings extends SettingsPreferenceFragment
         } else if (KEY_TOGGLE_VERIFY_APPLICATIONS.equals(key)) {
             Settings.Global.putInt(getContentResolver(), Settings.Global.PACKAGE_VERIFIER_ENABLE,
                     mToggleVerifyApps.isChecked() ? 1 : 0);
+        } else if (preference == mQuickInstall) {
+            Settings.System.putInt(getContentResolver(), Settings.System.PACKAGE_INSTALLER_QUICK_MODE_ENABLED,
+                    mQuickInstall.isChecked() ? 1 : 0);
         } else {
             // If we didn't handle it, let preferences handle it.
             return super.onPreferenceTreeClick(preferenceScreen, preference);

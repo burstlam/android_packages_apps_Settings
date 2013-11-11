@@ -47,6 +47,12 @@
                 android:fragment="com.android.settings.DeviceAdminSettings"/>
 
         <CheckBoxPreference
+                android:key="quickinstall"
+                android:title="@string/quick_mode_title"
+                android:summary="@string/quick_mode_summary"
+                android:defaultValue="false" />
+
+        <CheckBoxPreference
                 android:key="toggle_install_applications"
                 android:title="@string/install_applications"
                 android:summaryOff="@string/install_unknown_applications"

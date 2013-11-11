@@ -263,4 +263,8 @@
     <!-- Security & location settings screen, change unlock gesture screen countdown hint on bottom of screen after too many incorrect attempts -->
     <string name="lockgesture_too_many_failed_confirmation_attempts_footer">Try again in <xliff:g id="NUMBER">%d</xliff:g> seconds.</string>
 
+    <!-- Application Quick Install -->
+    <string name="quick_mode_title">Quick Install</string>
+    <string name="quick_mode_summary">Show smaller dialog to install/uninstall,install progress will be hiden to allow people install multiple app quickly</string>
+
 </resources>
