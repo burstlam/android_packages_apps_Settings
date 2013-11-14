@@ -521,4 +521,8 @@
     <string name="toggle_icon_color_on_summary">Sets color for activated toggle icons</string>
     <string name="toggle_icon_color_off_title">Color icons (off)</string>
     <string name="toggle_icon_color_off_summary">Sets color for not activated toggle icons</string>
+
+    <string name="button_headsethook_title">Headset</string>
+    <string name="button_headsethook_launch_voice_title">Headset launches voice</string>
+    <string name="button_headsethook_launch_voice_summary">Pressing the headset button will launch voice controls</string>
 </resources>

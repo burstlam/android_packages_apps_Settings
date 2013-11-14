@@ -43,6 +43,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String KEY_APP_SWITCH_LONG_PRESS = "hardware_keys_app_switch_long_press";
     private static final String KEY_BUTTON_BACKLIGHT = "button_backlight";
     private static final String KEY_SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
+    private static final String CATEGORY_HEADSETHOOK = "button_headsethook";
+    private static final String BUTTON_HEADSETHOOK_LAUNCH_VOICE = "button_headsethook_launch_voice";
 
     private static final String CATEGORY_HOME = "home_key";
     private static final String CATEGORY_MENU = "menu_key";
@@ -79,6 +81,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private ListPreference mAppSwitchLongPressAction;
     private CheckBoxPreference mShowActionOverflow;
     private CheckBoxPreference mSwapVolumeButtons;
+    private CheckBoxPreference mHeadsetHookLaunchVoice;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -216,6 +219,12 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         if (!backlight.isButtonSupported() && !backlight.isKeyboardSupported()) {
             prefScreen.removePreference(backlight);
         }
+
+	final PreferenceCategory headsethookCategory =
+                (PreferenceCategory) prefScreen.findPreference(CATEGORY_HEADSETHOOK);
+        mHeadsetHookLaunchVoice = (CheckBoxPreference) findPreference(BUTTON_HEADSETHOOK_LAUNCH_VOICE);
+        mHeadsetHookLaunchVoice.setChecked(Settings.System.getInt(resolver,
+                Settings.System.HEADSETHOOK_LAUNCH_VOICE, 1) == 1);
     }
 
     private ListPreference initActionList(String key, int value) {
@@ -267,6 +276,11 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         } else if (preference == mAppSwitchLongPressAction) {
             handleActionListChange(mAppSwitchLongPressAction, newValue,
                     Settings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION);
+            return true;
+	} else if (preference == mHeadsetHookLaunchVoice) {
+            boolean checked = ((CheckBoxPreference)preference).isChecked();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.HEADSETHOOK_LAUNCH_VOICE, checked ? 1:0);
             return true;
         }
 
