@@ -47,7 +47,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
     private static final String KEY_CLEAR_RECENTS_POSITION = "clear_recents_position";
 
-    private Preference mLcdDensity;
     private Preference mRamBar;
     private CheckBoxPreference mUseAltResolver;
     private CheckBoxPreference mHighEndGfx;
@@ -55,10 +54,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
     private ListPreference mClearPosition;
-
-    private int newDensityValue;
-
-    DensityChanger densityFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,16 +76,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         mClearPosition.setValue(String.valueOf(ClearSide));
         mClearPosition.setSummary(mClearPosition.getEntry());
         mClearPosition.setOnPreferenceChangeListener(this);
-
-        mLcdDensity = findPreference("lcd_density_setup");
-        mLcdDensity.setOnPreferenceChangeListener(this);
-        String currentProperty = SystemProperties.get("ro.sf.lcd_density");
-        try {
-            newDensityValue = Integer.parseInt(currentProperty);
-        } catch (Exception e) {
-            prefs.removePreference(mLcdDensity);
-        }
-        mLcdDensity.setSummary(getResources().getString(R.string.current_lcd_density) + currentProperty);
 
         mHighEndGfx = (CheckBoxPreference) findPreference(PREF_HIGH_END_GFX);
         mHighEndGfx.setOnPreferenceChangeListener(this);
