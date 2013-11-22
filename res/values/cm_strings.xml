@@ -252,4 +252,13 @@
     <string name="adaptive_backlight_title">Adaptive backlight</string>
     <string name="adaptive_backlight_summary">Intelligently vary the backlight brightness of the display and help maximize battery life</string>
 
+    <!-- Performance Settings : Performance profile settings -->
+    <string name="perf_profile_title">Profile</string>
+    <string name="perf_profile_summary" translatable="false">%s</string>
+
+    <!-- Performance Settings : Performance profile modes -->
+    <string name="perf_profile_pwrsv">Power save</string>
+    <string name="perf_profile_bal">Balanced</string>
+    <string name="perf_profile_perf">Performance</string>
+
 </resources>
