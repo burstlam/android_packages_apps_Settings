@@ -30,6 +30,8 @@
 
     <!-- Slim settings screens -->
     <string name="interface_settings_title">Interface</string>
+    <string name="navigation_settings_title">Navigation</string>
+    <string name="slim_center_title">SlimCenter</string>
 
     <!-- Color Picker -->
     <string name="dialog_color_picker">Color Picker</string>
@@ -356,6 +358,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="shortcut_action_kill">Kill app</string>
     <string name="shortcut_action_power">Screen Off</string>
     <string name="shortcut_action_notifications">Notifications</string>
+    <string name="shortcut_action_menu_big">Menu</string>
     <string name="shortcut_action_qs">Quicksettings panel</string>
     <string name="shortcut_action_none">None</string>
     <string name="shortcut_action_power_menu">Power menu</string>
@@ -494,7 +497,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <!-- Navigation settings -->
     <string name="navigation_settings_options_title">Navigation options</string>
-    <string name="navigation_settings_title">Navigation</string>
     <string name="power_menu_title">Global menu</string>
 
     <!-- Power menu -->
