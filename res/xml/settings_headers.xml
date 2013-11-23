@@ -75,7 +75,7 @@
         android:fragment="com.android.settings.slim.NavigationSettings"
         android:title="@string/navigation_settings_title" />
 
-    <!-- SlimCenter -->
+    <!-- SlimCenter
     <header
         android:id="@+id/slim_center"
         android:title="@string/slim_center_title"
@@ -84,7 +84,7 @@
             android:action="android.intent.action.MAIN"
             android:targetPackage="com.slim.ota"
             android:targetClass="com.slim.center.SlimCenter" />
-    </header>
+    </header> -->
 
     <!-- DEVICE -->
     <header android:id="@+id/device_section"
