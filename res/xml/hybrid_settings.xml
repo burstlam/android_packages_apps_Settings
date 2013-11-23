@@ -19,8 +19,8 @@
 
         <ListPreference
             android:key="apps_ui_mode"
-            android:entries="@array/uimode_entries"
-            android:entryValues="@array/uimode_values"
+            android:entries="@array/layout_uimode_entries"
+            android:entryValues="@array/layout_uimode_values"
             android:title="@string/appsuimode_title" />
 
         <Preference
