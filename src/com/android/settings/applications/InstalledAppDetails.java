@@ -142,7 +142,7 @@ public class InstalledAppDetails extends Fragment
     private Button mForceStopButton;
     private Button mClearDataButton;
     private Button mMoveAppButton;
-    private CompoundButton mNotificationSwitch;
+    private CompoundButton mNotificationSwitch, mSwipeBackState;
     private Button mAppOpsButton;
 
     private PackageMoveObserver mPackageMoveObserver;
@@ -399,6 +399,8 @@ public class InstalledAppDetails extends Fragment
             // this does not bode well
         }
         mNotificationSwitch.setChecked(enabled);
+        mSwipeBackState.setChecked(!Activity.isAllowedForSwipeBack(mAppEntry.info.packageName));
+        mSwipeBackState.setOnCheckedChangeListener(this);
         if (isThisASystemPackage()) {
             mNotificationSwitch.setEnabled(false);
         } else {
@@ -496,6 +498,7 @@ public class InstalledAppDetails extends Fragment
         mEnableCompatibilityCB = (CheckBox)view.findViewById(R.id.enable_compatibility_cb);
         
         mNotificationSwitch = (CompoundButton) view.findViewById(R.id.notification_switch);
+        mSwipeBackState = (CompoundButton) view.findViewById(R.id.swipe_back_state);
 
         mAppOps = (AppOpsManager) getActivity().getSystemService(Context.APP_OPS_SERVICE);
         mAppOpsButton = (Button) view.findViewById(R.id.app_ops_button);
@@ -1331,6 +1334,10 @@ public class InstalledAppDetails extends Fragment
         }
     }
 
+    private void setSwipeBackState(boolean state) {
+        Activity.setSwipeBackBlacklistStatus(mAppEntry.info.packageName, state);
+    }
+
     private int getPremiumSmsPermission(String packageName) {
         try {
             if (mSmsManager != null) {
@@ -1440,6 +1447,8 @@ public class InstalledAppDetails extends Fragment
             } else {
                 setNotificationsEnabled(true);
             }
+        } else if (buttonView == mSwipeBackState) {
+            setSwipeBackState(isChecked);
         }
     }
 }
