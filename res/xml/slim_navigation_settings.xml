@@ -37,4 +37,9 @@
             <extra android:name="fragment" android:value="com.android.settings.slim.fragments.PowerMenuFragment" />
     </PreferenceScreen>
 
+    <PreferenceScreen
+        android:fragment="com.android.settings.swipe.SwipeBackLayout"
+        android:key="swipe_back_layout_settings"
+        android:title="@string/title_swipe_back_layout" />
+
 </PreferenceScreen>

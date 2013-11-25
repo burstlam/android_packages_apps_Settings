@@ -143,7 +143,7 @@ public class InstalledAppDetails extends Fragment
     private Button mForceStopButton;
     private Button mClearDataButton;
     private Button mMoveAppButton;
-    private CompoundButton mNotificationSwitch, mPrivacyGuardSwitch, mHaloState;
+    private CompoundButton mNotificationSwitch, mPrivacyGuardSwitch, mHaloState, mSwipeBackState;
 
     private PackageMoveObserver mPackageMoveObserver;
     private AppOpsManager mAppOps;
@@ -408,6 +408,8 @@ public class InstalledAppDetails extends Fragment
             mNotificationSwitch.setEnabled(true);
             mNotificationSwitch.setOnCheckedChangeListener(this);
         }
+        mSwipeBackState.setChecked(!Activity.isAllowedForSwipeBack(mAppEntry.info.packageName));
+        mSwipeBackState.setOnCheckedChangeListener(this);
     }
 
     private void initPrivacyGuardButton() {
@@ -509,6 +511,8 @@ public class InstalledAppDetails extends Fragment
 
         mHaloState = (CompoundButton) view.findViewById(R.id.halo_state);
         mHaloState.setText((mHaloPolicyIsBlack ? R.string.app_halo_label_black : R.string.app_halo_label_white));
+
+        mSwipeBackState = (CompoundButton) view.findViewById(R.id.swipe_back_state);
 
         return view;
     }
@@ -1396,6 +1400,10 @@ public class InstalledAppDetails extends Fragment
         }
     }
 
+    private void setSwipeBackState(boolean state) {
+        Activity.setSwipeBackBlacklistStatus(mAppEntry.info.packageName, state);
+    }
+
     private int getPremiumSmsPermission(String packageName) {
         try {
             if (mSmsManager != null) {
@@ -1507,6 +1515,8 @@ public class InstalledAppDetails extends Fragment
             }
         } else if (buttonView == mHaloState) {
             setHaloState(isChecked);
+        } else if (buttonView == mSwipeBackState) {
+            setSwipeBackState(isChecked);
         }
     }
 }
