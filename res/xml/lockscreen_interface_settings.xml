@@ -17,6 +17,12 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/themes_settings_title" >
 
+    <PreferenceScreen
+        android:key="active_display"
+        android:fragment="com.android.settings.chameleonos.ActiveDisplaySettings"
+        android:title="@string/ad_settings_title"
+        android:summary="@string/ad_settings_summary" />
+
     <PreferenceCategory
         android:title="@string/lockscreen_widgets_category_title"
         android:key="lockscreen_widgets_category" >
