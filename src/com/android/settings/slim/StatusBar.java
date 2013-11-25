@@ -32,6 +32,7 @@ import android.util.Log;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 import com.android.internal.util.slim.DeviceUtils;
 
@@ -41,9 +42,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String KEY_STATUS_BAR_CLOCK = "clock_style_pref";
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
+    private static final String STATUS_BAR_NETWORK_STATS = "status_bar_show_network_stats";
+    private static final String STATUS_BAR_NETWORK_STATS_UPDATE = "status_bar_network_status_update";
 
     private PreferenceScreen mClockStyle;
     private CheckBoxPreference mStatusBarBrightnessControl;
+    private ListPreference mNetStatsUpdate;
+    private ColorPickerPreference mNetStatsColorPicker;
+    private CheckBoxPreference mNetworkStats;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,32 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                             Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
         mStatusBarBrightnessControl.setOnPreferenceChangeListener(this);
 
+        mNetworkStats = (CheckBoxPreference) findPreference(STATUS_BAR_NETWORK_STATS);
+        mNetworkStats.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_STATS, 0) == 1));
+
+        mNetStatsColorPicker = (ColorPickerPreference) findPreference("status_bar_network_status_color");
+        mNetStatsColorPicker.setOnPreferenceChangeListener(this);
+
+        mNetStatsUpdate = (ListPreference) findPreference(STATUS_BAR_NETWORK_STATS_UPDATE);
+        long statsUpdate = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, 500);
+        mNetStatsUpdate.setValue(String.valueOf(statsUpdate));
+        mNetStatsUpdate.setSummary(mNetStatsUpdate.getEntry());
+        mNetStatsUpdate.setOnPreferenceChangeListener(this);
+
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
+                                         Preference preference) {
+        if (preference == mNetworkStats) {
+            boolean value = mNetworkStats.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS, value ? 1 : 0);
+            return true;
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -76,6 +108,22 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL,
                     (Boolean) newValue ? 1 : 0);
+            return true;
+        } else if (preference == mNetStatsUpdate) {
+            long updateInterval = Long.valueOf((String) newValue);
+            int index = mNetStatsUpdate.findIndexOfValue((String) newValue);
+            Settings.System.putLong(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, updateInterval);
+            mNetStatsUpdate.setSummary(mNetStatsUpdate.getEntries()[index]);
+            return true;
+        } else if (preference == mNetStatsColorPicker) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
+                    .valueOf(newValue)));
+            preference.setSummary(hex);
+
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS_TEXT_COLOR, intHex);
             return true;
         }
         return false;
