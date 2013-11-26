@@ -29,7 +29,6 @@ import android.provider.Settings;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.slim.SeekBarPreference;
-import com.android.settings.util.CMDProcessor;
 
 public class AppSidebar extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -165,7 +164,6 @@ public class AppSidebar extends SettingsPreferenceFragment implements
         mPositionPref.setSummary(mPositionPref.getEntries()[mPositionPref.findIndexOfValue("" + value)]);
         Settings.System.putInt(getContentResolver(),
                 Settings.System.APP_SIDEBAR_POSITION, value);
-        CMDProcessor.restartSystemUI();
     }
 
     @Override
