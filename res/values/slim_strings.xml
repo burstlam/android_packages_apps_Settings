@@ -27,6 +27,7 @@
 
     <!-- Settings main menu category heading. Rom (Launcher, Themes, System). [CHAR LIMIT=40] -->
     <string name="header_category_rom_settings">Advanced settings</string>
+    <string name="performance_settings_title">Performance</string>
 
     <!-- Slim settings screens -->
     <string name="interface_settings_title">Interface</string>
