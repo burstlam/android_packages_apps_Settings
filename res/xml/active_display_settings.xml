@@ -68,13 +68,13 @@
         android:entryValues="@array/ad_redisplay_values"
         android:dependency="ad_enable"/>
 
-    <ListPreference
-        android:key="ad_displayactive"
+     <ListPreference
+        android:key="ad_timeout"
         android:persistent="false"
-        android:dialogTitle="@string/ad_displayactive_title"
-        android:title="@string/ad_displayactive_title"
-        android:entries="@array/ad_displayactive_entries"
-        android:entryValues="@array/ad_displayactive_values"
+        android:dialogTitle="@string/ad_timeout_title"
+        android:title="@string/ad_timeout_title"
+        android:entries="@array/ad_timeout_entries"
+        android:entryValues="@array/ad_timeout_values"
         android:dependency="ad_enable"/>
 
     <PreferenceCategory
