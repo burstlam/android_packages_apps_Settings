@@ -71,6 +71,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String KEY_OWNER_INFO_SETTINGS = "owner_info_settings";
     private static final String LOCK_NUMPAD_RANDOM = "lock_numpad_random";
     private static final String LOCK_BEFORE_UNLOCK = "lock_before_unlock";
+    private static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL = "quick_unlock_control";
 
     private static final int SET_OR_CHANGE_LOCK_METHOD_REQUEST = 123;
     private static final int CONFIRM_EXISTING_FOR_BIOMETRIC_WEAK_IMPROVE_REQUEST = 124;
@@ -102,6 +103,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private ListPreference mLockAfter;
     private ListPreference mLockNumpadRandom;
     private CheckBoxPreference mLockBeforeUnlock;
+    private CheckBoxPreference mQuickUnlockScreen;
 
     private CheckBoxPreference mBiometricWeakLiveliness;
     private CheckBoxPreference mVisiblePattern;
@@ -268,6 +270,14 @@ public class SecuritySettings extends RestrictedSettingsFragment
                     Settings.Secure.getInt(getContentResolver(),
                     Settings.Secure.LOCK_BEFORE_UNLOCK, 0) == 1);
             mLockBeforeUnlock.setOnPreferenceChangeListener(this);
+        }
+
+        // Quick Unlock Screen Control
+        mQuickUnlockScreen = (CheckBoxPreference) root
+                .findPreference(LOCKSCREEN_QUICK_UNLOCK_CONTROL);
+        if (mQuickUnlockScreen != null) {
+            mQuickUnlockScreen.setChecked(Settings.System.getInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL, 0) == 1);
         }
 
         // Append the rest of the settings
@@ -620,6 +630,10 @@ public class SecuritySettings extends RestrictedSettingsFragment
         } else if (KEY_TOGGLE_VERIFY_APPLICATIONS.equals(key)) {
             Settings.Global.putInt(getContentResolver(), Settings.Global.PACKAGE_VERIFIER_ENABLE,
                     mToggleVerifyApps.isChecked() ? 1 : 0);
+        } else if (preference == mQuickUnlockScreen) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_QUICK_UNLOCK_CONTROL,
+                    isToggled(preference) ? 1 : 0);
         } else {
             // If we didn't handle it, let preferences handle it.
             return super.onPreferenceTreeClick(preferenceScreen, preference);
