@@ -37,9 +37,13 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
 
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
+    private static final String RECENT_MENU_CLEAR_ALL = "recent_menu_clear_all";
+    private static final String RECENT_MENU_CLEAR_ALL_LOCATION = "recent_menu_clear_all_location";
 
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
+    private CheckBoxPreference mRecentClearAll;
+    private ListPreference mRecentClearAllPosition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,17 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
              mListViewInterpolator.setValue(listViewInterpolator);
         }
         mListViewInterpolator.setOnPreferenceChangeListener(this);
+
+        mRecentClearAll = (CheckBoxPreference) prefSet.findPreference(RECENT_MENU_CLEAR_ALL);
+        mRecentClearAll.setChecked(Settings.System.getInt(resolver,
+            Settings.System.SHOW_CLEAR_RECENTS_BUTTON, 1) == 1);
+        mRecentClearAll.setOnPreferenceChangeListener(this);
+        mRecentClearAllPosition = (ListPreference) prefSet.findPreference(RECENT_MENU_CLEAR_ALL_LOCATION);
+        String recentClearAllPosition = Settings.System.getString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION);
+        if (recentClearAllPosition != null) {
+             mRecentClearAllPosition.setValue(recentClearAllPosition);
+        }
+        mRecentClearAllPosition.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -80,6 +95,12 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         } else if (preference == mListViewInterpolator) {
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.LISTVIEW_INTERPOLATOR, value);
+        } else if (preference == mRecentClearAll) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(resolver, Settings.System.SHOW_CLEAR_RECENTS_BUTTON, value ? 1 : 0);
+        } else if (preference == mRecentClearAllPosition) {
+            String value = (String) newValue;
+            Settings.System.putString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION, value);
         } else {
             return false;
         }
