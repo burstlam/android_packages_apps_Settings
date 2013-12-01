@@ -81,6 +81,11 @@
             android:key="category_recent_panel"
             android:title="@string/recent_panel_category_title"/>
 
+    <PreferenceScreen
+            android:key="recents_ram_bar"
+            android:fragment="com.android.settings.slim.RamBar"
+            android:title="@string/ram_bar" />
+
     <CheckBoxPreference
             android:key="recent_menu_clear_all"
             android:title="@string/show_recent_clear_all_button_title"

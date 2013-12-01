@@ -39,11 +39,14 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
     private static final String RECENT_MENU_CLEAR_ALL = "recent_menu_clear_all";
     private static final String RECENT_MENU_CLEAR_ALL_LOCATION = "recent_menu_clear_all_location";
+    private static final String KEY_RECENTS_RAM_BAR = "recents_ram_bar";
 
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
+
+    private Preference mRamBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,9 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
 
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
+
+        mRamBar = findPreference(KEY_RECENTS_RAM_BAR);
+        updateRamBar();
 
         mListViewAnimation = (ListPreference) findPreference(KEY_LISTVIEW_ANIMATION);
         String listViewAnimation = Settings.System.getString(resolver, Settings.System.LISTVIEW_ANIMATION);
@@ -82,9 +88,25 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         mRecentClearAllPosition.setOnPreferenceChangeListener(this);
     }
 
+    private void updateRamBar() {
+        int ramBarMode = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.RECENTS_RAM_BAR_MODE, 0);
+        if (ramBarMode != 0)
+            mRamBar.setSummary(getResources().getString(R.string.ram_bar_color_enabled));
+        else
+            mRamBar.setSummary(getResources().getString(R.string.ram_bar_color_disabled));
+    }
+
     @Override
     public void onResume() {
         super.onResume();
+        updateRamBar();
+    }
+
+    @Override
+    public void onPause() {
+        super.onResume();
+        updateRamBar();
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -107,3 +129,4 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         return true;
     }
 }
+
