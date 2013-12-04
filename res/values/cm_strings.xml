@@ -454,4 +454,8 @@
 
     <!-- Delete apn confirmation dialog message -->
     <string name="confirm_delete_apn">The APN will be deleted.</string>
+
+    <!-- AOSP dummy strings -->
+    <string name="experimental_webview"></string>
+    <string name="experimental_webview_summary"></string>
 </resources>
