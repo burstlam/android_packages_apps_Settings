@@ -542,6 +542,13 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="quiet_hours_alarm_dialog_title">QUIETHOURS BYPASSED</string>
     <string name="quiet_hours_alarm_message">" met the requirements to bypass Quiet Hours!"</string>
 
+    <!-- Ringer mute options -->
+    <string name="quiet_hours_ringer">Phone ringer</string>
+    <string name="quiet_hours_ringer_allow_all">Ring for all callers</string>
+    <string name="quiet_hours_ringer_allow_contacts">Ring for all contacts</string>
+    <string name="quiet_hours_ringer_allow_starred">Ring for favorite contacts</string>
+    <string name="quiet_hours_ringer_mute_all">Mute ringer for all callers</string>
+
     <!-- time range preference -->
     <string name="start_time_title">Start</string>
     <string name="end_time_title">End</string>
