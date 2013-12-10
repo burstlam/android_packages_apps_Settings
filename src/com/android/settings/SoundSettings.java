@@ -21,10 +21,12 @@ import com.android.settings.bluetooth.DockEventReceiver;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -39,6 +41,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemProperties;
 import android.os.Vibrator;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -60,6 +63,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String TAG = "SoundSettings";
 
     private static final int DIALOG_NOT_DOCKED = 1;
+    private static final int DLG_CAMERA_SOUND = 1;
 
     /** If there is no setting in the provider, use this. */
     private static final int FALLBACK_EMERGENCY_TONE_VALUE = 0;
@@ -87,6 +91,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_POWER_NOTIFICATIONS_VIBRATE = "power_notifications_vibrate";
     private static final String KEY_POWER_NOTIFICATIONS_RINGTONE = "power_notifications_ringtone";
 
+    private static final String KEY_CAMERA_SOUNDS = "camera_sounds";
+    private static final String PROP_CAMERA_SOUND = "persist.sys.camera-sound";
+
     private static final String[] NEED_VOICE_CAPABILITY = {
             KEY_RINGTONE, KEY_DTMF_TONE, KEY_CATEGORY_CALLS,
             KEY_EMERGENCY_TONE, KEY_INCREASING_RING, KEY_VIBRATE
@@ -102,6 +109,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String POWER_NOTIFICATIONS_SILENT_URI = "silent";
 
     private CheckBoxPreference mVibrateWhenRinging;
+    private CheckBoxPreference mCameraSounds;
     private CheckBoxPreference mDtmfTone;
     private CheckBoxPreference mSoundEffects;
     private CheckBoxPreference mHapticFeedback;
@@ -181,6 +189,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else {
             mQuietHours.setSummary(getString(R.string.quiet_hours_summary));
         }
+
+        mCameraSounds = (CheckBoxPreference) findPreference(KEY_CAMERA_SOUNDS);
+        mCameraSounds.setPersistent(false);
+        mCameraSounds.setChecked(SystemProperties.getBoolean(PROP_CAMERA_SOUND, true));
+        mCameraSounds.setOnPreferenceChangeListener(this);
 
         mVibrateWhenRinging = (CheckBoxPreference) findPreference(KEY_VIBRATE);
         mVibrateWhenRinging.setPersistent(false);
@@ -450,7 +463,13 @@ public class SoundSettings extends SettingsPreferenceFragment implements
                 Log.e(TAG, "could not persist emergency tone setting", e);
             }
         }
-
+        if (KEY_CAMERA_SOUNDS.equals(key)) {
+            if ((Boolean) objValue) {
+                SystemProperties.set(PROP_CAMERA_SOUND, "1");
+            } else {
+                showDialogInner(DLG_CAMERA_SOUND);
+            }
+        }
         return true;
     }
 
@@ -468,6 +487,62 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         cal.set(Calendar.MINUTE, mn);
         Date date = cal.getTime();
         return DateFormat.getTimeFormat(getActivity().getApplicationContext()).format(date);
+    }
+
+    private void showDialogInner(int id) {
+        DialogFragment newFragment = MyAlertDialogFragment.newInstance(id);
+        newFragment.setTargetFragment(this, 0);
+        newFragment.show(getFragmentManager(), "dialog " + id);
+    }
+
+    public static class MyAlertDialogFragment extends DialogFragment {
+
+        public static MyAlertDialogFragment newInstance(int id) {
+            MyAlertDialogFragment frag = new MyAlertDialogFragment();
+            Bundle args = new Bundle();
+            args.putInt("id", id);
+            frag.setArguments(args);
+            return frag;
+        }
+
+        SoundSettings getOwner() {
+            return (SoundSettings) getTargetFragment();
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int id = getArguments().getInt("id");
+            switch (id) {
+                case DLG_CAMERA_SOUND:
+                    return new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.attention)
+                    .setMessage(R.string.camera_sound_warning_dialog_text)
+                    .setPositiveButton(R.string.dlg_ok,
+                        new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            SystemProperties.set(PROP_CAMERA_SOUND, "0");
+                        }
+                    })
+                    .setNegativeButton(R.string.dlg_cancel,
+                        new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    })
+                    .create();
+            }
+            throw new IllegalArgumentException("unknown id " + id);
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            int id = getArguments().getInt("id");
+            switch (id) {
+                case DLG_CAMERA_SOUND:
+                    getOwner().mCameraSounds.setChecked(true);
+                    break;
+            }
+        }
     }
 
     @Override
