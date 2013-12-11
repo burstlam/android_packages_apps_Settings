@@ -297,4 +297,13 @@
     <string name="listview_anticipate_overshoot_interpolator">anticipate_overshoot_interpolator</string>
     <string name="listview_bounce_interpolator">bounce_interpolator</string>
 
+    <!-- Statusbar netstat -->
+    <string name="status_bar_network_title">Network traffic</string>
+    <string name="status_bar_show_network_stats_title">Show network speeds</string>
+    <string name="status_bar_network_stats_update_title">Update frequency</string>
+    <string name="status_bar_network_stats_color_title">Network speeds text color</string>
+    <string name="time_0_5_seconds">0.5 s</string>
+    <string name="time_1_second">1 s</string>
+    <string name="time_2_seconds">2 s</string>
+    <string name="time_5_seconds">5 s</string>
 </resources>
