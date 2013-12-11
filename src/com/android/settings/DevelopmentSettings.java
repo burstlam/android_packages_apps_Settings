@@ -137,6 +137,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private static final String DEBUG_DEBUGGING_CATEGORY_KEY = "debug_debugging_category";
     private static final String DEBUG_APPLICATIONS_CATEGORY_KEY = "debug_applications_category";
     private static final String WIFI_DISPLAY_CERTIFICATION_KEY = "wifi_display_certification";
+    private static final String PREF_MEDIA_SCANNER_ON_BOOT = "media_scanner_on_boot";
 
     private static final String OPENGL_TRACES_KEY = "enable_opengl_traces";
 
@@ -213,6 +214,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private ListPreference mAnimatorDurationScale;
     private ListPreference mOverlayDisplayDevices;
     private ListPreference mOpenGLTraces;
+    private ListPreference mMsob;
 
     private CheckBoxPreference mImmediatelyDestroyActivities;
     private ListPreference mAppProcessLimit;
@@ -368,6 +370,12 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         if (!removeRootOptionsIfRequired()) {
             mAllPrefs.add(mRootAccess);
         }
+
+        mMsob = (ListPreference) findPreference(PREF_MEDIA_SCANNER_ON_BOOT);
+        mMsob.setValue(String.valueOf(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.MEDIA_SCANNER_ON_BOOT, 0)));
+        mMsob.setSummary(mMsob.getEntry());
+        mMsob.setOnPreferenceChangeListener(this);
 
         mDevelopmentTools = (PreferenceScreen) findPreference(DEVELOPMENT_TOOLS);
         mAllPrefs.add(mDevelopmentTools);
@@ -1502,6 +1510,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        String value = (String) newValue;
         if (SELECT_RUNTIME_KEY.equals(preference.getKey())) {
             final String oldRuntimeValue = VMRuntime.getRuntime().vmLibrary();
             final String newRuntimeValue = newValue.toString();
@@ -1560,6 +1569,14 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             return true;
         } else if (preference == mAppProcessLimit) {
             writeAppProcessLimitOptions(newValue);
+            return true;
+        } else if (preference == mMsob) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.MEDIA_SCANNER_ON_BOOT,
+                    Integer.valueOf(value));
+
+            mMsob.setValue(String.valueOf(value));
+            mMsob.setSummary(mMsob.getEntry());
             return true;
         } else if (preference == mRootAccess) {
             if ("0".equals(SystemProperties.get(ROOT_ACCESS_PROPERTY, "1"))
