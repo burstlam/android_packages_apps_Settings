@@ -57,4 +57,15 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="advanced_settings_options_prefs"
+        android:title="@string/advanced_options_settings_title">
+
+    <PreferenceScreen
+        android:key="app_sidebar"
+        android:fragment="com.android.settings.chameleonos.AppSidebar"
+        android:title="@string/app_sidebar_title" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
