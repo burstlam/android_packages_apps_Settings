@@ -54,8 +54,6 @@
             android:fragment="com.android.settings.chameleonos.AppSidebar"
             android:title="@string/app_sidebar_title" />
 
-        </PreferenceScreen>
-
     </PreferenceCategory>
 
 </PreferenceScreen>
