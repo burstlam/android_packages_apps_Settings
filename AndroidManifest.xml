@@ -1773,11 +1773,11 @@
 
         <activity android:name=".cyanogenmod.LockscreenInterface" />
 
+        <activity android:name=".slim.NotificationDrawerStyle" />
+
         <activity android:name=".notificationlight.NotificationLightSettings" />
 
         <activity android:name=".notificationlight.BatteryLightSettings" />
-
-        <activity android:name=".cyanogenmod.LockscreenInterface" />
 
          <!-- "Blacklist settings" UI, used only on voice-capable phone devices. -->
         <activity android:name="Settings$BlacklistSettingsActivity"

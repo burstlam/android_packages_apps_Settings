@@ -19,7 +19,7 @@
     android:title="@string/notification_drawer_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
-    <Preference
+    <PreferenceScreen
          android:fragment="com.android.settings.slim.NotificationDrawerStyle"
          android:key="notification_style"
          android:title="@string/notification_style_title"
