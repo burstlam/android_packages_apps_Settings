@@ -39,8 +39,14 @@ public class LockscreenInterface extends SettingsPreferenceFragment {
 
     private static final String KEY_ENABLE_WIDGETS = "keyguard_enable_widgets";
     private static final String LOCKSCREEN_WIDGETS_CATEGORY = "lockscreen_widgets_category";
+    private static final String KEY_LOCKSCREEN_CAMERA_WIDGET = "lockscreen_camera_widget";
+    private static final String KEY_LOCKSCREEN_DISABLE_HINTS = "lockscreen_disable_hints";
+    private static final String PREF_LOCKSCREEN_USE_CAROUSEL = "lockscreen_use_widget_container_carousel";
 
     private CheckBoxPreference mEnableKeyguardWidgets;
+    private CheckBoxPreference mCameraWidget;
+    private CheckBoxPreference mLockscreenHints;
+    private CheckBoxPreference mLockscreenUseCarousel;
 
     private ChooseLockSettingsHelper mChooseLockSettingsHelper;
     private DevicePolicyManager mDPM;
@@ -94,6 +100,34 @@ public class LockscreenInterface extends SettingsPreferenceFragment {
                 mEnableKeyguardWidgets.setEnabled(!disabled);
             }
         }
+
+        final boolean cameraDefault = keyguardResources != null
+                ? keyguardResources.getBoolean(keyguardResources.getIdentifier(
+                "com.android.keyguard:bool/kg_enable_camera_default_widget", null, null)) : false;
+
+        DevicePolicyManager dpm = (DevicePolicyManager)getSystemService(
+                Context.DEVICE_POLICY_SERVICE);
+        mCameraWidget = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_CAMERA_WIDGET);
+        if (dpm.getCameraDisabled(null)
+                || (dpm.getKeyguardDisabledFeatures(null)
+                    & DevicePolicyManager.KEYGUARD_DISABLE_SECURE_CAMERA) != 0) {
+            prefSet.removePreference(mCameraWidget);
+        } else {
+            mCameraWidget.setChecked(Settings.System.getInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_CAMERA_WIDGET, cameraDefault ? 1 : 0) == 1);
+            mCameraWidget.setOnPreferenceChangeListener(this);
+        }
+
+
+        mLockscreenHints = (CheckBoxPreference)findPreference(KEY_LOCKSCREEN_DISABLE_HINTS);
+        mLockscreenHints.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_DISABLE_HINTS, 1) == 1);
+        mLockscreenHints.setOnPreferenceChangeListener(this);
+
+        mLockscreenUseCarousel = (CheckBoxPreference)findPreference(PREF_LOCKSCREEN_USE_CAROUSEL);
+        mLockscreenUseCarousel.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_USE_WIDGET_CONTAINER_CAROUSEL, 0) == 1);
+        mLockscreenUseCarousel.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -103,6 +137,26 @@ public class LockscreenInterface extends SettingsPreferenceFragment {
         if (mEnableKeyguardWidgets != null) {
             mEnableKeyguardWidgets.setChecked(lockPatternUtils.getWidgetsEnabled());
         }
+    }
+
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mCameraWidget) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_CAMERA_WIDGET,
+                    (Boolean) newValue ? 1 : 0);
+            return true;
+        } else if (preference == mLockscreenHints) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_DISABLE_HINTS,
+                    (Boolean) newValue ? 1 : 0);
+            return true;
+        } else if (preference == mLockscreenUseCarousel) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_USE_WIDGET_CONTAINER_CAROUSEL,
+                    (Boolean) newValue ? 1 : 0);
+            return true;
+        }
+        return false;
     }
 
     @Override
