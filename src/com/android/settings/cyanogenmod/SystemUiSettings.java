@@ -44,12 +44,16 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
     private static final String RECENT_MENU_CLEAR_ALL = "recent_menu_clear_all";
     private static final String RECENT_MENU_CLEAR_ALL_LOCATION = "recent_menu_clear_all_location";
     private static final String KEY_RECENTS_RAM_BAR = "recents_ram_bar";
+    private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
+    private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
 
     private ListPreference mExpandedDesktopPref;
     private CheckBoxPreference mExpandedDesktopNoNavbarPref;
 
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
+    private ListPreference mListViewAnimation;
+    private ListPreference mListViewInterpolator;
 
     private Preference mRamBar;
 
@@ -59,6 +63,8 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
 
         addPreferencesFromResource(R.xml.system_ui_settings);
         PreferenceScreen prefScreen = getPreferenceScreen();
+        PreferenceScreen prefSet = getPreferenceScreen();
+        ContentResolver resolver = getActivity().getContentResolver();
 
         mRamBar = findPreference(KEY_RECENTS_RAM_BAR);
         updateRamBar();
@@ -94,6 +100,21 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
             Log.e(TAG, "Error getting navigation bar status");
         }
 
+        //ListView Animations
+        mListViewAnimation = (ListPreference) findPreference(KEY_LISTVIEW_ANIMATION);
+        String listViewAnimation = Settings.System.getString(resolver, Settings.System.LISTVIEW_ANIMATION);
+        if (listViewAnimation != null) {
+             mListViewAnimation.setValue(listViewAnimation);
+        }
+        mListViewAnimation.setOnPreferenceChangeListener(this);
+
+        mListViewInterpolator = (ListPreference) findPreference(KEY_LISTVIEW_INTERPOLATOR);
+        String listViewInterpolator = Settings.System.getString(resolver, Settings.System.LISTVIEW_INTERPOLATOR);
+        if (listViewInterpolator != null) {
+             mListViewInterpolator.setValue(listViewInterpolator);
+        }
+        mListViewInterpolator.setOnPreferenceChangeListener(this);
+
         mRecentClearAll = (CheckBoxPreference) prefSet.findPreference(RECENT_MENU_CLEAR_ALL);
         mRecentClearAll.setChecked(Settings.System.getInt(resolver,
             Settings.System.SHOW_CLEAR_RECENTS_BUTTON, 1) == 1);
@@ -128,6 +149,7 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
+        ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mExpandedDesktopPref) {
             int expandedDesktopValue = Integer.valueOf((String) objValue);
             updateExpandedDesktop(expandedDesktopValue);
@@ -143,6 +165,14 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
         } else if (preference == mRecentClearAllPosition) {
             String value = (String) objValue;
             Settings.System.putString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION, value);
+            return true;
+        } else if (preference == mListViewAnimation) {
+            String value = (String) objValue;
+            Settings.System.putString(resolver, Settings.System.LISTVIEW_ANIMATION, value);
+            return true;
+        } else if (preference == mListViewInterpolator) {
+            String value = (String) objValue;
+            Settings.System.putString(resolver, Settings.System.LISTVIEW_INTERPOLATOR, value);
             return true;
         }
 
