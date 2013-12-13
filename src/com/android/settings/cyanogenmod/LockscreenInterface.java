@@ -20,10 +20,13 @@ import android.app.ActivityManager;
 import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.UserHandle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -34,7 +37,9 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
-public class LockscreenInterface extends SettingsPreferenceFragment {
+public class LockscreenInterface extends SettingsPreferenceFragment
+        implements OnPreferenceChangeListener {
+
     private static final String TAG = "LockscreenInterface";
 
     private static final String KEY_ENABLE_WIDGETS = "keyguard_enable_widgets";
@@ -55,6 +60,8 @@ public class LockscreenInterface extends SettingsPreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PreferenceScreen prefSet = getPreferenceScreen();
 
         mChooseLockSettingsHelper = new ChooseLockSettingsHelper(getActivity());
         mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -99,6 +106,14 @@ public class LockscreenInterface extends SettingsPreferenceFragment {
                 }
                 mEnableKeyguardWidgets.setEnabled(!disabled);
             }
+        }
+
+        Resources keyguardResources = null;
+        PackageManager pm = getPackageManager();
+        try {
+            keyguardResources = pm.getResourcesForApplication("com.android.keyguard");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         final boolean cameraDefault = keyguardResources != null
