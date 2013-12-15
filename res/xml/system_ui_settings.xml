@@ -19,6 +19,24 @@
     android:title="@string/system_interface_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+
+    <PreferenceCategory
+        android:key="advanced_settings_options_prefs"
+        android:title="@string/advanced_options_settings_title">
+
+        <PreferenceScreen
+        	android:key="lcd_density_setup"
+            android:fragment="com.android.settings.cyanogenmod.fragments.DensityChanger"
+            android:title="@string/lcd_density_title"
+            android:summary="@string/lcd_density_summary" />
+
+    </PreferenceCategory>
+
+        <PreferenceScreen
+            android:key="app_sidebar"
+            android:fragment="com.android.settings.chameleonos.AppSidebar"
+            android:title="@string/app_sidebar_title" />
+
     <PreferenceScreen
         android:key="status_bar"
         android:fragment="com.android.settings.cyanogenmod.StatusBar"
@@ -91,12 +109,6 @@
                 android:key="category_system"
                 android:title="@string/interface_settings_animation_title">
 
-        <PreferenceScreen
-        	android:key="lcd_density_setup"
-            android:fragment="com.android.settings.beanstalk.fragments.DensityChanger"
-            android:title="@string/lcd_density_title"
-            android:summary="@string/lcd_density_summary" />
-
         <CheckBoxPreference
             android:key="use_alt_resolver"
             android:title="@string/alt_resolver"
@@ -126,16 +138,5 @@
                 android:dependency="listview_animation" />
 
         </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="advanced_settings_options_prefs"
-        android:title="@string/advanced_options_settings_title">
-
-    <PreferenceScreen
-        android:key="app_sidebar"
-        android:fragment="com.android.settings.chameleonos.AppSidebar"
-        android:title="@string/app_sidebar_title" />
-
-    </PreferenceCategory>
 
 </PreferenceScreen>

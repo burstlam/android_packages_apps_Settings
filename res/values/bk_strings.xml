@@ -415,4 +415,10 @@
     <string name="custom_density_dialog_summary">"Changing your LCD density can cause unexpected app behavior. If you encounter market app incompatibility please return here and restart the process from step 1."</string>
     <string name="custom_density_dialog_button_got">Got it!</string>
     <string name="custom_density_dialog_button_reboot">Reboot now</string>
+
+    <!-- LCD Density Warning -->
+    <string name="lcd_warning_title">LCD Density Warning</string>
+    <string name="lcd_warning">Be Advised that it is recommended to use a Multi-DPI Play Store to avoid any issues with apps after changing your system density. Do you understand?</string>
+    <string name="lcd_warning_yes">YES</string>
+    <string name="lcd_warning_no">NO</string>
 </resources>
