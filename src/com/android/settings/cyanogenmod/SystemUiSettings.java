@@ -46,6 +46,7 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
     private static final String KEY_RECENTS_RAM_BAR = "recents_ram_bar";
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
+    private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver"; 
 
     private ListPreference mExpandedDesktopPref;
     private CheckBoxPreference mExpandedDesktopNoNavbarPref;
@@ -54,6 +55,7 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
     private ListPreference mRecentClearAllPosition;
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
+    private CheckBoxPreference mUseAltResolver;
 
     private Preference mRamBar;
 
@@ -102,14 +104,16 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
 
         //ListView Animations
         mListViewAnimation = (ListPreference) findPreference(KEY_LISTVIEW_ANIMATION);
-        String listViewAnimation = Settings.System.getString(resolver, Settings.System.LISTVIEW_ANIMATION);
+        String listViewAnimation = Settings.System.getString(resolver,
+            Settings.System.LISTVIEW_ANIMATION);
         if (listViewAnimation != null) {
              mListViewAnimation.setValue(listViewAnimation);
         }
         mListViewAnimation.setOnPreferenceChangeListener(this);
 
         mListViewInterpolator = (ListPreference) findPreference(KEY_LISTVIEW_INTERPOLATOR);
-        String listViewInterpolator = Settings.System.getString(resolver, Settings.System.LISTVIEW_INTERPOLATOR);
+        String listViewInterpolator = Settings.System.getString(resolver,
+            Settings.System.LISTVIEW_INTERPOLATOR);
         if (listViewInterpolator != null) {
              mListViewInterpolator.setValue(listViewInterpolator);
         }
@@ -120,11 +124,16 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
             Settings.System.SHOW_CLEAR_RECENTS_BUTTON, 1) == 1);
         mRecentClearAll.setOnPreferenceChangeListener(this);
         mRecentClearAllPosition = (ListPreference) prefSet.findPreference(RECENT_MENU_CLEAR_ALL_LOCATION);
-        String recentClearAllPosition = Settings.System.getString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION);
+        String recentClearAllPosition = Settings.System.getString(resolver,
+            Settings.System.CLEAR_RECENTS_BUTTON_LOCATION);
         if (recentClearAllPosition != null) {
              mRecentClearAllPosition.setValue(recentClearAllPosition);
         }
         mRecentClearAllPosition.setOnPreferenceChangeListener(this);
+
+        mUseAltResolver = (CheckBoxPreference) findPreference(PREF_USE_ALT_RESOLVER);
+        mUseAltResolver.setChecked(Settings.System.getInt(resolver,
+                Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0) == 1);
     }
 
     private void updateRamBar() {
@@ -173,6 +182,10 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
         } else if (preference == mListViewInterpolator) {
             String value = (String) objValue;
             Settings.System.putString(resolver, Settings.System.LISTVIEW_INTERPOLATOR, value);
+            return true;
+        } else if (preference == mUseAltResolver) {
+            boolean value = (Boolean) objValue;
+            Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, value ? 1 : 0);
             return true;
         }
 
