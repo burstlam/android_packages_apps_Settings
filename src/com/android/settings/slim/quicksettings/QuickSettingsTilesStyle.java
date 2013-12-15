@@ -62,6 +62,7 @@ public class QuickSettingsTilesStyle extends SettingsPreferenceFragment implemen
             "quick_tiles_text_color";
     private static final String PREF_ADDITIONAL_OPTIONS =
             "quicksettings_tiles_style_additional_options";
+    private static final String PREF_FLIP_QS_TILES = "flip_qs_tiles";
 
     private static final int DEFAULT_QUICK_TILES_TEXT_COLOR = 0xffcccccc;
 
@@ -75,6 +76,7 @@ public class QuickSettingsTilesStyle extends SettingsPreferenceFragment implemen
     private ColorPickerPreference mQuickTilesBgPressedColor;
     private ColorPickerPreference mQuickTilesTextColor;
     private SeekBarPreference mQsTileAlpha;
+    private CheckBoxPreference mFlipQsTiles;
 
     private boolean mCheckPreferences;
 
@@ -164,6 +166,10 @@ public class QuickSettingsTilesStyle extends SettingsPreferenceFragment implemen
         mQsTileAlpha.setProperty(Settings.System.QUICK_TILES_BG_ALPHA);
         mQsTileAlpha.setOnPreferenceChangeListener(this);
 
+	mFlipQsTiles = (CheckBoxPreference) findPreference(PREF_FLIP_QS_TILES);
+        mFlipQsTiles.setChecked(Settings.System.getInt(resolver,
+                Settings.System.QUICK_SETTINGS_TILES_FLIP, 0) == 1);
+
         mTilesPerRow = (ListPreference) prefs.findPreference(PREF_TILES_PER_ROW);
         int tilesPerRow = Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.QUICK_TILES_PER_ROW, 3);
@@ -225,6 +231,11 @@ public class QuickSettingsTilesStyle extends SettingsPreferenceFragment implemen
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.QUICK_TILES_PER_ROW_DUPLICATE_LANDSCAPE,
                     (Boolean) newValue ? 1 : 0);
+            return true;
+	} else if (preference == mFlipQsTiles) {
+            Settings.System.putInt(resolver,
+                    Settings.System.QUICK_SETTINGS_TILES_FLIP,
+                    ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;
         } else if (preference == mQuickTilesBgColor) {
             String hex = ColorPickerPreference.convertToARGB(
