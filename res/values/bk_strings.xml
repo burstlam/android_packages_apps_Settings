@@ -381,4 +381,7 @@
     <!-- Alternate default app picker -->
     <string name="alt_resolver">Use Alt Default App Grid</string>
     <string name="alt_resolver_summary">Use Alternate Default App Picker</string>
+
+    <!-- Lockscreen battery ring -->
+    <string name="battery_around_lockscreen_ring">Battery around unlock ring</string>
 </resources>
