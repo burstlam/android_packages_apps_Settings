@@ -74,7 +74,7 @@ public class InputMethodsSettings extends SettingsPreferenceFragment implements
         // Enable or disable mStatusBarImeSwitcher based on boolean value: config_show_cmIMESwitcher
         final Preference keyImeSwitcherPref = findPreference(KEY_IME_SWITCHER);
         if (keyImeSwitcherPref != null) {
-            if (!getResources().getBoolean(com.android.internal.R.bool.config_show_IMESwitcher)) {
+            if (!getResources().getBoolean(com.android.internal.R.bool.config_show_cmIMESwitcher)) {
                 getPreferenceScreen().removePreference(keyImeSwitcherPref);
             } else {
                 mStatusBarImeSwitcher = (CheckBoxPreference) keyImeSwitcherPref;

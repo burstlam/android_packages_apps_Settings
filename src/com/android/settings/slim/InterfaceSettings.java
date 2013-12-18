@@ -47,6 +47,7 @@ import android.text.Editable;
 import android.util.Slog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 
 import java.util.List;
 import java.lang.Thread;

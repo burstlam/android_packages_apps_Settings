@@ -17,6 +17,7 @@
 package com.android.settings.slim.quicksettings;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
