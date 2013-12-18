@@ -1646,10 +1646,6 @@
 
         <!-- CyanogenMod activities Start -->
 
-        <activity android:name=".cyanogenmod.AutoBrightnessSetup"
-                android:excludeFromRecents="true"
-                android:theme="@*android:style/Theme.Holo.Dialog.Alert" />
-
         <activity android:name=".profiles.ProfilesSettings" />
         <activity android:name="Settings$ProfilesSettingsActivity"
                 android:label="@string/profile_settings"
