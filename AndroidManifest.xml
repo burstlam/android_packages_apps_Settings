@@ -146,7 +146,6 @@
             android:name=".cyanogenmod.superuser.SuReceiver"
             android:permission="android.permission.REPORT_SUPERUSER" />
 
-<<<<<<< HEAD
         <receiver
             android:name=".cyanogenmod.superuser.PackageChangeReceiver" >
             <intent-filter>
@@ -163,8 +162,6 @@
             </intent-filter>
         </receiver>
 
-=======
->>>>>>> fea8eee... Quicksettings customizations Slim style
         <!-- Settings -->
 
         <activity android:name="Settings"
