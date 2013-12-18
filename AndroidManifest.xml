@@ -1807,7 +1807,16 @@
                 android:excludeFromRecents="true"
                 android:theme="@*android:style/Theme.Holo.Dialog.Alert" />
 
-        <activity android:name=".pa.Halo"/>
+        <activity android:name=".slim.LockscreenInterface"/>
+
+        <activity android:name=".slim.LockscreenStyle"/>
+
+        <activity android:name=".slim.LockscreenWidget"/>
+
+        <activity android:name=".slim.LockscreenTargets"/>
+
+        <activity android:name=".slim."/>
+
 
         <!-- Pseudo-activity used to provide an intent-filter entry point to quite hours settings -->
         <activity android:name="Settings$QuietHoursSettingsActivity"
