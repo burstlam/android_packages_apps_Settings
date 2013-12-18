@@ -64,7 +64,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
     private static final String UI_EXP_WIDGET_HIDE_SCROLLBAR = "expanded_hide_scrollbar";
     private static final String UI_EXP_WIDGET_HAPTIC_FEEDBACK = "expanded_haptic_feedback";
     private static final String ENABLE_TOGGLE_COLORS = "enable_toggle_colors";
-    private static final String ENABLE_TOGGLE_BAR = "enable_toggle_bar";
     private static final String TOGGLE_ICON_ON_COLOR = "toggle_icon_color_on";
     private static final String TOGGLE_ICON_OFF_COLOR = "toggle_icon_color_off";
 
@@ -98,7 +97,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
             mPowerWidgetHapticFeedback.setSummary(mPowerWidgetHapticFeedback.getEntry());
 
 	    mEnableToggleColors = (CheckBoxPreference) prefSet.findPreference(ENABLE_TOGGLE_COLORS);
-            mEnableToggleBar = (CheckBoxPreference) prefSet.findPreference(ENABLE_TOGGLE_BAR);
 
             mPowerWidget.setChecked((Settings.System.getInt(getActivity().getApplicationContext()
                     .getContentResolver(),
@@ -115,9 +113,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
 	    mEnableToggleColors.setChecked((Settings.System.getInt(getActivity().getApplicationContext()
                     .getContentResolver(),
                     Settings.System.ENABLE_TOGGLE_COLORS, 0) == 1));
-            mEnableToggleBar.setChecked((Settings.System.getInt(getActivity().getApplicationContext()
-                    .getContentResolver(),
-                    Settings.System.ENABLE_TOGGLE_BAR, 0) == 1));
 
         mToggleIconOnColor = (ColorPickerPreference) findPreference(TOGGLE_ICON_ON_COLOR);
         mToggleIconOnColor.setOnPreferenceChangeListener(this);
@@ -177,11 +172,6 @@ public class PowerWidget extends SettingsPreferenceFragment implements
             value = mEnableToggleColors.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.ENABLE_TOGGLE_COLORS,
-                    value ? 1 : 0);
-        } else if (preference == mEnableToggleBar) {
-            value = mEnableToggleBar.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.ENABLE_TOGGLE_BAR,
                     value ? 1 : 0);
         } else {
             // If we didn't handle it, let preferences handle it.

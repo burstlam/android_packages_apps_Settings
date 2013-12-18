@@ -516,7 +516,6 @@
     <!-- Power Widget toggle color -->
     <string name="toggle_color_title">Toggles color and bar</string>
     <string name="enable_toggle_colors_title">Enable toggle colors</string>
-    <string name="enable_toggle_bar_title">Enable toggle bar</string>
     <string name="toggle_icon_color_on_title">Color icons (on)</string>
     <string name="toggle_icon_color_on_summary">Sets color for activated toggle icons</string>
     <string name="toggle_icon_color_off_title">Color icons (off)</string>

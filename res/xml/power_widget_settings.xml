@@ -52,11 +52,6 @@
             android:title="@string/enable_toggle_colors_title"
             android:defaultValue="false" />
 
-        <CheckBoxPreference
-            android:key="enable_toggle_bar"
-            android:title="@string/enable_toggle_bar_title"
-            android:defaultValue="false" />
-
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="toggle_icon_color_on"
             android:title="@string/toggle_icon_color_on_title"
