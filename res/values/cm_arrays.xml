@@ -16,18 +16,6 @@
 -->
 <resources>
 
-    <string-array name="perf_profile_entries" translatable="false">
-        <item>@string/perf_profile_pwrsv</item>
-        <item>@string/perf_profile_bal</item>
-        <item>@string/perf_profile_perf</item>
-    </string-array>
-
-    <string-array name="perf_profile_values" translatable="false">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-
     <!-- Ascending ringtone increase intervals -->
     <string-array name="increasing_ring_interval_entries" translatable="false">
         <item>@string/increasing_ring_interval_eachring</item>
@@ -154,6 +142,18 @@
     <!-- Gamma calibration descriptors, deliberately empty as string values populated via
          per-device overlay. Required to build on non-hardware tunable devices -->
     <string-array name="gamma_descriptors" translatable="false">
+    </string-array>
+
+    <string-array name="perf_profile_entries" translatable="false">
+        <item>@string/perf_profile_pwrsv</item>
+        <item>@string/perf_profile_bal</item>
+        <item>@string/perf_profile_perf</item>
+    </string-array>
+
+    <string-array name="perf_profile_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
     <!-- Arrays for root access capability -->
