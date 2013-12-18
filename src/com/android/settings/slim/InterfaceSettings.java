@@ -40,11 +40,13 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String RECENT_MENU_CLEAR_ALL = "recent_menu_clear_all";
     private static final String RECENT_MENU_CLEAR_ALL_LOCATION = "recent_menu_clear_all_location";
     private static final String KEY_RECENTS_RAM_BAR = "recents_ram_bar";
+    private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver";
 
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
+    private CheckBoxPreference mUseAltResolver;
 
     private Preference mRamBar;
 
@@ -86,6 +88,10 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
              mRecentClearAllPosition.setValue(recentClearAllPosition);
         }
         mRecentClearAllPosition.setOnPreferenceChangeListener(this);
+
+        mUseAltResolver = (CheckBoxPreference) findPreference(PREF_USE_ALT_RESOLVER);
+        mUseAltResolver.setChecked(Settings.System.getInt(resolver,
+                Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0) == 1);
     }
 
     private void updateRamBar() {
@@ -123,6 +129,9 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         } else if (preference == mRecentClearAllPosition) {
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION, value);
+        } else if (preference == mUseAltResolver) {
+            boolean value = (Boolean) objValue;
+            Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, value ? 1 : 0);
         } else {
             return false;
         }
