@@ -48,10 +48,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String KEY_STATUS_BAR_CLOCK = "clock_style_pref";
     private static final String STATUS_BAR_CARRIER = "status_bar_carrier";
     private static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
+    private static final String STATUS_BAR_BRIGHTNESS = "statusbar_brightness_slider";
 
     private PreferenceScreen mClockStyle;
     private CheckBoxPreference mStatusBarCarrier;
     private PreferenceScreen mCustomStatusBarCarrierLabel;
+    private CheckBoxPreference mStatusbarSliderPreference;
 
     private String mCustomStatusBarCarrierLabelText;
 
@@ -67,6 +69,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         if (mClockStyle != null) {
             updateClockStyleDescription();
         }
+
+        mStatusbarSliderPreference = (CheckBoxPreference) findPreference(STATUS_BAR_BRIGHTNESS);
+        mStatusbarSliderPreference.setChecked((Settings.System.getInt(resolver,
+                Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, 0) == 1));
 
         mStatusBarCarrier = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER);
         mStatusBarCarrier.setChecked((Settings.System.getInt(resolver, Settings.System.STATUS_BAR_CARRIER, 0) == 1));
@@ -91,7 +97,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          final Preference preference) {
         final ContentResolver resolver = getActivity().getContentResolver();
-        if (preference.getKey().equals(CUSTOM_CARRIER_LABEL)) {
+        if (preference == mStatusbarSliderPreference) {
+            Settings.System.putInt(resolver,
+                    Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, mStatusbarSliderPreference.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference.getKey().equals(CUSTOM_CARRIER_LABEL)) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle(R.string.custom_carrier_label_title);
             alert.setMessage(R.string.custom_carrier_label_explain);
