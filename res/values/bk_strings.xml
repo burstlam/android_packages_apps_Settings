@@ -294,4 +294,20 @@
     <string name="navbar_button_style_reset_message">Reset all style entries to default?</string>
     <string name="navbar_dimensions_style_reset_message">Reset all style and dimensions entries to default?</string>
 
+    <!-- Network usage stats -->
+    <string name="status_bar_network_cat">Network traffic meter</string>
+    <string name="status_bar_network_header">Network traffic meter</string>
+    <string name="status_bar_network_title">Network traffic</string>
+    <string name="status_bar_show_network_stats_title">Show network speeds</string>
+    <string name="status_bar_network_stats_update_title">Update frequency</string>
+
+    <!-- Network stats custm colors -->
+    <string name="status_bar_network_usage_color_style">Color style</string>
+    <string name="status_bar_network_usage_color_reset">Reset color</string>
+    <string name="status_bar_network_usage_color_reset_message">Reset network stats color to default?</string>
+
+    <!-- Network stats hide if there's no traffic -->
+    <string name="hide_network_speed">Hide when there is no traffic</string>
+    <string name="hide_network_speed_summary">Hide network stats indicator when there is no traffic</string>
+
 </resources>

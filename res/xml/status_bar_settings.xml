@@ -28,6 +28,12 @@
             android:key="clock_style_pref"
             android:title="@string/status_bar_clock" />
 
+    <!-- Network usage stats -->
+        <PreferenceScreen
+            android:key="network_usage_stats"
+            android:fragment="com.android.settings.slim.NetworkUsageStats"
+            android:title="@string/status_bar_network_cat" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
