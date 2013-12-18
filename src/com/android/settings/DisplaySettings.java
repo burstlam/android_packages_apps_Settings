@@ -372,7 +372,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     }
 
     private void updateLightPulseDescription() {
-        if (mNotificationLight == null) {
+        if (mNotificationPulse == null) {
             return;
         }
         if (Settings.System.getInt(getActivity().getContentResolver(),

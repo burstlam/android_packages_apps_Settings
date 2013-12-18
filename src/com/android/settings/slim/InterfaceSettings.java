@@ -32,6 +32,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.UserHandle;
+import android.os.RemoteException;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -57,7 +59,7 @@ import com.android.settings.SettingsPreferenceFragment;
 public class InterfaceSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
-    private static final String TAG = "MiscSettings";
+    private static final String TAG = "InterfaceSettings";
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
     private static final String RECENT_MENU_CLEAR_ALL = "recent_menu_clear_all";
@@ -178,7 +180,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION, value);
         } else if (preference == mUseAltResolver) {
-            boolean value = (Boolean) objValue;
+            boolean value = (Boolean) newValue;
             Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, value ? 1 : 0);
         } else if (preference == mLcdDensity) {
             String density = (String) newValue;

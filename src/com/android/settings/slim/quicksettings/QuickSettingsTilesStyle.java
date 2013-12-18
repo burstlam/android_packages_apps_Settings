@@ -97,6 +97,7 @@ public class QuickSettingsTilesStyle extends SettingsPreferenceFragment implemen
         addPreferencesFromResource(R.xml.quicksettings_tiles_style);
 
         prefs = getPreferenceScreen();
+        ContentResolver resolver = getActivity().getContentResolver();
 
         PackageManager pm = getPackageManager();
         Resources systemUiResources;
@@ -232,8 +233,8 @@ public class QuickSettingsTilesStyle extends SettingsPreferenceFragment implemen
                     Settings.System.QUICK_TILES_PER_ROW_DUPLICATE_LANDSCAPE,
                     (Boolean) newValue ? 1 : 0);
             return true;
-	} else if (preference == mFlipQsTiles) {
-            Settings.System.putInt(resolver,
+	    } else if (preference == mFlipQsTiles) {
+            Settings.System.putInt(getContentResolver(),
                     Settings.System.QUICK_SETTINGS_TILES_FLIP,
                     ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
             return true;

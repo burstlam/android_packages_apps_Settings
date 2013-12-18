@@ -78,7 +78,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
         mVolBtnMusicCtrl = (CheckBoxPreference) findPreference(KEY_VOLBTN_MUSIC_CTRL);
         mVolBtnMusicCtrl.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.VOLUME_MUSIC_CONTROLS, 1) != 0);
+                Settings.System.VOLBTN_MUSIC_CONTROLS, 1) != 0);
         mVolBtnMusicCtrl.setOnPreferenceChangeListener(this);
 
         mSafeHeadsetVolume = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_VOLUME);
@@ -161,7 +161,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         final String key = preference.getKey();
         if (KEY_VOLBTN_MUSIC_CTRL.equals(key)) {
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.VOLUME_MUSIC_CONTROLS,
+                    Settings.System.VOLBTN_MUSIC_CONTROLS,
                     (Boolean) objValue ? 1 : 0);
         }
         if (KEY_SAFE_HEADSET_VOLUME.equals(key)) {

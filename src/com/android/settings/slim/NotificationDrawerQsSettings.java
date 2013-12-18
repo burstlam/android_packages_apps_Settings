@@ -43,7 +43,7 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
             "notification_hide_carrier";
     private static final String PREF_NOTIFICATION_ALPHA =
             "notification_alpha";
-    private static final String QUICK_PULLDOWN =
+    private static final String PRE_QUICK_PULLDOWN =
             "quick_pulldown";
     private static final String PREF_TILES_STYLE =
             "quicksettings_tiles_style";
