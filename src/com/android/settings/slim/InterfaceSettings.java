@@ -24,16 +24,14 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.UserHandle;
 import android.os.RemoteException;
 import android.os.SystemProperties;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -58,7 +56,7 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
 public class InterfaceSettings extends SettingsPreferenceFragment implements
-        Preference.OnPreferenceChangeListener {
+        OnPreferenceChangeListener {
 
     private static final String TAG = "InterfaceSettings";
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
@@ -67,26 +65,30 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
     private static final String RECENT_MENU_CLEAR_ALL_LOCATION = "recent_menu_clear_all_location";
     private static final String KEY_RECENTS_RAM_BAR = "recents_ram_bar";
     private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver";
-
     private static final String KEY_LCD_DENSITY = "lcd_density";
+
     private static final int DIALOG_CUSTOM_DENSITY = 101;
+
     private static final String DENSITY_PROP = "persist.sys.lcd_density";
 
-    private static ListPreference mLcdDensity;
-    private static Activity mActivity;
 
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
+    private Preference mRamBar;
     private CheckBoxPreference mUseAltResolver;
 
-    private Preference mRamBar;
+    private static ListPreference mLcdDensity;
+
+    private static Activity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mActivity = getActivity();
+
         updateSettings();
     }
 
@@ -94,13 +96,13 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         setPreferenceScreen(null);
         addPreferencesFromResource(R.xml.slim_interface_settings);
 
+        mRamBar = findPreference(KEY_RECENTS_RAM_BAR);
+        updateRamBar();
+
         //ListView Animations
 
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
-
-        mRamBar = findPreference(KEY_RECENTS_RAM_BAR);
-        updateRamBar();
 
         mListViewAnimation = (ListPreference) findPreference(KEY_LISTVIEW_ANIMATION);
         String listViewAnimation = Settings.System.getString(resolver, Settings.System.LISTVIEW_ANIMATION);
@@ -171,18 +173,23 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
         if (preference == mListViewAnimation) {
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.LISTVIEW_ANIMATION, value);
+            return true;
         } else if (preference == mListViewInterpolator) {
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.LISTVIEW_INTERPOLATOR, value);
+            return true;
         } else if (preference == mRecentClearAll) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(resolver, Settings.System.SHOW_CLEAR_RECENTS_BUTTON, value ? 1 : 0);
+            return true;
         } else if (preference == mRecentClearAllPosition) {
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION, value);
+            return true;
         } else if (preference == mUseAltResolver) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, value ? 1 : 0);
+            return true;
         } else if (preference == mLcdDensity) {
             String density = (String) newValue;
             if (SystemProperties.get(DENSITY_PROP) != density) {
@@ -192,10 +199,9 @@ public class InterfaceSettings extends SettingsPreferenceFragment implements
                     setDensity(Integer.parseInt(density));
                 }
             }
-        } else {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     private static void setDensity(int density) {
