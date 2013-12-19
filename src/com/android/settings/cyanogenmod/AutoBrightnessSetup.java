@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.settings.slim;
+package com.android.settings.cyanogenmod;
 
 import android.content.ContentResolver;
 import android.content.DialogInterface;
