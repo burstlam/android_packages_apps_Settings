@@ -49,6 +49,8 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Di
 
     private SettingsDialogFragment mDialogFragment;
 
+    protected Context mContext;
+
     private String mHelpUrl;
 
     // Cache the content resolver for async callbacks
@@ -57,6 +59,8 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Di
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
+        mContext = getActivity().getApplicationContext();
 
         // Prepare help url and enable menu if necessary
         int helpResource = getHelpResource();
@@ -319,6 +323,11 @@ public class SettingsPreferenceFragment extends PreferenceFragment implements Di
             return false;
         }
     }
+
+    // Need to AOKP Custom system animation
+    public void setTitle(int resId) {
+        getActivity().setTitle(resId);
+    } 
 
     public boolean isPackageInstalled(String packageName) {
         if (packageName != null) {
