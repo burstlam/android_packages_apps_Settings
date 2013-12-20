@@ -25,6 +25,8 @@
     <string name="reset_message">Reset all entries to default?</string>
     <string name="style_title">Style</string>
     <string name="add">Add</string>
+    <string name="misc_short">Misc</string>
+    <string name="title_ui">Misc</string>
 
     <!-- Settings main menu category heading. Rom (Launcher, Themes, System). [CHAR LIMIT=40] -->
     <string name="header_category_rom_settings">Advanced settings</string>
@@ -784,5 +786,4 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Stylus Icon -->
     <string name="stylus_icon_enabled_title">Show icon when using stylus</string>
     <string name="stylus_icon_enabled_summary">Show the pointer icon while using stylus</string>
-
 </resources>

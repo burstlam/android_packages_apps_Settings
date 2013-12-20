@@ -39,6 +39,11 @@
     </PreferenceScreen>
 
     <PreferenceScreen
+        android:key="general_ui_settings"
+        android:fragment="com.android.settings.slim.UserInterface"
+        android:title="@string/title_ui" />
+
+    <PreferenceScreen
         android:fragment="com.android.settings.slim.BatteryIconStyle"
         android:key="battery_style_pref"
         android:title="@string/battery_icon_title" />
