@@ -58,12 +58,6 @@
 		android:key="category_system"
 		android:title="@string/interface_settings_animation_title">
 
-    <ListPreference
-        android:key="lcd_density"
-        android:title="@string/custom_density_title"
-        android:entries="@array/lcd_density_entries"
-        android:entryValues="@array/lcd_density_entries" />
-
     <PreferenceScreen
         android:key="animations_controls"
         android:fragment="com.android.settings.cyanogenmod.AnimationControls"
