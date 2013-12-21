@@ -20,25 +20,6 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
     <PreferenceScreen
-        android:key="active_display"
-        android:fragment="com.android.settings.chameleonos.ActiveDisplaySettings"
-        android:title="@string/ad_settings_title"
-        android:summary="@string/ad_settings_summary" />
-
-    <PreferenceScreen
-        android:key="app_sidebar"
-        android:fragment="com.android.settings.chameleonos.AppSidebar"
-        android:title="@string/app_sidebar_title" />
-
-    <PreferenceScreen
-        android:key="chronus"
-        android:title="@string/chronus_title" >
-        <intent android:action="android.intent.action.MAIN"
-            android:targetPackage="com.cyanogenmod.lockclock"
-            android:targetClass="com.cyanogenmod.lockclock.preference.Preferences" />
-    </PreferenceScreen>
-
-    <PreferenceScreen
         android:key="general_ui_settings"
         android:fragment="com.android.settings.slim.UserInterface"
         android:title="@string/title_ui" />
@@ -58,62 +39,29 @@
         android:fragment="com.android.settings.slim.StatusBar"
         android:title="@string/status_bar_title" />
 
-    <!-- System -->
-	<PreferenceCategory
-		android:key="category_system"
-		android:title="@string/interface_settings_animation_title">
-
-    <PreferenceScreen
-        android:key="animations_controls"
-        android:fragment="com.android.settings.cyanogenmod.AnimationControls"
-        android:title="@string/title_animation_controls" />
-
-	<ListPreference
-		android:key="listview_animation"
-		android:dialogTitle="@string/listview_animation_title"
-		android:title="@string/listview_animation_title"
-		android:entries="@array/listview_animation_entries"
-		android:entryValues="@array/listview_animation_values"
-		android:defaultValue="0" />
-
-	<ListPreference
-		android:key="listview_interpolator"
-		android:dialogTitle="@string/listview_interpolator_title"
-		android:title="@string/listview_interpolator_title"
-		android:entries="@array/listview_interpolator_entries"
-		android:entryValues="@array/listview_interpolator_values"
-		android:defaultValue="0"
-		android:dependency="listview_animation" />
-	</PreferenceCategory>
-
-
     <PreferenceCategory
-            android:key="category_recent_panel"
-            android:title="@string/recent_panel_category_title"/>
+        android:key="misc"
+        android:title="@string/misc_short">
 
-    <PreferenceScreen
-            android:key="recents_ram_bar"
-            android:fragment="com.android.settings.slim.RamBar"
-            android:title="@string/ram_bar" />
+        <PreferenceScreen
+            android:key="active_display"
+            android:fragment="com.android.settings.chameleonos.ActiveDisplaySettings"
+            android:title="@string/ad_settings_title"
+            android:summary="@string/ad_settings_summary" />
 
-    <CheckBoxPreference
-            android:key="recent_menu_clear_all"
-            android:title="@string/show_recent_clear_all_button_title"
-            android:summary="@string/show_recent_clear_all_button_summary"
-            android:defaultValue="true" />
+        <PreferenceScreen
+            android:key="app_sidebar"
+            android:fragment="com.android.settings.chameleonos.AppSidebar"
+            android:title="@string/app_sidebar_title" />
 
-    <ListPreference
-            android:key="recent_menu_clear_all_location"
-            android:title="@string/recent_clear_all_button_location_title"
-            android:summary="@string/recent_clear_all_button_location_summary"
-            android:entries="@array/recent_clear_all_button_location_entries"
-            android:entryValues="@array/recent_clear_all_button_location_values"
-            android:defaultValue="2"
-            android:dependency="recent_menu_clear_all" />
+        <PreferenceScreen
+            android:key="chronus"
+            android:title="@string/chronus_title" >
+            <intent android:action="android.intent.action.MAIN"
+                android:targetPackage="com.cyanogenmod.lockclock"
+                android:targetClass="com.cyanogenmod.lockclock.preference.Preferences" />
+        </PreferenceScreen>
 
-    <CheckBoxPreference
-            android:key="use_alt_resolver"
-            android:title="@string/alt_resolver"
-            android:summary="@string/alt_resolver_summary"
-            android:defaultValue="false" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
