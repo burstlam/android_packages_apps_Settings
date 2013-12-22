@@ -22,4 +22,11 @@
         android:title="@string/style_title"
         android:summary="@string/power_menu_style_summary" />
 
+    <ListPreference
+        android:key="expanded_desktop"
+        android:title="@string/expanded_desktop_style"
+        android:entries="@array/expanded_desktop_style_entries"
+        android:entryValues="@array/expanded_desktop_style_values"
+        android:persistent="false" />
+
 </PreferenceScreen>

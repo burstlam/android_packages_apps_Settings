@@ -451,4 +451,9 @@
     <string name="lcd_warning">Be Advised that it is recommended to use a Multi-DPI Play Store to avoid any issues with apps after changing your system density. Do you understand?</string>
     <string name="lcd_warning_yes">YES</string>
     <string name="lcd_warning_no">NO</string>
+
+    <!--Expanded Desktop State-->
+    <string name="expanded_desktop_style">Expanded desktop statusbar tweak</string>
+    <string name="expanded_desktop_status_bar">Status bar visible</string>
+    <string name="expanded_desktop_no_status_bar">Status bar hidden</string>
 </resources>
