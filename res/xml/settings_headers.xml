@@ -103,13 +103,18 @@
         android:fragment="com.android.settings.slim.NavigationSettings"
         android:title="@string/navigation_settings_title" />
 
+    <header
+        android:key="pie_settings"
+        android:icon="@drawable/ic_settings_pie"
+        android:fragment="com.android.settings.pa.PiePreference"
+        android:title="@string/pa_pie_controls_title" />
+
     <!-- Buttons -->
     <header
         android:id="@+id/button_settings"
         android:icon="@drawable/ic_settings_buttons"
         android:fragment="com.android.settings.cyanogenmod.ButtonSettings"
         android:title="@string/button_settings" />
-
 
     <!-- HALO -->
     <header
