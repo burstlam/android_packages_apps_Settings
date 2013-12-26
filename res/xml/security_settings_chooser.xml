@@ -21,6 +21,12 @@
         android:title="@string/lockscreen_style_title">
 
         <PreferenceScreen
+            android:key="active_display"
+            android:fragment="com.android.settings.chameleonos.ActiveDisplaySettings"
+            android:title="@string/ad_settings_title"
+            android:summary="@string/ad_settings_summary" />
+
+        <PreferenceScreen
             android:key="keyguard_style"
             android:fragment="com.android.settings.slim.LockscreenStyle"
             android:title="@string/lockscreen_style_title"/>
