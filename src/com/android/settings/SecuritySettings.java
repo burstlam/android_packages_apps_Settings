@@ -79,6 +79,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String KEY_ENABLE_WIDGETS = "keyguard_enable_widgets";
     private static final String KEY_INTERFACE_SETTINGS = "lock_screen_settings";
     private static final String KEY_TARGET_SETTINGS = "lockscreen_targets";
+    private static final String KEY_LOCKSCREEN_STYLE = "lockscreen_style";
 
     private static final String LOCK_NUMPAD_RANDOM = "lock_numpad_random";
     private static final String LOCK_BEFORE_UNLOCK = "lock_before_unlock";
@@ -350,6 +351,21 @@ public class SecuritySettings extends RestrictedSettingsFragment
     
         PreferenceGroup securityCategory = (PreferenceGroup)
                 root.findPreference(KEY_SECURITY_CATEGORY);
+
+        PreferenceGroup lockscreenStyleCategory = (PreferenceGroup)
+                root.findPreference(KEY_LOCKSCREEN_STYLE);
+        if (lockscreenStyleCategory != null) {
+            Preference lockInterfacePref = findPreference(KEY_INTERFACE_SETTINGS);
+            Preference lockTargetsPref = findPreference(KEY_TARGET_SETTINGS);
+        if (lockInterfacePref != null && lockTargetsPref != null) {
+            if (!DeviceUtils.isPhone(getActivity())) {
+                 // Nothing for tablets and large screen devices
+                 lockscreenStyleCategory.removePreference(lockInterfacePref);
+            } else {
+                 lockscreenStyleCategory.removePreference(lockTargetsPref);
+            }
+        }
+    }
 
     // don't display visible pattern if biometric and backup is not pattern
     if (resid == R.xml.security_settings_biometric_weak &&
