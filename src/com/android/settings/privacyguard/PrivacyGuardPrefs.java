@@ -62,7 +62,7 @@ public class PrivacyGuardPrefs extends SettingsPreferenceFragment implements
         mPrivacyGuardNotification.setOnPreferenceChangeListener(this);
 
         mPrivacyGuardNotification.setChecked(Settings.Secure.getInt(getContentResolver(),
-                Settings.Secure.PRIVACY_GUARD_NOTIFICATION, 0) == 1);
+                Settings.Secure.PRIVACY_GUARD_NOTIFICATION, 1) == 1);
     }
 
     @Override
