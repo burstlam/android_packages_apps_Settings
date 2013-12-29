@@ -565,4 +565,7 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="pie_trigger_normal">Normal (Default)</string>
     <string name="pie_trigger_big">Big</string>
     <string name="pie_trigger_huge">Huge</string>
+
+    <string name="lockscreen_music_controls_title">Music controls</string>
+    <string name="lockscreen_music_controls_summary">Show music widget while music is playing</string>
 </resources>

@@ -25,14 +25,20 @@
                 android:targetClass="com.cyanogenmod.lockclock.preference.Preferences" />
         </PreferenceScreen>
 
-         <CheckBoxPreference
+        <CheckBoxPreference
             android:key="lockscreen_enable_widgets"
             android:title="@string/security_enable_widgets_title" />
 
-         <CheckBoxPreference
+        <CheckBoxPreference
             android:key="lockscreen_camera_widget"
             android:title="@string/lockscreen_camera_widget_title"
             android:summary="@string/lockscreen_camera_widget_summary" />
+
+        <CheckBoxPreference
+            android:key="lockscreen_music_controls"
+            android:persistent="false"
+            android:title="@string/lockscreen_music_controls_title"
+            android:summary="@string/lockscreen_music_controls_summary" /> 
 
         <CheckBoxPreference
             android:key="lockscreen_use_widget_container_carousel"

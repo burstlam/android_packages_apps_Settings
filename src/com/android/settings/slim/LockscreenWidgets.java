@@ -52,12 +52,15 @@ public class LockscreenWidgets extends SettingsPreferenceFragment
             "lockscreen_disable_hints";
     private static final String PREF_LOCKSCREEN_USE_CAROUSEL =
             "lockscreen_use_widget_container_carousel";
+    private static final String KEY_LOCKSCREEN_MUSIC_CONTROLS =
+            "lockscreen_music_controls";
 
     private CheckBoxPreference mEnableWidgets;
     private CheckBoxPreference mCameraWidget;
     private CheckBoxPreference mMaximizeWidgets;
     private CheckBoxPreference mLockscreenHints;
     private CheckBoxPreference mLockscreenUseCarousel;
+    private CheckBoxPreference mMusicControls;
 
     private boolean mCameraWidgetAttached;
 
@@ -128,6 +131,11 @@ public class LockscreenWidgets extends SettingsPreferenceFragment
 
         updatePreferences(!mEnableWidgets.isChecked()
                 && (mCameraWidgetAttached ? !mCameraWidget.isChecked() : true));
+
+        mMusicControls = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_MUSIC_CONTROLS);
+        mMusicControls.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_MUSIC_CONTROLS, 1) == 1);
+        mMusicControls.setOnPreferenceChangeListener(this);
     }
 
     private void updatePreferences(boolean disable) {
@@ -161,6 +169,11 @@ public class LockscreenWidgets extends SettingsPreferenceFragment
         } else if (preference == mLockscreenUseCarousel) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_USE_WIDGET_CONTAINER_CAROUSEL,
+                    (Boolean) newValue ? 1 : 0);
+            return true;
+        } else if (preference == mMusicControls) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_MUSIC_CONTROLS,
                     (Boolean) newValue ? 1 : 0);
             return true;
         }
