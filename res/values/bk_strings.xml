@@ -440,18 +440,6 @@
     <string name="expanded_desktop_status_bar">Status bar visible</string>
     <string name="expanded_desktop_no_status_bar">Status bar hidden</string>
 
-    <!-- Swipe Back Layout -->
-    <string name="title_swipe_back_layout">Swipe Back Gesture</string>
-    <string name="swipe_back_layout_enable_title">Enable Swipe Back Gesture</string>
-    <string name="swipe_back_layout_enable_summary">Enable or disable the Swipe Back Gesture</string>
-    <string name="swipe_back_layout_edge_title">Track Edge</string>
-    <string name="swipe_back_layout_edge_summary">Select an edge to track for swipe back gesture</string>
-    <string name="swipe_back_layout_edge_left">Left</string>
-    <string name="swipe_back_layout_edge_right">Right</string>
-    <string name="swipe_back_layout_edge_bottom">Bottom</string>
-    <string name="swipe_back_layout_edge_all">All</string>
-    <string name="app_swipe_back_label_black">Disable Swipe Back Gesture</string>
-
     <!-- Pie controls -->
     <string name="pie_help_title">Help</string>
     <string name="pie_help_text"><b>What is the difference between Paranoid or Slim PIE?</b>
