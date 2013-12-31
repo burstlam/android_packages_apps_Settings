@@ -51,7 +51,7 @@
         android:key="misc"
         android:title="@string/misc_short">
 
-    <CheckBoxPreference
+    <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
             android:key="double_tap_sleep_gesture"
             android:title="@string/double_tap_sleep_gesture_title"
             android:summary="@string/double_tap_sleep_gesture_summary"

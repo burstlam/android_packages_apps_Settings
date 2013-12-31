@@ -49,13 +49,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_CARRIER = "status_bar_carrier";
     private static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String STATUS_BAR_BRIGHTNESS = "statusbar_brightness_slider";
-    private static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
 
     private PreferenceScreen mClockStyle;
     private CheckBoxPreference mStatusBarCarrier;
     private PreferenceScreen mCustomStatusBarCarrierLabel;
     private CheckBoxPreference mStatusbarSliderPreference;
-    private CheckBoxPreference mDoubleTapSleep;
 
     private String mCustomStatusBarCarrierLabelText;
 
@@ -76,10 +74,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusbarSliderPreference = (CheckBoxPreference) findPreference(STATUS_BAR_BRIGHTNESS);
         mStatusbarSliderPreference.setChecked((Settings.System.getInt(resolver,
                 Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, 0) == 1));
-
-        mStatusbarSliderPreference = (CheckBoxPreference) findPreference(DOUBLE_TAP_SLEEP_GESTURE);
-        mStatusbarSliderPreference.setChecked((Settings.System.getInt(resolver,
-                Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 0) == 1));
 
         mStatusBarCarrier = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER);
         mStatusBarCarrier.setChecked((Settings.System.getInt(resolver, Settings.System.STATUS_BAR_CARRIER, 0) == 1));
@@ -107,10 +101,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         if (preference == mStatusbarSliderPreference) {
             Settings.System.putInt(resolver,
                     Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, mStatusbarSliderPreference.isChecked() ? 1 : 0);
-            return true;
-        } else if (preference == mDoubleTapSleep) {
-            Settings.System.putInt(resolver,
-                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE, mDoubleTapSleep.isChecked() ? 1 : 0);
             return true;
         } else if (preference.getKey().equals(CUSTOM_CARRIER_LABEL)) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
