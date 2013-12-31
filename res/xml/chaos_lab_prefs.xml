@@ -33,5 +33,6 @@
     <PreferenceScreen
         android:key="app_sidebar"
         android:fragment="com.android.settings.chameleonos.AppSidebar"
+        android:icon="@drawable/ic_interface_app_sidebar" 
         android:title="@string/app_sidebar_title" />
 </PreferenceScreen>
