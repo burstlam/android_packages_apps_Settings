@@ -35,6 +35,9 @@
 
     <!-- **** CYANOGENMOD ADDITIONS START **** -->
 
+    <!-- Whether or not device settings should be displayed or not for the device -->
+    <bool name="has_advanced_settings">true</bool>
+
     <!-- Home button Wake Support. Some devices do not support this.
          Setting to false will disable Home button Wake support -->
     <bool name="config_show_homeWake">false</bool>

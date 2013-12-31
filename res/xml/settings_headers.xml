@@ -123,6 +123,16 @@
         android:icon="@drawable/ic_settings_halo" 
         android:title="@string/halo_settings_title" />
 
+    <header
+        android:id="@+id/advanced_settings"
+        android:title="@string/device_settings_title"
+        android:icon="@drawable/ic_settings_advanced">
+        <intent
+            android:action="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS"
+            android:targetPackage="com.cyanogenmod.settings.device"
+            android:targetClass="com.cyanogenmod.settings.device.DeviceSettings" />
+    </header>
+
     <!-- Other device controls -->
     <header
         android:id="@+id/more_device_settings"
