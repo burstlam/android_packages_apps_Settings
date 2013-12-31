@@ -266,6 +266,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="shortcut_action_sound">Sound</string>
     <string name="shortcut_action_profile">Profile</string>
     <string name="shortcut_action_app">Custom app</string>
+    <string name="shortcut_action_screenrecord">Screen Recorder</string>
     <string name="shortcut_action_home">Home</string>
     <string name="shortcut_action_back">Back</string>
     <string name="shortcut_action_recent">Recents</string>
