@@ -39,15 +39,4 @@
         android:fragment="com.android.settings.slim.StatusBar"
         android:title="@string/status_bar_title" />
 
-    <PreferenceCategory
-        android:key="misc"
-        android:title="@string/misc_short">
-
-        <PreferenceScreen
-            android:key="app_sidebar"
-            android:fragment="com.android.settings.chameleonos.AppSidebar"
-            android:title="@string/app_sidebar_title" />
-
-    </PreferenceCategory>
-
 </PreferenceScreen>
