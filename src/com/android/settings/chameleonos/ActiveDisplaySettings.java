@@ -167,6 +167,8 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.ENABLE_ACTIVE_DISPLAY,
                     ((Boolean) newValue).booleanValue() ? 1 : 0);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_NOTIFICATIONS, 0);
             return true;
         } else if (preference == mBrightnessLevel) {
             int brightness = ((Integer)newValue).intValue();
