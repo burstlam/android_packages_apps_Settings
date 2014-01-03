@@ -20,6 +20,10 @@
         android:key="lockscreen_style"
         android:title="@string/lockscreen_style_title">
 
+    	<PreferenceScreen
+            android:title="@string/lockscreen_notifications"
+            android:fragment="com.android.settings.LockscreenNotifications" />
+
         <PreferenceScreen
             android:key="active_display"
             android:fragment="com.android.settings.chameleonos.ActiveDisplaySettings"

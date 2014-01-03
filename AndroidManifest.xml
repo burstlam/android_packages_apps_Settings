@@ -1865,6 +1865,11 @@
 
         <activity android:name=".chameleonos.labs.gestureanywhere.GestureAnywhereCreateGestureActivity" />
 
+        <activity
+			android:name=".LockscreenNotifications"
+			android:label="@string/Lockscreen_notifications_header" >
+        </activity>
+
         <!-- Pseudo-activity used to provide an intent-filter entry point to quite hours settings -->
         <activity android:name="Settings$QuietHoursSettingsActivity"
                 android:label="@string/quiet_hours_title"
