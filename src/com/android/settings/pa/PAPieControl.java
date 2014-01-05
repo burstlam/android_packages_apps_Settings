@@ -1,6 +1,7 @@
 package com.android.settings.pa;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -19,7 +20,7 @@ import android.provider.Settings.SettingNotFoundException;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-//import com.android.settings.util.CMDProcessor;
+import com.vanir.util.Helpers;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -177,6 +178,34 @@ public class PAPieControl extends SettingsPreferenceFragment
         mPieRestart.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, 1) == 1);
         
+        updateNavbar();
+    }
+
+    private void updateNavbar() {
+        boolean hasNavBarByDefault = getResources().getBoolean(
+            com.android.internal.R.bool.config_showNavigationBar);
+
+        boolean pieOn = Settings.System.getBoolean(getActivity().getContentResolver(), 
+            Settings.System.PIE_CONTROLS, true);
+
+        int pieGravity = Settings.System.getInt(getActivity().getContentResolver(),
+            Settings.System.PIE_GRAVITY, 2);
+
+        if (hasNavBarByDefault) {
+            if (pieOn && pieGravity == 3) {
+                Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_SHOW, 0);
+            } else {
+                Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_SHOW, 1);
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateNavbar();
     }
 
     @Override
@@ -221,11 +250,11 @@ public class PAPieControl extends SettingsPreferenceFragment
         } else if (preference == mPieNotifi) {
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.PIE_NOTIFICATIONS, mPieNotifi.isChecked() ? 1 : 0);
-            //CMDProcessor.restartSystemUI();
+            Helpers.restartSystemUI();
         } else if (preference == mPieRestart) {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.EXPANDED_DESKTOP_RESTART_LAUNCHER, mPieRestart.isChecked() ? 1 : 0);
-            //CMDProcessor.restartSystemUI();
+            Helpers.restartSystemUI();
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -235,7 +264,8 @@ public class PAPieControl extends SettingsPreferenceFragment
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.PIE_CONTROLS,
                     (Boolean) newValue ? 1 : 0);
-            //CMDProcessor.restartSystemUI();
+            updateNavbar();
+            Helpers.restartSystemUI();
             return true;
         } else if (preference == mPieMode) {
             int pieMode = Integer.valueOf((String) newValue);
@@ -251,7 +281,8 @@ public class PAPieControl extends SettingsPreferenceFragment
             int pieGravity = Integer.valueOf((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.PIE_GRAVITY, pieGravity);
-            //CMDProcessor.restartSystemUI();
+            updateNavbar();
+            Helpers.restartSystemUI();
             return true;
         } else if (preference == mPieAngle) {
             int pieAngle = Integer.valueOf((String) newValue);
@@ -271,4 +302,5 @@ public class PAPieControl extends SettingsPreferenceFragment
         }
         return false;
     }
+
 }
