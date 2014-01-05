@@ -37,14 +37,12 @@ import com.android.settings.R;
 public class ScreenStateToggles extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
     private static final String TAG = "ScreenStateToggles";
     private static final String SCREEN_STATE_TOOGLES_ENABLE = "screen_state_toggles_enable_key";
-    private static final String SCREEN_STATE_TOOGLES_TWOG = "screen_state_toggles_twog";
     private static final String SCREEN_STATE_TOOGLES_GPS = "screen_state_toggles_gps";
     private static final String SCREEN_STATE_TOOGLES_MOBILE_DATA = "screen_state_toggles_mobile_data";
     private static final String SCREEN_STATE_CATGEGORY_LOCATION = "screen_state_toggles_location_key";
     private static final String SCREEN_STATE_CATGEGORY_MOBILE_DATA = "screen_state_toggles_mobile_key";
 
     private SwitchPreference mEnableScreenStateToggles;
-    private CheckBoxPreference mEnableScreenStateTogglesTwoG;
     private CheckBoxPreference mEnableScreenStateTogglesGps;
     private CheckBoxPreference mEnableScreenStateTogglesMobileData;
     private PreferenceCategory mMobileDateCategory;
@@ -70,18 +68,7 @@ public class ScreenStateToggles extends SettingsPreferenceFragment implements On
         mLocationCategory = (PreferenceCategory) prefSet.findPreference(
                 SCREEN_STATE_CATGEGORY_LOCATION);
 
-        mEnableScreenStateTogglesTwoG = (CheckBoxPreference) prefSet.findPreference(
-                SCREEN_STATE_TOOGLES_TWOG);
-
         ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if (!cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE)){
-            getPreferenceScreen().removePreference(mEnableScreenStateTogglesTwoG);
-        } else {
-            mEnableScreenStateTogglesTwoG.setChecked(
-                Settings.System.getBoolean(getContentResolver(), Settings.System.SCREEN_STATE_TWOG, false));
-            mEnableScreenStateTogglesTwoG.setOnPreferenceChangeListener(this);
-        }
 
         mEnableScreenStateTogglesMobileData = (CheckBoxPreference) prefSet.findPreference(
                 SCREEN_STATE_TOOGLES_MOBILE_DATA);
@@ -133,14 +120,6 @@ public class ScreenStateToggles extends SettingsPreferenceFragment implements On
 
             mMobileDateCategory.setEnabled(value);
             mLocationCategory.setEnabled(value);
-
-            return true;
-        } else if (preference == mEnableScreenStateTogglesTwoG) {
-            Settings.System.putBoolean(getContentResolver(),
-                    Settings.System.SCREEN_STATE_TWOG, (Boolean) newValue);
-
-            Intent intent = new Intent("android.intent.action.SCREEN_STATE_SERVICE_UPDATE");
-            mContext.sendBroadcast(intent);
 
             return true;
         } else if (preference == mEnableScreenStateTogglesGps) {
