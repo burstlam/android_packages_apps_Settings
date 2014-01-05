@@ -55,7 +55,7 @@ public class PowerMenuFragment extends SettingsPreferenceFragment implements
         mExpandedDesktopPref = (ListPreference) findPreference(KEY_EXPANDED_DESKTOP);
 
         int expandedDesktopValue = Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_DESKTOP_STYLE, 0);
+                Settings.System.EXPANDED_DESKTOP_STYLE, 2);
 
         try {
             boolean hasNavBar = WindowManagerGlobal.getWindowManagerService().hasNavigationBar();
