@@ -118,7 +118,7 @@
 
     <!-- Do not nest these, or removals in code will break -->
 
-    <CheckBoxPreference
+    <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
             android:key="dtmf_tone"
             android:title="@string/dtmf_tone_enable_title"
             android:defaultValue="true" />
