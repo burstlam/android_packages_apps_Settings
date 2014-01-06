@@ -19,6 +19,26 @@
         android:key="sound_settings"
         xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+
+    <PreferenceCategory
+            android:key="category_automation_effects"
+            android:title="@string/automation_effects_title"/>
+
+    <PreferenceScreen
+        android:key="quiet_hours"
+        android:fragment="com.android.settings.slim.QuietHours"
+        android:title="@string/quiet_hours_title" />
+
+    <CheckBoxPreference
+        android:key="safe_headset_volume"
+        android:title="@string/safe_headset_volume_title"
+        android:summary="@string/safe_headset_volume_summary"
+        android:defaultValue="true" />
+
+    <Preference
+            android:key="musicfx"
+            android:title="@string/musicfx_title"/>
+
     <PreferenceCategory
             android:key="category_volume"
             android:title="@string/title_tile_volume"/>
@@ -40,25 +60,6 @@
             android:title="@string/volume_overlay_title"
             android:entries="@array/volume_overlay_entries"
             android:entryValues="@array/volume_overlay_values" />
-
-    <CheckBoxPreference
-        android:key="safe_headset_volume"
-        android:title="@string/safe_headset_volume_title"
-        android:summary="@string/safe_headset_volume_summary"
-        android:defaultValue="true" />
-
-    <PreferenceCategory
-            android:key="category_automation_effects"
-            android:title="@string/automation_effects_title"/>
-
-    <PreferenceScreen
-        android:key="quiet_hours"
-        android:fragment="com.android.settings.slim.QuietHours"
-        android:title="@string/quiet_hours_title" />
-
-    <Preference
-            android:key="musicfx"
-            android:title="@string/musicfx_title"/>
 
     <PreferenceCategory
             android:key="category_calls_and_notification"
@@ -148,12 +149,6 @@
         android:title="@string/camera_sounds_title"
         android:summary="@string/camera_sounds_summary"
         android:defaultValue="true" />
-
-    <CheckBoxPreference
-        android:key="volbtn_music_controls"
-        android:title="@string/volbtn_music_controls_title"
-        android:summary="@string/volbtn_music_controls_summary"
-        android:persistent="false" />
 
     <ListPreference
             android:key="emergency_tone"

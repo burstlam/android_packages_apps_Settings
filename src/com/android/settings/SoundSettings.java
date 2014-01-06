@@ -102,7 +102,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final int MSG_UPDATE_RINGTONE_SUMMARY = 1;
     private static final int MSG_UPDATE_NOTIFICATION_SUMMARY = 2;
 
-    private static final String KEY_VOLBTN_MUSIC_CTRL = "volbtn_music_controls";
     private static final String KEY_SAFE_HEADSET_VOLUME = "safe_headset_volume";
     private static final String KEY_CONVERT_SOUND_TO_VIBRATE =
             Settings.System.NOTIFICATION_CONVERT_SOUND_TO_VIBRATION;
@@ -216,11 +215,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         }
 
         mSoundEffects = (CheckBoxPreference) findPreference(KEY_SOUND_EFFECTS);
-
-        mVolBtnMusicCtrl = (CheckBoxPreference) findPreference(KEY_VOLBTN_MUSIC_CTRL);
-        mVolBtnMusicCtrl.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.VOLBTN_MUSIC_CONTROLS, 1) != 0);
-        mVolBtnMusicCtrl.setOnPreferenceChangeListener(this);
 
         mSafeHeadsetVolume = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_VOLUME);
         mSafeHeadsetVolume.setChecked(Settings.System.getInt(getContentResolver(),
@@ -520,11 +514,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                 Settings.System.VOLUME_ADJUST_SOUNDS_ENABLED,
                 (Boolean) objValue ? 1 : 0);
-        }
-        if (KEY_VOLBTN_MUSIC_CTRL.equals(key)) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.VOLBTN_MUSIC_CONTROLS,
-                    (Boolean) objValue ? 1 : 0);
         }
         if (KEY_SAFE_HEADSET_VOLUME.equals(key)) {
             if ((Boolean) objValue) {
