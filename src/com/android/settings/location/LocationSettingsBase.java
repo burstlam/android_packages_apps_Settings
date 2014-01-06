@@ -85,6 +85,10 @@ public abstract class LocationSettingsBase extends SettingsPreferenceFragment
             }
             mode = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE,
                     Settings.Secure.LOCATION_MODE_OFF);
+            if (mode != Settings.Secure.LOCATION_MODE_OFF) {
+                Settings.Secure.putInt(getContentResolver(),
+                        Settings.Secure.LOCATION_LAST_MODE, mode);
+            }
             if (mActive) {
                 onModeChanged(mode, true);
             }
