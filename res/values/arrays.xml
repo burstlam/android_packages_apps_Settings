@@ -1197,4 +1197,11 @@
         <item>Fryday</item>
         <item>Saturday</item>
     </string-array>
+
+    <string-array name="screen_color_setting">
+        <item>Standard</item>
+        <item>Vivid</item>
+        <item>Custom</item>
+    </string-array>
+
 </resources>
