@@ -19,6 +19,11 @@
     <PreferenceCategory
         android:title="@string/notification_drawer_title" />
 
+    <PreferenceScreen
+        android:key="weather"
+        android:fragment="com.android.settings.aokp.Weather"
+        android:title="@string/title_weather"/>
+
      <Preference
          android:fragment="com.android.settings.slim.NotificationDrawerStyle"
          android:key="notification_style"
