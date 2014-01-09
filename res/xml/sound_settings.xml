@@ -138,6 +138,10 @@
             android:title="@string/haptic_feedback_enable_title"
             android:defaultValue="true" />
 
+    <com.android.settings.widget.SeekBarPreference
+			android:key="vibration_duration"
+			android:title="@string/minimum_vibration_duration" />
+
     <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
             android:key="volume_adjust_sounds_enabled"
             android:title="@string/volume_adjust_sounds_enable_title"

@@ -816,4 +816,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="chamber_title">Chamber of secrets</string>
     <string name="chamber_toast">The chamber of secrets has opened</string>
 
+    <!-- Minimum Vibration Duration -->
+	<string name="minimum_vibration_duration">Minimum vibration duration</string>
+
 </resources>
