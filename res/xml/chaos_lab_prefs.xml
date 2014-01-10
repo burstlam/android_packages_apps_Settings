@@ -41,4 +41,10 @@
         android:fragment="com.android.settings.chameleonos.AppSidebar"
         android:icon="@drawable/ic_interface_app_sidebar" 
         android:title="@string/app_sidebar_title" />
+
+    <PreferenceScreen
+        android:key="edge_swipe_navigation"
+        android:fragment="com.android.settings.cyanogenmod.EdgeSwipeNavigation"
+        android:icon="@drawable/ic_bars"
+        android:title="@string/edge_swipe_title" />
 </PreferenceScreen>

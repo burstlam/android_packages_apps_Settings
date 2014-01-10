@@ -713,4 +713,47 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="weather_47">Isolated Thundershowers</string>
     <!-- Forecase unavailable -->
     <string name="weather_3200"></string>
+
+
+    <!-- Gesture swipe navigation -->
+    <string name="edge_swipe_title">Gesture navigation</string>
+    <string name="edge_swipe_left_title">Zone 1 Action</string>
+    <string name="edge_swipe_left_size_title">Zone 1 Size - White</string>
+    <string name="edge_swipe_size_summary">Start and end points as percentage of screen size</string>
+    <string name="edge_swipe_left_type_title">Zone 1 Type</string>
+    <string name="edge_swipe_top_title">Zone 2 Action</string>
+    <string name="edge_swipe_top_size_title">Zone 2 Size - Red</string>
+    <string name="edge_swipe_top_type_title">Zone 2 Type</string>
+    <string name="edge_swipe_right_title">Zone 3 Action</string>
+    <string name="edge_swipe_right_size_title">Zone 3 Size - Green</string>
+    <string name="edge_swipe_right_type_title">Zone 3 Type</string>
+    <string name="edge_swipe_bottom_title">Zone 4 Action</string>
+    <string name="edge_swipe_bottom_size_title">Zone 4 Size - Blue</string>
+    <string name="edge_swipe_bottom_type_title">Zone 4 Type</string>
+    <string name="picker_x_start">X start</string>
+    <string name="picker_x_end">X End</string>
+    <string name="picker_y_start">Y start</string>
+    <string name="picker_y_end">Y End</string>
+    <string name="edge_swipe_move_title">Capture touch events</string>
+    <string name="edge_swipe_move_summary">Stop touches in zones from reaching the application</string>
+    <string name="edge_swipe_none">No action</string>
+    <string name="edge_swipe_expand">Expand notifications</string>
+    <string name="edge_swipe_hide">Toggle status bar</string>
+    <string name="edge_swipe_recents">Expand quick settings</string>
+    <string name="edge_swipe_expand_qs">Expand quick settings</string>
+    <string name="edge_swipe_back">Back</string>
+    <string name="edge_swipe_app_switch">Quick app switch</string>
+    <string name="edge_swipe_home">Home</string>
+    <string name="edge_swipe_menu">Menu</string>
+    <string name="edge_swipe_app">Launch application ...</string>
+    <string name="edge_swipe_blacklist_title">Gesture app blacklist</string>
+    <string name="gesture_area_too_large">The selected gesture area is too large and will not be set.</string>
+    <string name="gesture_tap">Single tap</string>
+    <string name="gesture_long_press">Long press</string>
+    <string name="gesture_swipe">Swipe out of zone</string>
+    <string name="gesture_swipe_distance">Swipe distance</string>
+
+    <!-- Section title for list of downloaded apps [CHAR LIMIT=30] -->
+    <string name="user_market_apps_heading">Installed apps</string>
+
 </resources>
