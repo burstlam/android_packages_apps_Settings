@@ -773,4 +773,19 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="battery_bar_regular">Regular</string>
     <string name="battery_bar_centered">Center-mirrored</string>
 
+    <!--Lockscreen blur-->
+    <string name="lockscreen_background_title">Lockscreen Background</string>
+    <string name="blur_behind_title">Blur Lockscreen Background</string>
+    <string name="blur_behind_summary">See through lockscreen with blur effect</string>
+    <string name="blur_radius_title">Blur Radius</string>
+    <string name="blur_radius_summary">Set the blur radius for the blur effect</string>
+
+    <!-- Lock screen see through -->
+    <string name="see_through_title">Transparent lockscreen</string>
+    <string name="see_through_summary">Allows visibility of the application or home screen behind the lock screen.</string>
+
+    <!-- Allow rotation -->
+    <string name="allow_rotate_title">Allow rotation</string>
+    <string name="allow_rotate_summary">Enables landscape mode on lockscreen.</string>
+
 </resources>

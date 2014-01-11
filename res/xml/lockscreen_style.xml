@@ -17,6 +17,35 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/lockscreen_style_title" >
 
+     <PreferenceCategory
+         android:title="@string/lockscreen_background_title"/>
+
+        <CheckBoxPreference
+            android:key="allow_rotation"
+            android:title="@string/allow_rotate_title"
+            android:summary="@string/allow_rotate_summary"
+            android:defaultValue="false" />
+
+       <CheckBoxPreference
+            android:key="see_through"
+            android:title="@string/see_through_title"
+            android:summary="@string/see_through_summary" />
+
+        <CheckBoxPreference
+            android:key="blur_behind"
+            android:title="@string/blur_behind_title"
+            android:summary="@string/blur_behind_summary" />
+
+        <SeekBarPreference
+            android:key="blur_radius"
+            android:title="@string/blur_radius_title"
+            android:summary="@string/blur_radius_summary"
+            android:max="25"
+            android:defaultValue="12" />
+
+    <PreferenceCategory
+        android:title="@string/lockscreen_style_title"/>
+
     <ListPreference
         android:key="lockscreen_lock_icon"
         android:title="@string/lockscreen_icon_title"

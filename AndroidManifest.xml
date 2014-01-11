@@ -1818,6 +1818,8 @@
 
         <activity android:name=".slim.LockscreenStyle"/>
 
+        <activity android:name=".slim.LockscreenUI"/>
+
         <activity android:name=".slim.LockscreenWidget"/>
 
         <activity android:name=".slim.LockscreenTargets"/>
