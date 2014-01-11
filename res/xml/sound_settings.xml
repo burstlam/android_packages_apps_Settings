@@ -148,11 +148,12 @@
             android:summary="@string/volume_adjust_sounds_enable_summary"
             android:defaultValue="true" />
 
-    <CheckBoxPreference
-        android:key="camera_sounds"
-        android:title="@string/camera_sounds_title"
-        android:summary="@string/camera_sounds_summary"
-        android:defaultValue="true" />
+    <ListPreference
+			android:key="camera_sounds"
+			android:title="@string/camera_sounds_title"
+			android:entries="@array/camera_sounds_entries"
+			android:entryValues="@array/camera_sounds_values"
+			android:defaultValue="1" />
 
     <ListPreference
             android:key="emergency_tone"

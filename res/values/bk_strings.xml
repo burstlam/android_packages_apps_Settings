@@ -788,4 +788,9 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="allow_rotate_title">Allow rotation</string>
     <string name="allow_rotate_summary">Enables landscape mode on lockscreen.</string>
 
+    <!-- Sound settings screen, setting check box label -->
+    <string name="camera_sounds_title">Camera shutter sound</string>
+    <string name="camera_sounds_entry_stock">Default (bloop)</string>
+    <string name="camera_sounds_entry_realistic">Realistic (click)</string>
+    <string name="camera_sounds_entry_off">Disabled (ILLEGAL in some areas)</string>
 </resources>

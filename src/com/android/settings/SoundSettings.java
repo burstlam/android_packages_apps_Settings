@@ -74,7 +74,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     /** If there is no setting in the provider, use this. */
     private static final int FALLBACK_EMERGENCY_TONE_VALUE = 0;
     private static final int DLG_SAFE_HEADSET_VOLUME = 0;
-    private static final int DLG_CAMERA_SOUND = 1;
 
     private static final String KEY_VOLUME_OVERLAY = "volume_overlay";
     private static final String KEY_RING_MODE = "ring_mode";
@@ -151,7 +150,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mPowerSounds;
     private CheckBoxPreference mPowerSoundsVibrate;
     private Preference mPowerSoundsRingtone;
-    private CheckBoxPreference mCameraSounds;
+    private ListPreference mCameraSounds;
     private ListPreference mAnnoyingNotifications;
     private PreferenceScreen mQuietHours;
     private SeekBarPreference mVibrationDuration;
@@ -341,10 +340,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             }
         }
 
-        mCameraSounds = (CheckBoxPreference) findPreference(KEY_CAMERA_SOUNDS);
-        mCameraSounds.setPersistent(false);
-        mCameraSounds.setChecked(SystemProperties.getBoolean(PROP_CAMERA_SOUND, true));
-        mCameraSounds.setOnPreferenceChangeListener(this);
+        mCameraSounds = (ListPreference) findPreference(KEY_CAMERA_SOUNDS);
+        final int currentCamSound = SystemProperties.getInt(PROP_CAMERA_SOUND, 1);
+        mCameraSounds.setValue(Integer.toString(currentCamSound));
+        mCameraSounds.setSummary(mCameraSounds.getEntry());
 
         mAnnoyingNotifications = (ListPreference) findPreference(PREF_LESS_NOTIFICATION_SOUNDS);
         int notificationThreshold = Settings.System.getInt(getContentResolver(),
@@ -531,6 +530,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.MODE_VOLUME_OVERLAY, value);
             mVolumeOverlay.setSummary(mVolumeOverlay.getEntries()[index]);
+        } else if (preference == mCameraSounds) {
+			final int value = Integer.valueOf((String)objValue);
+			final int index = mCameraSounds.findIndexOfValue((String) objValue);
+			SystemProperties.set(PROP_CAMERA_SOUND, (String)objValue);
+			mCameraSounds.setSummary(mCameraSounds.getEntries()[index]);
         }
         if (KEY_VOLUME_ADJUST_SOUNDS.equals(key)) {
             Settings.System.putInt(getContentResolver(),
@@ -556,13 +560,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
                     Settings.Global.POWER_NOTIFICATIONS_VIBRATE,
                     (Boolean) objValue ? 1 : 0);
 
-        }
-        if (KEY_CAMERA_SOUNDS.equals(key)) {
-            if ((Boolean) objValue) {
-                SystemProperties.set(PROP_CAMERA_SOUND, "1");
-            } else {
-                showDialogInner(DLG_CAMERA_SOUND);
-            }
         }
         if (PREF_LESS_NOTIFICATION_SOUNDS.equals(key)) {
             final int val = Integer.valueOf((String) objValue);
@@ -727,23 +724,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
                         }
                     })
                     .create();
-                case DLG_CAMERA_SOUND:
-                    return new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.attention)
-                    .setMessage(R.string.camera_sound_warning_dialog_text)
-                    .setPositiveButton(R.string.dlg_ok,
-                        new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            SystemProperties.set(PROP_CAMERA_SOUND, "0");
-                        }
-                    })
-                    .setNegativeButton(R.string.dlg_cancel,
-                        new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    })
-                    .create();
             }
             throw new IllegalArgumentException("unknown id " + id);
         }
@@ -754,9 +734,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             switch (id) {
                 case DLG_SAFE_HEADSET_VOLUME:
                     getOwner().mSafeHeadsetVolume.setChecked(true);
-                    break;
-                case DLG_CAMERA_SOUND:
-                    getOwner().mCameraSounds.setChecked(true);
                     break;
             }
         }
