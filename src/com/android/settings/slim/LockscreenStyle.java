@@ -286,8 +286,8 @@ public class LockscreenStyle extends SettingsPreferenceFragment
             return true;
         } else if (preference == mBatteryStatus) {
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY,
-        			((Boolean) value) ? 1 : 0);
+                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, mBatteryStatus.isChecked()
+                    ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

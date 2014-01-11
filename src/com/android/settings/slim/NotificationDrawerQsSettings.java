@@ -46,6 +46,8 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
             "notification_alpha";
     private static final String PRE_QUICK_PULLDOWN =
             "quick_pulldown";
+    private static final String PRE_COLLAPSE_PANEL =
+            "collapse_panel";
     private static final String PREF_TILES_STYLE =
             "quicksettings_tiles_style";
     private static final String PREF_TILE_PICKER =
@@ -60,6 +62,7 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
     CheckBoxPreference mHideCarrier;
     SeekBarPreference mNotificationAlpha;
     ListPreference mQuickPulldown;
+    CheckBoxPreference mCollapsePanel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,6 +126,11 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
             updatePulldownSummary(statusQuickPulldown);
         }
 
+        mCollapsePanel = (CheckBoxPreference) findPreference(PRE_COLLAPSE_PANEL);
+        mCollapsePanel.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.QS_COLLAPSE_PANEL, 0) == 1);
+        mCollapsePanel.setOnPreferenceChangeListener(this);
+
         updateQuickSettingsOptions();
     }
 
@@ -165,6 +173,11 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
             Settings.System.putInt(getContentResolver(), Settings.System.QS_QUICK_PULLDOWN,
                     statusQuickPulldown);
             updatePulldownSummary(statusQuickPulldown);
+            return true;
+        } else if (preference == mCollapsePanel) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.QS_COLLAPSE_PANEL,
+                    (Boolean) newValue ? 1 : 0);
             return true;
         }
         return false;
