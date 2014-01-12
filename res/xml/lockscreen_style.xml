@@ -46,6 +46,11 @@
     <PreferenceCategory
         android:title="@string/lockscreen_style_title"/>
 
+    <CheckBoxPreference
+        android:key="lockscreen_battery_status"
+        android:title="@string/lockscreen_battery_status_title"
+        android:summary="@string/lockscreen_battery_status_summary" />
+
     <ListPreference
         android:key="lockscreen_lock_icon"
         android:title="@string/lockscreen_icon_title"

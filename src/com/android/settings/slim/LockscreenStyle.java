@@ -83,6 +83,8 @@ public class LockscreenStyle extends SettingsPreferenceFragment
     private static final String KEY_BLUR_BEHIND = "blur_behind";
     private static final String KEY_BLUR_RADIUS = "blur_radius";
 
+    private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
+
     private String mDefault;
 
     private CheckBoxPreference mColorizeCustom;
@@ -93,6 +95,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
     private CheckBoxPreference mAllowRotation;
     private CheckBoxPreference mBlurBehind;
     private SeekBarPreference mBlurRadius;
+    private CheckBoxPreference mBatteryStatus;
 
     private ListPreference mLockIcon;
 
@@ -135,6 +138,12 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         mColorizeCustom.setChecked(Settings.Secure.getInt(getContentResolver(),
                 Settings.Secure.LOCKSCREEN_COLORIZE_LOCK, 0) == 1);
         mColorizeCustom.setOnPreferenceChangeListener(this);
+
+        mBatteryStatus = (CheckBoxPreference)
+                findPreference(KEY_ALWAYS_BATTERY_PREF);
+        mBatteryStatus.setChecked(Settings.System.getInt(getContentResolver(),
+			Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0) == 0);
+        mBatteryStatus.setOnPreferenceChangeListener(this);
 
         mFrameColor = (ColorPickerPreference)
                 findPreference(KEY_LOCKSCREEN_FRAME_COLOR);
@@ -271,8 +280,14 @@ public class LockscreenStyle extends SettingsPreferenceFragment
             return true;
         } else if (preference == mBlurBehind) {
             Settings.System.putInt(getContentResolver(), 
-                    Settings.System.LOCKSCREEN_BLUR_BEHIND, mBlurBehind.isChecked() ? 1 : 0);
+                    Settings.System.LOCKSCREEN_BLUR_BEHIND, mBlurBehind.isChecked()
+                    ? 1 : 0);
             updateBlurPrefs();
+            return true;
+        } else if (preference == mBatteryStatus) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY,
+        			((Boolean) value) ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
