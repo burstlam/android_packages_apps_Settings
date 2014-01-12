@@ -76,10 +76,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String KEY_DEVICE_ADMIN_CATEGORY = "device_admin_category";
     private static final String KEY_LOCK_AFTER_TIMEOUT = "lock_after_timeout";
     private static final String KEY_OWNER_INFO_SETTINGS = "owner_info_settings";
-    private static final String KEY_ENABLE_WIDGETS = "keyguard_enable_widgets";
-    private static final String KEY_INTERFACE_SETTINGS = "lock_screen_settings";
-    private static final String KEY_TARGET_SETTINGS = "lockscreen_targets";
-    private static final String KEY_LOCKSCREEN_STYLE = "lockscreen_style";
 
     private static final String LOCK_NUMPAD_RANDOM = "lock_numpad_random";
     private static final String LOCK_BEFORE_UNLOCK = "lock_before_unlock";
@@ -110,9 +106,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL = "quick_unlock_control";
     private static final String CATEGORY_ADDITIONAL = "additional_options";
 
-    // Omni Additions
-    private static final String BATTERY_AROUND_LOCKSCREEN_RING = "battery_around_lockscreen_ring";
-
     private PackageManager mPM;
     private DevicePolicyManager mDPM;
 
@@ -140,9 +133,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private CheckBoxPreference mQuickUnlockScreen;
     private ListPreference mLockNumpadRandom;
     private CheckBoxPreference mLockBeforeUnlock;
-
-    // Omni Additions
-    private CheckBoxPreference mLockRingBattery;
 
     private Preference mNotificationAccess;
 
@@ -321,14 +311,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
             }
         }
 
-        // Add the additional Omni settings
-        mLockRingBattery = (CheckBoxPreference) root
-                .findPreference(BATTERY_AROUND_LOCKSCREEN_RING);
-        if (mLockRingBattery != null) {
-            mLockRingBattery.setChecked(Settings.System.getInt(getContentResolver(),
-                    Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, 0) == 1);
-        }
-
         // biometric weak liveliness
         mBiometricWeakLiveliness =
                 (CheckBoxPreference) root.findPreference(KEY_BIOMETRIC_WEAK_LIVELINESS);
@@ -351,21 +333,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     
         PreferenceGroup securityCategory = (PreferenceGroup)
                 root.findPreference(KEY_SECURITY_CATEGORY);
-
-        PreferenceGroup lockscreenStyleCategory = (PreferenceGroup)
-                root.findPreference(KEY_LOCKSCREEN_STYLE);
-        if (lockscreenStyleCategory != null) {
-            Preference lockInterfacePref = findPreference(KEY_INTERFACE_SETTINGS);
-            Preference lockTargetsPref = findPreference(KEY_TARGET_SETTINGS);
-        if (lockInterfacePref != null && lockTargetsPref != null) {
-            if (!DeviceUtils.isPhone(getActivity())) {
-                 // Nothing for tablets and large screen devices
-                 lockscreenStyleCategory.removePreference(lockInterfacePref);
-            } else {
-                 lockscreenStyleCategory.removePreference(lockTargetsPref);
-            }
-        }
-    }
 
     // don't display visible pattern if biometric and backup is not pattern
     if (resid == R.xml.security_settings_biometric_weak &&
@@ -415,28 +382,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 root.findPreference(KEY_SIM_LOCK).setEnabled(false);
             }
         }
-
-        // Link to widget settings showing summary about the actual status
-        // and remove them on low memory devices
-        mEnableKeyguardWidgets = root.findPreference(KEY_ENABLE_WIDGETS);
-        if (mEnableKeyguardWidgets != null) {
-            if (ActivityManager.isLowRamDeviceStatic()
-                    || mLockPatternUtils.isLockScreenDisabled()) {
-                // Widgets take a lot of RAM, so disable them on low-memory devices
-                if (securityCategory != null) {
-                    securityCategory.removePreference(root.findPreference(KEY_ENABLE_WIDGETS));
-                    mEnableKeyguardWidgets = null;
-                }
-            } else {
-                final boolean disabled = (0 != (mDPM.getKeyguardDisabledFeatures(null)
-                       & DevicePolicyManager.KEYGUARD_DISABLE_WIDGETS_ALL));
-                if (disabled) {
-                    mEnableKeyguardWidgets.setSummary(
-                            R.string.security_enable_widgets_disabled_summary);
-                }
-                mEnableKeyguardWidgets.setEnabled(!disabled);
-            }
-       }
 
         // Show password
         mShowPassword = (CheckBoxPreference) root.findPreference(KEY_SHOW_PASSWORD);
@@ -820,9 +765,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
             lockPatternUtils.setVisibleGestureEnabled(isToggled(preference));
         } else if (KEY_POWER_INSTANTLY_LOCKS.equals(key)) {
             lockPatternUtils.setPowerButtonInstantlyLocks(isToggled(preference));
-        } else if (preference == mLockRingBattery) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, isToggled(preference) ? 1 : 0);
         } else if (preference == mShowPassword) {
             Settings.System.putInt(getContentResolver(), Settings.System.TEXT_SHOW_PASSWORD,
                     mShowPassword.isChecked() ? 1 : 0);

@@ -96,6 +96,13 @@
         android:fragment="com.android.settings.slim.InterfaceSettings"
         android:title="@string/interface_settings_title" />
 
+    <!-- Interface -->
+    <header
+        android:id="@+id/lockscreen_settings"
+        android:icon="@drawable/ic_settings_lockscreen"
+        android:fragment="com.android.settings.slim.LockscreenUI"
+        android:title="@string/lockscreen_settings_title" />
+
     <!-- Navigation -->
     <header
         android:id="@+id/navigation_settings"

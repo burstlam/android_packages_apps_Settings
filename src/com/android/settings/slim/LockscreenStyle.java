@@ -17,10 +17,7 @@
 package com.android.settings.slim;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.admin.DeviceAdminReceiver;
-import android.app.admin.DevicePolicyManager;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -32,7 +29,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.UserHandle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -40,7 +36,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
-import android.preference.SeekBarPreference;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
@@ -78,24 +73,21 @@ public class LockscreenStyle extends SettingsPreferenceFragment
     private static final String KEY_LOCKSCREEN_DOTS_COLOR =
             "lockscreen_dots_color";
 
-    private static final String KEY_ALLOW_ROTATION = "allow_rotation";
-    private static final String KEY_SEE_TRHOUGH = "see_through";
-    private static final String KEY_BLUR_BEHIND = "blur_behind";
-    private static final String KEY_BLUR_RADIUS = "blur_radius";
+    private static final String KEY_ALWAYS_BATTERY_PREF = 
+            "lockscreen_battery_status";
 
-    private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
+    private static final String BATTERY_AROUND_LOCKSCREEN_RING =
+            "battery_around_lockscreen_ring";
 
     private String mDefault;
 
     private CheckBoxPreference mColorizeCustom;
+    private CheckBoxPreference mBatteryStatus;
+    private CheckBoxPreference mLockRingBattery;
+
     private ColorPickerPreference mFrameColor;
     private ColorPickerPreference mLockColor;
     private ColorPickerPreference mDotsColor;
-    private CheckBoxPreference mSeeThrough;
-    private CheckBoxPreference mAllowRotation;
-    private CheckBoxPreference mBlurBehind;
-    private SeekBarPreference mBlurRadius;
-    private CheckBoxPreference mBatteryStatus;
 
     private ListPreference mLockIcon;
 
@@ -124,6 +116,18 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         addPreferencesFromResource(R.xml.lockscreen_style);
         prefSet = getPreferenceScreen();
 
+        mBatteryStatus = (CheckBoxPreference)
+                findPreference(KEY_ALWAYS_BATTERY_PREF);
+        mBatteryStatus.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0) == 0);
+        mBatteryStatus.setOnPreferenceChangeListener(this);
+
+        mLockRingBattery = (CheckBoxPreference)
+                findPreference(BATTERY_AROUND_LOCKSCREEN_RING);
+            mLockRingBattery.setChecked(Settings.System.getInt(getContentResolver(),
+                    Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, 0) == 1);
+        mLockRingBattery.setOnPreferenceChangeListener(this);
+
         // Set to string so we don't have to create multiple objects of it
         mDefault = getResources().getString(R.string.default_string);
 
@@ -138,12 +142,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         mColorizeCustom.setChecked(Settings.Secure.getInt(getContentResolver(),
                 Settings.Secure.LOCKSCREEN_COLORIZE_LOCK, 0) == 1);
         mColorizeCustom.setOnPreferenceChangeListener(this);
-
-        mBatteryStatus = (CheckBoxPreference)
-                findPreference(KEY_ALWAYS_BATTERY_PREF);
-        mBatteryStatus.setChecked(Settings.System.getInt(getContentResolver(),
-			Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0) == 0);
-        mBatteryStatus.setOnPreferenceChangeListener(this);
 
         mFrameColor = (ColorPickerPreference)
                 findPreference(KEY_LOCKSCREEN_FRAME_COLOR);
@@ -189,22 +187,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
             mLockColor.setEnabled(!dotsDisabled);
         }
 
-        mSeeThrough = (CheckBoxPreference) findPreference(KEY_SEE_TRHOUGH);
-
-        mAllowRotation = (CheckBoxPreference) findPreference(KEY_ALLOW_ROTATION);
-        mAllowRotation.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.LOCKSCREEN_ROTATION, 0) == 1); 
-
-        mBlurBehind = (CheckBoxPreference) findPreference(KEY_BLUR_BEHIND);
-        mBlurBehind.setChecked(Settings.System.getInt(getContentResolver(), 
-            Settings.System.LOCKSCREEN_BLUR_BEHIND, 0) == 1);
-        mBlurRadius = (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
-        mBlurRadius.setProgress(Settings.System.getInt(getContentResolver(), 
-            Settings.System.LOCKSCREEN_BLUR_RADIUS, 12));
-        mBlurRadius.setOnPreferenceChangeListener(this);
-
-        updateBlurPrefs();
-
         updateLockSummary();
 
         setHasOptionsMenu(true);
@@ -244,11 +226,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.add(0, MENU_RESET, 0, R.string.reset)
                 .setIcon(R.drawable.ic_settings_backup) // use the backup icon
@@ -264,33 +241,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
              default:
                 return super.onContextItemSelected(item);
         }
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference == mSeeThrough) {
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.LOCKSCREEN_SEE_THROUGH, mSeeThrough.isChecked()
-                    ? 1 : 0);
-            return true;
-        } else if (preference == mAllowRotation) {
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.LOCKSCREEN_ROTATION, mAllowRotation.isChecked()
-                    ? 1 : 0);
-            return true;
-        } else if (preference == mBlurBehind) {
-            Settings.System.putInt(getContentResolver(), 
-                    Settings.System.LOCKSCREEN_BLUR_BEHIND, mBlurBehind.isChecked()
-                    ? 1 : 0);
-            updateBlurPrefs();
-            return true;
-        } else if (preference == mBatteryStatus) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, mBatteryStatus.isChecked()
-                    ? 1 : 0);
-            return true;
-        }
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -330,9 +280,15 @@ public class LockscreenStyle extends SettingsPreferenceFragment
             setPreferenceSummary(preference,
                     getResources().getString(R.string.lockscreen_dots_color_summary), val);
             return true;
-        } else if (preference == mBlurRadius) {
+        } else if (preference == mBatteryStatus) {
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_BLUR_RADIUS, (Integer)newValue);
+                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY,
+                    ((Boolean) newValue) ? 1 : 0);
+            return true;
+        } else if (preference == mLockRingBattery) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.BATTERY_AROUND_LOCKSCREEN_RING,
+                    ((Boolean) newValue) ? 1 : 0);
             return true;
         }
         return false;
@@ -345,22 +301,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         } else {
             String hexColor = String.format("#%08x", (0xffffffff & value));
             preference.setSummary(defaultSummary + " (" + hexColor + ")");
-        }
-    }
-
-    public void updateBlurPrefs() {
-        // until i get around to digging through the frameworks to find where transparent lockscreen
-        // is breaking the animation for blur lets just be a little dirty dirty dirty...
-        if (mBlurBehind.isChecked()) {
-            mSeeThrough.setEnabled(false);
-            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH, 1);
-        } else {
-            mSeeThrough.setEnabled(true);
-            if (mSeeThrough.isChecked()) {
-                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH, 1);
-            } else {
-                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH, 0);
-            }
         }
     }
 
@@ -513,7 +453,5 @@ public class LockscreenStyle extends SettingsPreferenceFragment
 
         }
     }
-
-    public static class DeviceAdminLockscreenReceiver extends DeviceAdminReceiver {}
 }
 

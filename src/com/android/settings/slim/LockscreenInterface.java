@@ -68,7 +68,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
             prefs.removeAll();
         }
 
-        addPreferencesFromResource(R.xml.lockscreen_interface_settings);
+        addPreferencesFromResource(R.xml.lockscreen_targets_settings);
         prefs = getPreferenceScreen();
 
         mLockscreenEightTargets = (CheckBoxPreference) findPreference(
