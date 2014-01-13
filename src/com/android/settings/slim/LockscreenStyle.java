@@ -36,7 +36,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
-import android.preference.SeekBarPreference;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
@@ -80,20 +79,11 @@ public class LockscreenStyle extends SettingsPreferenceFragment
     private static final String BATTERY_AROUND_LOCKSCREEN_RING =
             "battery_around_lockscreen_ring";
 
-    private static final String KEY_ALLOW_ROTATION = "allow_rotation";
-    private static final String KEY_SEE_TRHOUGH = "see_through";
-    private static final String KEY_BLUR_BEHIND = "blur_behind";
-    private static final String KEY_BLUR_RADIUS = "blur_radius";
-
     private String mDefault;
 
     private CheckBoxPreference mColorizeCustom;
     private CheckBoxPreference mBatteryStatus;
     private CheckBoxPreference mLockRingBattery;
-    private CheckBoxPreference mBlurBehind;
-    private SeekBarPreference mBlurRadius;
-    private CheckBoxPreference mSeeThrough;
-    private CheckBoxPreference mAllowRotation;
 
     private ColorPickerPreference mFrameColor;
     private ColorPickerPreference mLockColor;
@@ -131,21 +121,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         mBatteryStatus.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0) == 0);
         mBatteryStatus.setOnPreferenceChangeListener(this);
-
-        mBlurBehind = (CheckBoxPreference) findPreference(KEY_BLUR_BEHIND);
-        mBlurBehind.setChecked(Settings.System.getInt(getContentResolver(), 
-            Settings.System.LOCKSCREEN_BLUR_BEHIND, 0) == 1);
-        mBlurRadius = (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
-        mBlurRadius.setProgress(Settings.System.getInt(getContentResolver(), 
-            Settings.System.LOCKSCREEN_BLUR_RADIUS, 12));
-        mBlurRadius.setOnPreferenceChangeListener(this);
-
-        mSeeThrough = (CheckBoxPreference) findPreference(KEY_SEE_TRHOUGH);
-
-        mAllowRotation = (CheckBoxPreference) findPreference(KEY_ALLOW_ROTATION);
-        mAllowRotation.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.LOCKSCREEN_ROTATION, 0) == 1);
-        mAllowRotation.setOnPreferenceChangeListener(this);
 
         mLockRingBattery = (CheckBoxPreference)
                 findPreference(BATTERY_AROUND_LOCKSCREEN_RING);
@@ -213,7 +188,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         }
 
         updateLockSummary();
-        updateBlurPrefs();
+
         setHasOptionsMenu(true);
         mCheckPreferences = true;
         return prefSet;
@@ -313,27 +288,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         } else if (preference == mLockRingBattery) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.BATTERY_AROUND_LOCKSCREEN_RING,
-                    ((Boolean) newValue) ? 1 : 0);
-            return true;
-        } else if (preference == mBlurBehind) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_BLUR_BEHIND,
-                    ((Boolean) newValue) ? 1 : 0);
-            updateBlurPrefs();
-            return true;
-        } else if (preference == mBlurRadius) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_BLUR_RADIUS,
-                    (Integer) newValue);
-            return true;
-        } else if (preference == mSeeThrough) {
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.LOCKSCREEN_SEE_THROUGH,
-                    ((Boolean) newValue) ? 1 : 0);
-            return true;
-        } else if (preference == mAllowRotation) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_ROTATION,
                     ((Boolean) newValue) ? 1 : 0);
             return true;
         }
@@ -497,22 +451,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         @Override
         public void onCancel(DialogInterface dialog) {
 
-        }
-    }
-
-    public void updateBlurPrefs() {
-        // until i get around to digging through the frameworks to find where transparent lockscreen
-        // is breaking the animation for blur lets just be a little dirty dirty dirty...
-        if (mBlurBehind.isChecked()) {
-            mSeeThrough.setEnabled(false);
-            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH, 1);
-        } else {
-            mSeeThrough.setEnabled(true);
-            if (mSeeThrough.isChecked()) {
-                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH, 1);
-            } else {
-                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH, 0);
-            }
         }
     }
 }
