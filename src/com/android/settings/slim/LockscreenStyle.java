@@ -205,12 +205,13 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         mBlurBehind = (CheckBoxPreference) findPreference(KEY_BLUR_BEHIND);
         mBlurBehind.setChecked(Settings.System.getInt(getContentResolver(), 
             Settings.System.LOCKSCREEN_BLUR_BEHIND, 0) == 1);
+        mBlurBehind.setEnabled(mSeeThrough.isChecked());
+
         mBlurRadius = (SeekBarPreference) findPreference(KEY_BLUR_RADIUS);
         mBlurRadius.setProgress(Settings.System.getInt(getContentResolver(), 
-            Settings.System.LOCKSCREEN_BLUR_RADIUS, 12));
+            Settings.System.LOCKSCREEN_BLUR_RADIUS, 1));
         mBlurRadius.setOnPreferenceChangeListener(this);
-
-        updateBlurPrefs();
+        mBlurRadius.setEnabled(mBlurBehind.isChecked() && mBlurBehind.isEnabled());
 
         updateLockSummary();
 
@@ -279,6 +280,8 @@ public class LockscreenStyle extends SettingsPreferenceFragment
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_SEE_THROUGH, mSeeThrough.isChecked()
                     ? 1 : 0);
+            mBlurBehind.setEnabled(mSeeThrough.isChecked());
+            mBlurRadius.setEnabled(mBlurBehind.isChecked() && mBlurBehind.isEnabled());
             return true;
         } else if (preference == mAllowRotation) {
             Settings.System.putInt(getActivity().getContentResolver(),
@@ -289,7 +292,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
             Settings.System.putInt(getContentResolver(), 
                     Settings.System.LOCKSCREEN_BLUR_BEHIND, mBlurBehind.isChecked()
                     ? 1 : 0);
-            updateBlurPrefs();
+            mBlurRadius.setEnabled(mBlurBehind.isChecked());
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -357,22 +360,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         } else {
             String hexColor = String.format("#%08x", (0xffffffff & value));
             preference.setSummary(defaultSummary + " (" + hexColor + ")");
-        }
-    }
-
-    public void updateBlurPrefs() {
-        // until i get around to digging through the frameworks to find where transparent lockscreen
-        // is breaking the animation for blur lets just be a little dirty dirty dirty...
-        if (mBlurBehind.isChecked()) {
-            mSeeThrough.setEnabled(false);
-            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH, 1);
-        } else {
-            mSeeThrough.setEnabled(true);
-            if (mSeeThrough.isChecked()) {
-                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH, 1);
-            } else {
-                Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_SEE_THROUGH, 0);
-            }
         }
     }
 
