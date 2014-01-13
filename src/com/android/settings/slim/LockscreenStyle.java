@@ -84,6 +84,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
     private static final String KEY_BLUR_RADIUS = "blur_radius";
 
     private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
+    private static final String BATTERY_AROUND_LOCKSCREEN_RING = "battery_around_lockscreen_ring";
 
     private String mDefault;
 
@@ -96,6 +97,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
     private CheckBoxPreference mBlurBehind;
     private SeekBarPreference mBlurRadius;
     private CheckBoxPreference mBatteryStatus;
+    private CheckBoxPreference mLockRingBattery;
 
     private ListPreference mLockIcon;
 
@@ -144,6 +146,11 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         mBatteryStatus.setChecked(Settings.System.getInt(getContentResolver(),
 			Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0) == 0);
         mBatteryStatus.setOnPreferenceChangeListener(this);
+
+        // Add the additional Omni settings
+        mLockRingBattery = (CheckBoxPreference)findPreference(BATTERY_AROUND_LOCKSCREEN_RING);
+        mLockRingBattery.setChecked(Settings.System.getInt(getContentResolver(),
+            Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, 0) == 1);
 
         mFrameColor = (ColorPickerPreference)
                 findPreference(KEY_LOCKSCREEN_FRAME_COLOR);
@@ -284,11 +291,6 @@ public class LockscreenStyle extends SettingsPreferenceFragment
                     ? 1 : 0);
             updateBlurPrefs();
             return true;
-        } else if (preference == mBatteryStatus) {
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, mBatteryStatus.isChecked()
-                    ? 1 : 0);
-            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -334,6 +336,16 @@ public class LockscreenStyle extends SettingsPreferenceFragment
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_BLUR_RADIUS, (Integer)newValue);
             return true;
+        } else if (preference == mBatteryStatus) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY,
+        			((Boolean) newValue) ? 1 : 0);
+            return true;    
+        } else if (preference == mLockRingBattery) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.BATTERY_AROUND_LOCKSCREEN_RING,
+        			((Boolean) newValue) ? 1 : 0);
+            return true;    
         }
         return false;
     }
@@ -516,4 +528,3 @@ public class LockscreenStyle extends SettingsPreferenceFragment
 
     public static class DeviceAdminLockscreenReceiver extends DeviceAdminReceiver {}
 }
-
