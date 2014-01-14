@@ -341,6 +341,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         }
 
         mCameraSounds = (ListPreference) findPreference(KEY_CAMERA_SOUNDS);
+        mCameraSounds.setOnPreferenceChangeListener(this);
         final int currentCamSound = SystemProperties.getInt(PROP_CAMERA_SOUND, 1);
         mCameraSounds.setValue(Integer.toString(currentCamSound));
         mCameraSounds.setSummary(mCameraSounds.getEntry());
