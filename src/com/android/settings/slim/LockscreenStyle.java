@@ -214,7 +214,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         mBlurRadius.setEnabled(mBlurBehind.isChecked() && mBlurBehind.isEnabled());
 
         updateLockSummary();
-
+        updateTransparency();
         setHasOptionsMenu(true);
         mCheckPreferences = true;
         return prefSet;
@@ -282,6 +282,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
                     ? 1 : 0);
             mBlurBehind.setEnabled(mSeeThrough.isChecked());
             mBlurRadius.setEnabled(mBlurBehind.isChecked() && mBlurBehind.isEnabled());
+            updateTransparency();
             return true;
         } else if (preference == mAllowRotation) {
             Settings.System.putInt(getActivity().getContentResolver(),
@@ -293,6 +294,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
                     Settings.System.LOCKSCREEN_BLUR_BEHIND, mBlurBehind.isChecked()
                     ? 1 : 0);
             mBlurRadius.setEnabled(mBlurBehind.isChecked());
+            updateTransparency();
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -353,8 +355,16 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         return false;
     }
 
+    public void updateTransparency() {
+        if (mSeeThrough.isChecked() && !mBlurBehind.isChecked()) {
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_BLUR_RADIUS, 0);
+        } else {
+            return;
+        }
+    }
+
     private void setPreferenceSummary(
-            Preference preference, String defaultSummary, int value) {
+                    Preference preference, String defaultSummary, int value) {
         if (value == -2) {
             preference.setSummary(defaultSummary + " (" + mDefault + ")");
         } else {
