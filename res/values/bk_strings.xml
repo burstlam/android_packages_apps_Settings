@@ -311,6 +311,9 @@
     <!-- Alternate default app picker -->
     <string name="alt_resolver">Use Alt Default App Grid</string>
     <string name="alt_resolver_summary">Use Alternate Default App Picker</string>
+    <!-- Default app picker -->
+    <string name="reverse_default_app_picker">Reverse default app picker</string>
+    <string name="reverse_default_app_picker_summary">Mark the last used option instead of the last used app</string>
 
     <!-- show carrier label  and custom -->
     <string name="show_status_bar_carrier_title">Status bar carrier</string>

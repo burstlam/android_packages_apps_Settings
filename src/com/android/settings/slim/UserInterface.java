@@ -61,13 +61,13 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private static final String RECENT_MENU_CLEAR_ALL = "recent_menu_clear_all";
     private static final String RECENT_MENU_CLEAR_ALL_LOCATION = "recent_menu_clear_all_location";
     private static final String KEY_RECENTS_RAM_BAR = "recents_ram_bar";
-    private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver";
+    private static final String KEY_REVERSE_DEFAULT_APP_PICKER = "use_alt_resolver";
 
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
-    private CheckBoxPreference mUseAltResolver;
+    private CheckBoxPreference mReverseDefaultAppPicker;
 
     private Preference mRamBar;
     Preference mLcdDensity;
@@ -124,9 +124,10 @@ public class UserInterface extends SettingsPreferenceFragment implements
         }
         mRecentClearAllPosition.setOnPreferenceChangeListener(this);
 
-        mUseAltResolver = (CheckBoxPreference) findPreference(PREF_USE_ALT_RESOLVER);
-        mUseAltResolver.setChecked(Settings.System.getInt(resolver,
-                Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0) == 1);
+        mReverseDefaultAppPicker = (CheckBoxPreference) findPreference(KEY_REVERSE_DEFAULT_APP_PICKER);
+        mReverseDefaultAppPicker.setChecked(Settings.System.getInt(resolver,
+                Settings.System.REVERSE_DEFAULT_APP_PICKER, 0) == 1);
+        mReverseDefaultAppPicker.setOnPreferenceChangeListener(this);
     }
 
     private void updateRamBar() {
@@ -175,9 +176,9 @@ public class UserInterface extends SettingsPreferenceFragment implements
         } else if (preference == mRecentClearAllPosition) {
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION, value);
-        } else if (preference == mUseAltResolver) {
+        } else if (preference == mReverseDefaultAppPicker) {
             boolean value = (Boolean) newValue;
-            Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, value ? 1 : 0);
+            Settings.System.putInt(resolver, Settings.System.REVERSE_DEFAULT_APP_PICKER, value ? 1 : 0);
         } else {
             return false;
         }
