@@ -54,6 +54,13 @@
             android:defaultValue="2"
             android:dependency="recent_menu_clear_all" />
 
+        <!-- Alternate App picker -->
+        <CheckBoxPreference
+            android:key="use_alt_resolver"
+            android:title="@string/alt_resolver"
+            android:summary="@string/alt_resolver_summary"
+            android:defaultValue="false" />
+
         <CheckBoxPreference
             android:key="reverse_default_app_picker"
             android:title="@string/reverse_default_app_picker"
