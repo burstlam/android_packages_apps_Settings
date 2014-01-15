@@ -120,9 +120,6 @@ public class RamBar extends SettingsPreferenceFragment implements OnPreferenceCh
         menu.add(0, MENU_RESET, 0, R.string.ram_bar_button_reset)
                 .setIcon(R.drawable.ic_settings_backup) // use the backup icon
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.add(0, MENU_HELP, 0, R.string.ram_bar_button_help)
-                .setIcon(R.drawable.ic_settings_about)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
     @Override
@@ -130,11 +127,6 @@ public class RamBar extends SettingsPreferenceFragment implements OnPreferenceCh
         switch (item.getItemId()) {
             case MENU_RESET:
                 resetToDefault();
-                return true;
-            case MENU_HELP:
-                final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLANATION_URL));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mContext.startActivity(intent);
                 return true;
              default:
                 return super.onContextItemSelected(item);
