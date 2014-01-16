@@ -41,7 +41,7 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
     public static final String TAG = "NotificationDrawerSettings";
 
     private static final String PREF_NOTIFICATION_HIDE_LABELS =
-            "notification_hide_labels"
+            "notification_hide_labels";
     private static final String PREF_NOTIFICATION_ALPHA =
             "notification_alpha";
     private static final String PRE_QUICK_PULLDOWN =
