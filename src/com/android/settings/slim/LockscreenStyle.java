@@ -151,6 +151,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
         mLockRingBattery = (CheckBoxPreference)findPreference(BATTERY_AROUND_LOCKSCREEN_RING);
         mLockRingBattery.setChecked(Settings.System.getInt(getContentResolver(),
             Settings.System.BATTERY_AROUND_LOCKSCREEN_RING, 0) == 1);
+        mLockRingBattery.setOnPreferenceChangeListener(this);
 
         mFrameColor = (ColorPickerPreference)
                 findPreference(KEY_LOCKSCREEN_FRAME_COLOR);
@@ -350,7 +351,7 @@ public class LockscreenStyle extends SettingsPreferenceFragment
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.BATTERY_AROUND_LOCKSCREEN_RING,
         			((Boolean) newValue) ? 1 : 0);
-            return true;    
+            return true;
         }
         return false;
     }
