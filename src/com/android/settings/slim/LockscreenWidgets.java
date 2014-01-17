@@ -54,6 +54,7 @@ public class LockscreenWidgets extends SettingsPreferenceFragment
             "lockscreen_use_widget_container_carousel";
     private static final String KEY_LOCKSCREEN_MUSIC_CONTROLS =
             "lockscreen_music_controls";
+    private static final String PREF_LOCKSCREEN_TORCH = "lockscreen_torch";
 
     private CheckBoxPreference mEnableWidgets;
     private CheckBoxPreference mCameraWidget;
@@ -61,6 +62,7 @@ public class LockscreenWidgets extends SettingsPreferenceFragment
     private CheckBoxPreference mLockscreenHints;
     private CheckBoxPreference mLockscreenUseCarousel;
     private CheckBoxPreference mMusicControls;
+    private CheckBoxPreference mGlowpadTorch;
 
     private boolean mCameraWidgetAttached;
 
@@ -136,6 +138,16 @@ public class LockscreenWidgets extends SettingsPreferenceFragment
         mMusicControls.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_MUSIC_CONTROLS, 1) == 1);
         mMusicControls.setOnPreferenceChangeListener(this);
+
+        mGlowpadTorch = (CheckBoxPreference) findPreference(PREF_LOCKSCREEN_TORCH);
+        mGlowpadTorch.setChecked(Settings.System.getInt(
+                getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.LOCKSCREEN_GLOWPAD_TORCH, 0) == 1);
+        mGlowpadTorch.setOnPreferenceChangeListener(this);
+
+        if (!DeviceUtils.deviceSupportsTorch(getActivity())) {
+            prefSet.removePreference(mGlowpadTorch);
+        }
     }
 
     private void updatePreferences(boolean disable) {
@@ -174,6 +186,11 @@ public class LockscreenWidgets extends SettingsPreferenceFragment
         } else if (preference == mMusicControls) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_MUSIC_CONTROLS,
+                    (Boolean) newValue ? 1 : 0);
+            return true;
+        } else if (preference == mGlowpadTorch) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_GLOWPAD_TORCH,
                     (Boolean) newValue ? 1 : 0);
             return true;
         }
