@@ -121,6 +121,11 @@
                 android:summary="@string/wakeup_when_plugged_unplugged_summary"
                 android:defaultValue="true" />
 
+            <CheckBoxPreference
+                android:key="double_tap_wake_gesture"
+                android:title="@string/double_tap_to_wake_title"
+                android:defaultValue="false" />
+
         </PreferenceCategory>
 
 </PreferenceScreen>

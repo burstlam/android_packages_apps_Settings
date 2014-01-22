@@ -637,4 +637,7 @@
     <string name="lockscreen_buttons_playpause">Play/Pause music</string>
     <string name="lockscreen_buttons_toggle_sound">Toggle sound</string>
     <string name="lockscreen_buttons_sleep">Go to sleep</string>
+
+    <!-- tap-to-wake -->
+    <string name="double_tap_to_wake_title">Double-tap to wake</string>
 </resources>
