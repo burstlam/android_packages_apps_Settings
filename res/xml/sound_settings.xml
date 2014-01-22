@@ -161,6 +161,24 @@
             android:entries="@array/emergency_tone_entries"
             android:entryValues="@array/emergency_tone_values" />
 
+    <PreferenceCategory
+        android:key="button_headsethook"
+        android:title="@string/button_headsethook_title" >
+
+        <CheckBoxPreference
+            android:key="button_headsethook_launch_voice"
+            android:title="@string/button_headsethook_launch_voice_title"
+            android:summary="@string/button_headsethook_launch_voice_summary"
+            android:persistent="false" />
+
+        <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
+            android:key="headset_connect_player"
+            android:title="@string/headset_connect_player_title"
+            android:summary="@string/headset_connect_player_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
     <!-- Dock -->
     <PreferenceCategory
         android:key="dock_category"

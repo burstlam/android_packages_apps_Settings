@@ -122,6 +122,9 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String RING_MODE_VIBRATE = "vibrate";
     private static final String RING_MODE_MUTE = "mute";
 
+    private static final String CATEGORY_HEADSETHOOK = "button_headsethook";
+    private static final String BUTTON_HEADSETHOOK_LAUNCH_VOICE = "button_headsethook_launch_voice";
+
     // Request code for power notification ringtone picker
     private static final int REQUEST_CODE_POWER_NOTIFICATIONS_RINGTONE = 1;
 
@@ -154,6 +157,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private ListPreference mAnnoyingNotifications;
     private PreferenceScreen mQuietHours;
     private SeekBarPreference mVibrationDuration;
+    private CheckBoxPreference mHeadsetHookLaunchVoice;
 
     private Vibrator mVib;
 
@@ -338,6 +342,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             }
         }
 
+        mHeadsetHookLaunchVoice = (CheckBoxPreference) findPreference(BUTTON_HEADSETHOOK_LAUNCH_VOICE);
+        mHeadsetHookLaunchVoice.setChecked(Settings.System.getInt(getContentResolver(),
+        Settings.System.HEADSETHOOK_LAUNCH_VOICE, 1) == 1);
+
         mCameraSounds = (ListPreference) findPreference(KEY_CAMERA_SOUNDS);
         mCameraSounds.setOnPreferenceChangeListener(this);
         final int currentCamSound = SystemProperties.getInt(PROP_CAMERA_SOUND, 1);
@@ -470,6 +478,11 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mMusicFx) {
             // let the framework fire off the intent
             return false;
+        } else if (preference == mHeadsetHookLaunchVoice) {
+            boolean checked = ((CheckBoxPreference)preference).isChecked();
+            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.HEADSETHOOK_LAUNCH_VOICE, checked ? 1:0);
+            return true;
         } else if (preference == mDockAudioSettings) {
             int dockState = mDockIntent != null
                     ? mDockIntent.getIntExtra(Intent.EXTRA_DOCK_STATE, 0)
