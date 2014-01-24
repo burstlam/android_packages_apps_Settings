@@ -59,4 +59,9 @@
         android:title="@string/wakelock_blocker"
         android:summary="@string/wakelock_blocker_header_summary" />
 
+    <PreferenceScreen
+        android:id="@+id/system_app_remover"
+        android:fragment="com.android.settings.slim.SystemappRemover"
+        android:title="@string/system_app_remover" />
+
 </PreferenceScreen>
