@@ -1842,6 +1842,11 @@
         <activity android:name=".slim.UserInterface" />
 
         <activity
+            android:name=".ActiveNotifications"
+            android:label="@string/Lockscreen_notifications_header" >
+        </activity>
+
+        <activity
             android:name=".slim.DensityChanger"
             android:label="@string/lcd_density_wizard" >
             <intent-filter>
@@ -1899,11 +1904,6 @@
 
         <service android:name=".aokp.weather.WeatherRefreshService" />
         <service android:name=".aokp.weather.WeatherService" />
-
-        <activity
-			android:name=".LockscreenNotifications"
-			android:label="@string/Lockscreen_notifications_header" >
-        </activity>
 
         <!-- Telo -->
         <activity android:name=".vanir.TeloRadioSettings"

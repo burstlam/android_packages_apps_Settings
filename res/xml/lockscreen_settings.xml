@@ -21,15 +21,10 @@
         android:key="lockscreen_notifications"
         android:title="@string/lockscreen_notifications">
 
-    	<PreferenceScreen
-            android:title="@string/lockscreen_notifications"
-            android:fragment="com.android.settings.LockscreenNotifications" />
-
         <PreferenceScreen
-            android:key="active_display"
-            android:fragment="com.android.settings.chameleonos.ActiveDisplaySettings"
-            android:title="@string/ad_settings_title"
-            android:summary="@string/ad_settings_summary" />
+            android:id="@+id/active_notifications"
+            android:title="@string/Lockscreen_notifications_header"
+            android:fragment="com.android.settings.ActiveNotifications" />
 
     </PreferenceCategory>
 

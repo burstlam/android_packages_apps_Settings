@@ -80,6 +80,18 @@
         <item>25000</item>
     </string-array>
 
+    <string-array name="pocket_mode_entries" translatable="false">
+        <item>@string/pocket_mode_off</item>
+        <item>@string/pocket_mode_lockscreen</item>
+        <item>@string/pocket_mode_active</item>
+    </string-array>
+
+    <string-array name="pocket_mode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <!-- App sidebar -->
     <string-array name="app_sidebar_position_entries" translatable="false">
         <item>@string/app_sidebar_position_left</item>
