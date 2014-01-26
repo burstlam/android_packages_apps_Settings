@@ -470,6 +470,12 @@ public class ButtonsListViewSettings extends ListFragment implements
                     mActivity, mActionValuesKey, mActionEntriesKey);
             case NOTIFICATION_SHORTCUT:
                 return ButtonsHelper.getNotificationsShortcutConfig(mActivity);
+            case PIE:
+                return ButtonsHelper.getPieConfigWithDescription(
+                    mActivity, mActionValuesKey, mActionEntriesKey);
+            case PIE_SECOND:
+                return ButtonsHelper.getPieSecondLayerConfigWithDescription(
+                    mActivity, mActionValuesKey, mActionEntriesKey);
             case POWER_MENU_SHORTCUT:
                 return PolicyHelper.getPowerMenuConfigWithDescription(
                     mActivity, mActionValuesKey, mActionEntriesKey);
@@ -492,6 +498,12 @@ public class ButtonsListViewSettings extends ListFragment implements
                 if (reset) {
                     loadAdditionalFragment();
                 }
+                break;
+            case PIE:
+                ButtonsHelper.setPieConfig(mActivity, buttonConfigs, reset);
+                break;
+            case PIE_SECOND:
+                ButtonsHelper.setPieSecondLayerConfig(mActivity, buttonConfigs, reset);
                 break;
             case POWER_MENU_SHORTCUT:
                 PolicyHelper.setPowerMenuConfig(mActivity, buttonConfigs, reset);
@@ -651,8 +663,8 @@ public class ButtonsListViewSettings extends ListFragment implements
                             break;
                         case NAV_BAR:
                         case NAV_RING:
-                        // case PIE:
-                        // case PIE_SECOND:
+                        case PIE:
+                        case PIE_SECOND:
                         default:
                             buttonMode = res.getString(R.string.shortcut_action_help_button);
                             break;
