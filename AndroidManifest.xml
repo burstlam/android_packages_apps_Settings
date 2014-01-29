@@ -1843,6 +1843,8 @@
 
         <activity android:name=".slim.PieControl" />
 
+        <activity android:name=".aokp.Installer" />
+
         <activity
             android:name=".ActiveNotifications"
             android:label="@string/Lockscreen_notifications_header" >

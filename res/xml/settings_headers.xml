@@ -126,6 +126,12 @@
         android:title="@string/lab_settings_title" />
 
     <header
+        android:id="@+id/installer"
+        android:fragment="com.android.settings.aokp.Installer" 
+        android:title="@string/installer"
+        android:icon="@drawable/ic_settings_installer"/>
+
+    <header
         android:id="@+id/advanced_settings"
         android:title="@string/device_settings_title"
         android:icon="@drawable/ic_settings_advanced">
