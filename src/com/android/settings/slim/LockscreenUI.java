@@ -37,6 +37,9 @@ public class LockscreenUI extends SettingsPreferenceFragment
 
     private static final String LOCKSCREEN_GENERAL_CATEGORY = "lockscreen_general_category";
     private static final String KEY_LOCKSCREEN_BUTTONS = "lockscreen_buttons";
+    private static final String KEY_LOCKSCREEN_DOUBLE_TAP_SLEEP_GESTURE = "lockscreen_double_tap_sleep_gesture";
+
+    private CheckBoxPreference mDoubleTapSleep;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,11 @@ public class LockscreenUI extends SettingsPreferenceFragment
         // Find categories
         PreferenceCategory generalCategory = (PreferenceCategory)
                 findPreference(LOCKSCREEN_GENERAL_CATEGORY);
+
+        mDoubleTapSleep = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_DOUBLE_TAP_SLEEP_GESTURE);
+        mDoubleTapSleep.setChecked((Settings.System.getInt(resolver,
+                Settings.System.LOCKSCREEN_DOUBLE_TAP_SLEEP_GESTURE, 0) == 1));
+        mDoubleTapSleep.setOnPreferenceChangeListener(this);
 
         // Remove lockscreen button actions if device doesn't have hardware keys
         if (!hasButtons()) {
@@ -75,6 +83,12 @@ public class LockscreenUI extends SettingsPreferenceFragment
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        ContentResolver resolver = getActivity().getContentResolver();
+        if (preference == mDoubleTapSleep) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(resolver, Settings.System.LOCKSCREEN_DOUBLE_TAP_SLEEP_GESTURE, value ? 1 : 0);
+            return true;
+        }
         return false;
     }
 

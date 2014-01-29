@@ -981,4 +981,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="pie_menu_never_show">Never Show</string>
     <string name="pie_menu_default_jb_behavior">Default</string>
 
+    <!--Lockscreen DoubleTap to Sleep -->
+    <string name="lockscreen_doubletap_sleep_title">Double Tap to Sleep</string>
+    <string name="lockscreen_doubletap_sleep_summary">Double tap the text entry view with pin and password enabled, double tap anywhere on the lock view with pattern and gesture lock enabled, double tap on glowpad with slide lockscreen.</string>
+
 </resources>

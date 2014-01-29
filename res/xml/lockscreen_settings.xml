@@ -65,6 +65,12 @@
         android:title="@string/lockscreen_buttons_title"
         android:summary="@string/lockscreen_buttons_summary" />
 
+    <CheckBoxPreference
+        android:key="lockscreen_double_tap_sleep_gesture"
+        android:title="@string/lockscreen_doubletap_sleep_title"
+        android:summary="@string/lockscreen_doubletap_sleep_summary"
+        android:defaultValue="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
