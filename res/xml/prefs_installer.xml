@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory
+        android:key="general"
+        android:title="@string/general" >
+
         <CheckBoxPreference
             android:key="enable_persist"
             android:title="@string/persist_enable"
@@ -17,5 +21,13 @@
             android:dependency="enable_persist"
             android:title="@string/persist_file_hosts"
             android:summary="@string/persist_file_hosts_summary" />
+
+        <CheckBoxPreference
+            android:key="persist_file_xposed"
+            android:dependency="enable_persist"
+            android:title="@string/persist_file_xposed"
+            android:summary="@string/persist_file_xposed_summary" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

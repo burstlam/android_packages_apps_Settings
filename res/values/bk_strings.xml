@@ -985,11 +985,9 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="lockscreen_doubletap_sleep_title">Double Tap to Sleep</string>
     <string name="lockscreen_doubletap_sleep_summary">Double tap the text entry view with pin and password enabled, double tap anywhere on the lock view with pattern and gesture lock enabled, double tap on glowpad with slide lockscreen.</string>
 
-    <!--Lockscreen DoubleTap to Sleep -->
-    <string name="installer">Installer</string>
-    <string name="title_installer">Installer Settings</string>
-
     <!-- Installer -->
+    <string name="installer">Installer</string>
+    <string name="title_installer">Installer</string>
     <string name="persist_options">Persistence</string>
     <string name="persist_enable">Enable Persistence</string>
     <string name="persist_enable_summary">Enable data to persist across installs</string>
@@ -997,5 +995,18 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="persist_prop_density_summary">Persist LCD density</string>
     <string name="persist_file_hosts">Persist Hosts</string>
     <string name="persist_file_hosts_summary">Persist hosts file</string>
+    <string name="persist_file_xposed">Persist Xposed</string>
+    <string name="persist_file_xposed_summary">Persist file app_process for Xposed framework</string>
+    <string name="persist_file_xposed_notinstalled">XposedInstaller is not installed</string>
+    <string name="enable_persist_installer">To Unlock: \"enable persistence\"</string>
+
+    <!-- Xposed Hooks-->
+    <string name="xposed_category_title">Xposed</string>
+    <string name="xposed_framework_modules_title">Framework &amp; Modules</string>
+    <string name="xposed_framework_modules_summary">Xposed framework installer and module manager. Check here first!</string>
+    <string name="xposed_per_app_title">Per App Settings</string>
+    <string name="xposed_per_app__summary">Customize DPI, UI layout, and more per app settings to your liking here</string>
+    <string name="xposed_warning_title">Warning:</string>
+    <string name="xposed_warning_summary">These mods may adversely affect performance and stability. Use at your own risk!</string>
 
 </resources>
