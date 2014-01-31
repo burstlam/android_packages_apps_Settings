@@ -133,6 +133,11 @@
     <PreferenceCategory
             android:title="@string/sound_category_system_title"/>
 
+    <PreferenceScreen
+			android:key="sound_packages"
+			android:fragment="com.android.settings.omni.SoundPackageSettings"
+			android:title="@string/sound_packages_title" />
+
     <!-- Do not nest these, or removals in code will break -->
 
     <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
