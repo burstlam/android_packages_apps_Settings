@@ -46,6 +46,8 @@ import com.android.internal.util.slim.HwKeyHelper;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
 import com.android.settings.slim.util.ShortcutPickerHelper;
+import com.android.settings.cyanogenmod.ButtonBacklightBrightness;
+import com.android.settings.Utils;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -82,6 +84,13 @@ public class HardwareKeysSettings extends SettingsPreferenceFragment implements
     private static final String KEYS_APP_SWITCH_LONG_PRESS = "keys_app_switch_long_press";
     private static final String KEYS_APP_SWITCH_DOUBLE_TAP = "keys_app_switch_double_tap";
 
+    private static final String KEY_BUTTON_BACKLIGHT = "button_backlight";
+    private static final String KEY_SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
+    private static final String KEY_BLUETOOTH_INPUT_SETTINGS = "bluetooth_input_settings";
+
+    private static final String CATEGORY_VOLUME = "volume_keys";
+    private static final String CATEGORY_BACKLIGHT = "key_backlight";
+
     private static final int DLG_SHOW_WARNING_DIALOG = 0;
     private static final int DLG_SHOW_ACTION_DIALOG  = 1;
     private static final int DLG_RESET_TO_DEFAULT    = 2;
@@ -112,6 +121,8 @@ public class HardwareKeysSettings extends SettingsPreferenceFragment implements
     private Preference mAppSwitchPressAction;
     private Preference mAppSwitchLongPressAction;
     private Preference mAppSwitchDoubleTapAction;
+
+    private CheckBoxPreference mSwapVolumeButtons;
 
     private boolean mCheckPreferences;
     private Map<String, String> mKeySettings = new HashMap<String, String>();
@@ -152,6 +163,10 @@ public class HardwareKeysSettings extends SettingsPreferenceFragment implements
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.hardwarekeys_settings);
         prefs = getPreferenceScreen();
+        final Resources res = getResources();
+
+        final PreferenceCategory volumeCategory =
+                (PreferenceCategory) prefs.findPreference(CATEGORY_VOLUME);
 
         int deviceKeys = getResources().getInteger(
                 com.android.internal.R.integer.config_deviceHardwareKeys);
@@ -309,6 +324,28 @@ public class HardwareKeysSettings extends SettingsPreferenceFragment implements
         mEnableCustomBindings.setChecked(enableHardwareRebind);
         mEnableCustomBindings.setOnPreferenceChangeListener(this);
 
+        if (Utils.hasVolumeRocker(getActivity())) {
+            int swapVolumeKeys = Settings.System.getInt(getContentResolver(),
+                    Settings.System.SWAP_VOLUME_KEYS_ON_ROTATION, 0);
+            mSwapVolumeButtons = (CheckBoxPreference)
+                    prefs.findPreference(KEY_SWAP_VOLUME_BUTTONS);
+            mSwapVolumeButtons.setChecked(swapVolumeKeys > 0);
+            if (!res.getBoolean(R.bool.config_show_volumeRockerWake)) {
+                volumeCategory.removePreference(findPreference(Settings.System.VOLUME_WAKE_SCREEN));
+            }
+        } else {
+            prefs.removePreference(volumeCategory);
+        }
+
+        final ButtonBacklightBrightness backlight =
+                (ButtonBacklightBrightness) findPreference(KEY_BUTTON_BACKLIGHT);
+        if (!backlight.isButtonSupported() && !backlight.isKeyboardSupported()) {
+            prefs.removePreference(backlight);
+        }
+        
+        Utils.updatePreferenceToSpecificActivityFromMetaDataOrRemove(getActivity(),
+                getPreferenceScreen(), KEY_BLUETOOTH_INPUT_SETTINGS);
+
         // Handle warning dialog.
         SharedPreferences preferences =
                 getActivity().getSharedPreferences("hw_key_settings", Activity.MODE_PRIVATE);
@@ -425,6 +462,18 @@ public class HardwareKeysSettings extends SettingsPreferenceFragment implements
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mSwapVolumeButtons) {
+            int value = mSwapVolumeButtons.isChecked()
+                    ? (Utils.isTablet(getActivity()) ? 2 : 1) : 0;
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.SWAP_VOLUME_KEYS_ON_ROTATION, value);
+            return true;
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     private boolean hasHomeKey() {
