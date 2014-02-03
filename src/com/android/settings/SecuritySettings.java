@@ -49,7 +49,7 @@ import android.util.Log;
 import com.android.internal.util.slim.DeviceUtils;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.settings.R;
-import com.android.settings.cyanogenmod.ButtonSettings;
+import com.android.settings.slim.HardwareKeysSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +104,11 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL = "quick_unlock_control";
     private static final String KEY_LOCKSCREEN_NOTIFICATIONS = "lockscreen_notifications_allowed";
     private static final String CATEGORY_ADDITIONAL = "additional_options";
+
+    // Masks for checking presence of hardware keys.
+    // Must match values in frameworks/base/core/res/res/values/config.xml
+    private static final int KEY_MASK_HOME       = 0x01;
+    private static final int KEY_MASK_MENU       = 0x04;
 
     private PackageManager mPM;
     private DevicePolicyManager mDPM;
@@ -249,13 +254,15 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 findPreference(Settings.System.MENU_UNLOCK_SCREEN);
         CheckBoxPreference homeUnlock = (CheckBoxPreference)
                 findPreference(Settings.System.HOME_UNLOCK_SCREEN);
-        CheckBoxPreference cameraUnlock = (CheckBoxPreference)
-                findPreference(Settings.System.CAMERA_UNLOCK_SCREEN);
         CheckBoxPreference vibratePref = (CheckBoxPreference)
                 findPreference(Settings.System.LOCKSCREEN_VIBRATE_ENABLED);
 
         final int deviceKeys = res.getInteger(
                 com.android.internal.R.integer.config_deviceHardwareKeys);
+
+        boolean hasHomeKey = (deviceKeys & KEY_MASK_HOME) != 0;
+        boolean hasMenuKey = (deviceKeys & KEY_MASK_MENU) != 0;
+
         final PreferenceGroup additionalPrefs =
                 (PreferenceGroup) findPreference(CATEGORY_ADDITIONAL);
         // hide all lock options if lock screen set to NONE
@@ -276,16 +283,12 @@ public class SecuritySettings extends RestrictedSettingsFragment
         }
 
         // Hide the MenuUnlock setting if no menu button is available
-        if ((deviceKeys & ButtonSettings.KEY_MASK_MENU) == 0) {
+        if (hasMenuKey) {
             additionalPrefs.removePreference(menuUnlock);
         }
         // Hide the HomeUnlock setting if no home button is available
-        if ((deviceKeys & ButtonSettings.KEY_MASK_HOME) == 0) {
+        if (hasHomeKey) {
             additionalPrefs.removePreference(homeUnlock);
-        }
-        // Hide the CameraUnlock setting if no camera button is available
-            if ((deviceKeys & ButtonSettings.KEY_MASK_CAMERA) == 0) {
-                additionalPrefs.removePreference(cameraUnlock);
         }
 
         // Add options for device encryption

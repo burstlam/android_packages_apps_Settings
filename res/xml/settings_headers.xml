@@ -115,8 +115,8 @@
     <header
         android:id="@+id/button_settings"
         android:icon="@drawable/ic_settings_buttons"
-        android:fragment="com.android.settings.cyanogenmod.ButtonSettings"
-        android:title="@string/button_settings" />
+        android:fragment="com.android.settings.slim.HardwareKeysSettings"
+        android:title="@string/button_keys_title" />
 
     <!-- ChaOS Lab -->
     <header
