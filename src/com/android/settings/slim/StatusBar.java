@@ -16,30 +16,62 @@
 
 package com.android.settings.slim;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
-import android.database.ContentObserver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.database.ContentObserver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
-import android.util.Log;
-
 import android.text.Spannable;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View.OnClickListener;
+import android.view.Display;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.util.Random;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
+import com.android.settings.util.Helpers;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -52,6 +84,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
     private static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
     private static final String STATUS_BAR_BRIGHTNESS = "statusbar_brightness_slider";
+    private static final String SIGNAL_STYLE = "signal_style";
+    private static final String HIDE_SIGNAL = "hide_signal";
 
     static final int DEFAULT_STATUS_CARRIER_COLOR = 0xffffffff;
 
@@ -62,6 +96,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private ColorPickerPreference mCarrierColorPicker;
 
     private String mCustomStatusBarCarrierLabelText;
+    private ListPreference mDbmStyletyle;
+    private CheckBoxPreference mHideSignal;
+    private ColorPickerPreference mSignalColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +132,21 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mCarrierColorPicker.setSummary(hexColor);
         mCarrierColorPicker.setNewPreviewColor(intColor);
+
+        mDbmStyletyle = (ListPreference) findPreference("signal_style");
+        mDbmStyletyle.setOnPreferenceChangeListener(this);
+        mDbmStyletyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.STATUSBAR_SIGNAL_TEXT,
+                0)));
+
+        mSignalColor = (ColorPickerPreference) findPreference("signal_color");
+        mSignalColor.setOnPreferenceChangeListener(this);
+
+        mHideSignal = (CheckBoxPreference) findPreference("hide_signal");
+        mHideSignal.setChecked(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.STATUSBAR_HIDE_SIGNAL_BARS,
+                0) != 0);
+        mHideSignal.setOnPreferenceChangeListener(this);
 
         mCustomStatusBarCarrierLabel = (PreferenceScreen) findPreference(CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
@@ -158,6 +210,23 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_CARRIER_COLOR, intHex);
+            return true;
+        } else if (preference == mHideSignal) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(resolver, Settings.System.STATUSBAR_HIDE_SIGNAL_BARS, value ? 1 : 0);
+            return true;
+        } else if (preference == mDbmStyletyle) {
+            int val = Integer.parseInt((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_SIGNAL_TEXT, val);
+            return true;
+        } else if (preference == mSignalColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String
+                    .valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_SIGNAL_TEXT_COLOR, intHex);
             return true;
         }
         return false;
