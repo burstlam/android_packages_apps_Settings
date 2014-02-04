@@ -283,11 +283,11 @@ public class SecuritySettings extends RestrictedSettingsFragment
         }
 
         // Hide the MenuUnlock setting if no menu button is available
-        if (hasMenuKey) {
+        if (!hasMenuKey) {
             additionalPrefs.removePreference(menuUnlock);
         }
         // Hide the HomeUnlock setting if no home button is available
-        if (hasHomeKey) {
+        if (!hasHomeKey) {
             additionalPrefs.removePreference(homeUnlock);
         }
 
