@@ -58,6 +58,7 @@ import static com.android.internal.util.slim.QSConstants.TILE_WIFIAP;
 import static com.android.internal.util.slim.QSConstants.TILE_REBOOT;
 import static com.android.internal.util.slim.QSConstants.TILE_FCHARGE;
 import static com.android.internal.util.slim.QSConstants.TILE_PROFILE;
+import static com.android.internal.util.slim.QSConstants.TILE_CAMERA;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -180,6 +181,9 @@ public class QuickSettingsUtil {
                 TILE_PROFILE, R.string.title_tile_profile,
                 "com.android.systemui:drawable/ic_qs_profiles"));
         registerTile(new QuickSettingsUtil.TileInfo(
+                TILE_CAMERA, R.string.title_tile_camera,
+                "com.android.systemui:drawable/ic_qs_camera"));
+        registerTile(new QuickSettingsUtil.TileInfo(
                 TILE_CONTACT, R.string.title_tile_contact,
                 "com.android.systemui:drawable/ic_qs_default_user"));
     }
@@ -232,6 +236,11 @@ public class QuickSettingsUtil {
         // Don't show the Torch tile if not supported
         if (!DeviceUtils.deviceSupportsTorch(context)) {
             removeTile(TILE_TORCH);
+        }
+
+        // Don't show mobile data options if not supported
+        if (!DeviceUtils.deviceSupportsCamera()) {
+            removeTile(TILE_CAMERA);
         }
 
     }
