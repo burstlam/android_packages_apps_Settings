@@ -102,7 +102,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String SLIDE_LOCK_TIMEOUT_DELAY = "slide_lock_timeout_delay";
     private static final String SLIDE_LOCK_SCREENOFF_DELAY = "slide_lock_screenoff_delay";
     private static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL = "quick_unlock_control";
-    private static final String KEY_LOCKSCREEN_NOTIFICATIONS = "lockscreen_notifications_allowed";
     private static final String CATEGORY_ADDITIONAL = "additional_options";
 
     // Masks for checking presence of hardware keys.
@@ -137,7 +136,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private CheckBoxPreference mQuickUnlockScreen;
     private ListPreference mLockNumpadRandom;
     private CheckBoxPreference mLockBeforeUnlock;
-    private CheckBoxPreference mLockNotifications;
 
     private Preference mNotificationAccess;
 
@@ -394,13 +392,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
         // Show password
         mShowPassword = (CheckBoxPreference) root.findPreference(KEY_SHOW_PASSWORD);
         mResetCredentials = root.findPreference(KEY_RESET_CREDENTIALS);
-
-        mLockNotifications = (CheckBoxPreference) root.findPreference(KEY_LOCKSCREEN_NOTIFICATIONS);
-        if (mLockNotifications != null) {
-            mLockNotifications.setChecked(Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.LOCKSCREEN_NOTIFICATIONS_ALLOWED, 0) == 1);
-            mLockNotifications.setOnPreferenceChangeListener(this);
-        }
 
         // Credential storage
         final UserManager um = (UserManager) getActivity().getSystemService(Context.USER_SERVICE);
@@ -772,9 +763,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
             lockPatternUtils.setVisibleGestureEnabled(isToggled(preference));
         } else if (KEY_POWER_INSTANTLY_LOCKS.equals(key)) {
             lockPatternUtils.setPowerButtonInstantlyLocks(isToggled(preference));
-        } else if (preference == mLockNotifications) {
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_NOTIFICATIONS_ALLOWED, isToggled(preference) ? 1 : 0);
         } else if (preference == mShowPassword) {
             Settings.System.putInt(getContentResolver(), Settings.System.TEXT_SHOW_PASSWORD,
                     mShowPassword.isChecked() ? 1 : 0);
