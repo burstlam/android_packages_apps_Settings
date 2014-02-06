@@ -32,6 +32,8 @@ import android.view.WindowManager;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -53,6 +55,8 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     private static final String KEY_FORCE_EXPANDED_VIEW = "force_expanded_view";
     private static final String KEY_NOTIFICATIONS_HEIGHT = "notifications_height";
     private static final String KEY_EXCLUDED_NOTIF_APPS = "excluded_apps";
+    private static final String KEY_WAKE_ON_NOTIFICATION = "wake_on_notification";
+    private static final String KEY_NOTIFICATION_COLOR = "notification_color";
 
     private CheckBoxPreference mShowTextPref;
     private CheckBoxPreference mShowDatePref;
@@ -63,10 +67,12 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     private ListPreference mDisplayTimeout;
     private ListPreference mProximityThreshold;
     private SeekBarPreference mOffsetTop;
+    private CheckBoxPreference mWakeOnNotification;
     private CheckBoxPreference mExpandedView;
     private CheckBoxPreference mForceExpandedView;
     private NumberPickerPreference mNotificationsHeight;
-    private AppMultiSelectListPreference mNotifAppsPref;		
+    private AppMultiSelectListPreference mNotifAppsPref;
+    private ColorPickerPreference mNotificationColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,6 +112,10 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
                 Settings.System.ACTIVE_DISPLAY_TIMEOUT, 8000L);
         mDisplayTimeout.setValue(String.valueOf(timeout));
         updateTimeoutSummary(timeout);
+
+        mWakeOnNotification = (CheckBoxPreference) prefSet.findPreference(KEY_WAKE_ON_NOTIFICATION);
+        mWakeOnNotification.setChecked(Settings.System.getInt(getContentResolver(),
+        Settings.System.LOCKSCREEN_NOTIFICATIONS_WAKE_ON_NOTIFICATION, 0) == 1);
 
         mProximityThreshold = (ListPreference) prefSet.findPreference(KEY_THRESHOLD);
         mProximityThreshold.setOnPreferenceChangeListener(this);
@@ -149,6 +159,16 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         mNotificationsHeight.setMinValue(1);
         mNotificationsHeight.setMaxValue(max);
         mNotificationsHeight.setOnPreferenceChangeListener(this);
+
+        mNotificationColor = (ColorPickerPreference) prefSet.findPreference(KEY_NOTIFICATION_COLOR);
+        mNotificationColor.setAlphaSliderEnabled(true);
+        int color = Settings.System.getInt(getContentResolver(),
+        Settings.System.LOCKSCREEN_NOTIFICATIONS_COLOR, 0x55555555);
+        String hexColor = String.format("#%08x", (0xffffffff & color));
+        mNotificationColor.setSummary(hexColor);
+        mNotificationColor.setDefaultValue(color);
+        mNotificationColor.setNewPreviewColor(color);
+        mNotificationColor.setOnPreferenceChangeListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -179,6 +199,14 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         } else if (preference == mNotifAppsPref) {
 			storeExcludedNotifApps((Set<String>) newValue);
 			return true;
+        } else if (preference == mNotificationColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+            Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.LOCKSCREEN_NOTIFICATIONS_COLOR, intHex);
+            return true;
         } else if (preference == mOffsetTop) {
             Settings.System.putFloat(getContentResolver(), Settings.System.LOCKSCREEN_NOTIFICATIONS_OFFSET_TOP,
                     (Integer)newValue / 100f);
@@ -209,6 +237,9 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         } else if (preference == mForceExpandedView) {
             Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_NOTIFICATIONS_FORCE_EXPANDED_VIEW,
                     mForceExpandedView.isChecked() ? 1 : 0);
+        } else if (preference == mWakeOnNotification) {
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_NOTIFICATIONS_WAKE_ON_NOTIFICATION,
+                    mWakeOnNotification.isChecked() ? 1 : 0);
         } else if (preference == mShowDatePref) {
             value = mShowDatePref.isChecked();
             Settings.System.putInt(getContentResolver(),

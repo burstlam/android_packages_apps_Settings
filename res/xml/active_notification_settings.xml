@@ -102,6 +102,15 @@
 			android:title="@string/excluded_apps_title"
 			android:summary="@string/excluded_apps_summary" />
 
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+			android:key="notification_color"
+			android:title="@string/notification_color" />
+
+        <CheckBoxPreference
+            android:key="wake_on_notification"
+            android:title="@string/wake_on_notification"
+            android:summary="@string/wake_on_notification_summary" />
+
         <CheckBoxPreference
             android:key="expanded_view"
             android:title="@string/expanded_view"
