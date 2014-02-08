@@ -48,7 +48,6 @@ public class Installer extends AOKPPreferenceFragment {
     private static final String PREF_PERSIST_PROP_DENSITY = "persist_prop_density";
     private static final String PREF_PERSIST_FILE_HOSTS = "persist_file_hosts";
     private static final String PREF_PERSIST_FILE_XPOSED = "persist_file_xposed";
-    private static final String PREF_PERSIST_VMLIB = "persist_vmlib";
 
     private Preference mPreference;
 
@@ -56,7 +55,6 @@ public class Installer extends AOKPPreferenceFragment {
     CheckBoxPreference mPrefPersistDensity;
     CheckBoxPreference mPrefPersistHosts;
     CheckBoxPreference mPrefPersistXposed;
-    CheckBoxPreference mPrefPersistVmLib;
 
     boolean mPersistEnable;
     ArrayList<String> mPersistProps;
@@ -82,8 +80,6 @@ public class Installer extends AOKPPreferenceFragment {
         mPrefPersistHosts.setChecked(mPersistFiles.contains("etc/hosts"));
         mPrefPersistXposed = (CheckBoxPreference) findPreference(PREF_PERSIST_FILE_XPOSED);
         mPrefPersistXposed.setChecked(mPersistFiles.contains("bin/app_process"));
-        mPrefPersistVmLib = (CheckBoxPreference) findPreference(PREF_PERSIST_VMLIB);
-        mPrefPersistVmLib.setChecked(mPersistProps.contains("persist.sys.dalvik.vm.lib"));
 
         setSummaries();
         if (!isAppInstalled("de.robv.android.xposed.installer")) {
@@ -132,17 +128,6 @@ public class Installer extends AOKPPreferenceFragment {
                 }
             } else {
                 mPersistFiles.remove("bin/app_process");
-            }
-            savePrefs();
-            return true;
-        }
-        if (preference == mPrefPersistVmLib) {
-            if (isChecked) {
-                if (!mPersistProps.contains("persist.sys.dalvik.vm.lib")) {
-                    mPersistProps.add("persist.sys.dalvik.vm.lib");
-                }
-            } else {
-                mPersistProps.remove("persist.sys.dalvik.vm.lib");
             }
             savePrefs();
             return true;

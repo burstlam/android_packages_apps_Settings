@@ -11,12 +11,6 @@
             android:summary="@string/persist_enable_summary"  />
 
         <CheckBoxPreference
-            android:key="persist_vm_lib"
-            android:dependency="enable_persist"
-            android:title="@string/persist_prop_vm_lib"
-            android:summary="@string/persist_prop_vm_lib_summary" />
-
-        <CheckBoxPreference
             android:key="persist_prop_density"
             android:dependency="enable_persist"
             android:title="@string/persist_prop_density"
