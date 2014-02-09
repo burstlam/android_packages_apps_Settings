@@ -20,7 +20,7 @@ import com.android.settings.SettingsPreferenceFragment;
 
 public class PiePreference extends SettingsPreferenceFragment {
 
-    private static final String SLIM_PIE = "slim_pie";
+    //private static final String SLIM_PIE = "slim_pie";
     private static final String PARANOID_PIE = "paranoid_pie";
 
     Preference mSlimPie;
@@ -41,7 +41,7 @@ public class PiePreference extends SettingsPreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pie_header);
 
-        mSlimPie = (Preference) findPreference(SLIM_PIE);
+        //mSlimPie = (Preference) findPreference(SLIM_PIE);
         mParanoidPie = (Preference) findPreference(PARANOID_PIE);
 
         setHasOptionsMenu(true);

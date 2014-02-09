@@ -1843,8 +1843,6 @@
 
         <activity android:name=".slim.HardwareKeysSettings"/>
 
-        <activity android:name=".slim.PieControl" />
-
         <activity android:name=".aokp.Installer" />
 
         <activity
