@@ -68,7 +68,7 @@ public class PieControl extends SettingsPreferenceFragment
         void observe() {
             ContentResolver resolver = getActivity().getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.PIE_CONTROLS), false, this,
+                    Settings.System.SPIE_CONTROLS), false, this,
                     UserHandle.USER_ALL);
         }
 
@@ -111,13 +111,13 @@ public class PieControl extends SettingsPreferenceFragment
                 return true;
             }
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.PIE_CONTROLS, (Boolean) newValue ? 1 : 0);
+                    Settings.System.SPIE_CONTROLS, (Boolean) newValue ? 1 : 0);
         } else if (preference == mShowSnap) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.PIE_SHOW_SNAP, (Boolean) newValue ? 1 : 0);
         } else if (preference == mPieMenuDisplay) {
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.PIE_MENU, Integer.parseInt((String) newValue));
+                    Settings.System.SPIE_MENU, Integer.parseInt((String) newValue));
         } else if (preference == mShowText) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.PIE_SHOW_TEXT, (Boolean) newValue ? 1 : 0);
@@ -130,10 +130,10 @@ public class PieControl extends SettingsPreferenceFragment
 
     private void updateSettings() {
         mPieMenuDisplay.setValue(Settings.System.getInt(getContentResolver(),
-                Settings.System.PIE_MENU,
+                Settings.System.SPIE_MENU,
                 2) + "");
         mPieControl.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.PIE_CONTROLS, 0) == 1);
+                Settings.System.SPIE_CONTROLS, 0) == 1);
         mShowSnap.setChecked(Settings.System.getInt(getContentResolver(),
                 Settings.System.PIE_SHOW_SNAP, 1) == 1);
         mShowText.setChecked(Settings.System.getInt(getContentResolver(),
@@ -193,7 +193,7 @@ public class PieControl extends SettingsPreferenceFragment
                         new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Settings.System.putInt(getActivity().getContentResolver(),
-                                    Settings.System.PIE_CONTROLS, 0);
+                                    Settings.System.SPIE_CONTROLS, 0);
                             Settings.System.putInt(getActivity().getContentResolver(),
                                     Settings.System.NAVIGATION_BAR_SHOW, 1);
 

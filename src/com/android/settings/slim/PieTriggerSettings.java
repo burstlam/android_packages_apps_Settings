@@ -90,7 +90,7 @@ public class PieTriggerSettings extends SettingsPreferenceFragment
             return true;
         }
         Settings.System.putInt(getContentResolver(),
-                Settings.System.PIE_GRAVITY, triggerSlots);
+                Settings.System.SPIE_GRAVITY, triggerSlots);
         updatePieTriggers();
         return true;
     }
@@ -100,7 +100,7 @@ public class PieTriggerSettings extends SettingsPreferenceFragment
         super.onResume();
 
         getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.PIE_GRAVITY), true,
+                Settings.System.getUriFor(Settings.System.SPIE_GRAVITY), true,
                 mPieTriggerObserver);
 
         updatePieTriggers();
@@ -114,7 +114,7 @@ public class PieTriggerSettings extends SettingsPreferenceFragment
 
     private void updatePieTriggers() {
         int triggerSlots = Settings.System.getInt(getContentResolver(),
-                Settings.System.PIE_GRAVITY, DEFAULT_POSITION);
+                Settings.System.SPIE_GRAVITY, DEFAULT_POSITION);
 
         for (int i = 0; i < mTrigger.length; i++) {
             if ((triggerSlots & (0x01 << i)) != 0) {

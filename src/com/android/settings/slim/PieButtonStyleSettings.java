@@ -150,7 +150,7 @@ public class PieButtonStyleSettings extends SettingsPreferenceFragment implement
 
     private void resetToDefault() {
         Settings.System.putInt(getActivity().getContentResolver(),
-                Settings.System.PIE_BUTTON_COLOR, -2);
+                Settings.System.SPIE_BUTTON_COLOR, -2);
         Settings.System.putInt(getActivity().getContentResolver(),
                 Settings.System.PIE_BUTTON_PRESSED_COLOR, -2);
         Settings.System.putInt(getActivity().getContentResolver(),
@@ -180,7 +180,7 @@ public class PieButtonStyleSettings extends SettingsPreferenceFragment implement
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.PIE_BUTTON_COLOR, intHex);
+                    Settings.System.SPIE_BUTTON_COLOR, intHex);
             return true;
         } else if (preference == mPieButtonPressedColor) {
             String hex = ColorPickerPreference.convertToARGB(
@@ -252,7 +252,7 @@ public class PieButtonStyleSettings extends SettingsPreferenceFragment implement
         int intColor;
 
         intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.PIE_BUTTON_COLOR, -2);
+                    Settings.System.SPIE_BUTTON_COLOR, -2);
         if (intColor == -2) {
             intColor = mSystemUiResources.getColor(
                     mSystemUiResources.getIdentifier(
