@@ -1867,6 +1867,8 @@
 
         <activity android:name=".slim.HardwareKeysSettings"/>
 
+        <activity android:name=".slim.SoundSteps"/>
+
         <activity android:name=".aokp.Installer" />
 
         <activity

@@ -672,6 +672,7 @@
     <string name="app_ops_reset_confirm_mesg">Are you sure you wish to reset AppOps counters ?</string>
 
     <!-- Volume Steps -->
+    <string name="volume_steps_title">Live Volume Steps</string>
     <string name="volume_steps_60">60</string>
     <string name="volume_steps_45">45</string>
     <string name="volume_steps_30">30</string>
