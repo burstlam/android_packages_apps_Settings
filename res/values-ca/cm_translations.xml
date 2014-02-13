@@ -20,7 +20,7 @@
     <item quantity="other"><xliff:g id="seconds">%d</xliff:g> segons</item>
   </plurals>
   <string name="wifi_setting_countrycode_title">Codi de regió Wi-Fi</string>
-  <string name="wifi_setting_countrycode_summary">Specifica el codi de regió pel Wi-Fi</string>
+  <string name="wifi_setting_countrycode_summary">Especifica el codi de regió pel Wi-Fi</string>
   <string name="wifi_setting_countrycode_error">Hi ha un problema establint el codi de regió.</string>
   <string name="wifi_setting_priority_title">Prioritat del Wi-Fi</string>
   <string name="wifi_setting_priority_summary">Especifica la prioritat de les xarxes Wi-Fi</string>
@@ -60,7 +60,7 @@
   <string name="profile_name_title">Nom</string>
   <string name="profile_profile_name_prompt">Introdueix el nom del nou perfil</string>
   <string name="menu_new_profile">Nou perfil</string>
-  <string name="new_profile_name"><nou perfil></string>
+  <string name="new_profile_name">\u00ABnou perfil\u00BB</string>
   <string name="rename_dialog_title">Reanomena</string>
   <string name="rename_dialog_message">Introdueix el nou nom</string>
   <string name="duplicate_profile_name">Duplica el nom del perfil!</string>
@@ -122,7 +122,7 @@
   <string name="link_volume_ringtones">Vincula el to de trucada &amp; els volums de les notificacions</string>
   <string name="link_volume_mutes">El mode silenci afecta les notificacions</string>
   <string name="volume_keys_control_ring_stream">Les tecles de volum controlen el volum del to de trucada</string>
-  <string name="ring_mode_title">Mode de l\'avís de trucada</string>
+  <string name="ring_mode_title">Mode del to de trucada</string>
   <string name="ring_mode_normal">Normal</string>
   <string name="ring_mode_vibrate">Vibració</string>
   <string name="ring_mode_mute">Silenci</string>
@@ -156,9 +156,9 @@
   <string name="notification_light_voicemail_title">Contestador</string>
   <string name="adaptive_backlight_title">Retroil·luminació adaptativa</string>
   <string name="adaptive_backlight_summary">Varia la brillantor de la pantalla de manera intel·ligent i ajuda a maximitzar la duració de la bateria</string>
-  <string name="wake_when_plugged_or_unplugged_title">Desperta en endollar</string>
+  <string name="wake_when_plugged_or_unplugged_title">Encén en endollar</string>
   <string name="wake_when_plugged_or_unplugged_summary">Encén la pantalla quan es connecti o es desconnecti el carregador</string>
-  <string name="screen_animation_off_title">Animació d\'apagat de pantalla</string>
+  <string name="screen_animation_off_title">Anima l\'apagat de la pantalla</string>
   <string name="screen_animation_style_title">Estil d\'animació</string>
   <string name="screen_animation_style_electronbeam">Feix d\'electrons</string>
   <string name="screen_animation_style_fade">Esvair</string>
@@ -187,8 +187,6 @@
   <string name="battery_light_full_color_title">Completament carregada</string>
   <string name="lockpattern_settings_enable_error_path_title">Mostra els patrons erronis</string>
   <string name="lockpattern_settings_enable_dots_title">Mostra els punts del patró</string>
-  <string name="lockscreen_vibrate_enabled_title">Vibració</string>
-  <string name="lockscreen_vibrate_enabled_head">Vibra en el desbloqueig</string>
   <string name="screen_security_category">Seguretat de la pantalla</string>
   <string name="screen_security_title">Bloqueig de pantalla</string>
   <string name="screen_security_summary">Mostra o canvia la seguretat del bloqueig de pantalla, ajustos de retard i temps d\'espera</string>
@@ -665,7 +663,7 @@
   <string name="whisperpush_registration_summary">Registra\'t a WhisperPush per activar els SMS encriptats.</string>
   <string name="whisperpush_identitykey_title">Revisa les claus d\'identitat</string>
   <string name="custom_runtime_warning_title">Alerta</string>
-  <string name="custom_runtime_warning_message">Cyanogenmod no dóna suport a ART. Aquest ajustament està inclòs només per experimentar i té potencial per causar inestabilitats, crashes, pèrdua de dades o pot impedir l'arrancada adequada del teu dispositiu. Visita &amp;lt;a href="http://source.android.com/devices/tech/dalvik/art.html"&amp;gt;Introducing ART&amp;lt;/a&amp;gt; per a més informació.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;Et demanem que no envïis informes d'error si tens activada ART com la teva runtime.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;Estàs segur que vols reiniciar per canviar la runtime de <xliff:g id="old" example="libdvm.so">%1$s</xliff:g> a <xliff:g id="new" example="libart.so">%2$s</xliff:g>?</string>
+  <string name="custom_runtime_warning_message">Cyanogenmod no dóna suport a ART. Aquest ajustament està inclòs només per experimentar i té potencial per causar inestabilitats, crashes, pèrdua de dades o pot impedir l\'arrancada adequada del teu dispositiu. Visita &amp;lt;a href="http://source.android.com/devices/tech/dalvik/art.html"&amp;gt;Introducing ART&amp;lt;/a&amp;gt; per a més informació.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;Et demanem que no envïis informes d\'error si tens activada ART com la teva runtime.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;Estàs segur que vols reiniciar per canviar la runtime de <xliff:g id="old" example="libdvm.so">%1$s</xliff:g> a <xliff:g id="new" example="libart.so">%2$s</xliff:g>?</string>
   <string name="gps_download_data_wifi_only">Descarrega dades de GPS assistides només sobre xarxes Wi-Fi</string>
   <string name="battery_info_status_charging_dock_ac">(DockAC)</string>
   <string name="battery_info_status_charging_dock_usb">(DockUSB)</string>
@@ -696,6 +694,30 @@
   <string name="stylus_app_not_installed">%s no està instal·lat</string>
   <string name="ime_switcher_notify">Notificació del selector</string>
   <string name="ime_switcher_notify_summary">Mostra la notificació del selector del mètode d\'entrada</string>
+  <string name="app_ops_summaries_wifi_change">canvi de wifi</string>
+  <string name="app_ops_labels_wifi_change">Canvi de Wi-Fi</string>
+  <string name="app_ops_summaries_bluetooth_change">canvi de Bluetooth</string>
+  <string name="app_ops_labels_bluetooth_change">Canvi de Bluetooth</string>
+  <string name="app_ops_summaries_data_change">canvi de dades</string>
+  <string name="app_ops_labels_data_change">Canvi de dades</string>
+  <string name="app_ops_summaries_alarm_wakeup">aixeca</string>
+  <string name="app_ops_labels_alarm_wakeup">Aixeca</string>
+  <string name="app_ops_summaries_auto_start">auto inicia</string>
+  <string name="app_ops_labels_auto_start">Auto inicia</string>
+  <string name="app_ops_categories_bootup">Arrancada</string>
+  <string name="app_ops_entry_summary"><xliff:g id="op">%1$s</xliff:g> (utilitzat <xliff:g id="count">%2$s</xliff:g>)</string>
+  <string name="app_ops_allowed_count">Permès <xliff:g id="count" example="2 times">%s</xliff:g></string>
+  <string name="app_ops_ignored_count">Denegat <xliff:g id="count" example="2 times">%s</xliff:g></string>
+  <string name="app_ops_both_count">Permès <xliff:g id="count">%1$s</xliff:g>, denegat <xliff:g id="count">%2$s</xliff:g></string>
+  <plurals name="app_ops_count">
+    <item quantity="one">una vegada</item>
+    <item quantity="other">%d vegades</item>
+  </plurals>
+  <string name="app_ops_show_user_apps">Mostra apps de l\'usuari</string>
+  <string name="app_ops_show_system_apps">Mostra les apps incloses</string>
+  <string name="app_ops_reset_counters">Reinicia els comptadors permès/denegat</string>
+  <string name="app_ops_reset_confirm_title">Confirma el reinici dels comptadors</string>
+  <string name="app_ops_reset_confirm_mesg">Estàs segur que vols reiniciar els comptadors d\'AppOps?</string>
   <string-array name="wifi_countrycode_entries">
     <item>Estats Units</item>
     <item>Canadà, Taiwan</item>
@@ -721,5 +743,113 @@
   <string-array name="entries_screentimeout_widget">
     <item>15s | 1m | 5m</item>
     <item>30s | 2m | 5m</item>
+  </string-array>
+  <string-array name="app_ops_summaries_cm">
+    <item>ubicació poc precisa</item>
+    <item>ubicació precisa</item>
+    <item>GPS</item>
+    <item>vibrar</item>
+    <item>llegir contactes</item>
+    <item>modificar contactes</item>
+    <item>llegir registre de trucades</item>
+    <item>modifar registre de trucades</item>
+    <item>llegir calendari</item>
+    <item>modificar calendari</item>
+    <item>cercar wi-fi</item>
+    <item>notificació</item>
+    <item>cerca mòbil</item>
+    <item>trucada de telèfon</item>
+    <item>llegir SMS</item>
+    <item>escriure SMS</item>
+    <item>rebre SMS</item>
+    <item>rebre SMS d\'emergència</item>
+    <item>rebre MMS</item>
+    <item>rebre WAP push</item>
+    <item>enviar SMS</item>
+    <item>llegir ICC SMS</item>
+    <item>escriure ICC SMS</item>
+    <item>modifar ajustaments</item>
+    <item>dibuixar a sobre</item>
+    <item>accedir a les notificacions</item>
+    <item>càmera</item>
+    <item>grava so</item>
+    <item>reproduir so</item>
+    <item>llegir portapapers</item>
+    <item>modificar portapapers</item>
+    <item>botons multimèdia</item>
+    <item>focus del so</item>
+    <item>volum principal</item>
+    <item>volum de la veu</item>
+    <item>volum del to de trucada</item>
+    <item>volum de la multimèdia</item>
+    <item>volum de l\'alarma</item>
+    <item>volum de les notificacions</item>
+    <item>volum del bluetooth</item>
+    <item>mantenir encés</item>
+    <item>monitoritzar ubicació</item>
+    <item>monitoritzar l\'ubicació d\'alta potència</item>
+    <item>@string/app_ops_summaries_wifi_change</item>
+    <item>@string/app_ops_summaries_bluetooth_change</item>
+    <item>@string/app_ops_summaries_data_change</item>
+    <item>@string/app_ops_summaries_alarm_wakeup</item>
+    <item>@string/app_ops_summaries_auto_start</item>
+  </string-array>
+  <string-array name="app_ops_labels_cm">
+    <item>Ubicació</item>
+    <item>Ubicació</item>
+    <item>Ubicació</item>
+    <item>Vibrar</item>
+    <item>Llegir contactes</item>
+    <item>Modificar contactes</item>
+    <item>Llegir registre de trucades</item>
+    <item>Modificar registre de trucades</item>
+    <item>Llegir calendari</item>
+    <item>Modificar calendari</item>
+    <item>Ubicació</item>
+    <item>Publicar notificació</item>
+    <item>Ubicació</item>
+    <item>Trucada de telèfon</item>
+    <item>Rebre SMS/MMS</item>
+    <item>Enviar SMS/MMS</item>
+    <item>Rebre SMS/MMS</item>
+    <item>Rebre SMS/MMS</item>
+    <item>Rebre SMS/MMS</item>
+    <item>Rebre SMS/MMS</item>
+    <item>Enviar SMS/MMS</item>
+    <item>Rebre SMS/MMS</item>
+    <item>Enviar SMS/MMS</item>
+    <item>Modificar ajustaments</item>
+    <item>Dibuixar a sobre</item>
+    <item>Accedir a les notificacions</item>
+    <item>Càmera</item>
+    <item>Gravar so</item>
+    <item>Reproduir so</item>
+    <item>Llegir portapapers</item>
+    <item>Modificar portapapers</item>
+    <item>Botons multimèdia</item>
+    <item>Focus del so</item>
+    <item>Volum principal</item>
+    <item>Volum de la veu</item>
+    <item>Volum del to de trucada</item>
+    <item>Volum de la multimèdia</item>
+    <item>Volum de l\'alarma</item>
+    <item>Volum de les notificacions</item>
+    <item>Volum del Bluetooth</item>
+    <item>Mantenir encés</item>
+    <item>Ubicació</item>
+    <item>Ubicació</item>
+    <item>@string/app_ops_labels_wifi_change</item>
+    <item>@string/app_ops_labels_bluetooth_change</item>
+    <item>@string/app_ops_labels_data_change</item>
+    <item>@string/app_ops_labels_alarm_wakeup</item>
+    <item>@string/app_ops_labels_auto_start</item>
+  </string-array>
+  <string-array name="app_ops_categories_cm">
+    <item>Ubicació</item>
+    <item>Personal</item>
+    <item>Missatgeria</item>
+    <item>multimèdia</item>
+    <item>Dispositiu</item>
+    <item>@string/app_ops_categories_bootup</item>
   </string-array>
 </resources>
