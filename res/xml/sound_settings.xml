@@ -60,16 +60,16 @@
             android:key="category_volume"
             android:title="@string/title_tile_volume"/>
 
-    <PreferenceScreen
-        android:key="sound_steps"
-        android:fragment="com.android.settings.slim.SoundSteps"
-        android:title="@string/volume_steps_title" />
-
     <com.android.settings.RingerVolumePreference
             android:key="ring_volume"
             android:title="@string/all_volume_title"
             android:persistent="false"
             android:streamType="ring" />
+
+    <PreferenceScreen
+        android:key="sound_steps"
+        android:fragment="com.android.settings.slim.SoundSteps"
+        android:title="@string/volume_steps_title" />
 
     <ListPreference
             android:key="ring_mode"
