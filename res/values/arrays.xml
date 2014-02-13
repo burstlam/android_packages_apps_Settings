@@ -643,6 +643,7 @@
         <item>keep awake</item>
         <item>monitor location</item>
         <item>monitor high power location</item>
+        <item>start on boot</item>
     </string-array>
 
     <!-- User display names for app ops codes -->
@@ -690,6 +691,7 @@
         <item>Keep awake</item>
         <item>Location</item>
         <item>Location</item>
+        <item>Autostart</item>
     </string-array>
 
     <!-- Titles for the list of long press timeout options. -->
