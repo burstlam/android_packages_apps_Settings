@@ -962,4 +962,7 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="show_signal_text">Show signal text</string>
     <string name="show_with_dbm">Show with dBm</string>
     <string name="status_bar_signal_header">Signal</string>
+
+    <string name="volume_panel_timeout_title">Timeout</string>
+    <string name="volume_panel_timeout_summary">Volume panel timeout</string>
 </resources>

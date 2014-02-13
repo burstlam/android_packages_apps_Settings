@@ -64,6 +64,7 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
 import com.android.settings.widget.SeekBarPreference;
+import com.android.settings.widget.SliderPreference;
 
 public class SoundSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -124,6 +125,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
     private static final String CATEGORY_HEADSETHOOK = "button_headsethook";
     private static final String BUTTON_HEADSETHOOK_LAUNCH_VOICE = "button_headsethook_launch_voice";
+    private static final String KEY_VOLUME_PANEL_TIMEOUT = "volume_panel_timeout";
 
     // Request code for power notification ringtone picker
     private static final int REQUEST_CODE_POWER_NOTIFICATIONS_RINGTONE = 1;
@@ -158,6 +160,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private PreferenceScreen mQuietHours;
     private SeekBarPreference mVibrationDuration;
     private CheckBoxPreference mHeadsetHookLaunchVoice;
+    private SliderPreference mVolumePanelTimeout;
 
     private Vibrator mVib;
 
@@ -206,14 +209,6 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             getPreferenceScreen().removePreference(findPreference(KEY_EMERGENCY_TONE));
         }
 
-        mVolumeOverlay = (ListPreference) findPreference(KEY_VOLUME_OVERLAY);
-        mVolumeOverlay.setOnPreferenceChangeListener(this);
-        int volumeOverlay = Settings.System.getInt(getContentResolver(),
-                Settings.System.MODE_VOLUME_OVERLAY,
-                VolumePanel.VOLUME_OVERLAY_EXPANDABLE);
-        mVolumeOverlay.setValue(Integer.toString(volumeOverlay));
-        mVolumeOverlay.setSummary(mVolumeOverlay.getEntry());
-
         mRingMode = (ListPreference) findPreference(KEY_RING_MODE);
         if (!getResources().getBoolean(R.bool.has_silent_mode)) {
             getPreferenceScreen().removePreference(mRingMode);
@@ -222,17 +217,35 @@ public class SoundSettings extends SettingsPreferenceFragment implements
             mRingMode.setOnPreferenceChangeListener(this);
         }
 
+        mSafeHeadsetVolume = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_VOLUME);
+        mVolumePanelTimeout = (SliderPreference) findPreference(KEY_VOLUME_PANEL_TIMEOUT);
+        mVolumeOverlay = (ListPreference) findPreference(KEY_VOLUME_OVERLAY);
+
         if (getResources().getBoolean(com.android.internal.R.bool.config_useFixedVolume)) {
             // device with fixed volume policy, do not display volumes submenu
             getPreferenceScreen().removePreference(findPreference(KEY_RING_VOLUME));
+            getPreferenceScreen().removePreference(findPreference(KEY_SAFE_HEADSET_VOLUME));
+            getPreferenceScreen().removePreference(findPreference(KEY_VOLUME_OVERLAY));
+            getPreferenceScreen().removePreference(findPreference(KEY_VOLUME_PANEL_TIMEOUT));
+        } else {
+            int volumeOverlay = Settings.System.getInt(getContentResolver(),
+                    Settings.System.MODE_VOLUME_OVERLAY,
+                    VolumePanel.VOLUME_OVERLAY_EXPANDABLE);
+            mVolumeOverlay.setValue(Integer.toString(volumeOverlay));
+            mVolumeOverlay.setSummary(mVolumeOverlay.getEntry());
+            mVolumeOverlay.setOnPreferenceChangeListener(this);
+
+            mSafeHeadsetVolume.setChecked(Settings.System.getInt(getContentResolver(),
+                    Settings.System.SAFE_HEADSET_VOLUME, 1) != 0);
+            mSafeHeadsetVolume.setOnPreferenceChangeListener(this);
+
+            int statusVolumePanelTimeout = Settings.System.getInt(resolver,
+	        		Settings.System.VOLUME_PANEL_TIMEOUT, 3000);
+			mVolumePanelTimeout.setValue(statusVolumePanelTimeout / 1000);
+			mVolumePanelTimeout.setOnPreferenceChangeListener(this);
         }
 
         mSoundEffects = (CheckBoxPreference) findPreference(KEY_SOUND_EFFECTS);
-
-        mSafeHeadsetVolume = (CheckBoxPreference) findPreference(KEY_SAFE_HEADSET_VOLUME);
-        mSafeHeadsetVolume.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.SAFE_HEADSET_VOLUME, 1) != 0);
-        mSafeHeadsetVolume.setOnPreferenceChangeListener(this);
 
         // power state change notification sounds
         mPowerSounds = (CheckBoxPreference) findPreference(KEY_POWER_NOTIFICATIONS);
