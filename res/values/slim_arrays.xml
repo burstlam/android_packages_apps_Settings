@@ -58,6 +58,7 @@
         <item>@string/shortcut_action_notifications</item>
         <item>@string/shortcut_action_ime</item>
         <item>@string/shortcut_action_pie</item>
+        <item>@string/shortcut_action_papie</item>
         <item>@string/shortcut_action_power_menu</item>
         <item>@string/shortcut_action_qs</item>
         <item>@string/shortcut_action_ring_silent</item>
@@ -75,6 +76,7 @@
         <item>**notifications**</item>
         <item>**ime**</item>
         <item>**pie**</item>
+        <item>**papie**</item>
         <item>**power_menu**</item>
         <item>**quicksettings**</item>
         <item>**ring_silent**</item>

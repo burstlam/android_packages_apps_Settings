@@ -40,7 +40,6 @@ import static com.android.internal.util.slim.QSConstants.TILE_MOBILEDATA;
 import static com.android.internal.util.slim.QSConstants.TILE_MUSIC;
 import static com.android.internal.util.slim.QSConstants.TILE_NETWORKMODE;
 import static com.android.internal.util.slim.QSConstants.TILE_NFC;
-import static com.android.internal.util.slim.QSConstants.TILE_PAPIE;
 import static com.android.internal.util.slim.QSConstants.TILE_QUICKRECORD;
 import static com.android.internal.util.slim.QSConstants.TILE_QUIETHOURS;
 import static com.android.internal.util.slim.QSConstants.TILE_RINGER;
@@ -162,9 +161,6 @@ public class QuickSettingsUtil {
         registerTile(new QuickSettingsUtil.TileInfo(
                 TILE_MUSIC, R.string.title_tile_music,
                 "com.android.systemui:drawable/ic_qs_media_play"));
-        registerTile(new QuickSettingsUtil.TileInfo(
-                TILE_PAPIE, R.string.title_tile_pa_pie,
-                "com.android.systemui:drawable/ic_qs_pie_on"));
         registerTile(new QuickSettingsUtil.TileInfo(
                 TILE_THEME, R.string.title_tile_theme,
                 "com.android.systemui:drawable/ic_qs_theme_manual"));
