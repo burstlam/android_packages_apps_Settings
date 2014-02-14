@@ -154,7 +154,7 @@ public class PieStyleSettings extends SettingsPreferenceFragment implements
             float value = (val * ((PIE_CONTROL_SIZE_MAX - PIE_CONTROL_SIZE_MIN) /
                 100)) + PIE_CONTROL_SIZE_MIN;
             Settings.System.putFloat(getActivity().getContentResolver(),
-                    Settings.System.PIE_SIZE,
+                    Settings.System.SPIE_SIZE,
                     value);
             return true;
         } else if (preference == mPieBackgroundColor) {
@@ -257,11 +257,11 @@ public class PieStyleSettings extends SettingsPreferenceFragment implements
         float controlSize;
         try{
             controlSize = Settings.System.getFloat(getActivity()
-                    .getContentResolver(), Settings.System.PIE_SIZE);
+                    .getContentResolver(), Settings.System.SPIE_SIZE);
         } catch (Exception e) {
             controlSize = PIE_CONTROL_SIZE_DEFAULT;
             Settings.System.putFloat(getActivity().getContentResolver(),
-                Settings.System.PIE_SIZE, controlSize);
+                Settings.System.SPIE_SIZE, controlSize);
         }
         float controlSizeValue = ((controlSize - PIE_CONTROL_SIZE_MIN) /
                     ((PIE_CONTROL_SIZE_MAX - PIE_CONTROL_SIZE_MIN) / 100)) / 100;
