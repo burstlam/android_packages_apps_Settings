@@ -259,6 +259,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Button shorcut actions -->
     <string name="shortcut_action_navbar">Navigation bar</string>
     <string name="shortcut_action_pie">Pie controls</string>
+    <string name="shortcut_action_papie">PA Pie controls</string>
     <string name="shortcut_action_airplane">Airplane mode</string>
     <string name="shortcut_action_expanded_desktop">Expanded desktop</string>
     <string name="shortcut_action_power_off">Power off</string>

@@ -545,6 +545,7 @@
         <item>@string/shortcut_action_menu_big</item>
         <item>@string/shortcut_action_ime</item>
         <item>@string/shortcut_action_pie</item>
+        <item>@string/shortcut_action_papie</item>
         <item>@string/shortcut_action_power_menu</item>
         <item>@string/shortcut_action_qs</item>
         <item>@string/shortcut_action_recent</item>
@@ -568,6 +569,7 @@
         <item>**menu_big**</item>
         <item>**ime**</item>
         <item>**pie**</item>
+        <item>**papie**</item>
         <item>**power_menu**</item>
         <item>**quicksettings**</item>
         <item>**recents**</item>
@@ -651,6 +653,7 @@
         <item>@string/shortcut_action_menu_big</item>
         <item>@string/shortcut_action_ime</item>
         <item>@string/shortcut_action_pie</item>
+        <item>@string/shortcut_action_papie</item>
         <item>@string/shortcut_action_power_menu</item>
         <item>@string/shortcut_action_qs</item>
         <item>@string/shortcut_action_recent</item>
@@ -679,6 +682,7 @@
         <item>**menu_big**</item>
         <item>**ime**</item>
         <item>**pie**</item>
+        <item>**papie**</item>
         <item>**power_menu**</item>
         <item>**quicksettings**</item>
         <item>**recents**</item>
@@ -702,6 +706,7 @@
         <item>@string/shortcut_action_expanded_desktop</item>
         <item>@string/shortcut_action_navbar</item>
         <item>@string/shortcut_action_pie</item>
+        <item>@string/shortcut_action_papie</item>
         <item>@string/shortcut_action_power_off</item>
         <item>@string/shortcut_action_reboot</item>
         <item>@string/shortcut_action_screenshot</item>
@@ -716,6 +721,7 @@
         <item>**expanded_desktop**</item>
         <item>**nav_bar**</item>
         <item>**pie**</item>
+        <item>**papie**</item>
         <item>**poweroff**</item>
         <item>**reboot**</item>
         <item>**screenshot**</item>
