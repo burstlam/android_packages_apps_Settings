@@ -105,11 +105,11 @@ public class PieControl extends SettingsPreferenceFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mPieControl) {
-            if (!((Boolean) newValue) && !SlimActions.isNavBarEnabled(getActivity())
+            /*if (!((Boolean) newValue) && !SlimActions.isNavBarEnabled(getActivity())
                     && SlimActions.isNavBarDefault(getActivity())) {
                 showDialogInner(DLG_NAVIGATION_WARNING);
                 return true;
-            }
+            }*/
             Settings.System.putInt(getContentResolver(),
                     Settings.System.SPIE_CONTROLS, (Boolean) newValue ? 1 : 0);
         } else if (preference == mShowSnap) {
