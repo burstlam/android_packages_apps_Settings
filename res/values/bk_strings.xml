@@ -940,6 +940,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="xposed_warning_title">Warning:</string>
     <string name="xposed_warning_summary">These mods may adversely affect performance and stability. Use at your own risk!</string>
 
+    <string name="hosts_title">Host File Manager</string>
+
     <!-- Sound themes -->
     <string name="sound_packages_title">Sound packs</string>
     <string name="install_sound_pack_title">Install sound pack</string>
@@ -965,4 +967,5 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
 
     <string name="volume_panel_timeout_title">Timeout</string>
     <string name="volume_panel_timeout_summary">Volume panel timeout</string>
+    <string name="unit_sec">sec</string>
 </resources>
