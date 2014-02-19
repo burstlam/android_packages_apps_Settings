@@ -90,7 +90,7 @@
 			android:max="10"
 			settings:min="1"
 			settings:unitsLeft=""
-			settings:unitsRight="@string/unit_sec"
+			settings:unitsRight="sec"
 			android:persistent="false" />
 
     <PreferenceCategory
