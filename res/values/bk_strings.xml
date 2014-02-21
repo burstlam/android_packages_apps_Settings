@@ -982,4 +982,7 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="adb_paranoid_summary">Immediately reboot if an unknown computer is connected while device is locked</string>
 
     <string name="hide_battery_icon_title">Hide Statusbar battery icon</string>
+
+    <!-- allow multiuser -->
+    <string name="multiuser_preference_title">Multiuser support</string>
 </resources>

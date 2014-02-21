@@ -103,6 +103,8 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String SLIDE_LOCK_SCREENOFF_DELAY = "slide_lock_screenoff_delay";
     private static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL = "quick_unlock_control";
     private static final String CATEGORY_ADDITIONAL = "additional_options";
+    // MULTIUSER
+    public static final String ALLOW_MULTIUSER = "allow_multiuser";
 
     // Masks for checking presence of hardware keys.
     // Must match values in frameworks/base/core/res/res/values/config.xml
@@ -127,6 +129,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private KeyStore mKeyStore;
     private Preference mResetCredentials;
 
+    private CheckBoxPreference mAllowMultiuserPreference;
     private CheckBoxPreference mToggleAppInstallation;
     private DialogInterface mWarnInstallApps;
     private CheckBoxPreference mToggleVerifyApps;
@@ -315,6 +318,14 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 addPreferencesFromResource(R.xml.security_settings_unencrypted);
                 break;
             }
+        }
+
+        mAllowMultiuserPreference = (CheckBoxPreference) root.findPreference(ALLOW_MULTIUSER);
+        mAllowMultiuserPreference.setEnabled(UserHandle.myUserId() == UserHandle.USER_OWNER);
+        mAllowMultiuserPreference.setChecked(Settings.System.getIntForUser(getContentResolver(),
+            Settings.System.ALLOW_MULTIUSER, 0, UserHandle.USER_OWNER) == 1);
+        if (Utils.isTablet(getActivity())) {
+            root.removePreference(mAllowMultiuserPreference);
         }
 
         // biometric weak liveliness
@@ -766,6 +777,8 @@ public class SecuritySettings extends RestrictedSettingsFragment
         } else if (preference == mShowPassword) {
             Settings.System.putInt(getContentResolver(), Settings.System.TEXT_SHOW_PASSWORD,
                     mShowPassword.isChecked() ? 1 : 0);
+        } else if (mAllowMultiuserPreference == preference) {
+            handleMultiUserClick();
         } else if (preference == mToggleAppInstallation) {
             if (mToggleAppInstallation.isChecked()) {
                 mToggleAppInstallation.setChecked(false);
@@ -854,6 +867,11 @@ public class SecuritySettings extends RestrictedSettingsFragment
     @Override
     protected int getHelpResource() {
         return R.string.help_url_security;
+    }
+
+    private void handleMultiUserClick() {
+        Settings.System.putIntForUser(getContentResolver(),
+                Settings.System.ALLOW_MULTIUSER, (mAllowMultiuserPreference.isChecked() ? 1 : 0), UserHandle.USER_OWNER);
     }
 
     public void startBiometricWeakImprove(){
