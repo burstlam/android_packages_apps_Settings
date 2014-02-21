@@ -985,4 +985,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
 
     <!-- allow multiuser -->
     <string name="multiuser_preference_title">Multiuser support</string>
+
+    <!-- Performance : Force high-end graphics -->
+    <string name="pref_force_highend_gfx_title">Force high-end graphics</string>
+    <string name="pref_force_highend_gfx_summary">Enables high-end visual effects such as transparent status/navigation bar (requires reboot)</string>
 </resources>
