@@ -122,8 +122,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, 0) == 1));
 
         mStatusBarCarrier = (CheckBoxPreference) findPreference(STATUS_BAR_CARRIER);
-        mStatusBarCarrier.setChecked((Settings.System.getInt(resolver, Settings.System.STATUS_BAR_CARRIER, 0) == 1));
-        mStatusBarCarrier.setOnPreferenceChangeListener(this);
+        mStatusBarCarrier.setChecked((Settings.System.getInt(resolver,
+                Settings.System.STATUS_BAR_CARRIER, 0) == 1));
 
         mCarrierColorPicker = (ColorPickerPreference) prefSet.findPreference(STATUS_BAR_CARRIER_COLOR);
         mCarrierColorPicker.setOnPreferenceChangeListener(this);
@@ -171,6 +171,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(resolver,
                     Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, mStatusbarSliderPreference.isChecked() ? 1 : 0);
             return true;
+        } else if (preference == mStatusBarCarrier) {
+            Settings.System.putInt(resolver, Settings.System.STATUS_BAR_CARRIER, mStatusBarCarrier.isChecked() ? 1 : 0);
+            return true;
         } else if (preference.getKey().equals(CUSTOM_CARRIER_LABEL)) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
             alert.setTitle(R.string.custom_carrier_label_title);
@@ -200,11 +203,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mStatusBarCarrier) {
-            boolean value = (Boolean) newValue;
-            Settings.System.putInt(resolver, Settings.System.STATUS_BAR_CARRIER, value ? 1 : 0);
-            return true;
-        } else if (preference == mCarrierColorPicker) {
+        if (preference == mCarrierColorPicker) {
             String hex = ColorPickerPreference.convertToARGB(Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
