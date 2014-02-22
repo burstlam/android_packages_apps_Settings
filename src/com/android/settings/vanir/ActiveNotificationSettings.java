@@ -18,6 +18,7 @@ package com.android.settings.vanir;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -30,6 +31,7 @@ import android.view.WindowManager;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import static android.hardware.Sensor.TYPE_LIGHT;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -49,6 +51,8 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     private static final String KEY_NOTIFICATIONS_HEIGHT = "notifications_height";
     private static final String KEY_WAKE_ON_NOTIFICATION = "wake_on_notification";
     private static final String KEY_NOTIFICATION_COLOR = "notification_color";
+    private static final String KEY_SUNLIGHT_MODE = "ad_sunlight_mode";
+    private static final String KEY_TURNOFF_MODE = "ad_turnoff_mode";
 
     private CheckBoxPreference mShowTextPref;
     private CheckBoxPreference mShowDatePref;
@@ -62,6 +66,8 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     private CheckBoxPreference mForceExpandedView;
     private NumberPickerPreference mNotificationsHeight;
     private ColorPickerPreference mNotificationColor;
+    private CheckBoxPreference mSunlightModePref;
+    private CheckBoxPreference mTurnOffModePref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +95,7 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
                 Settings.System.ACTIVE_DISPLAY_SHOW_DATE, 0) == 1));
 
         int level = Settings.System.getInt(getContentResolver(),
-                Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, 0);
+                Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, 100);
         mBrightnessLevel = (SeekBarPreference) findPreference(KEY_BRIGHTNESS);
         mBrightnessLevel.setProgress((int) (level));
         mBrightnessLevel.setOnPreferenceChangeListener(this);
@@ -155,6 +161,17 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
             mWakeOnNotification.setEnabled(true);
             mWakeOnNotification.setSummary(R.string.wake_on_notification_summary);
         }
+
+        mSunlightModePref = (CheckBoxPreference) findPreference(KEY_SUNLIGHT_MODE);
+        mSunlightModePref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_SUNLIGHT_MODE, 0) == 1));
+        if (!hasLightSensor()) {
+            getPreferenceScreen().removePreference(mSunlightModePref);
+        }
+
+        mTurnOffModePref = (CheckBoxPreference) findPreference(KEY_TURNOFF_MODE);
+        mTurnOffModePref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_TURNOFF_MODE, 0) == 1));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -225,6 +242,16 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
             Settings.System.putInt(getContentResolver(),
                     Settings.System.ACTIVE_DISPLAY_SHOW_DATE,
                     value ? 1 : 0);
+        } else if (preference == mSunlightModePref) {
+            value = mSunlightModePref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.ACTIVE_DISPLAY_SUNLIGHT_MODE,
+                    value ? 1 : 0);
+        } else if (preference == mTurnOffModePref) {
+            value = mTurnOffModePref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.ACTIVE_DISPLAY_TURNOFF_MODE,
+                    value ? 1 : 0);
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
@@ -245,6 +272,11 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
                     Settings.System.ACTIVE_DISPLAY_TIMEOUT, value);
         } catch (ArrayIndexOutOfBoundsException e) {
         }
+    }
+
+    private boolean hasLightSensor() {
+        SensorManager sm = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        return sm.getDefaultSensor(TYPE_LIGHT) != null;
     }
 
     private void updateThresholdSummary(long value) {

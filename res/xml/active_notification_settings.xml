@@ -30,6 +30,18 @@
             android:entryValues="@array/ad_redisplay_values" />
 
         <CheckBoxPreference
+            android:key="ad_sunlight_mode"
+            android:persistent="false"
+            android:title="@string/ad_sunlight_mode_title"
+            android:summary="@string/ad_sunlight_mode_summary" />
+
+        <CheckBoxPreference
+            android:key="ad_turnoff_mode"
+            android:persistent="true"
+            android:title="@string/ad_turnoff_mode_title"
+            android:summary="@string/ad_turnoff_mode_summary" />
+
+        <CheckBoxPreference
             android:key="ad_show_date"
             android:persistent="false"
             android:title="@string/ad_show_date_title"

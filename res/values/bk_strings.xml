@@ -907,6 +907,10 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="pocket_mode_off">Disabled</string>
     <string name="pocket_mode_lockscreen">Show Lockscreen notifications</string>
     <string name="pocket_mode_active">Turn on Active Display</string>
+    <string name="ad_sunlight_mode_title">Sunlight mode</string>
+    <string name="ad_sunlight_mode_summary">Invert the colors when in areas with bright light such as direct sunlight.</string>
+    <string name="ad_turnoff_mode_title">Turn off display</string>
+    <string name="ad_turnoff_mode_summary">Turn off display if the device gets pocketed again and was turned on by Active Display.</string>
 
     <!-- Pie control -->
     <string name="general_category_title">General</string>
