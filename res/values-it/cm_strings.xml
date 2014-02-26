@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012-2013 The CyanogenMod Project
+<!--
+     Copyright (C) 2012-2014 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -148,6 +149,7 @@
     <string name="icon_picker_pack_title">Pacchetto icone</string>
     <string name="display_lights_settings_title">Display &amp; Luci</string>
     <string name="lights_category_title">Luci</string>
+    <string name="notification_pulse_title">Luce di notifica</string>
     <string name="notification_light_general_title">Generale</string>
     <string name="notification_light_applist_title">Applicazioni</string>
     <string name="notification_light_phonelist_title">Telefono</string>
@@ -169,11 +171,8 @@
     <string name="pulse_speed_title">Durata e velocità del lampeggio</string>
     <string name="default_time">Normale</string>
     <string name="custom_time">Personalizzato</string>
-    <string name="dialog_test">Test</string>
     <string name="dialog_delete_title">Cancella</string>
     <string name="dialog_delete_message">Rimuovere l\'oggetto selezionato?</string>
-    <string name="dialog_test_message">Spegnere lo schermo per vedere l\'effetto delle impostazioni o premere Annulla per interrompere il test</string>
-    <string name="dialog_test_button">Annulla</string>
     <string name="pulse_length_always_on">Sempre acceso</string>
     <string name="pulse_length_very_short">Molto breve</string>
     <string name="pulse_length_short">Breve</string>
@@ -191,14 +190,8 @@
     <string name="battery_light_low_color_title">Batteria scarica</string>
     <string name="battery_light_medium_color_title">In carica</string>
     <string name="battery_light_full_color_title">Carica completa</string>
-    <string name="lock_pattern_size_3">3x3</string>
-    <string name="lock_pattern_size_4">4x4</string>
-    <string name="lock_pattern_size_5">5x5</string>
-    <string name="lock_pattern_size_6">6x6</string>
     <string name="lockpattern_settings_enable_error_path_title">Sequenza errata visibile</string>
     <string name="lockpattern_settings_enable_dots_title">Punti sequenza visibili</string>
-    <string name="lockscreen_vibrate_enabled_title">Vibrazione</string>
-    <string name="lockscreen_vibrate_enabled_head">Vibra allo sblocco</string>
     <string name="screen_security_category">Schermata di sicurezza</string>
     <string name="screen_security_title">Schermata di sblocco</string>
     <string name="screen_security_summary">Visualizza o cambia il livello di sicurezza e le impostazioni per la schermata di sblocco</string>
@@ -228,6 +221,7 @@
     <string name="lockscreen_widgets_category_title">Widget</string>
     <string name="lockscreen_maximize_widgets_title">Massimizza widget</string>
     <string name="lockscreen_maximize_widgets_summary">Espandi i widget quando lo schermo viene acceso</string>
+    <string name="lockscreen_enable_camera_title">Widget Fotocamera</string>
     <string name="safe_headset_volume_title">Volume sicurezza cuffie</string>
     <string name="cyanogenmod_waiver_title">Manleva</string>
     <string name="cyanogenmod_waiver_body">Cambiare questa impostazione può andare contro le leggi del tuo stato/governo.\n\nPremendo \'OK\' più sotto, accetti quanto riportato in questo avviso, e dichiari di esonerare e sollevare CyanogenMod e i suoi collaboratori da ogni responsabilità civile e penale.</string>
@@ -366,7 +360,6 @@ inserire punti di controllo aggiuntivi. \'Rimuovi\' cancella la riga selezionata
     <string name="ok">OK</string>
     <string name="quiet_hours_title">Periodo di quiete</string>
     <string name="quiet_hours_summary">Configura gli orari in cui il dispositivo dovrebbe essere silenzioso</string>
-    <string name="quiet_hours_note_summary">Nota: Le chiamate in arrivo non saranno influenzate dal periodo di quiete e squilleranno normalmente</string>
     <string name="quiet_hours_enabled">Attiva il periodo di quiete</string>
     <string name="quiet_hours_ringer">Suoneria telefono</string>
     <string name="quiet_hours_mute">Notifiche silenziose</string>
@@ -420,9 +413,11 @@ inserire punti di controllo aggiuntivi. \'Rimuovi\' cancella la riga selezionata
     <string name="pref_ksm_title">Fusione pagine Kernel</string>
     <string name="pref_ksm_summary">KSM permette di ridurre la richiesta di memoria RAM e di migliorare le prestazioni</string>
     <string name="pref_purgeable_assets_title">Pulizia di risorse</string>
-    <string name="pref_purgeable_assets_summary">Ripulire la memoria dedicata alle immagini consente di liberare più RAM quando richiesto (Richiede il riavvio)</string>
+    <string name="pref_purgeable_assets_summary">Ripulire la memoria dedicata alle immagini consente di liberare più RAM quando richiesto (richiede il riavvio)</string>
     <string name="pref_use_16bpp_alpha_title">Trasparenze a 16bit</string>
-    <string name="pref_use_16bpp_alpha_summary">Aumenta le prestazioni ma abbassa la qualità della grafica e potrebbe causare artefatti visivi (Richiede il riavvio)</string>
+    <string name="pref_use_16bpp_alpha_summary">Aumenta le prestazioni ma abbassa la qualità della grafica e potrebbe causare artefatti visivi (richiede il riavvio)</string>
+    <string name="pref_force_highend_gfx_title">Forza grafica high-end</string>
+    <string name="pref_force_highend_gfx_summary">Attiva gli effetti grafici di alta qualità come la trasparenza della barra di stato/navigazione (richiede il riavvio) </string>
     <string name="kill_app_longpress_back">Termina app con tasto</string>
     <string name="kill_app_longpress_back_summary">Termina l\'applicazione in primo piano tenendo premuto il tasto indietro</string>
     <string name="changelog_title">Mostra changelog</string>
@@ -447,6 +442,7 @@ inserire punti di controllo aggiuntivi. \'Rimuovi\' cancella la riga selezionata
     <string name="privacy_guard_filter_does_not_match">Nessuna applicazione con permessi di rilievo è installata</string>
     <string name="privacy_guard_help_title">Guida</string>
     <string name="privacy_guard_reset_title">Ripristina</string>
+    <string name="privacy_guard_reset_text">Ripristinare i permessi?</string>
     <string name="privacy_guard_help_text">In questa schermata puoi decidere per quali applicazioni sarà attivo Privacy Guard semplicemente selezionandole. Le applicazioni selezionate non saranno in grado di accedere ai tuoi dati personali, quali contatti, messaggi o elenco chiamate. Una pressione prolungata apre la schermata di dettaglio per l\'applicazione selezionata.\n\nLe applicazioni integrate non sono visualizzate, in modo predefinito. Se vuoi renderle visibili, attiva le rispettive opzioni nel menu.</string>
     <string name="privacy_guard_manager_show_system_apps">Mostra applicazioni integrate</string>
     <string name="privacy_guard_manager_filter_permissions">Filtro sui permessi</string>
@@ -587,8 +583,10 @@ inserire punti di controllo aggiuntivi. \'Rimuovi\' cancella la riga selezionata
     <string name="lockscreen_buttons_sleep">Sospendi dispositivo</string>
     <string name="navigation_bar_category">Barra di navigazione</string>
     <string name="navigation_bar_title">Pulsanti e disposizione</string>
+    <string name="navigation_bar_left_title">Modalità mancino</string>
+    <string name="navigation_bar_left_summary">Posiziona la barra di navigazione sul lato sinistro dello schermo in modalità orizzontale</string>
     <string name="navigation_bar_help_text">1 - Per cominciare le modifiche, tocca il lucchetto\n\n2 - Tocca qualunque pulsante per assegnare o cambiare funzione\n\n3 - Tocca e tieni premuto per modificare l\'ordine\n\n4 - Per salvare, tocca nuovamente il lucchetto\n\n5 - Per ripristinare, tocca il pulsante di reset\n\n</string>
-    <string name="navigation_bar_tips">&#8226; Le azioni possono essere assegnate solamente un pulsante alla volta\n\n&#8226; Il pulsante Home non può essere riassegnato\n\n&#8226; I pulsanti laterali non possono essere spostati</string>
+    <string name="navigation_bar_tips">\u2022 Le azioni possono essere assegnate solamente un pulsante alla volta\n\n\u2022 Il pulsante Home non può essere riassegnato\n\n\u2022 I pulsanti laterali non possono essere spostati</string>
     <string name="navigation_bar_tips_title">Suggerimenti</string>
     <string name="navigation_bar_reset_message">Cancellare le impostazioni correnti e ripristinare le predefinite?</string>
     <string name="navigation_bar_save_message">Impostazioni per la barra di navigazione salvate</string>
@@ -666,8 +664,9 @@ inserire punti di controllo aggiuntivi. \'Rimuovi\' cancella la riga selezionata
     <string name="backlight_summary_enabled_with_timeout">Attiva per <xliff:g id="timeout">%s</xliff:g></string>
     <string name="backlight_summary_enabled">Attivata</string>
     <string name="accessibility_home_button_answers_call_prerefence_title">Il pulsante Home risponde alla chiamata</string>
-    <string name="confirm_delete_apn">L\'APN sarà cancellato.</string>
+    <string name="confirm_delete_apn">L\'APN sarà eliminato.</string>
     <string name="status_bar_title">Barra di stato</string>
+    <string name="status_bar_show_clock_title">Mostra orologio</string>
     <string name="status_bar_battery_title">Stile indicatore batteria</string>
     <string name="status_bar_style_icon_portrait">Icona verticale</string>
     <string name="status_bar_style_icon_landscape">Icona orizzontale</string>
@@ -675,6 +674,14 @@ inserire punti di controllo aggiuntivi. \'Rimuovi\' cancella la riga selezionata
     <string name="status_bar_style_text">Testo</string>
     <string name="status_bar_style_hidden">Nascosto</string>
     <string name="status_bar_battery_show_percent_title">Mostra percentuale batteria</string>
+    <string name="status_bar_signal_text_title">Stile indicatore del segnale</string>
+    <string name="status_bar_signal_style_icon">Icona</string>
+    <string name="status_bar_signal_style_text">Testo</string>
+    <string name="status_bar_toggle_brightness">Controllo luminosità</string>
+    <string name="status_bar_toggle_brightness_summary">Modifica la luminosità strisciando sulla barra di stato</string>
+    <string name="status_bar_toggle_info">Luminosità automatica attiva</string>
+    <string name="status_bar_notif_count_title">Mostra contatore notifiche</string>
+    <string name="status_bar_notif_count_summary">Visualizza il numero di notifiche in sospeso</string>
     <string name="status_bar_double_tap_to_sleep_title">Doppio tocco per sospendere</string>
     <string name="development_shortcut_title">Scorciatoie sviluppatore</string>
     <string name="development_shortcut_summary">Attiva le opzioni \'Cancella dati\' e \'Arresto forzato\' nell\'area delle notifiche e nella lista delle app recenti</string>
@@ -718,4 +725,26 @@ inserire punti di controllo aggiuntivi. \'Rimuovi\' cancella la riga selezionata
     <string name="stylus_app_not_installed">%s non è installata</string>
     <string name="ime_switcher_notify">Notifica metodo inserimento</string>
     <string name="ime_switcher_notify_summary">Visualizza la notifica del selettore metodo di immissione</string>
+    <string name="app_ops_summaries_wifi_change">modifica stato Wi-Fi</string>
+    <string name="app_ops_labels_wifi_change">Cambio stato Wi-Fi</string>
+    <string name="app_ops_summaries_bluetooth_change">modifica stato bluetooth</string>
+    <string name="app_ops_labels_bluetooth_change">Cambio stato bluetooth</string>
+    <string name="app_ops_summaries_data_change">modifica stato dati mobili</string>
+    <string name="app_ops_labels_data_change">Cambio stato dati mobili</string>
+    <string name="app_ops_summaries_alarm_wakeup">risveglio</string>
+    <string name="app_ops_labels_alarm_wakeup">Risveglio</string>
+    <string name="app_ops_summaries_auto_start">avvio automatico</string>
+    <string name="app_ops_labels_auto_start">Avvio automatico</string>
+    <string name="app_ops_categories_bootup">Avvio</string>
+    <string name="app_ops_entry_summary"><xliff:g id="op">%1$s</xliff:g> (usato <xliff:g id="count">%2$s</xliff:g>)</string>
+    <string name="app_ops_allowed_count">Consentito <xliff:g id="count" example="2 times">%s</xliff:g></string>
+    <string name="app_ops_ignored_count">Negato <xliff:g id="count" example="2 times">%s</xliff:g></string>
+    <string name="app_ops_both_count">Consentito <xliff:g id="count">%1$s</xliff:g>, negato <xliff:g id="count">%2$s</xliff:g></string>
+    <string name="app_ops_show_user_apps">Mostra app utente</string>
+    <string name="app_ops_show_system_apps">Mostra applicazioni integrate</string>
+    <string name="app_ops_reset_counters">Ripristina contatori consentito/negato</string>
+    <string name="app_ops_reset_confirm_title">Conferma ripristino contatori</string>
+    <string name="app_ops_reset_confirm_mesg">Sicuro di voler azzerare i contatori AppOps?</string>
+    <string name="edge_gesture_service_title">Blocca gli eventi da gesto.</string>
+    <string name="edge_gesture_service_summary">Non inviare eventi dei gesti per le barre di stato e navigazione alle applicazioni</string>
 </resources>
