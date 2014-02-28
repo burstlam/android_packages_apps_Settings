@@ -239,9 +239,11 @@ public class UserInterface extends SettingsPreferenceFragment implements
         } else if (preference == mUseAltResolver) {
             boolean value = (Boolean) newValue;
 			Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, value ? 1 : 0);
+            Settings.System.putInt(resolver, Settings.System.REVERSE_DEFAULT_APP_PICKER, 0);
         } else if (preference == mReverseDefaultAppPicker) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(resolver, Settings.System.REVERSE_DEFAULT_APP_PICKER, value ? 1 : 0);
+			Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0);
         }
         return true;
     }
