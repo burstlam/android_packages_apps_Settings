@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.ListPreference;
@@ -27,11 +28,13 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.preference.SeekBarPreference;
 import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.view.WindowManager;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import static android.hardware.Sensor.TYPE_LIGHT;
+import com.android.settings.widget.SeekBarPreference2;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -57,7 +60,7 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     private CheckBoxPreference mShowTextPref;
     private CheckBoxPreference mShowDatePref;
     private ListPreference mRedisplayPref;
-    private SeekBarPreference mBrightnessLevel;
+    private SeekBarPreference2 mBrightnessLevel;
     private ListPreference mDisplayTimeout;
     private ListPreference mProximityThreshold;
     private SeekBarPreference mOffsetTop;
@@ -94,11 +97,25 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         mShowDatePref.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.ACTIVE_DISPLAY_SHOW_DATE, 0) == 1));
 
-        int level = Settings.System.getInt(getContentResolver(),
-                Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, 100);
-        mBrightnessLevel = (SeekBarPreference) findPreference(KEY_BRIGHTNESS);
-        mBrightnessLevel.setProgress((int) (level));
+        PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+        int minimumBacklight = pm.getMinimumScreenBrightnessSetting();
+        int maximumBacklight = pm.getMaximumScreenBrightnessSetting();
+
+        mBrightnessLevel = (SeekBarPreference2) prefSet.findPreference(KEY_BRIGHTNESS);
+        mBrightnessLevel.setMaxValue(maximumBacklight - minimumBacklight);
+        mBrightnessLevel.setMinValue(minimumBacklight);
+        mBrightnessLevel.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, maximumBacklight) - minimumBacklight);
         mBrightnessLevel.setOnPreferenceChangeListener(this);
+
+        try {
+            if (Settings.System.getInt(getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                mBrightnessLevel.setEnabled(false);
+                mBrightnessLevel.setSummary(R.string.ad_autobrightness_mode_on);
+            }
+        } catch (SettingNotFoundException e) {
+        }
 
         mDisplayTimeout = (ListPreference) prefSet.findPreference(KEY_TIMEOUT);
         mDisplayTimeout.setOnPreferenceChangeListener(this);
@@ -180,7 +197,7 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
             updateRedisplaySummary(timeout);
             return true;
         } else if (preference == mBrightnessLevel) {
-            int brightness = Integer.parseInt((String) newValue);
+            int brightness = ((Integer)newValue).intValue();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, brightness);
             return true;
