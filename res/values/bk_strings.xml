@@ -296,7 +296,11 @@
     <string name="status_bar_network_cat">Network traffic meter</string>
     <string name="status_bar_network_header">Network traffic meter</string>
     <string name="status_bar_network_title">Network traffic</string>
-    <string name="status_bar_show_network_stats_title">Show network speeds</string>
+    <string name="status_bar_show_network_stats_title">Show network speed</string>
+    <string name="status_bar_traffic_style_hidden">Hide</string>
+    <string name="status_bar_traffic_style_rx">Show download speed only</string>
+    <string name="status_bar_traffic_style_rxtx">Shot both upload and download speed</string>
+
     <string name="status_bar_network_stats_update_title">Update frequency</string>
 
     <!-- Network stats custm colors -->

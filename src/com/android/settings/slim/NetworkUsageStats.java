@@ -28,12 +28,12 @@ public class NetworkUsageStats extends SettingsPreferenceFragment implements OnP
     private static final String STATUS_BAR_NETWORK_STATS = "status_bar_show_network_stats";
     private static final String STATUS_BAR_NETWORK_STATS_UPDATE = "status_bar_network_status_update";
     private static final String STATUS_BAR_NETWORK_COLOR = "status_bar_network_color";
-    private static final String STATUS_BAR_NETWORK_HIDE = "status_bar_network_hide";
+    //private static final String STATUS_BAR_NETWORK_HIDE = "status_bar_network_hide";
     
     private ListPreference mStatusBarNetStatsUpdate;
-    private CheckBoxPreference mStatusBarNetworkStats;
+    private ListPreference mStatusBarNetworkStats;
     private ColorPickerPreference mStatusBarNetworkColor;
-    private CheckBoxPreference mStatusBarNetworkHide;
+    //private CheckBoxPreference mStatusBarNetworkHide;
     
     private static final int MENU_RESET = Menu.FIRST;
 
@@ -54,33 +54,30 @@ public class NetworkUsageStats extends SettingsPreferenceFragment implements OnP
         addPreferencesFromResource(R.xml.network_usage_stats);
         prefSet = getPreferenceScreen();
 
-        mStatusBarNetworkStats = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS);
+        mStatusBarNetworkStats = (ListPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS);
+        int trafficStyle = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_STATS, 0);
+        mStatusBarNetworkStats.setValue(String.valueOf(trafficStyle));
+        mStatusBarNetworkStats.setSummary( mStatusBarNetworkStats.getEntry());
+        mStatusBarNetworkStats.setOnPreferenceChangeListener(this);
+
         mStatusBarNetStatsUpdate = (ListPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS_UPDATE);
-
-	mStatusBarNetworkStats.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                 Settings.System.STATUS_BAR_NETWORK_STATS, 0) == 1));
-
         long statsUpdate = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, 500);
         mStatusBarNetStatsUpdate.setValue(String.valueOf(statsUpdate));
         mStatusBarNetStatsUpdate.setSummary(mStatusBarNetStatsUpdate.getEntry());
         mStatusBarNetStatsUpdate.setOnPreferenceChangeListener(this);
 
-	// custom colors
-	mStatusBarNetworkColor = (ColorPickerPreference) prefSet.findPreference(STATUS_BAR_NETWORK_COLOR);
-  	mStatusBarNetworkColor.setOnPreferenceChangeListener(this);
+    	// custom colors
+	    mStatusBarNetworkColor = (ColorPickerPreference) prefSet.findPreference(STATUS_BAR_NETWORK_COLOR);
+      	mStatusBarNetworkColor.setOnPreferenceChangeListener(this);
         int intColor = Settings.System.getInt(getActivity().getContentResolver(),
                    Settings.System.STATUS_BAR_NETWORK_COLOR, 0xffffffff);
         String hexColor = String.format("#%08x", (0xffffffff & intColor));
         mStatusBarNetworkColor.setSummary(hexColor);
         mStatusBarNetworkColor.setNewPreviewColor(intColor);
 
-	// hide if there's no traffic
-	mStatusBarNetworkHide = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NETWORK_HIDE);
-	mStatusBarNetworkHide.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.STATUS_BAR_NETWORK_HIDE, 0) == 1));
-
-  	setHasOptionsMenu(true);
+      	setHasOptionsMenu(true);
     }
     
     @Override
@@ -131,7 +128,14 @@ public class NetworkUsageStats extends SettingsPreferenceFragment implements OnP
                     Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, updateInterval);
             mStatusBarNetStatsUpdate.setSummary(mStatusBarNetStatsUpdate.getEntries()[index]);
             return true;
-	} else if (preference == mStatusBarNetworkColor) {
+    	} else if (preference == mStatusBarNetworkStats) {
+            int trafficStyle = Integer.valueOf((String) newValue);
+            int index = mStatusBarNetworkStats.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS, trafficStyle);
+            mStatusBarNetworkStats.setSummary(mStatusBarNetworkStats.getEntries()[index]);
+            return true;
+    	} else if (preference == mStatusBarNetworkColor) {
             String hex = ColorPickerPreference.convertToARGB(
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
@@ -143,21 +147,4 @@ public class NetworkUsageStats extends SettingsPreferenceFragment implements OnP
         return false;
     }
 
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        boolean value;
-
-        if (preference == mStatusBarNetworkStats) {
-            value = mStatusBarNetworkStats.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_NETWORK_STATS, value ? 1 : 0);
-            return true;
-	} else if (preference == mStatusBarNetworkHide) {
-            value = mStatusBarNetworkHide.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_NETWORK_HIDE, value ? 1 : 0);
-            return true;
-        }
-        return false;
-    }
 }
-
