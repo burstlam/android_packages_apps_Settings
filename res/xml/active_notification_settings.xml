@@ -21,6 +21,30 @@
         android:key="ad_customizations"
         android:title="@string/ad_settings_title" />
 
+        <CheckBoxPreference
+            android:key="ad_content"
+            android:persistent="false"
+            android:title="@string/ad_content_title"
+            android:summary="@string/ad_content_summary" />
+
+        <CheckBoxPreference
+            android:key="ad_bypass"
+            android:persistent="false"
+            android:title="@string/ad_bypass_title"
+            android:summary="@string/ad_bypass_summary" />
+
+        <CheckBoxPreference
+            android:key="ad_text"
+            android:persistent="false"
+            android:title="@string/ad_text_title"
+            android:summary="@string/ad_text_summary" />
+
+        <CheckBoxPreference
+            android:key="ad_all_notifications"
+            android:persistent="false"
+            android:title="@string/ad_all_notifications_title"
+            android:summary="@string/ad_all_notifications_summary" />
+
         <ListPreference
             android:key="ad_redisplay"
             android:persistent="false"
@@ -28,6 +52,18 @@
             android:title="@string/ad_redisplay_title"
             android:entries="@array/ad_redisplay_entries"
             android:entryValues="@array/ad_redisplay_values" />
+
+        <CheckBoxPreference
+            android:key="ad_show_date"
+            android:persistent="false"
+            android:title="@string/ad_show_date_title"
+            android:summary="@string/ad_show_date_summary" />
+
+        <CheckBoxPreference
+            android:key="ad_show_ampm"
+            android:persistent="false"
+            android:title="@string/ad_show_ampm_title"
+            android:summary="@string/ad_show_ampm_summary" />
 
         <CheckBoxPreference
             android:key="ad_sunlight_mode"
@@ -41,17 +77,12 @@
             android:title="@string/ad_turnoff_mode_title"
             android:summary="@string/ad_turnoff_mode_summary" />
 
-        <CheckBoxPreference
-            android:key="ad_show_date"
-            android:persistent="false"
-            android:title="@string/ad_show_date_title"
-            android:summary="@string/ad_show_date_summary" />
-
         <ListPreference
             android:key="ad_threshold"
             android:persistent="false"
             android:dialogTitle="@string/ad_threshold_title"
             android:title="@string/ad_threshold_title"
+            android:summary="@string/ad_threshold_summary"
             android:entries="@array/ad_threshold_entries"
             android:entryValues="@array/ad_threshold_values" />
 
@@ -70,12 +101,6 @@
             android:summary="@string/ad_brightness_summary"
             settings:unitsLeft=""
             settings:unitsRight="%" />
-
-        <CheckBoxPreference
-            android:key="ad_text"
-            android:persistent="false"
-            android:title="@string/ad_text_title"
-            android:summary="@string/ad_text_summary" />
 
     <PreferenceCategory
         android:key="lockscreen_notification_customization"

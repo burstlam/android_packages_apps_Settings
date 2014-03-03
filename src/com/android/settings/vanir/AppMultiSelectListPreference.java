@@ -108,6 +108,10 @@ public class AppMultiSelectListPreference extends DialogPreference {
         return mValues;
     }
 
+    public void setClearValues() {
+        mValues.clear();
+    }
+
     /**
      * Returns the index of the given value (in the entry values array).
      *

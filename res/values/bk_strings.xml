@@ -879,7 +879,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="ad_all_notifications_summary">Show all notifications including ongoing, non-clearable notifications.</string>
     <string name="ad_redisplay_title">Redisplay notifications</string>
     <string name="ad_timeout_title">Display timeout</string>
-    <string name="ad_threshold_title">Threshold to proximity</string>
+    <string name="ad_threshold_title">Proximity time threshold</string>
+    <string name="ad_threshold_summary">Duration the proximity sensor must be covered before Active display is shown</string>
     <string name="ad_excluded_apps_title">Active display blacklist</string>
     <string name="ad_excluded_apps_summary">Excluded applications will not show up in active display.</string>
     <string name="ad_brightness_title">Notification brightness</string>
@@ -913,9 +914,19 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="pocket_mode_active">Turn on Active Display</string>
     <string name="ad_sunlight_mode_title">Sunlight mode</string>
     <string name="ad_sunlight_mode_summary">Invert the colors when in areas with bright light such as direct sunlight.</string>
-    <string name="ad_turnoff_mode_title">Turn off display</string>
-    <string name="ad_turnoff_mode_summary">Turn off display if the device gets pocketed again and was turned on by Active Display.</string>
+    <string name="ad_turnoff_mode_title">Auto-sleep display</string>
+    <string name="ad_turnoff_mode_summary">Put device to sleep again if it was woken by Pocket mode, and is returned to the pocket.</string>
     <string name="ad_autobrightness_mode_on">Auto Brightness is on.</string>
+
+    <!-- Omni Mod : Active Display-->
+    <string name="ad_content_title">Use custom notification view</string>
+    <string name="ad_content_summary">Use Active display style for showing notification details, rather than system style</string>
+    <string name="ad_pocket_mode_notifications">Active Display (Only with New Notification)</string>
+    <string name="ad_pocket_mode_always">Active Display (Always on)</string>
+    <string name="ad_bypass_title">Bypass active display</string>
+    <string name="ad_bypass_summary">When no notifications exist, pocket mode will launch the lockscreen</string>
+    <string name="ad_privacy_apps_title">Privacy mode</string>
+    <string name="ad_privacy_apps_summary">No details will be shown for notifications belonging to these apps</string>
 
     <!-- Pie control -->
     <string name="general_category_title">General</string>

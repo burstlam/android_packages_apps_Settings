@@ -72,6 +72,12 @@
             android:title="@string/privacy_mode"
             android:summary="@string/privacy_mode_summary" />
 
+        <com.android.settings.vanir.AppMultiSelectListPreference
+            android:key="ad_privacy_apps"
+            android:persistent="false"
+            android:title="@string/ad_privacy_apps_title"
+            android:summary="@string/ad_privacy_apps_summary" />
+
         <CheckBoxPreference
             android:key="quiet_hours"
             android:title="@string/active_quiet_hours_title"

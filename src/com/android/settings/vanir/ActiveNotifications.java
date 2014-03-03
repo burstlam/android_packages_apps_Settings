@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.UserHandle;
 import android.os.UserManager;
@@ -30,7 +29,7 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.vanir.AppMultiSelectListPreference;
 
-import static android.hardware.Sensor.TYPE_PROXIMITY;
+import com.android.internal.util.slim.DeviceUtils;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -51,6 +50,7 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
     private static final String KEY_ADDITIONAL = "additional_options";
     private static final String KEY_EXCLUDED_APPS = "ad_excluded_apps";
     private static final String KEY_EXCLUDED_NOTIF_APPS = "excluded_apps";
+    private static final String KEY_PRIVACY_APPS = "ad_privacy_apps";
 
     private Switch mEnabledSwitch;
     private Preference mAdditional;
@@ -67,7 +67,9 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
     private CheckBoxPreference mDismissAll;
     private AppMultiSelectListPreference mExcludedAppsPref;
     private AppMultiSelectListPreference mNotifAppsPref;
+    private AppMultiSelectListPreference mPrivacyAppsPref;
     private CheckBoxPreference mPrivacyMode;
+
     private CheckBoxPreference mQuietHours;
 
     @Override
@@ -122,13 +124,14 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
                 Settings.System.LOCKSCREEN_NOTIFICATIONS, 0) == 1));
 
         mPocketModePref = (ListPreference) prefs.findPreference(KEY_POCKET_MODE);
-        mPocketModePref.setOnPreferenceChangeListener(this);
-        int mode = Settings.System.getInt(cr,
-                Settings.System.ACTIVE_NOTIFICATIONS_POCKET_MODE, 0);
-        mPocketModePref.setValue(String.valueOf(mode));
-        updatePocketModeSummary(mode);
-        if (!hasProximitySensor()) {
-            getPreferenceScreen().removePreference(mPocketModePref);
+        if (!DeviceUtils.deviceSupportsProximitySensor(mContext)) {
+            prefs.removePreference(mPocketModePref);
+        } else {
+            int mode = Settings.System.getInt(cr,
+                    Settings.System.ACTIVE_NOTIFICATIONS_POCKET_MODE, 0);
+            mPocketModePref.setValue(String.valueOf(mode));
+            updatePocketModeSummary(mode);
+            mPocketModePref.setOnPreferenceChangeListener(this);
         }
 
         mHideLowPriority = (CheckBoxPreference) prefs.findPreference(KEY_HIDE_LOW_PRIORITY);
@@ -160,6 +163,11 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
         Set<String> excludedNotifApps = getExcludedNotifApps();
         if (excludedNotifApps != null) mNotifAppsPref.setValues(excludedNotifApps);
         mNotifAppsPref.setOnPreferenceChangeListener(this);
+
+        mPrivacyAppsPref = (AppMultiSelectListPreference) findPreference(KEY_PRIVACY_APPS);
+        Set<String> privacyApps = getPrivacyApps();
+        if (privacyApps != null) mPrivacyAppsPref.setValues(privacyApps);
+        mPrivacyAppsPref.setOnPreferenceChangeListener(this);
 
         mAdditional = (PreferenceScreen) prefs.findPreference(KEY_ADDITIONAL);
 
@@ -287,12 +295,6 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
                 Settings.System.ACTIVE_NOTIFICATIONS_POCKET_MODE, value);
     }
 
-    private boolean hasProximitySensor() {
-        SensorManager sm = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        return sm.getDefaultSensor(TYPE_PROXIMITY) != null;
-    }
-
-
     private Set<String> getExcludedApps() {
         String excluded = Settings.System.getString(getContentResolver(),
                 Settings.System.ACTIVE_DISPLAY_EXCLUDED_APPS);
@@ -336,5 +338,26 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
 
     public void onDismiss(DialogInterface dialog) {
         // ahh!
+    }
+
+    private Set<String> getPrivacyApps() {
+        String privacies = Settings.System.getString(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_PRIVACY_APPS);
+        if (TextUtils.isEmpty(privacies))
+            return null;
+
+        return new HashSet<String>(Arrays.asList(privacies.split("\\|")));
+    }
+
+    private void storePrivacyApps(Set<String> values) {
+        StringBuilder builder = new StringBuilder();
+        String delimiter = "";
+        for (String value : values) {
+            builder.append(delimiter);
+            builder.append(value);
+            delimiter = "|";
+        }
+        Settings.System.putString(getContentResolver(),
+                Settings.System.ACTIVE_DISPLAY_PRIVACY_APPS, builder.toString());
     }
 }
