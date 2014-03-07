@@ -20,9 +20,11 @@ import android.content.ContentResolver;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.ListPreference;
+import android.preference.PreferenceCategory;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.Settings;
 import android.util.Log;
@@ -40,8 +42,11 @@ public class PowerMenuFragment extends SettingsPreferenceFragment implements
 
     private static final String TAG = "PowerMenuFragment";
     private static final String KEY_EXPANDED_DESKTOP = "expanded_desktop";
+    private static final String KEY_EXPANDED_DESKTOP_NO_NAVBAR = "expanded_desktop_no_navbar";
+    private static final String CATEGORY_EXPANDED_DESKTOP = "expanded_desktop_category";
 
     private ListPreference mExpandedDesktopPref;
+    private CheckBoxPreference mExpandedDesktopNoNavbarPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,11 @@ public class PowerMenuFragment extends SettingsPreferenceFragment implements
         addPreferencesFromResource(R.xml.power_menu_fragment);
 
         PreferenceScreen prefScreen = getPreferenceScreen();
+        PreferenceCategory expandedCategory =
+                (PreferenceCategory) findPreference(CATEGORY_EXPANDED_DESKTOP);
+
+        mExpandedDesktopNoNavbarPref =
+                (CheckBoxPreference) findPreference(KEY_EXPANDED_DESKTOP_NO_NAVBAR);
 
         // Expanded desktop
         mExpandedDesktopPref = (ListPreference) findPreference(KEY_EXPANDED_DESKTOP);
@@ -64,6 +74,12 @@ public class PowerMenuFragment extends SettingsPreferenceFragment implements
                 mExpandedDesktopPref.setOnPreferenceChangeListener(this);
                 mExpandedDesktopPref.setValue(String.valueOf(expandedDesktopValue));
                 updateExpandedDesktop(expandedDesktopValue);
+                expandedCategory.removePreference(mExpandedDesktopNoNavbarPref);
+            } else {
+                // Hide no-op "Status bar visible" expanded desktop mode
+                mExpandedDesktopNoNavbarPref.setOnPreferenceChangeListener(this);
+                mExpandedDesktopNoNavbarPref.setChecked(expandedDesktopValue > 0);
+                expandedCategory.removePreference(mExpandedDesktopPref);
             }
         } catch (RemoteException e) {
             Log.e(TAG, "Error getting navigation bar status");
@@ -90,8 +106,11 @@ public class PowerMenuFragment extends SettingsPreferenceFragment implements
             int expandedDesktopValue = Integer.valueOf((String) objValue);
             updateExpandedDesktop(expandedDesktopValue);
             return true;
+        } else if (preference == mExpandedDesktopNoNavbarPref) {
+            boolean value = (Boolean) objValue;
+            updateExpandedDesktop(value ? 2 : 0);
+            return true;
         }
-
         return false;
     }
 
@@ -102,7 +121,9 @@ public class PowerMenuFragment extends SettingsPreferenceFragment implements
 
         Settings.System.putInt(cr, Settings.System.EXPANDED_DESKTOP_STYLE, value);
 
-        if (value == 1) {
+        if (value == 0) {
+            summary = R.string.expanded_desktop_disabled;
+        } else if (value == 1) {
             summary = R.string.expanded_desktop_status_bar;
         } else if (value == 2) {
             summary = R.string.expanded_desktop_no_status_bar;
