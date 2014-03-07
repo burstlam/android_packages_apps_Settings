@@ -990,8 +990,11 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="unit_sec">sec</string>
 
     <!-- OmniSwitch -->
-    <string name="recents_use_omniswitch_title">Use for recents</string>
-    <string name="recents_use_omniswitch_summary">Use OmniSwitch instead of default recents view</string>
+    <string name="custom_recents_title">Recents Panel Chooser</string>
+    <string name="custom_recents_summary">Choose between Stock, Slim or OmniSwitch</string>
+    <string name="recents_use_stock_title">Use Stock for recents view</string>
+    <string name="recents_use_slimrecent_title">Use SlimRecent for recents view</string>
+    <string name="recents_use_omniswitch_title">Use OmniSwitch for recents view</string>
     <string name="omniswitch_start_settings_title">Settings</string>
     <string name="omniswitch_start_settings_summary">Open OmniSwitch settings</string>
     <string name="omniswitch_first_time_title">Information</string>

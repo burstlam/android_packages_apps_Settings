@@ -67,7 +67,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver";
     private static final String KEY_REVERSE_DEFAULT_APP_PICKER = "reverse_default_app_picker";
 
-    private static final String RECENTS_USE_OMNISWITCH = "recents_use_omniswitch";
+    private static final String RECENTS_STYLE = "recents_style";
     private static final String OMNISWITCH_START_SETTINGS = "omniswitch_start_settings";
 
     // Package name of the omnniswitch app
@@ -84,7 +84,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private CheckBoxPreference mUseAltResolver;
     private CheckBoxPreference mReverseDefaultAppPicker;
 
-    private CheckBoxPreference mRecentsUseOmniSwitch;
+    private ListPreference mRecentsStyle;
     private Preference mOmniSwitchSettings;
     private boolean mOmniSwitchStarted;
 
@@ -133,18 +133,20 @@ public class UserInterface extends SettingsPreferenceFragment implements
 
         boolean useOmniSwitch = false;
         try {
-            useOmniSwitch = Settings.System.getInt(getContentResolver(), Settings.System.RECENTS_USE_OMNISWITCH) == 1
+            useOmniSwitch = Settings.System.getInt(getContentResolver(), Settings.System.RECENTS_STYLE) == 2
                                 && isOmniSwitchServiceRunning();
         } catch(SettingNotFoundException e) {
         }
 
-        // OmniSwitch
-        mRecentsUseOmniSwitch = (CheckBoxPreference) prefSet.findPreference(RECENTS_USE_OMNISWITCH);
-        mRecentsUseOmniSwitch.setChecked(useOmniSwitch);
-        mRecentsUseOmniSwitch.setOnPreferenceChangeListener(this);
+        // Recents Style
+        mRecentsStyle = (ListPreference) prefSet.findPreference(RECENTS_STYLE);
+        mRecentsStyle.setOnPreferenceChangeListener(this);
+        int recentsStyle = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.RECENTS_STYLE, 0);
+        mRecentsStyle.setValue(String.valueOf(recentsStyle));
+        mRecentsStyle.setSummary(mRecentsStyle.getEntry());
 
         mOmniSwitchSettings = (Preference) prefSet.findPreference(OMNISWITCH_START_SETTINGS);
-        mOmniSwitchSettings.setEnabled(useOmniSwitch);
 
         mRecentClearAll = (CheckBoxPreference) prefSet.findPreference(RECENT_MENU_CLEAR_ALL);
         mRecentClearAll.setChecked(Settings.System.getInt(resolver,
@@ -169,6 +171,8 @@ public class UserInterface extends SettingsPreferenceFragment implements
         mReverseDefaultAppPicker.setOnPreferenceChangeListener(this);
         mReverseDefaultAppPicker.setChecked(Settings.System.getInt(resolver,
                 Settings.System.REVERSE_DEFAULT_APP_PICKER, 0) == 1);
+
+        updateRecentsOptions();
     }
 
     private void updateRamBar() {
@@ -220,22 +224,22 @@ public class UserInterface extends SettingsPreferenceFragment implements
         } else if (preference == mRecentClearAllPosition) {
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION, value);
-        } else if (preference == mRecentsUseOmniSwitch) {
-            boolean omniSwitchEnabled = (Boolean) newValue;
+        } else if (preference == mRecentsStyle) {
+            int recentsStyle = Integer.valueOf((String) newValue);
+            int index = mRecentsStyle.findIndexOfValue((String) newValue);
+            boolean firstUse = false;
+                try {
+                    firstUse = Settings.System.getInt(getContentResolver(), Settings.System.RECENTS_STYLE) == 2
+                                      && !isOmniSwitchServiceRunning();
+                } catch(SettingNotFoundException e) {
+                }
 
             // Give user information that OmniSwitch service is not running
-            if (omniSwitchEnabled && !isOmniSwitchServiceRunning()) {
+            if (firstUse) {
                 openOmniSwitchFirstTimeWarning();
             }
-            Settings.System.putInt(resolver, Settings.System.RECENTS_USE_OMNISWITCH, omniSwitchEnabled ? 1 : 0);
-
-            // Update OmniSwitch UI components
-            mRecentsUseOmniSwitch.setChecked(omniSwitchEnabled);
-            mOmniSwitchSettings.setEnabled(omniSwitchEnabled);
-
-            // Update default recents UI components
-            mRecentClearAll.setEnabled(!omniSwitchEnabled);
-            mRecentClearAllPosition.setEnabled(!omniSwitchEnabled);
+            Settings.System.putInt(resolver, Settings.System.RECENTS_STYLE, recentsStyle);
+            updateRecentsOptions();
         } else if (preference == mUseAltResolver) {
             boolean value = (Boolean) newValue;
 			Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, value ? 1 : 0);
@@ -267,5 +271,23 @@ public class UserInterface extends SettingsPreferenceFragment implements
                 public void onClick(DialogInterface dialog, int whichButton) {
                 }
             }).show();
+    }
+
+    private void updateRecentsOptions() {
+        int recentsStyle = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.RECENTS_STYLE, 0);
+        if (recentsStyle == 0) {
+            mOmniSwitchSettings.setEnabled(true);
+            mRecentClearAll.setEnabled(true);
+            mRecentClearAllPosition.setEnabled(true);
+        } else if (recentsStyle == 1) {
+            mOmniSwitchSettings.setEnabled(false);
+            mRecentClearAll.setEnabled(false);
+            mRecentClearAllPosition.setEnabled(false);
+        } else if (recentsStyle == 2) {
+            mOmniSwitchSettings.setEnabled(true);
+            mRecentClearAll.setEnabled(false);
+            mRecentClearAllPosition.setEnabled(false);
+        }
     }
 }
