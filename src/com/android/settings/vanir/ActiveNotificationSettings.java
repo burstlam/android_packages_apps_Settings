@@ -40,15 +40,15 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.util.slim.DeviceUtils;
 import com.android.settings.widget.SeekBarPreference2;
 
+import android.util.Log;
+
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class ActiveNotificationSettings extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener {
     private static final String TAG = "ActiveDisplaySettings";
 
-    private static final String KEY_SHOW_TEXT = "ad_text";
     private static final String KEY_REDISPLAY = "ad_redisplay";
-    private static final String KEY_SHOW_DATE = "ad_show_date";
     private static final String KEY_SHOW_AMPM = "ad_show_ampm";
     private static final String KEY_BRIGHTNESS = "ad_brightness";
     private static final String KEY_TIMEOUT = "ad_timeout";
@@ -61,31 +61,29 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     private static final String KEY_NOTIFICATION_COLOR = "notification_color";
     private static final String KEY_SUNLIGHT_MODE = "ad_sunlight_mode";
     private static final String KEY_TURNOFF_MODE = "ad_turnoff_mode";
-    private static final String KEY_SHOW_CONTENT = "ad_content";
     private static final String KEY_BYPASS_CONTENT = "ad_bypass";
-    private static final String KEY_ALL_NOTIFICATIONS = "ad_all_notifications";
+    private static final String KEY_ANNOYING = "ad_annoying";
 
     private ContentResolver mResolver;
     private Context mContext;
-    private CheckBoxPreference mShowContentPref;
-    private CheckBoxPreference mBypassPref;
-    private CheckBoxPreference mAllNotificationsPref;
 
-    private CheckBoxPreference mShowTextPref;
-    private CheckBoxPreference mShowDatePref;
-    private CheckBoxPreference mShowAmPmPref;
-    private ListPreference mRedisplayPref;
-    private SeekBarPreference2 mBrightnessLevel;
-    private ListPreference mDisplayTimeout;
-    private ListPreference mProximityThreshold;
+    private SeekBarPreference2 mAnnoyingNotification;
     private SeekBarPreference mOffsetTop;
     private CheckBoxPreference mWakeOnNotification;
     private CheckBoxPreference mExpandedView;
     private CheckBoxPreference mForceExpandedView;
     private NumberPickerPreference mNotificationsHeight;
     private ColorPickerPreference mNotificationColor;
+    private CheckBoxPreference mBypassPref;
+    private CheckBoxPreference mShowAmPmPref;
     private CheckBoxPreference mSunlightModePref;
     private CheckBoxPreference mTurnOffModePref;
+    private SeekBarPreference2 mBrightnessLevel;
+    private ListPreference mDisplayTimeout;
+    private ListPreference mProximityThreshold;
+    private ListPreference mRedisplayPref;
+    private int mMinimumBacklight;
+    private int mMaximumBacklight;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,14 +97,6 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
 
         boolean AmonAmarth = Settings.System.getInt(mResolver,
                 Settings.System.ENABLE_ACTIVE_DISPLAY, 0) == 1;
-
-        mShowTextPref = (CheckBoxPreference) prefSet.findPreference(KEY_SHOW_TEXT);
-        mShowTextPref.setChecked((Settings.System.getInt(mResolver,
-                Settings.System.ACTIVE_DISPLAY_TEXT, 0) == 1));
-
-        mShowContentPref = (CheckBoxPreference) findPreference(KEY_SHOW_CONTENT);
-        mShowContentPref.setChecked((Settings.System.getInt(mResolver,
-                Settings.System.ACTIVE_DISPLAY_CONTENT, 1) != 0));
 
         mBypassPref = (CheckBoxPreference) prefSet.findPreference(KEY_BYPASS_CONTENT);
         mProximityThreshold = (ListPreference) prefSet.findPreference(KEY_THRESHOLD);
@@ -123,25 +113,16 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
             long threshold = Settings.System.getLong(mResolver,
                     Settings.System.ACTIVE_DISPLAY_THRESHOLD, 5000L);
             mProximityThreshold.setValue(String.valueOf(threshold));
-            updateThresholdSummary(threshold);
+            mProximityThreshold.setSummary(mProximityThreshold.getEntry());
             mProximityThreshold.setOnPreferenceChangeListener(this);
 
             mTurnOffModePref.setChecked((Settings.System.getInt(mResolver,
                     Settings.System.ACTIVE_DISPLAY_TURNOFF_MODE, 0) == 1));
         }
 
-        mAllNotificationsPref = (CheckBoxPreference) findPreference(KEY_ALL_NOTIFICATIONS);
-        mAllNotificationsPref.setChecked((Settings.System.getInt(mResolver,
-                Settings.System.ACTIVE_DISPLAY_ALL_NOTIFICATIONS, 0) == 1));
-
-        mShowDatePref = (CheckBoxPreference) prefSet.findPreference(KEY_SHOW_DATE);
-        mShowDatePref.setChecked((Settings.System.getInt(mResolver,
-                Settings.System.ACTIVE_DISPLAY_SHOW_DATE, 0) == 1));
-
         mShowAmPmPref = (CheckBoxPreference) prefSet.findPreference(KEY_SHOW_AMPM);
         mShowAmPmPref.setChecked((Settings.System.getInt(mResolver,
                 Settings.System.ACTIVE_DISPLAY_SHOW_AMPM, 0) == 1));
-        mShowAmPmPref.setEnabled(!is24Hour());
 
         mSunlightModePref = (CheckBoxPreference) prefSet.findPreference(KEY_SUNLIGHT_MODE);
         if (!DeviceUtils.deviceSupportsLightSensor(mContext)) {
@@ -155,35 +136,31 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         long timeout = Settings.System.getLong(mResolver,
                 Settings.System.ACTIVE_DISPLAY_REDISPLAY, 0);
         mRedisplayPref.setValue(String.valueOf(timeout));
-        updateRedisplaySummary(timeout);
+        mRedisplayPref.setSummary(mRedisplayPref.getEntry());
         mRedisplayPref.setOnPreferenceChangeListener(this);
 
+        mAnnoyingNotification = (SeekBarPreference2) prefSet.findPreference(KEY_ANNOYING);
+        mAnnoyingNotification.setValue(Settings.System.getInt(mResolver,
+                Settings.System.ACTIVE_DISPLAY_ANNOYING, 0));
+        mAnnoyingNotification.setOnPreferenceChangeListener(this);
+
         PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-        int minimumBacklight = pm.getMinimumScreenBrightnessSetting();
-        int maximumBacklight = pm.getMaximumScreenBrightnessSetting();
+        mMinimumBacklight = pm.getMinimumScreenBrightnessSetting();
+        mMaximumBacklight = pm.getMaximumScreenBrightnessSetting();
 
         mBrightnessLevel = (SeekBarPreference2) prefSet.findPreference(KEY_BRIGHTNESS);
-        mBrightnessLevel.setMaxValue(maximumBacklight - minimumBacklight);
-        mBrightnessLevel.setMinValue(minimumBacklight);
-        mBrightnessLevel.setValue(Settings.System.getInt(mResolver,
-                Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, maximumBacklight) - minimumBacklight);
+        int brightness = Settings.System.getInt(mResolver,
+                Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, mMaximumBacklight);
+        int realBrightness =  (int)(((float)brightness / (float)mMaximumBacklight) * 100);
+        mBrightnessLevel.setValue(realBrightness);
         mBrightnessLevel.setOnPreferenceChangeListener(this);
 
-        try {
-            if (Settings.System.getInt(mResolver,
-                    Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
-                mBrightnessLevel.setEnabled(false);
-                mBrightnessLevel.setSummary(R.string.ad_autobrightness_mode_on);
-            }
-        } catch (SettingNotFoundException e) {
-        }
-
         mDisplayTimeout = (ListPreference) prefSet.findPreference(KEY_TIMEOUT);
-        mDisplayTimeout.setOnPreferenceChangeListener(this);
         timeout = Settings.System.getLong(mResolver,
                 Settings.System.ACTIVE_DISPLAY_TIMEOUT, 8000L);
         mDisplayTimeout.setValue(String.valueOf(timeout));
-        updateTimeoutSummary(timeout);
+        mDisplayTimeout.setSummary(mDisplayTimeout.getEntry());
+        mDisplayTimeout.setOnPreferenceChangeListener(this);
 
         mWakeOnNotification = (CheckBoxPreference) prefSet.findPreference(KEY_WAKE_ON_NOTIFICATION);
         mWakeOnNotification.setChecked(Settings.System.getInt(mResolver,
@@ -236,25 +213,39 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mRedisplayPref) {
-            int timeout = Integer.valueOf((String) newValue);
-            updateRedisplaySummary(timeout);
+            int val = Integer.parseInt((String) newValue);
+            int index = mRedisplayPref.findIndexOfValue((String) newValue);
+            Settings.System.putInt(mResolver,
+                Settings.System.ACTIVE_DISPLAY_REDISPLAY, val);
+            mRedisplayPref.setSummary(mRedisplayPref.getEntries()[index]);
+            return true;
+        } else if (preference == mAnnoyingNotification) {
+            int annoying = ((Integer)newValue).intValue();
+            Settings.System.putInt(mResolver,
+                    Settings.System.ACTIVE_DISPLAY_ANNOYING, annoying);
             return true;
         } else if (preference == mBrightnessLevel) {
             int brightness = ((Integer)newValue).intValue();
-            Settings.System.putInt(mResolver,
-                    Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, brightness);
+            int realBrightness =  Math.max(mMinimumBacklight, (int)(((float)brightness / (float)100) * mMaximumBacklight));                   
+            Settings.System.putInt(mResolver, Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, realBrightness);
             return true;
         } else if (preference == mNotificationsHeight) {
             Settings.System.putInt(mResolver,
                     Settings.System.LOCKSCREEN_NOTIFICATIONS_HEIGHT, (Integer)newValue);
             return true;
         } else if (preference == mDisplayTimeout) {
-            long timeout = Integer.valueOf((String) newValue);
-            updateTimeoutSummary(timeout);
+            int val = Integer.parseInt((String) newValue);
+            int index = mDisplayTimeout.findIndexOfValue((String) newValue);
+            Settings.System.putInt(mResolver,
+                Settings.System.ACTIVE_DISPLAY_TIMEOUT, val);
+            mDisplayTimeout.setSummary(mDisplayTimeout.getEntries()[index]);
             return true;
         } else if (preference == mProximityThreshold) {
-            long threshold = Integer.valueOf((String) newValue);
-            updateThresholdSummary(threshold);
+            int val = Integer.parseInt((String) newValue);
+            int index = mProximityThreshold.findIndexOfValue((String) newValue);
+            Settings.System.putInt(mResolver,
+                Settings.System.ACTIVE_DISPLAY_THRESHOLD, val);
+            mProximityThreshold.setSummary(mProximityThreshold.getEntries()[index]);
             return true;
         } else if (preference == mNotificationColor) {
             String hex = ColorPickerPreference.convertToARGB(
@@ -283,12 +274,7 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
 
-        if (preference == mShowTextPref) {
-            value = mShowTextPref.isChecked();
-            Settings.System.putInt(mResolver,
-                    Settings.System.ACTIVE_DISPLAY_TEXT,
-                    value ? 1 : 0);
-        } else if (preference == mExpandedView) {
+        if (preference == mExpandedView) {
             Settings.System.putInt(mResolver, Settings.System.LOCKSCREEN_NOTIFICATIONS_EXPANDED_VIEW,
                     mExpandedView.isChecked() ? 1 : 0);
             mForceExpandedView.setEnabled(mExpandedView.isChecked());
@@ -298,11 +284,6 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         } else if (preference == mWakeOnNotification) {
             Settings.System.putInt(mResolver, Settings.System.LOCKSCREEN_NOTIFICATIONS_WAKE_ON_NOTIFICATION,
                     mWakeOnNotification.isChecked() ? 1 : 0);
-        } else if (preference == mShowDatePref) {
-            value = mShowDatePref.isChecked();
-            Settings.System.putInt(mResolver,
-                    Settings.System.ACTIVE_DISPLAY_SHOW_DATE,
-                    value ? 1 : 0);
         } else if (preference == mSunlightModePref) {
             value = mSunlightModePref.isChecked();
             Settings.System.putInt(mResolver,
@@ -312,11 +293,6 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
             value = mTurnOffModePref.isChecked();
             Settings.System.putInt(mResolver,
                     Settings.System.ACTIVE_DISPLAY_TURNOFF_MODE,
-                    value ? 1 : 0);
-        } else if (preference == mShowContentPref) {
-            value = mShowContentPref.isChecked();
-            Settings.System.putInt(mResolver,
-                    Settings.System.ACTIVE_DISPLAY_CONTENT,
                     value ? 1 : 0);
         } else if (preference == mBypassPref) {
             value = mBypassPref.isChecked();
@@ -328,11 +304,6 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
             Settings.System.putInt(mResolver,
                     Settings.System.ACTIVE_DISPLAY_SHOW_AMPM,
                     value ? 1 : 0);
-        } else if (preference == mAllNotificationsPref) {
-            value = mAllNotificationsPref.isChecked();
-            Settings.System.putInt(mResolver,
-                    Settings.System.ACTIVE_DISPLAY_ALL_NOTIFICATIONS,
-                    value ? 1 : 0);
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
@@ -340,32 +311,4 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         return true;
     }
 
-    private void updateRedisplaySummary(long value) {
-        mRedisplayPref.setSummary(mRedisplayPref.getEntries()[mRedisplayPref.findIndexOfValue("" + value)]);
-        Settings.System.putLong(mResolver,
-                Settings.System.ACTIVE_DISPLAY_REDISPLAY, value);
-    }
-
-    private void updateTimeoutSummary(long value) {
-        try {
-            mDisplayTimeout.setSummary(mDisplayTimeout.getEntries()[mDisplayTimeout.findIndexOfValue("" + value)]);
-            Settings.System.putLong(mResolver,
-                    Settings.System.ACTIVE_DISPLAY_TIMEOUT, value);
-        } catch (ArrayIndexOutOfBoundsException e) {
-        }
-    }
-
-    private void updateThresholdSummary(long value) {
-        try {
-            mProximityThreshold.setSummary(mProximityThreshold.getEntries()[mProximityThreshold.findIndexOfValue("" + value)]);
-            Settings.System.putLong(mResolver,
-                    Settings.System.ACTIVE_DISPLAY_THRESHOLD, value);
-        } catch (ArrayIndexOutOfBoundsException e) {
-        }
-    }
-
-    private boolean is24Hour() {
-        return DateFormat.is24HourFormat(mContext);
-    }
 }
-

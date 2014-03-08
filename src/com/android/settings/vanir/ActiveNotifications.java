@@ -156,17 +156,23 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
 
         mExcludedAppsPref = (AppMultiSelectListPreference) findPreference(KEY_EXCLUDED_APPS);
         Set<String> excludedApps = getExcludedApps();
-        if (excludedApps != null) mExcludedAppsPref.setValues(excludedApps);
+        if (excludedApps != null) {
+            mExcludedAppsPref.setValues(excludedApps);
+        }
         mExcludedAppsPref.setOnPreferenceChangeListener(this);
 
         mNotifAppsPref = (AppMultiSelectListPreference) findPreference(KEY_EXCLUDED_NOTIF_APPS);
         Set<String> excludedNotifApps = getExcludedNotifApps();
-        if (excludedNotifApps != null) mNotifAppsPref.setValues(excludedNotifApps);
+        if (excludedNotifApps != null) {
+            mNotifAppsPref.setValues(excludedNotifApps);
+        }
         mNotifAppsPref.setOnPreferenceChangeListener(this);
 
         mPrivacyAppsPref = (AppMultiSelectListPreference) findPreference(KEY_PRIVACY_APPS);
         Set<String> privacyApps = getPrivacyApps();
-        if (privacyApps != null) mPrivacyAppsPref.setValues(privacyApps);
+        if (privacyApps != null) {
+            mPrivacyAppsPref.setValues(privacyApps);
+        }
         mPrivacyAppsPref.setOnPreferenceChangeListener(this);
 
         mAdditional = (PreferenceScreen) prefs.findPreference(KEY_ADDITIONAL);
@@ -343,9 +349,9 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
     private Set<String> getPrivacyApps() {
         String privacies = Settings.System.getString(getContentResolver(),
                 Settings.System.ACTIVE_DISPLAY_PRIVACY_APPS);
-        if (TextUtils.isEmpty(privacies))
+        if (TextUtils.isEmpty(privacies)) {
             return null;
-
+        }
         return new HashSet<String>(Arrays.asList(privacies.split("\\|")));
     }
 
