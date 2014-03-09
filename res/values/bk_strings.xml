@@ -1032,4 +1032,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="background_result_successful">Background changed</string>
     <string name="background_result_not_successful">Background not changed</string>
 
+    <!-- QuickSettings haptic feedback -->
+    <string name="haptic_qs_tiles_title">Vibrate on touch</string>
+    <string name="haptic_qs_tiles_summary">Vibrate when touching tiles</string>
+
 </resources>
