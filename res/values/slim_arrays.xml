@@ -550,6 +550,7 @@
         <item>@string/shortcut_action_notifications</item>
         <item>@string/shortcut_action_menu_big</item>
         <item>@string/shortcut_action_ime</item>
+        <item>@string/shortcut_action_omniswitch</item>
         <item>@string/shortcut_action_pie</item>
         <item>@string/shortcut_action_papie</item>
         <item>@string/shortcut_action_power_menu</item>
@@ -575,6 +576,7 @@
         <item>**notifications**</item>
         <item>**menu_big**</item>
         <item>**ime**</item>
+        <item>**omniswitch**</item>
         <item>**pie**</item>
         <item>**papie**</item>
         <item>**power_menu**</item>
@@ -596,6 +598,7 @@
         <item>@string/shortcut_action_lastapp</item>
         <item>@string/shortcut_action_notifications</item>
         <item>@string/shortcut_action_ime</item>
+        <item>@string/shortcut_action_omniswitch</item>
         <item>@string/shortcut_action_power_menu</item>
         <item>@string/shortcut_action_qs</item>
         <item>@string/shortcut_action_smart</item>
@@ -617,27 +620,7 @@
         <item>**lastapp**</item>
         <item>**notifications**</item>
         <item>**ime**</item>
-        <item>**power_menu**</item>
-        <item>**quicksettings**</item>
-        <item>**smart_pulldown**</item>
-        <item>**ring_silent**</item>
-        <item>**ring_vib**</item>
-        <item>**ring_vib_silent**</item>
-        <item>**power**</item>
-        <item>**screenshot**</item>
-        <item>**assist**</item>
-        <item>**theme_switch**</item>
-        <item>**torch**</item>
-        <item>**null**</item>
-    </string-array>
-
-    <string-array name="shortcut_action_navring_values" translatable="false">
-        <item>**app**</item>
-        <item>**expanded_desktop**</item>
-        <item>**kill**</item>
-        <item>**lastapp**</item>
-        <item>**notifications**</item>
-        <item>**ime**</item>
+        <item>**omniswitch**</item>
         <item>**power_menu**</item>
         <item>**quicksettings**</item>
         <item>**ring_silent**</item>
@@ -662,6 +645,7 @@
         <item>@string/shortcut_action_notifications</item>
         <item>@string/shortcut_action_menu_big</item>
         <item>@string/shortcut_action_ime</item>
+        <item>@string/shortcut_action_omniswitch</item>
         <item>@string/shortcut_action_pie</item>
         <item>@string/shortcut_action_papie</item>
         <item>@string/shortcut_action_power_menu</item>
@@ -692,6 +676,7 @@
         <item>**notifications**</item>
         <item>**menu_big**</item>
         <item>**ime**</item>
+        <item>**omniswitch**</item>
         <item>**pie**</item>
         <item>**papie**</item>
         <item>**power_menu**</item>
