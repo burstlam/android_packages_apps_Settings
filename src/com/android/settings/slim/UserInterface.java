@@ -37,7 +37,6 @@ import android.preference.PreferenceCategory;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 import android.text.Spannable;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -52,7 +51,6 @@ import com.android.settings.R;
 import com.android.settings.util.CMDProcessor;
 import com.android.settings.util.Helpers;
 
-import com.android.internal.util.omni.OmniSwitchConstants;
 
 public class UserInterface extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -67,26 +65,12 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver";
     private static final String KEY_REVERSE_DEFAULT_APP_PICKER = "reverse_default_app_picker";
 
-    private static final String RECENTS_USE_OMNISWITCH = "recents_use_omniswitch";
-    private static final String OMNISWITCH_START_SETTINGS = "omniswitch_start_settings";
-
-    // Package name of the omnniswitch app
-    public static final String OMNISWITCH_PACKAGE_NAME = "org.omnirom.omniswitch";
-
-    // Intent for launching the omniswitch settings actvity
-    public static Intent INTENT_OMNISWITCH_SETTINGS = new Intent(Intent.ACTION_MAIN)
-         .setClassName(OMNISWITCH_PACKAGE_NAME, OMNISWITCH_PACKAGE_NAME + ".SettingsActivity");
-
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
     private CheckBoxPreference mUseAltResolver;
     private CheckBoxPreference mReverseDefaultAppPicker;
-
-    private CheckBoxPreference mRecentsUseOmniSwitch;
-    private Preference mOmniSwitchSettings;
-    private boolean mOmniSwitchStarted;
 
     private Preference mRamBar;
     Preference mLcdDensity;
@@ -131,26 +115,10 @@ public class UserInterface extends SettingsPreferenceFragment implements
         }
         mListViewInterpolator.setOnPreferenceChangeListener(this);
 
-        boolean useOmniSwitch = false;
-        try {
-            useOmniSwitch = Settings.System.getInt(getContentResolver(), Settings.System.RECENTS_USE_OMNISWITCH) == 1
-                                && isOmniSwitchServiceRunning();
-        } catch(SettingNotFoundException e) {
-        }
-
-        // OmniSwitch
-        mRecentsUseOmniSwitch = (CheckBoxPreference) prefSet.findPreference(RECENTS_USE_OMNISWITCH);
-        mRecentsUseOmniSwitch.setChecked(useOmniSwitch);
-        mRecentsUseOmniSwitch.setOnPreferenceChangeListener(this);
-
-        mOmniSwitchSettings = (Preference) prefSet.findPreference(OMNISWITCH_START_SETTINGS);
-        mOmniSwitchSettings.setEnabled(useOmniSwitch);
-
         mRecentClearAll = (CheckBoxPreference) prefSet.findPreference(RECENT_MENU_CLEAR_ALL);
         mRecentClearAll.setChecked(Settings.System.getInt(resolver,
             Settings.System.SHOW_CLEAR_RECENTS_BUTTON, 0) == 1);
         mRecentClearAll.setOnPreferenceChangeListener(this);
-        mRecentClearAll.setEnabled(!useOmniSwitch);
 
         mRecentClearAllPosition = (ListPreference) prefSet.findPreference(RECENT_MENU_CLEAR_ALL_LOCATION);
         String recentClearAllPosition = Settings.System.getString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION);
@@ -158,7 +126,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
              mRecentClearAllPosition.setValue(recentClearAllPosition);
         }
         mRecentClearAllPosition.setOnPreferenceChangeListener(this);
-        mRecentClearAllPosition.setEnabled(!useOmniSwitch);
 
         mUseAltResolver = (CheckBoxPreference) findPreference(PREF_USE_ALT_RESOLVER);
         mUseAltResolver.setOnPreferenceChangeListener(this);
@@ -199,9 +166,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
             ((PreferenceActivity) getActivity())
             .startPreferenceFragment(new DensityChanger(), true);
             return true;
-        } else if (preference == mOmniSwitchSettings) {
-            startActivity(INTENT_OMNISWITCH_SETTINGS);
-            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -220,22 +184,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
         } else if (preference == mRecentClearAllPosition) {
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.CLEAR_RECENTS_BUTTON_LOCATION, value);
-        } else if (preference == mRecentsUseOmniSwitch) {
-            boolean omniSwitchEnabled = (Boolean) newValue;
-
-            // Give user information that OmniSwitch service is not running
-            if (omniSwitchEnabled && !isOmniSwitchServiceRunning()) {
-                openOmniSwitchFirstTimeWarning();
-            }
-            Settings.System.putInt(resolver, Settings.System.RECENTS_USE_OMNISWITCH, omniSwitchEnabled ? 1 : 0);
-
-            // Update OmniSwitch UI components
-            mRecentsUseOmniSwitch.setChecked(omniSwitchEnabled);
-            mOmniSwitchSettings.setEnabled(omniSwitchEnabled);
-
-            // Update default recents UI components
-            mRecentClearAll.setEnabled(!omniSwitchEnabled);
-            mRecentClearAllPosition.setEnabled(!omniSwitchEnabled);
         } else if (preference == mUseAltResolver) {
             boolean value = (Boolean) newValue;
 			Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, value ? 1 : 0);
@@ -246,26 +194,5 @@ public class UserInterface extends SettingsPreferenceFragment implements
 			Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0);
         }
         return true;
-    }
-
-    private boolean isOmniSwitchServiceRunning() {
-        String serviceName = "org.omnirom.omniswitch.SwitchService";
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceName.equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void openOmniSwitchFirstTimeWarning() {
-        new AlertDialog.Builder(getActivity())
-            .setTitle(getResources().getString(R.string.omniswitch_first_time_title))
-            .setMessage(getResources().getString(R.string.omniswitch_first_time_message))
-            .setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                }
-            }).show();
     }
 }
