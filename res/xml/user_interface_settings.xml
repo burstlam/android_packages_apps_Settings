@@ -40,6 +40,12 @@
             android:title="@string/ram_bar" />
 
         <CheckBoxPreference
+            android:key="recents_style"
+            android:title="@string/recents_style_title"
+            android:summary="@string/recents_style_summary"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
             android:key="recent_menu_clear_all"
             android:title="@string/show_recent_clear_all_button_title"
             android:summary="@string/show_recent_clear_all_button_summary"

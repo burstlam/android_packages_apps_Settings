@@ -1006,6 +1006,10 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="aosb_gps_settings_title">GPS Optimizer</string>
     <string name="aosb_gps_settings_summary">Modify gps.conf to specific country</string>
 
+    <!-- Recents Style -->
+    <string name="recents_style_title">Recents layout switcher</string>
+    <string name="recents_style_summary">Switch between aosp and Slim style</string>
+
     <!-- allow multiuser -->
     <string name="multiuser_preference_title">Multiuser support</string>
 

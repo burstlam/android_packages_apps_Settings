@@ -59,6 +59,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
 
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
+    private static final String RECENTS_STYLE = "recents_style";
     private static final String RECENT_MENU_CLEAR_ALL = "recent_menu_clear_all";
     private static final String RECENT_MENU_CLEAR_ALL_LOCATION = "recent_menu_clear_all_location";
     private static final String KEY_RECENTS_RAM_BAR = "recents_ram_bar";
@@ -67,6 +68,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
 
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
+    private CheckBoxPreference mRecentStyle;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
     private CheckBoxPreference mUseAltResolver;
@@ -114,6 +116,11 @@ public class UserInterface extends SettingsPreferenceFragment implements
              mListViewInterpolator.setValue(listViewInterpolator);
         }
         mListViewInterpolator.setOnPreferenceChangeListener(this);
+
+        mRecentStyle = (CheckBoxPreference) prefSet.findPreference(RECENTS_STYLE);
+        mRecentStyle.setChecked(Settings.System.getInt(resolver,
+            Settings.System.RECENTS_STYLE, 0) == 1);
+        mRecentStyle.setOnPreferenceChangeListener(this);
 
         mRecentClearAll = (CheckBoxPreference) prefSet.findPreference(RECENT_MENU_CLEAR_ALL);
         mRecentClearAll.setChecked(Settings.System.getInt(resolver,
@@ -178,6 +185,10 @@ public class UserInterface extends SettingsPreferenceFragment implements
         } else if (preference == mListViewInterpolator) {
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.LISTVIEW_INTERPOLATOR, value);
+        } else if (preference == mRecentStyle) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(resolver, Settings.System.RECENTS_STYLE, value ? 1 : 0);
+            Helpers.restartSystemUI();
         } else if (preference == mRecentClearAll) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(resolver, Settings.System.SHOW_CLEAR_RECENTS_BUTTON, value ? 1 : 0);
