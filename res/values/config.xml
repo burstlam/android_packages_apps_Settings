@@ -45,6 +45,9 @@
     <!-- Volume rocker support. Some devices do not have a volume rocker. -->
     <bool name="has_volume_rocker">true</bool>
 
+    <!-- Volume rocker support. Some devices do not have a volume rocker. -->
+    <bool name="has_tap_to_wake">false</bool>
+
     <!-- Whether the device support custom performance profiles. Leave empty when
          the device do not support it. -->
     <string name="config_perf_profile_prop" translatable="false"></string>

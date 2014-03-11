@@ -1032,4 +1032,11 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="haptic_qs_tiles_title">Vibrate on touch</string>
     <string name="haptic_qs_tiles_summary">Vibrate when touching tiles</string>
 
+    <!-- Touch wake Control function-->
+    <string name="kernel_does_not_support">Kernel does not support</string>
+    <string name="touchwake_enable_title">Touchwake Enable</string>
+    <string name="touchwake_enable_summary">Wake up device on screen touch shortly after it sleeps</string>
+    <string name="touchwake_timeout_title">Timeout</string>
+    <string name="touchwake_timeout_summary">Set timeout for touchwake</string>
+
 </resources>

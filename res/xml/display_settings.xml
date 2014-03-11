@@ -126,6 +126,24 @@
                 android:title="@string/double_tap_to_wake_title"
                 android:defaultValue="false" />
 
+            <SwitchPreference
+                android:key="touchwake_enable"
+                android:title="@string/touchwake_enable_title"
+                android:summary="@string/touchwake_enable_summary"
+                android:persistent="true"
+                android:defaultValue="false" />
+
+            <com.android.settings.widget.SeekBarPreference2
+                android:key="touchwake_timeout"
+                android:title="@string/touchwake_timeout_title"
+                android:summary="@string/touchwake_timeout_summary"
+                android:max="30"
+                settings:min="1"
+                settings:unitsLeft=""
+                settings:unitsRight=" s"
+                android:persistent="true"
+                android:dependency="touchwake_enable"
+                android:defaultValue="5" />
         </PreferenceCategory>
 
 </PreferenceScreen>

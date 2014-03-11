@@ -33,10 +33,12 @@ import android.os.RemoteException;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
@@ -48,6 +50,7 @@ import com.android.settings.Utils;
 
 import org.cyanogenmod.hardware.AdaptiveBacklight;
 import org.cyanogenmod.hardware.TapToWake;
+import com.android.settings.widget.SeekBarPreference2;
 
 import java.util.ArrayList;
 
@@ -75,6 +78,11 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_POWER_CRT_MODE = "system_power_crt_mode";
     private static final String KEY_WAKEUP_WHEN_PLUGGED_UNPLUGGED = "wakeup_when_plugged_unplugged";
     private static final String KEY_WAKEUP_CATEGORY = "category_wakeup_options";
+    private static final String KEY_TOUCHWAKE_ENABLE = "touchwake_enable";
+    private static final String KEY_TOUCHWAKE_TIMEOUT = "touchwake_timeout";
+    private static final String FILE_TOUCHWAKE_ENABLE = "/sys/devices/virtual/misc/touchwake/enabled";
+    private static final String FILE_TOUCHWAKE_TIMEOUT = "/sys/devices/virtual/misc/touchwake/delay";
+    private static final String PREF_ENABLED = "1";
 
     private static final int DLG_GLOBAL_CHANGE_WARNING = 1;
     private static final int SCREEN_TIMEOUT_NEVER  = Integer.MAX_VALUE;
@@ -93,6 +101,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private ListPreference mCrtMode;
     private CheckBoxPreference mWakeUpWhenPluggedOrUnplugged;
     private PreferenceCategory mWakeUpOptions;
+    private SwitchPreference mTouchwakeEnable;
+    private SeekBarPreference2 mTouchwakeTimeout;
 
     private final Configuration mCurConfig = new Configuration();
     private ListPreference mScreenTimeoutPreference;
@@ -117,6 +127,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         addPreferencesFromResource(R.xml.display_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
+        Resources res = getResources();
 
         mDisplayRotationPreference = (PreferenceScreen) findPreference(KEY_DISPLAY_ROTATION);
         if (!RotationPolicy.isRotationSupported(getActivity())) {
@@ -146,12 +157,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (!isAdaptiveBacklightSupported()) {
             getPreferenceScreen().removePreference(mAdaptiveBacklight);
             mAdaptiveBacklight = null;
-        }
-
-        mTapToWake = (CheckBoxPreference) findPreference(KEY_TAP_TO_WAKE);
-        if (!isTapToWakeSupported()) {
-            getPreferenceScreen().removePreference(mTapToWake);
-            mTapToWake = null;
         }
 
         Utils.updatePreferenceToSpecificActivityFromMetaDataOrRemove(getActivity(),
@@ -211,8 +216,34 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             mWakeUpWhenPluggedOrUnplugged.setOnPreferenceChangeListener(this);
         }
 
-        if (counter == 1) {
-            prefSet.removePreference(mWakeUpOptions);
+        //if (counter == 1) {
+        //    prefSet.removePreference(mWakeUpOptions);
+        //}
+
+        mTapToWake = (CheckBoxPreference) findPreference(KEY_TAP_TO_WAKE);
+        if (!getResources().getBoolean(R.bool.has_tap_to_wake)) {
+        //if (!isTapToWakeSupported()) {
+            mWakeUpOptions.removePreference(mTapToWake);
+            mTapToWake = null;
+        }
+
+        /* Touchwake */
+        mTouchwakeEnable = (SwitchPreference) findPreference(KEY_TOUCHWAKE_ENABLE);
+        mTouchwakeTimeout = (SeekBarPreference2) findPreference(KEY_TOUCHWAKE_TIMEOUT);
+
+        if (!isSupported(FILE_TOUCHWAKE_ENABLE)) {
+            mTouchwakeEnable.setEnabled(false);
+            mTouchwakeEnable.setSummary(R.string.kernel_does_not_support);
+            mTouchwakeTimeout.setEnabled(false);
+            mTouchwakeTimeout.setSummary(R.string.kernel_does_not_support);
+        } else {
+            boolean b = Boolean.valueOf(Utils.fileReadOneLine(FILE_TOUCHWAKE_ENABLE));
+            int i1 = Integer.parseInt(Utils.fileReadOneLine(FILE_TOUCHWAKE_TIMEOUT));
+            int i2 = (i1 / 1000);
+            mTouchwakeEnable.setChecked(b);
+            mTouchwakeEnable.setOnPreferenceChangeListener(this);
+            mTouchwakeTimeout.setValue(i2);
+            mTouchwakeTimeout.setOnPreferenceChangeListener(this);
         }
 
         // respect device default configuration
@@ -489,6 +520,15 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                     Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED,
                     (Boolean) objValue ? 1 : 0);
         }
+        if (preference == mTouchwakeEnable) {
+            mTouchwakeEnable.setChecked((Boolean) objValue);
+            Utils.writeValue(FILE_TOUCHWAKE_ENABLE, (Boolean) objValue ? "1" : "0");
+        }
+        if (preference == mTouchwakeTimeout) {
+            mTouchwakeTimeout.setValue((Integer) objValue);
+            int delay = ((Integer) objValue) * 1000;
+            Utils.writeValue(FILE_TOUCHWAKE_TIMEOUT, Integer.toString(delay));
+        }
 
         return true;
     }
@@ -523,11 +563,18 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         if (isTapToWakeSupported()) {
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
             final boolean enabled = prefs.getBoolean(KEY_TAP_TO_WAKE, true);
+
             if (!TapToWake.setEnabled(enabled)) {
                 Log.e(TAG, "Failed to restore tap-to-wake settings.");
             } else {
                 Log.d(TAG, "Tap-to-wake settings restored.");
             }
+        }
+        if (isSupported(FILE_TOUCHWAKE_ENABLE)) {
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+            Utils.writeValue(FILE_TOUCHWAKE_ENABLE, prefs.getBoolean(KEY_TOUCHWAKE_ENABLE, false) ? "1" : "0");
+            int i = prefs.getInt(KEY_TOUCHWAKE_TIMEOUT, 10) * 1000;
+            Utils.writeValue(FILE_TOUCHWAKE_TIMEOUT, Integer.toString(i));
         }
     }
 
@@ -538,6 +585,10 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             // Hardware abstraction framework not installed
             return false;
         }
+    }
+
+    public static boolean isSupported(String FILE) {
+        return Utils.fileExists(FILE);
     }
 
     private static boolean isTapToWakeSupported() {
