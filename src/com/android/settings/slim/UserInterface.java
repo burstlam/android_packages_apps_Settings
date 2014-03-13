@@ -154,6 +154,28 @@ public class UserInterface extends SettingsPreferenceFragment implements
             mRamBar.setSummary(getResources().getString(R.string.ram_bar_color_disabled));
     }
 
+    private void updatePreference() {
+        int altResolver = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0);
+        int reverse = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.REVERSE_DEFAULT_APP_PICKER, 0);
+
+        if (altResolver == 1)  {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0);
+            mReverseDefaultAppPicker.setEnabled(false);
+        } else {
+            mReverseDefaultAppPicker.setEnabled(true);
+        }
+        if (reverse == 1) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0);
+            mUseAltResolver.setEnabled(false);
+        } else {
+            mUseAltResolver.setEnabled(true);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -198,11 +220,11 @@ public class UserInterface extends SettingsPreferenceFragment implements
         } else if (preference == mUseAltResolver) {
             boolean value = (Boolean) newValue;
 			Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, value ? 1 : 0);
-            Settings.System.putInt(resolver, Settings.System.REVERSE_DEFAULT_APP_PICKER, 0);
+            updatePreference();
         } else if (preference == mReverseDefaultAppPicker) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(resolver, Settings.System.REVERSE_DEFAULT_APP_PICKER, value ? 1 : 0);
-			Settings.System.putInt(resolver, Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0);
+            updatePreference();
         }
         return true;
     }
