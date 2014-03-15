@@ -336,6 +336,12 @@
         android:key="advanced_settings_options_prefs"
         android:title="@string/advanced_options_settings_title">
 
+        <com.android.settings.omnirom.omnigears.preference.SystemCheckBoxPreference
+            android:key="disable_fc_notifications"
+            android:title="@string/disable_fc_noti_title"
+            android:summary="@string/disable_fc_noti_summary"
+            android:defaultValue="true" />
+
         <ListPreference
             android:key="media_scanner_on_boot"
             android:title="@string/media_scanner_on_boot_title"
