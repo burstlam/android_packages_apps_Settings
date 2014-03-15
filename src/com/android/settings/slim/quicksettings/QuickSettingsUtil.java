@@ -58,6 +58,7 @@ import static com.android.internal.util.slim.QSConstants.TILE_REBOOT;
 import static com.android.internal.util.slim.QSConstants.TILE_FCHARGE;
 import static com.android.internal.util.slim.QSConstants.TILE_PROFILE;
 import static com.android.internal.util.slim.QSConstants.TILE_CAMERA;
+import static com.android.internal.util.slim.QSConstants.TILE_INTERNALMEMORY;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -179,6 +180,9 @@ public class QuickSettingsUtil {
         registerTile(new QuickSettingsUtil.TileInfo(
                 TILE_CAMERA, R.string.title_tile_camera,
                 "com.android.systemui:drawable/ic_qs_camera"));
+        registerTile(new QuickSettingsUtil.TileInfo(
+                TILE_INTERNALMEMORY, R.string.title_tile_memory,
+                "com.android.systemui:drawable/ic_qs_internalmemory"));
         registerTile(new QuickSettingsUtil.TileInfo(
                 TILE_CONTACT, R.string.title_tile_contact,
                 "com.android.systemui:drawable/ic_qs_default_user"));
