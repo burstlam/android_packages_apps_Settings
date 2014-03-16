@@ -39,6 +39,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,6 +66,8 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private static final String KEY_RECENTS_RAM_BAR = "recents_ram_bar";
     private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver";
     private static final String KEY_REVERSE_DEFAULT_APP_PICKER = "reverse_default_app_picker";
+    private static final String RECENT_PANEL_LEFTY_MODE = "recent_panel_lefty_mode";
+    private static final String RECENT_PANEL_SCALE = "recent_panel_scale";
 
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
@@ -73,6 +76,8 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private ListPreference mRecentClearAllPosition;
     private CheckBoxPreference mUseAltResolver;
     private CheckBoxPreference mReverseDefaultAppPicker;
+    private CheckBoxPreference mRecentPanelLeftyMode;
+    private ListPreference mRecentPanelScale;
 
     private Preference mRamBar;
     Preference mLcdDensity;
@@ -133,6 +138,12 @@ public class UserInterface extends SettingsPreferenceFragment implements
              mRecentClearAllPosition.setValue(recentClearAllPosition);
         }
         mRecentClearAllPosition.setOnPreferenceChangeListener(this);
+
+        mRecentPanelLeftyMode = (CheckBoxPreference) findPreference(RECENT_PANEL_LEFTY_MODE);
+        mRecentPanelLeftyMode.setOnPreferenceChangeListener(this);
+
+        mRecentPanelScale = (ListPreference) findPreference(RECENT_PANEL_SCALE);
+        mRecentPanelScale.setOnPreferenceChangeListener(this);
 
         mUseAltResolver = (CheckBoxPreference) findPreference(PREF_USE_ALT_RESOLVER);
         mUseAltResolver.setOnPreferenceChangeListener(this);
@@ -225,6 +236,16 @@ public class UserInterface extends SettingsPreferenceFragment implements
             boolean value = (Boolean) newValue;
             Settings.System.putInt(resolver, Settings.System.REVERSE_DEFAULT_APP_PICKER, value ? 1 : 0);
             updatePreference();
+        } else if (preference == mRecentPanelScale) {
+            int value = Integer.parseInt((String) newValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.RECENT_PANEL_SCALE_FACTOR, value);
+            return true;
+        } else if (preference == mRecentPanelLeftyMode) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.RECENT_PANEL_GRAVITY,
+                    ((Boolean) newValue) ? Gravity.LEFT : Gravity.RIGHT);
+            return true;
         }
         return true;
     }
