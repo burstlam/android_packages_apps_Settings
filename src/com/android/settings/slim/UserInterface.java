@@ -71,7 +71,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
 
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
-    private CheckBoxPreference mRecentStyle;
+    private ListPreference mRecentStyle;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
     private CheckBoxPreference mUseAltResolver;
@@ -122,10 +122,12 @@ public class UserInterface extends SettingsPreferenceFragment implements
         }
         mListViewInterpolator.setOnPreferenceChangeListener(this);
 
-        mRecentStyle = (CheckBoxPreference) prefSet.findPreference(RECENTS_STYLE);
-        mRecentStyle.setChecked(Settings.System.getInt(resolver,
-            Settings.System.RECENTS_STYLE, 0) == 1);
+        mRecentStyle = (ListPreference) prefSet.findPreference(RECENTS_STYLE);
         mRecentStyle.setOnPreferenceChangeListener(this);
+        mRecentStyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.RECENTS_STYLE,
+                0)));
+        mRecentStyle.setSummary(mRecentStyle.getEntry());
 
         mRecentClearAll = (CheckBoxPreference) prefSet.findPreference(RECENT_MENU_CLEAR_ALL);
         mRecentClearAll.setChecked(Settings.System.getInt(resolver,
@@ -170,6 +172,8 @@ public class UserInterface extends SettingsPreferenceFragment implements
                 Settings.System.ACTIVITY_RESOLVER_USE_ALT, 0);
         int reverse = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.REVERSE_DEFAULT_APP_PICKER, 0);
+        int recentStyle = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.RECENTS_STYLE, 0);
 
         if (altResolver == 1)  {
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
@@ -184,6 +188,14 @@ public class UserInterface extends SettingsPreferenceFragment implements
             mUseAltResolver.setEnabled(false);
         } else {
             mUseAltResolver.setEnabled(true);
+        }
+
+        if (recentStyle == 0) {
+            mRecentPanelLeftyMode.setEnabled(false);
+            mRecentPanelScale.setEnabled(false);
+        } else {
+            mRecentPanelLeftyMode.setEnabled(true);
+            mRecentPanelScale.setEnabled(true);
         }
     }
 
@@ -219,8 +231,12 @@ public class UserInterface extends SettingsPreferenceFragment implements
             String value = (String) newValue;
             Settings.System.putString(resolver, Settings.System.LISTVIEW_INTERPOLATOR, value);
         } else if (preference == mRecentStyle) {
-            boolean value = (Boolean) newValue;
-            Settings.System.putInt(resolver, Settings.System.RECENTS_STYLE, value ? 1 : 0);
+            int recentStyle = Integer.valueOf((String) newValue);
+            int index = mRecentStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.RECENTS_STYLE, recentStyle);
+            mRecentStyle.setSummary(mRecentStyle.getEntries()[index]);
+            updatePreference();
             Helpers.restartSystemUI();
         } else if (preference == mRecentClearAll) {
             boolean value = (Boolean) newValue;

@@ -39,11 +39,13 @@
             android:fragment="com.android.settings.slim.RamBar"
             android:title="@string/ram_bar" />
 
-        <CheckBoxPreference
+        <ListPreference
             android:key="recents_style"
             android:title="@string/recents_style_title"
             android:summary="@string/recents_style_summary"
-            android:defaultValue="false" />
+            android:entries="@array/recent_panel_style_entries"
+            android:entryValues="@array/recent_panel_style_values"
+            android:persistent="false" />
 
         <CheckBoxPreference
             android:key="recent_menu_clear_all"
