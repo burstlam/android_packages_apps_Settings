@@ -59,6 +59,7 @@ import static com.android.internal.util.slim.QSConstants.TILE_FCHARGE;
 import static com.android.internal.util.slim.QSConstants.TILE_PROFILE;
 import static com.android.internal.util.slim.QSConstants.TILE_CAMERA;
 import static com.android.internal.util.slim.QSConstants.TILE_INTERNALMEMORY;
+import static com.android.internal.util.slim.QSConstants.TILE_ONTHEGO;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -184,6 +185,9 @@ public class QuickSettingsUtil {
                 TILE_INTERNALMEMORY, R.string.title_tile_memory,
                 "com.android.systemui:drawable/ic_qs_internalmemory"));
         registerTile(new QuickSettingsUtil.TileInfo(
+                TILE_ONTHEGO, R.string.title_tile_onthego,
+                "com.android.systemui:drawable/ic_qs_onthego"));
+        registerTile(new QuickSettingsUtil.TileInfo(
                 TILE_CONTACT, R.string.title_tile_contact,
                 "com.android.systemui:drawable/ic_qs_default_user"));
     }
@@ -241,6 +245,7 @@ public class QuickSettingsUtil {
         // Don't show mobile data options if not supported
         if (!DeviceUtils.deviceSupportsCamera()) {
             removeTile(TILE_CAMERA);
+            removeTile(TILE_ONTHEGO);
         }
 
     }
