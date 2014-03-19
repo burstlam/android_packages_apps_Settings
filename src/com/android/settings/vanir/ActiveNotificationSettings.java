@@ -40,8 +40,6 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.util.slim.DeviceUtils;
 import com.android.settings.widget.SeekBarPreference2;
 
-import android.util.Log;
-
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class ActiveNotificationSettings extends SettingsPreferenceFragment implements
@@ -63,11 +61,17 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     private static final String KEY_TURNOFF_MODE = "ad_turnoff_mode";
     private static final String KEY_BYPASS_CONTENT = "ad_bypass";
     private static final String KEY_ANNOYING = "ad_annoying";
+    private static final String KEY_SHAKE_THRESHOLD = "ad_shake_threshold";
+    private static final String KEY_SHAKE_LONGTHRESHOLD = "ad_shake_long_threshold";
+    private static final String KEY_SHAKE_TIMEOUT = "ad_shake_timeout";
 
     private ContentResolver mResolver;
     private Context mContext;
 
     private SeekBarPreference2 mAnnoyingNotification;
+    private SeekBarPreference2 mShakeThreshold;
+    private SeekBarPreference2 mShakeLongThreshold;
+    private SeekBarPreference2 mShakeTimeout;
     private SeekBarPreference mOffsetTop;
     private CheckBoxPreference mWakeOnNotification;
     private CheckBoxPreference mExpandedView;
@@ -123,6 +127,7 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         mShowAmPmPref = (CheckBoxPreference) prefSet.findPreference(KEY_SHOW_AMPM);
         mShowAmPmPref.setChecked((Settings.System.getInt(mResolver,
                 Settings.System.ACTIVE_DISPLAY_SHOW_AMPM, 0) == 1));
+        mShowAmPmPref.setEnabled(!is24Hour());
 
         mSunlightModePref = (CheckBoxPreference) prefSet.findPreference(KEY_SUNLIGHT_MODE);
         if (!DeviceUtils.deviceSupportsLightSensor(mContext)) {
@@ -144,6 +149,21 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
                 Settings.System.ACTIVE_DISPLAY_ANNOYING, 0));
         mAnnoyingNotification.setOnPreferenceChangeListener(this);
 
+        mShakeThreshold = (SeekBarPreference2) prefSet.findPreference(KEY_SHAKE_THRESHOLD);
+        mShakeThreshold.setValue(Settings.System.getInt(mResolver,
+        Settings.System.ACTIVE_DISPLAY_SHAKE_THRESHOLD, 10));
+        mShakeThreshold.setOnPreferenceChangeListener(this);
+
+        mShakeLongThreshold = (SeekBarPreference2) prefSet.findPreference(KEY_SHAKE_LONGTHRESHOLD);
+        mShakeLongThreshold.setValue(Settings.System.getInt(mResolver,
+        Settings.System.ACTIVE_DISPLAY_SHAKE_LONGTHRESHOLD, 2));
+        mShakeLongThreshold.setOnPreferenceChangeListener(this);
+
+        mShakeTimeout = (SeekBarPreference2) prefSet.findPreference(KEY_SHAKE_TIMEOUT);
+        mShakeTimeout.setValue(Settings.System.getInt(mResolver,
+        Settings.System.ACTIVE_DISPLAY_SHAKE_TIMEOUT, 3));
+        mShakeTimeout.setOnPreferenceChangeListener(this);
+
         PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         mMinimumBacklight = pm.getMinimumScreenBrightnessSetting();
         mMaximumBacklight = pm.getMaximumScreenBrightnessSetting();
@@ -154,6 +174,15 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         int realBrightness =  (int)(((float)brightness / (float)mMaximumBacklight) * 100);
         mBrightnessLevel.setValue(realBrightness);
         mBrightnessLevel.setOnPreferenceChangeListener(this);
+
+        try {
+            if (Settings.System.getInt(mResolver,
+                Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                mBrightnessLevel.setEnabled(false);
+                mBrightnessLevel.setSummary(R.string.ad_autobrightness_mode_on);
+            }
+            } catch (SettingNotFoundException e) {
+        }
 
         mDisplayTimeout = (ListPreference) prefSet.findPreference(KEY_TIMEOUT);
         timeout = Settings.System.getLong(mResolver,
@@ -223,6 +252,21 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
             int annoying = ((Integer)newValue).intValue();
             Settings.System.putInt(mResolver,
                     Settings.System.ACTIVE_DISPLAY_ANNOYING, annoying);
+            return true;
+        } else if (preference == mShakeThreshold) {
+            int threshold = ((Integer)newValue).intValue();
+            Settings.System.putInt(mResolver,
+                    Settings.System.ACTIVE_DISPLAY_SHAKE_THRESHOLD, threshold);
+            return true;
+        } else if (preference == mShakeLongThreshold) {
+            long longThreshold = (long)(1000 * ((Integer)newValue).intValue());
+            Settings.System.putLong(mResolver,
+                    Settings.System.ACTIVE_DISPLAY_SHAKE_LONGTHRESHOLD, longThreshold);
+            return true;
+        } else if (preference == mShakeTimeout) {
+            int timeout = ((Integer)newValue).intValue();
+            Settings.System.putInt(mResolver,
+            Settings.System.ACTIVE_DISPLAY_SHAKE_TIMEOUT, timeout);
             return true;
         } else if (preference == mBrightnessLevel) {
             int brightness = ((Integer)newValue).intValue();
@@ -311,4 +355,7 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
         return true;
     }
 
+    private boolean is24Hour() {
+        return DateFormat.is24HourFormat(mContext);
+    }
 }

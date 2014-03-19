@@ -931,9 +931,19 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="ad_pocket_mode_notifications">Active Display (Only with New Notification)</string>
     <string name="ad_pocket_mode_always">Active Display (Always on)</string>
     <string name="ad_bypass_title">Bypass mode</string>
-    <string name="ad_bypass_summary">Pocket mode will launch the lockscreen when no notifications exist</string>
+    <string name="ad_bypass_summary">Pocket mode will launch the lockscreen when no notifications exist and lockscreen secure enabled</string>
     <string name="ad_privacy_apps_title">Privacy mode</string>
     <string name="ad_privacy_apps_summary">No details will be shown for notifications from these apps</string>
+    <string name="ad_shake_event_title">Shake to redisplay</string>
+    <string name="ad_shake_event_summary">Shake device to redisplay notifications</string>
+    <string name="ad_shake_threshold_title">Threshold of shake</string>
+    <string name="ad_shake_threshold_summary">Intensity of shake needed to display notifications</string>
+    <string name="ad_shake_timeout_title">Shake timeout</string>
+    <string name="ad_shake_timeout_summary">Minutes that Shake is active after receiving a notification, 0 means always active.</string>
+    <string name="ad_shake_quiet_hours_title">Shake in Quiet Hours</string>
+    <string name="ad_shake_quiet_hours_summary">Allow shake during Quiet Hours</string>
+    <string name="ad_shake_long_threshold_title">Shake interval</string>
+    <string name="ad_shake_long_threshold_summary">Minimum time between consecutive shakes</string>
 
     <!-- Pie control -->
     <string name="general_category_title">General</string>
@@ -1009,6 +1019,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <!-- Recents Style -->
     <string name="recents_style_title">Recents layout switcher</string>
     <string name="recents_style_summary">Switch between aosp and Slim style</string>
+    <string name="recents_style_aosp">AOSP</string>
+    <string name="recents_style_slim">Slim</string>
 
     <!-- allow multiuser -->
     <string name="multiuser_preference_title">Multiuser support</string>
