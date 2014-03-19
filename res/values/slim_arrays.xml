@@ -551,6 +551,7 @@
         <item>@string/shortcut_action_menu_big</item>
         <item>@string/shortcut_action_ime</item>
         <item>@string/shortcut_action_omniswitch</item>
+        <item>@string/shortcut_action_onthego</item>
         <item>@string/shortcut_action_pie</item>
         <item>@string/shortcut_action_papie</item>
         <item>@string/shortcut_action_power_menu</item>
@@ -577,6 +578,7 @@
         <item>**menu_big**</item>
         <item>**ime**</item>
         <item>**omniswitch**</item>
+        <item>**onthego**</item>
         <item>**pie**</item>
         <item>**papie**</item>
         <item>**power_menu**</item>
@@ -599,6 +601,7 @@
         <item>@string/shortcut_action_notifications</item>
         <item>@string/shortcut_action_ime</item>
         <item>@string/shortcut_action_omniswitch</item>
+        <item>@string/shortcut_action_onthego</item>
         <item>@string/shortcut_action_power_menu</item>
         <item>@string/shortcut_action_qs</item>
         <item>@string/shortcut_action_smart</item>
@@ -621,6 +624,7 @@
         <item>**notifications**</item>
         <item>**ime**</item>
         <item>**omniswitch**</item>
+        <item>**onthego**</item>
         <item>**power_menu**</item>
         <item>**quicksettings**</item>
         <item>**smart_pulldown**</item>
@@ -646,6 +650,7 @@
         <item>@string/shortcut_action_notifications</item>
         <item>@string/shortcut_action_menu_big</item>
         <item>@string/shortcut_action_ime</item>
+        <item>@string/shortcut_action_onthego</item>
         <item>@string/shortcut_action_omniswitch</item>
         <item>@string/shortcut_action_pie</item>
         <item>@string/shortcut_action_papie</item>
@@ -678,6 +683,7 @@
         <item>**menu_big**</item>
         <item>**ime**</item>
         <item>**omniswitch**</item>
+        <item>**onthego**</item>
         <item>**pie**</item>
         <item>**papie**</item>
         <item>**power_menu**</item>
