@@ -1054,4 +1054,11 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="disable_fc_noti_title">Disable FC dialog message</string>
     <string name="disable_fc_noti_summary">Suppress FC dialog to popup</string>
 
+    <!-- Circle App Launcher-->
+    <string name="category_app_circle_bar_title">App launcher</string>
+    <string name="app_circle_bar_title">App circle bar</string>
+    <string name="app_circle_bar_summary">Show circle app launcher after touching right side of screen</string>
+    <string name="app_circle_bar_excluded_apps_title">Excluded apps</string>
+    <string name="app_circle_bar_excluded_apps_summary">Apps will not show in app circle bar</string>
+
 </resources>
