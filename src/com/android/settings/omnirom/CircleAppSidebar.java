@@ -48,8 +48,8 @@ public class CircleAppSidebar extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String TAG = "CircleAppSidebar";
 
-    private static final String PREF_EXCLUDE_APP_CIRCLE_BAR_KEY = "app_circle_bar_excluded_apps";
-    private AppMultiSelectListPreference mExcludedAppCircleBar;
+    private static final String PREF_INCLUDE_APP_CIRCLE_BAR_KEY = "app_circle_bar_included_apps";
+    private AppMultiSelectListPreference mIncludedAppCircleBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,10 +59,10 @@ public class CircleAppSidebar extends SettingsPreferenceFragment implements
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
 
-        mExcludedAppCircleBar = (AppMultiSelectListPreference) prefSet.findPreference(PREF_EXCLUDE_APP_CIRCLE_BAR_KEY);
-        Set<String> excludedApps = getExcludedApps();
-        if (excludedApps != null) mExcludedAppCircleBar.setValues(excludedApps);
-        mExcludedAppCircleBar.setOnPreferenceChangeListener(this);
+        mIncludedAppCircleBar = (AppMultiSelectListPreference) prefSet.findPreference(PREF_INCLUDE_APP_CIRCLE_BAR_KEY);
+        Set<String> includedApps = getIncludedApps();
+        if (includedApps != null) mIncludedAppCircleBar.setValues(includedApps);
+        mIncludedAppCircleBar.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -73,23 +73,23 @@ public class CircleAppSidebar extends SettingsPreferenceFragment implements
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mExcludedAppCircleBar) {
-            storeExcludedApps((Set<String>) objValue);
+        if (preference == mIncludedAppCircleBar) {
+            storeIncludedApps((Set<String>) objValue);
             return true;
         }
         return false;
     }
 
-    private Set<String> getExcludedApps() {
-        String excluded = Settings.System.getString(getActivity().getContentResolver(),
-                Settings.System.BLACKLIST_APP_CIRCLE_BAR);
-        if (TextUtils.isEmpty(excluded)) {
+    private Set<String> getIncludedApps() {
+        String included = Settings.System.getString(getActivity().getContentResolver(),
+                Settings.System.WHITELIST_APP_CIRCLE_BAR);
+        if (TextUtils.isEmpty(included)) {
             return null;
         }
-        return new HashSet<String>(Arrays.asList(excluded.split("\\|")));
+        return new HashSet<String>(Arrays.asList(included.split("\\|")));
     }
 
-    private void storeExcludedApps(Set<String> values) {
+    private void storeIncludedApps(Set<String> values) {
         StringBuilder builder = new StringBuilder();
         String delimiter = "";
         for (String value : values) {
@@ -98,6 +98,6 @@ public class CircleAppSidebar extends SettingsPreferenceFragment implements
             delimiter = "|";
         }
         Settings.System.putString(getActivity().getContentResolver(),
-                Settings.System.BLACKLIST_APP_CIRCLE_BAR, builder.toString());
+                Settings.System.WHITELIST_APP_CIRCLE_BAR, builder.toString());
     }
 }
