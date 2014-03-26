@@ -58,6 +58,8 @@ public class SmsCallHelper {
     public static final int STARRED_ONLY = 3;
     public static final int DEFAULT_TWO = 2;
 
+    private static boolean sServiceStarted = false;
+
     // Return the current time
     public static int returnTimeInMinutes() {
         Calendar calendar = Calendar.getInstance();
@@ -347,18 +349,22 @@ public class SmsCallHelper {
         am.cancel(startIntent);
         am.cancel(stopIntent);
 
-        if (!quietHoursEnabled
+        if (sServiceStarted && (!quietHoursEnabled
                 || (autoCall == DEFAULT_DISABLED
                 && autoText == DEFAULT_DISABLED
                 && callBypass == DEFAULT_DISABLED
-                && smsBypass == DEFAULT_DISABLED)) {
-            context.stopService(serviceTriggerIntent);
+                && smsBypass == DEFAULT_DISABLED))) {
+            context.stopServiceAsUser(serviceTriggerIntent,
+                    new UserHandle(UserHandle.USER_CURRENT_OR_SELF));
+            sServiceStarted = false;
             return;
         }
 
-        if (quietHoursStart == quietHoursEnd) {
+        if (!sServiceStarted && quietHoursStart == quietHoursEnd) {
             // 24 hours, start without stop
-            context.startService(serviceTriggerIntent);
+            context.startServiceAsUser(serviceTriggerIntent,
+                    new UserHandle(UserHandle.USER_CURRENT_OR_SELF));
+            sServiceStarted = true;
             return;
         }
 
@@ -407,10 +413,14 @@ public class SmsCallHelper {
             }
         }
 
-        if (inQuietHours) {
-            context.startService(serviceTriggerIntent);
-        } else {
-            context.stopService(serviceTriggerIntent);
+        if (inQuietHours && !sServiceStarted) {
+            context.startServiceAsUser(serviceTriggerIntent,
+                    new UserHandle(UserHandle.USER_CURRENT_OR_SELF));
+            sServiceStarted = true;
+        } else if (sServiceStarted) {
+            context.stopServiceAsUser(serviceTriggerIntent,
+                    new UserHandle(UserHandle.USER_CURRENT_OR_SELF));
+            sServiceStarted = false;
         }
 
         if (serviceStartMinutes >= 0) {
