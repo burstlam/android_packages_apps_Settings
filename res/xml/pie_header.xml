@@ -14,5 +14,10 @@
         android:summary="@string/pie_summary"
         android:fragment="com.android.settings.pa.PAPieControl" />
 
+     <Preference
+        android:key="paranoid_pie2"
+        android:title="@string/pie2_controls_title"
+        android:fragment="com.android.settings.pa.PAPieControl2" />
+
 </PreferenceScreen>
 

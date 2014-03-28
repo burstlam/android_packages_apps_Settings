@@ -1061,4 +1061,19 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="app_circle_bar_included_apps_title">Included apps</string>
     <string name="app_circle_bar_included_apps_summary">Apps will show in app circle bar</string>
 
+    <!-- PA PIE 2.0-->
+    <string name="pie2_controls_title">PA PIE 2.0</string>
+    <string name="pie2_mode_title">Pie2 Mode</string>
+    <string name="pie2_mode_summary">Pie2 Style</string>
+    <string name="pie2_mode_off">Off</string>
+    <string name="pie2_mode_simple">Simple</string>
+    <string name="pie2_mode_full">Full</string>
+    <string name="pie2_state_title">Use Pie2</string>
+    <string name="pie2_state_summary">Switch Pie2 on</string>
+    <string name="pie2_gravity_title">Pie2 Gravity</string>
+    <string name="pie2_gravity_summary">Which side Pie2 to be show on</string>
+    <string name="pie2_gravity_bottom">Bottom (default) </string>
+    <string name="pie2_gravity_left">Left</string>
+    <string name="pie2_gravity_right">Right</string>
+
 </resources>

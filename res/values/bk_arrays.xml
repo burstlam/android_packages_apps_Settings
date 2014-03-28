@@ -611,6 +611,31 @@
         <item>2</item>
     </string-array>
 
+    <!-- PA PIE 2.0-->
+    <string-array name="pie2_mode_entries" translatable="false">
+        <item>@string/pie2_mode_off</item>
+        <item>@string/pie2_mode_simple</item>
+        <item>@string/pie2_mode_full</item>
+    </string-array>
+
+    <string-array name="pie2_mode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="pie2_gravity_entries" translatable="false">
+        <item>@string/pie2_gravity_bottom</item>
+        <item>@string/pie2_gravity_left</item>
+        <item>@string/pie2_gravity_right</item>
+    </string-array>
+
+    <string-array name="pie2_gravity_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <!-- Custom lock screen background-->
     <string-array name="lockscreen_background_entries" translatable="false">
         <item>@string/background_color_fill</item>
