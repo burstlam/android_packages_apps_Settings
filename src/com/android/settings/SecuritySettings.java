@@ -41,7 +41,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.security.KeyStore;
 import android.telephony.TelephonyManager;
@@ -130,7 +129,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private KeyStore mKeyStore;
     private Preference mResetCredentials;
 
-    private SwitchPreference mAllowMultiuserPreference;
+    private CheckBoxPreference mAllowMultiuserPreference;
     private CheckBoxPreference mToggleAppInstallation;
     private DialogInterface mWarnInstallApps;
     private CheckBoxPreference mToggleVerifyApps;
@@ -321,11 +320,10 @@ public class SecuritySettings extends RestrictedSettingsFragment
             }
         }
 
-        mAllowMultiuserPreference = (SwitchPreference) root.findPreference(ALLOW_MULTIUSER);
+        mAllowMultiuserPreference = (CheckBoxPreference) root.findPreference(ALLOW_MULTIUSER);
         mAllowMultiuserPreference.setEnabled(UserHandle.myUserId() == UserHandle.USER_OWNER);
         mAllowMultiuserPreference.setChecked(Settings.System.getIntForUser(getContentResolver(),
             Settings.System.ALLOW_MULTIUSER, 0, UserHandle.USER_OWNER) == 1);
-        mAllowMultiuserPreference.setOnPreferenceChangeListener(this);
         if (Utils.isTablet(getActivity())) {
             root.removePreference(mAllowMultiuserPreference);
         }
