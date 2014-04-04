@@ -180,9 +180,15 @@ public class Settings extends PreferenceActivity
             R.id.nfc_payment_settings,
             R.id.home_settings,
             R.id.interface_section,
-            //R.id.lock_screen_settings,
+            R.id.lockscreen_settings,
             //R.id.system_settings,
             R.id.privacy_settings_cyanogenmod,
+            R.id.interface_settings,
+            R.id.navigation_settings,
+            R.id.button_settings,
+            R.id.lab_settings,
+            R.id.installer,
+            R.id.advanced_settings,
     };
 
     private SharedPreferences mDevelopmentPreferences;
