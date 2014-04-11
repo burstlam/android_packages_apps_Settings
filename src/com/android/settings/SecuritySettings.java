@@ -108,6 +108,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String KEY_INTERFACE_SETTINGS = "lock_screen_settings";
     private static final String KEY_TARGET_SETTINGS = "lockscreen_targets";
     private static final String KEY_SHAKE_TO_SECURE = "shake_to_secure";
+    private static final String KEY_SHAKE_AUTO_TIMEOUT = "shake_auto_timeout";
     private static final int DLG_SHAKE_WARN = 0;
 
     // MULTIUSER
@@ -128,6 +129,7 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private ListPreference mLockAfter;
 
     private CheckBoxPreference mShakeToSecure;
+    private ListPreference mShakeTimer;
     private CheckBoxPreference mBiometricWeakLiveliness;
     private CheckBoxPreference mVisiblePattern;
     private CheckBoxPreference mVisibleErrorPattern;
@@ -397,6 +399,16 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 Settings.Secure.getInt(getContentResolver(),
 		    	Settings.Secure.LOCK_SHAKE_TEMP_SECURE, 0) == 1);
         mShakeToSecure.setOnPreferenceChangeListener(this);
+    }
+
+    mShakeTimer = (ListPreference) root.findPreference(KEY_SHAKE_AUTO_TIMEOUT);
+    if (mShakeTimer != null) {
+        long shakeTimer = Settings.Secure.getLongForUser(getContentResolver(),
+            Settings.Secure.LOCK_SHAKE_SECURE_TIMER, 0,
+            UserHandle.USER_CURRENT);
+        mShakeTimer.setValue(String.valueOf(shakeTimer));
+        updateShakeTimerPreferenceSummary();
+        mShakeTimer.setOnPreferenceChangeListener(this);
     }
 
     // Lock before Unlock
@@ -692,6 +704,23 @@ public class SecuritySettings extends RestrictedSettingsFragment
         }
     }
 
+    private void updateShakeTimerPreferenceSummary() {
+        // Update summary message with current value
+        long shakeTimer = Settings.Secure.getLongForUser(getContentResolver(),
+                Settings.Secure.LOCK_SHAKE_SECURE_TIMER, 0,
+                UserHandle.USER_CURRENT);
+        final CharSequence[] entries = mShakeTimer.getEntries();
+        final CharSequence[] values = mShakeTimer.getEntryValues();
+        int best = 0;
+        for (int i = 0; i < values.length; i++) {
+            long timeout = Long.valueOf(values[i].toString());
+            if (shakeTimer >= timeout) {
+                best = i;
+            }
+        }
+        mShakeTimer.setSummary(entries[best]);
+    }
+
     private void disableUnusableTimeouts(long maxTimeout) {
         final CharSequence[] entries = mLockAfter.getEntries();
         final CharSequence[] values = mLockAfter.getEntryValues();
@@ -910,6 +939,15 @@ public class SecuritySettings extends RestrictedSettingsFragment
                         Settings.Secure.LOCK_SHAKE_TEMP_SECURE, 0);
                 shouldEnableTargets();
             }
+        } else if (preference == mShakeTimer) {
+            int shakeTime = Integer.parseInt((String) value);
+            try {
+                Settings.Secure.putInt(getContentResolver(),
+                        Settings.Secure.LOCK_SHAKE_SECURE_TIMER, shakeTime);
+            } catch (NumberFormatException e) {
+                Log.e("SecuritySettings", "could not persist lockAfter timeout setting", e);
+            }
+            updateShakeTimerPreferenceSummary();
         } else if (preference == mLockBeforeUnlock) {
             Settings.Secure.putInt(getContentResolver(),
                     Settings.Secure.LOCK_BEFORE_UNLOCK,
