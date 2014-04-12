@@ -988,7 +988,7 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="recents_style_summary">Switch between aosp and Slim style</string>
     <string name="recents_style_aosp">AOSP</string>
     <string name="recents_style_aosp_mod">AOSP mod</string>
-    <string name="recents_style_slim">Slim</string>
+    <string name="recents_style_slim">Slim recents panel</string>
 
     <!-- allow multiuser -->
     <string name="multiuser_preference_title">Multiuser support</string>

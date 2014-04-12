@@ -170,6 +170,8 @@ public class UserInterface extends SettingsPreferenceFragment implements
         mReverseDefaultAppPicker.setOnPreferenceChangeListener(this);
         mReverseDefaultAppPicker.setChecked(Settings.System.getInt(resolver,
                 Settings.System.REVERSE_DEFAULT_APP_PICKER, 0) == 1);
+
+        updatePreference();
     }
 
     private void updateRamBar() {
@@ -207,9 +209,11 @@ public class UserInterface extends SettingsPreferenceFragment implements
         if (recentStyle == 0) {
             mRecentPanelLeftyMode.setEnabled(false);
             mRecentPanelScale.setEnabled(false);
+            mRecentPanelExpandedMode.setEnabled(false);
         } else {
             mRecentPanelLeftyMode.setEnabled(true);
             mRecentPanelScale.setEnabled(true);
+            mRecentPanelExpandedMode.setEnabled(true);
         }
     }
 
@@ -217,12 +221,14 @@ public class UserInterface extends SettingsPreferenceFragment implements
     public void onResume() {
         super.onResume();
         updateRamBar();
+        updatePreference();
     }
 
     @Override
     public void onPause() {
         super.onResume();
         updateRamBar();
+        updatePreference();
     }
 
     @Override
@@ -265,22 +271,18 @@ public class UserInterface extends SettingsPreferenceFragment implements
         } else if (preference == mReverseDefaultAppPicker) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(resolver, Settings.System.REVERSE_DEFAULT_APP_PICKER, value ? 1 : 0);
-            updatePreference();
         } else if (preference == mRecentPanelScale) {
             int value = Integer.parseInt((String) newValue);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.RECENT_PANEL_SCALE_FACTOR, value);
-            return true;
         } else if (preference == mRecentPanelLeftyMode) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.RECENT_PANEL_GRAVITY,
                     ((Boolean) newValue) ? Gravity.LEFT : Gravity.RIGHT);
-            return true;
         } else if (preference == mRecentPanelExpandedMode) {
             int value = Integer.parseInt((String) newValue);
             Settings.System.putInt(getContentResolver(),
             Settings.System.RECENT_PANEL_EXPANDED_MODE, value);
-            return true;
         }
         return true;
     }
