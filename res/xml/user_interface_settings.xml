@@ -62,6 +62,9 @@
             android:defaultValue="2"
             android:dependency="recent_menu_clear_all" />
 
+    <PreferenceCategory
+            android:title="@string/recents_style_slim" />
+
         <ListPreference
 			android:key="recent_panel_expanded_mode"
 			android:entries="@array/recent_panel_expanded_mode_entries"
