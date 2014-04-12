@@ -105,8 +105,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String SLIDE_LOCK_SCREENOFF_DELAY = "slide_lock_screenoff_delay";
     private static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL = "quick_unlock_control";
     private static final String CATEGORY_ADDITIONAL = "additional_options";
-    private static final String KEY_INTERFACE_SETTINGS = "lock_screen_settings";
-    private static final String KEY_TARGET_SETTINGS = "lockscreen_targets";
     private static final String KEY_SHAKE_TO_SECURE = "shake_to_secure";
     private static final String KEY_SHAKE_AUTO_TIMEOUT = "shake_auto_timeout";
     private static final int DLG_SHAKE_WARN = 0;
@@ -151,8 +149,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private CheckBoxPreference mQuickUnlockScreen;
     private ListPreference mLockNumpadRandom;
     private CheckBoxPreference mLockBeforeUnlock;
-    private Preference mLockInterface;
-    private Preference mLockTargets;
 
     private Preference mNotificationAccess;
 
@@ -364,11 +360,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     
         mSecurityCategory = (PreferenceGroup)
                 root.findPreference(KEY_SECURITY_CATEGORY);
-        if (mSecurityCategory != null) {
-    	    mLockInterface = findPreference(KEY_INTERFACE_SETTINGS);
-            mLockTargets = findPreference(KEY_TARGET_SETTINGS);
-            shouldEnableTargets();
-        }
 
     // don't display visible pattern if biometric and backup is not pattern
     if (resid == R.xml.security_settings_biometric_weak &&
@@ -541,25 +532,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private boolean isNonMarketAppsAllowed() {
         return Settings.Global.getInt(getContentResolver(),
                                       Settings.Global.INSTALL_NON_MARKET_APPS, 1) > 0;
-    }
-
-    private void shouldEnableTargets() {
-        boolean shakeToSecure = Settings.Secure.getInt(
-                getContentResolver(),
-                Settings.Secure.LOCK_SHAKE_TEMP_SECURE, 0) == 1;
-        boolean lockBeforeUnlock = Settings.Secure.getInt(
-                getContentResolver(),
-                Settings.Secure.LOCK_BEFORE_UNLOCK, 0) == 1;
-        if (mLockInterface != null && mLockTargets != null) {
-            if (!DeviceUtils.isPhone(getActivity())) {
-                // Nothing for tablets and large screen devices
-                mSecurityCategory.removePreference(mLockInterface);
-            } else {
-                mSecurityCategory.removePreference(mLockTargets);
-            }
-            mLockInterface.setEnabled(shakeToSecure || lockBeforeUnlock);
-            mLockTargets.setEnabled(shakeToSecure || lockBeforeUnlock);
-        }
     }
 
     private void setNonMarketAppsAllowed(boolean enabled) {
@@ -937,7 +909,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
             } else {
                 Settings.Secure.putInt(getContentResolver(),
                         Settings.Secure.LOCK_SHAKE_TEMP_SECURE, 0);
-                shouldEnableTargets();
             }
         } else if (preference == mShakeTimer) {
             int shakeTime = Integer.parseInt((String) value);
@@ -952,7 +923,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
             Settings.Secure.putInt(getContentResolver(),
                     Settings.Secure.LOCK_BEFORE_UNLOCK,
                     ((Boolean) value) ? 1 : 0);
-            shouldEnableTargets();
         }
         return true;
     }
@@ -1014,7 +984,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
                                 Settings.Secure.putInt(getActivity().getContentResolver(),
                                         Settings.Secure.LOCK_SHAKE_TEMP_SECURE, 1);
                                 getOwner().mShakeToSecure.setChecked(true);
-                                getOwner().shouldEnableTargets();
                             }
                         }
                     })
