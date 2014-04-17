@@ -901,8 +901,11 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="ad_bypass_summary">Pocket mode will launch the lockscreen when no notifications exist and lockscreen secure enabled</string>
     <string name="ad_privacy_apps_title">Privacy mode</string>
     <string name="ad_privacy_apps_summary">No details will be shown for notifications from these apps</string>
+    <string name="ad_shake_event_settings_title">Shake settings</string>
     <string name="ad_shake_event_title">Shake to redisplay</string>
     <string name="ad_shake_event_summary">Shake device to redisplay notifications</string>
+    <string name="ad_shake_force_title">Default event</string>
+    <string name="ad_shake_force_summary">After receive a notification won\'t run active display until user shakes</string>
     <string name="ad_shake_threshold_title">Threshold of shake</string>
     <string name="ad_shake_threshold_summary">Intensity of shake needed to display notifications</string>
     <string name="ad_shake_timeout_title">Shake timeout</string>
