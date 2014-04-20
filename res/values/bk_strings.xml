@@ -846,6 +846,7 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="ad_all_notifications_summary">Show non-clearable notifications</string>
     <string name="ad_redisplay_title">Redisplay notifications</string>
     <string name="ad_timeout_title">Display timeout</string>
+    <string name="ad_threshold_title">Threshold to proximity</string>
     <string name="ad_threshold_summary">Time the proximity sensor must be covered before active display is shown</string>
     <string name="ad_brightness_title">Display brightness</string>
     <string name="ad_brightness_summary">Used on manual brightness control</string>
