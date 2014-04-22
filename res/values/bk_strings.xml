@@ -981,8 +981,6 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="adb_paranoid">ADB paranoia mode</string>
     <string name="adb_paranoid_summary">Immediately reboot if an unknown computer is connected while device is locked</string>
 
-    <string name="hide_battery_icon_title">Hide Statusbar battery icon</string>
-
     <!-- GPS Settings -->
     <string name="aosb_gps_settings_title">GPS Optimizer</string>
     <string name="aosb_gps_settings_summary">Modify gps.conf to specific country</string>
