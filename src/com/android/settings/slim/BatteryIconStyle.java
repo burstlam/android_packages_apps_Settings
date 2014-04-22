@@ -59,7 +59,6 @@ public class BatteryIconStyle extends SettingsPreferenceFragment
     private static final String PREF_BATT_BAR_COLOR = "battery_bar_color";
     private static final String PREF_BATT_BAR_WIDTH = "battery_bar_thickness";
     private static final String PREF_BATT_ANIMATE = "battery_bar_animate";
-    private static final String PREF_HIDE_ICON = "hide_battery_icon";
 
     private static final int MENU_RESET = Menu.FIRST;
 
@@ -70,7 +69,6 @@ public class BatteryIconStyle extends SettingsPreferenceFragment
     private ListPreference mBatteryBarStyle;
     private ListPreference mBatteryBarThickness;
     private CheckBoxPreference mBatteryBarChargingAnimation;
-    private CheckBoxPreference mHideIcon;
     private ColorPickerPreference mBatteryBarColor;
     private ColorPickerPreference mBatteryColor;
     private ColorPickerPreference mBatteryTextColor;
@@ -210,11 +208,6 @@ public class BatteryIconStyle extends SettingsPreferenceFragment
                                         Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, 1)) + "");
         mBatteryBarThickness.setSummary(mBatteryBarThickness.getEntry());
 
-        mHideIcon = (CheckBoxPreference) findPreference(PREF_HIDE_ICON);
-        mHideIcon.setChecked(Settings.System.getInt(getActivity().getContentResolver(),
-                                                    Settings.System.HIDE_BATTERY_ICON, 0) == 1);
-        mHideIcon.setOnPreferenceChangeListener(this);
-
         updateBatteryBarOptions();
         setHasOptionsMenu(true);
         mCheckPreferences = true;
@@ -310,11 +303,6 @@ public class BatteryIconStyle extends SettingsPreferenceFragment
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, val);
             mBatteryBarThickness.setSummary(mBatteryBarThickness.getEntries()[index]);
-            return true;
-        } else if (preference == mHideIcon) {
-            boolean value = (Boolean) newValue;
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.HIDE_BATTERY_ICON, value ? 1 : 0);
             return true;
         }
         return false;
