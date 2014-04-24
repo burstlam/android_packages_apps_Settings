@@ -90,6 +90,13 @@
     <!-- Additional SlimKat controls -->
     <header android:title="@string/header_category_rom_settings" />
 
+    <!-- Battery Saver Mode -->
+    <header
+        android:id="@+id/power_saver_mode"
+        android:fragment="com.android.settings.omni.BatterySaverSettings"
+        android:title="@string/battery_saver_title"
+        android:icon="@drawable/ic_settings_powersaver" />
+
     <!-- Interface -->
     <header
         android:id="@+id/interface_settings"
