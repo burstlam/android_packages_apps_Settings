@@ -58,6 +58,40 @@
             android:dependency="animation_no_scroll" />
 
         <com.android.settings.widget.SeekBarPreference2
+            android:key="animation_overfling_distance"
+            android:persistent="false"
+            android:title="@string/animation_overfling_distance_title"
+            android:summary="@string/animation_duration_summary"
+            android:max="100"
+            settings:min="0"
+            settings:interval="1"
+            settings:unitsLeft=""
+            settings:unitsRight="px"
+            android:defaultValue="6"
+            android:dependency="animation_no_scroll" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/ui_overscroll_title">
+
+        <ListPreference
+            android:key="overscroll_effect"
+            android:dialogTitle="@string/overscroll_title"
+            android:title="@string/overscroll_title"
+            android:summary="@string/overscroll_summary"
+            android:entries="@array/overscroll_effect_entries"
+            android:entryValues="@array/overscroll_effect_values" />
+
+        <ListPreference
+            android:key="overscroll_weight"
+            android:dialogTitle="@string/overscroll_weight_title"
+            android:title="@string/overscroll_weight_title"
+            android:summary="@string/overscroll_weight_summary"
+            android:entries="@array/overscroll_weight_entries"
+            android:entryValues="@array/overscroll_weight_values" />
+
+        <com.android.settings.widget.SeekBarPreference2
             android:key="animation_overscroll_distance"
             android:persistent="false"
             android:title="@string/animation_overscroll_distance_title"
@@ -70,18 +104,10 @@
             android:defaultValue="0"
             android:dependency="animation_no_scroll" />
 
-        <com.android.settings.widget.SeekBarPreference2
-            android:key="animation_overfling_distance"
-            android:persistent="false"
-            android:title="@string/animation_overfling_distance_title"
-            android:summary="@string/animation_duration_summary"
-            android:max="100"
-            settings:min="0"
-            settings:interval="1"
-            settings:unitsLeft=""
-            settings:unitsRight="px"
-            android:defaultValue="6"
-            android:dependency="animation_no_scroll" />
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="overscroll_glow_color"
+            android:title="@string/overscroll_glow_title"
+            android:defaultValue="#ffffff" />
 
     </PreferenceCategory>
 

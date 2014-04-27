@@ -39,6 +39,7 @@ import android.util.Log;
 import android.text.TextUtils;
 
 import com.android.settings.widget.SeekBarPreference2;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class ScrollAnimation extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -50,6 +51,9 @@ public class ScrollAnimation extends SettingsPreferenceFragment implements
     private static final String ANIMATION_OVERFLING_DISTANCE = "animation_overfling_distance";
     private static final float MULTIPLIER_SCROLL_FRICTION = 10000f;
     private static final String ANIMATION_NO_SCROLL = "animation_no_scroll";
+    private static final String OVERSCROLL_GLOW_COLOR = "overscroll_glow_color";
+    private static final String OVERSCROLL_PREF = "overscroll_effect";
+    private static final String OVERSCROLL_WEIGHT_PREF = "overscroll_weight";
 
     private static final int MENU_RESET = Menu.FIRST;
 
@@ -58,6 +62,11 @@ public class ScrollAnimation extends SettingsPreferenceFragment implements
     private SeekBarPreference2 mAnimationOverScroll;
     private SeekBarPreference2 mAnimationOverFling;
     private SwitchPreference mAnimNoScroll;
+    private ListPreference mOverscrollPref;
+    private ListPreference mOverscrollWeightPref;
+    private ColorPickerPreference mOverScrollGlowColor;
+
+    private static final int defaultColor = 0xffffffff;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +104,24 @@ public class ScrollAnimation extends SettingsPreferenceFragment implements
         mAnimationOverFling.setValue(defaultOverFling);
         mAnimationOverFling.setOnPreferenceChangeListener(this);
 
+        mOverscrollPref = (ListPreference) findPreference(OVERSCROLL_PREF);
+        int overscrollEffect = Settings.System.getInt(getContentResolver(),
+                Settings.System.OVERSCROLL_EFFECT, 1);
+        mOverscrollPref.setValue(String.valueOf(overscrollEffect));
+        mOverscrollPref.setOnPreferenceChangeListener(this);
+
+        mOverscrollWeightPref = (ListPreference) findPreference(OVERSCROLL_WEIGHT_PREF);
+        int overscrollWeight = Settings.System.getInt(getContentResolver(),
+                                    Settings.System.OVERSCROLL_WEIGHT, 5);
+        mOverscrollWeightPref.setValue(String.valueOf(overscrollWeight));
+        mOverscrollWeightPref.setOnPreferenceChangeListener(this);
+
+        // Overscroll customize
+        mOverScrollGlowColor = (ColorPickerPreference) findPreference(OVERSCROLL_GLOW_COLOR);
+        mOverScrollGlowColor.setOnPreferenceChangeListener(this);
+        int intColor = Settings.System.getInt(getActivity().getContentResolver(), Settings.System.OVERSCROLL_GLOW_COLOR, defaultColor);
+        mOverScrollGlowColor.setNewPreviewColor(intColor);
+
         setHasOptionsMenu(true);
 
     }
@@ -125,6 +152,7 @@ public class ScrollAnimation extends SettingsPreferenceFragment implements
             public void onClick(DialogInterface dialog, int id) {
                 resetAllValues();
                 resetAllSettings();
+                ResetOverScroll();
             }
         });
         alertDialog.setNegativeButton(R.string.cancel, null);
@@ -179,10 +207,40 @@ public class ScrollAnimation extends SettingsPreferenceFragment implements
             Settings.System.putInt(resolver,
                     Settings.System.CUSTOM_OVERFLING_DISTANCE,
                     val);
+        } else if (preference == mOverScrollGlowColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(objValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.OVERSCROLL_GLOW_COLOR, intHex);
+        } else if (preference == mOverscrollPref) {
+            int overscrollEffect = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.OVERSCROLL_EFFECT, overscrollEffect);
+        } else if (preference == mOverscrollWeightPref) {
+            int overscrollWeight = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_WEIGHT, overscrollWeight);
         } else {
             return false;
         }
         return true;
+    }
+
+    private void ResetOverScroll() {
+        int overscrollWeight = Settings.System.getInt(getContentResolver(),
+                                    Settings.System.OVERSCROLL_WEIGHT, 5);
+
+        int overscrollEffect = Settings.System.getInt(getContentResolver(),
+                Settings.System.OVERSCROLL_EFFECT, 1);
+
+        Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_EFFECT, 1);
+        Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_WEIGHT, 5);
+        Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_GLOW_COLOR, defaultColor);
+
+        mOverscrollPref.setValue(String.valueOf(overscrollEffect));
+        mOverscrollWeightPref.setValue(String.valueOf(overscrollWeight));
+        mOverScrollGlowColor.setNewPreviewColor(defaultColor);
     }
 
     private void setProperVal(Preference preference, int val) {
