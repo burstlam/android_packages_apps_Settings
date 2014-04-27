@@ -1262,4 +1262,5 @@ public class Settings extends PreferenceActivity
     public static class DisplayRotationSettingsActivity extends Settings { /* empty */ }
     public static class ASSRamBarActivity extends Settings { /* empty */ }
     public static class PAPieSettingsActivity extends Settings { /* empty */ }
+    public static class AnimationInterfaceSettingsActivity extends Settings { /* empty */ }
 }

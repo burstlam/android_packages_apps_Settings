@@ -104,6 +104,14 @@
             android:targetClass="com.tmobile.themechooser.ThemeChooser" />
     </header>
 
+    <!-- Animation Control -->
+    <header
+        android:id="@+id/interface_animation"
+        android:icon="@drawable/ic_rom_control_animations"
+        android:title="@string/interface_animation_title"
+        android:fragment="com.android.settings.aokp.animations.AnimationInterfaceSettings">
+    </header>
+
     <!-- Additional SlimKat controls -->
     <header android:title="@string/header_category_rom_settings" />
 
