@@ -58,8 +58,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
 
     public static final String TAG = "UserInterface";
 
-    private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
-    private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
     private static final String RECENTS_STYLE = "recents_style";
     private static final String RECENT_MENU_CLEAR_ALL = "recent_menu_clear_all";
     private static final String RECENT_MENU_CLEAR_ALL_LOCATION = "recent_menu_clear_all_location";
@@ -70,8 +68,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private static final String RECENT_PANEL_SCALE = "recent_panel_scale";
     private static final String RECENT_PANEL_EXPANDED_MODE = "recent_panel_expanded_mode";
 
-    private ListPreference mListViewAnimation;
-    private ListPreference mListViewInterpolator;
     private ListPreference mRecentStyle;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
@@ -109,20 +105,6 @@ public class UserInterface extends SettingsPreferenceFragment implements
 
         mRamBar = findPreference(KEY_RECENTS_RAM_BAR);
         updateRamBar();
-
-        mListViewAnimation = (ListPreference) findPreference(KEY_LISTVIEW_ANIMATION);
-        String listViewAnimation = Settings.System.getString(resolver, Settings.System.LISTVIEW_ANIMATION);
-        if (listViewAnimation != null) {
-             mListViewAnimation.setValue(listViewAnimation);
-        }
-        mListViewAnimation.setOnPreferenceChangeListener(this);
-
-        mListViewInterpolator = (ListPreference) findPreference(KEY_LISTVIEW_INTERPOLATOR);
-        String listViewInterpolator = Settings.System.getString(resolver, Settings.System.LISTVIEW_INTERPOLATOR);
-        if (listViewInterpolator != null) {
-             mListViewInterpolator.setValue(listViewInterpolator);
-        }
-        mListViewInterpolator.setOnPreferenceChangeListener(this);
 
         mRecentStyle = (ListPreference) prefSet.findPreference(RECENTS_STYLE);
         mRecentStyle.setOnPreferenceChangeListener(this);
@@ -244,13 +226,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mListViewAnimation) {
-            String value = (String) newValue;
-            Settings.System.putString(resolver, Settings.System.LISTVIEW_ANIMATION, value);
-        } else if (preference == mListViewInterpolator) {
-            String value = (String) newValue;
-            Settings.System.putString(resolver, Settings.System.LISTVIEW_INTERPOLATOR, value);
-        } else if (preference == mRecentStyle) {
+        if (preference == mRecentStyle) {
             int recentStyle = Integer.valueOf((String) newValue);
             int index = mRecentStyle.findIndexOfValue((String) newValue);
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
