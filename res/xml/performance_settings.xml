@@ -20,6 +20,11 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
     <PreferenceScreen
+        android:key="performance_control"
+        android:fragment="com.brewcrewfoo.performance.activities.MainActivity"
+        android:title="@string/performance_settings_title" />
+
+    <PreferenceScreen
         android:key="performance_profile"
         android:fragment="com.android.settings.cyanogenmod.PerformanceProfile"
         android:title="@string/perf_profile_title" />
