@@ -57,6 +57,11 @@
             android:key="signal"
             android:title="@string/status_bar_signal_header">
 
+        <CheckBoxPreference
+            android:key="hide_signal"
+            android:title="@string/hide_signal_title"
+            android:summary="@string/hide_signal_summary" />
+
         <ListPreference
             android:entries="@array/signal_style_entries"
             android:entryValues="@array/signal_style_values"
@@ -68,10 +73,25 @@
             android:title="@string/signal_color_title"
             android:defaultValue="0xffffffff" />
 
-        <CheckBoxPreference
-            android:key="hide_signal"
-            android:title="@string/hide_signal_title"
-            android:summary="@string/hide_signal_summary" />
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="status_bar_wifi_color"
+            android:title="@string/status_bar_wifi_color"
+            android:defaultValue="#ffffff" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="status_bar_data_color"
+            android:title="@string/status_bar_data_color"
+            android:defaultValue="#ffffff" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="status_bar_airplane_color"
+            android:title="@string/status_bar_airplain_color"
+            android:defaultValue="#ffffff" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="status_bar_volume_color"
+            android:title="@string/status_bar_volume_color"
+            android:defaultValue="#ffffff" />
 
     </PreferenceCategory>
 

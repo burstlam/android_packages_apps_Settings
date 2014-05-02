@@ -1351,4 +1351,10 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="time_quarter_to">Quarter till</string>
     <string name="time_ten_to">Ten till</string>
     <string name="time_five_to">Five till</string>
+
+    <!--StatusBar Color -->
+    <string name="status_bar_wifi_color">StatusBar wifi icon Color</string>
+    <string name="status_bar_data_color">StatusBar data icon Color</string>
+    <string name="status_bar_airplain_color">StatusBar airplane mode Color</string>
+    <string name="status_bar_volume_color">StatusBar volume icon Color</string>
 </resources>

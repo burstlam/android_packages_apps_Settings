@@ -86,14 +86,22 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_BRIGHTNESS = "statusbar_brightness_slider";
     private static final String SIGNAL_STYLE = "signal_style";
     private static final String HIDE_SIGNAL = "hide_signal";
+    private static final String STATUS_BAR_WIFI_COLOR = "status_bar_wifi_color";
+    private static final String STATUS_BAR_DATA_COLOR = "status_bar_data_color";
+    private static final String STATUS_BAR_AIRPLANE_COLOR = "status_bar_airplane_color";
+    private static final String STATUS_BAR_VOLUME_COLOR = "status_bar_volume_color";
 
-    static final int DEFAULT_STATUS_CARRIER_COLOR = 0xffffffff;
+    static final int DEFAULT_STATUS_ICON_COLOR = 0xffffffff;
 
     private PreferenceScreen mClockStyle;
     private CheckBoxPreference mStatusBarCarrier;
     private PreferenceScreen mCustomStatusBarCarrierLabel;
     private CheckBoxPreference mStatusbarSliderPreference;
     private ColorPickerPreference mCarrierColorPicker;
+    private ColorPickerPreference mStatusBarWifiColor;
+    private ColorPickerPreference mStatusBarDataColor;
+    private ColorPickerPreference mStatusBarAirplaneColor;
+    private ColorPickerPreference mStatusBarVolumeColor;
 
     private String mCustomStatusBarCarrierLabelText;
     private ListPreference mDbmStyletyle;
@@ -109,7 +117,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
 
-        int intColor;
+        int Color1;
         String hexColor;
 
         mClockStyle = (PreferenceScreen) prefSet.findPreference(KEY_STATUS_BAR_CLOCK);
@@ -127,11 +135,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         mCarrierColorPicker = (ColorPickerPreference) prefSet.findPreference(STATUS_BAR_CARRIER_COLOR);
         mCarrierColorPicker.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getActivity().getContentResolver(),
-                    Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT_STATUS_CARRIER_COLOR);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        Color1 = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT_STATUS_ICON_COLOR);
+        hexColor = String.format("#%08x", (0xffffffff & Color1));
         mCarrierColorPicker.setSummary(hexColor);
-        mCarrierColorPicker.setNewPreviewColor(intColor);
+        mCarrierColorPicker.setNewPreviewColor(Color1);
 
         mDbmStyletyle = (ListPreference) findPreference("signal_style");
         mDbmStyletyle.setOnPreferenceChangeListener(this);
@@ -147,6 +155,30 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 .getContentResolver(), Settings.System.STATUSBAR_HIDE_SIGNAL_BARS,
                 0) != 0);
         mHideSignal.setOnPreferenceChangeListener(this);
+
+        mStatusBarWifiColor = (ColorPickerPreference) findPreference(STATUS_BAR_WIFI_COLOR);
+        int WifiColor = Settings.System.getInt(getActivity().getContentResolver(),
+                        Settings.System.STATUS_BAR_WIFI_COLOR, -1);
+        mStatusBarWifiColor.setNewPreviewColor(WifiColor);
+        mStatusBarWifiColor.setOnPreferenceChangeListener(this);
+
+        mStatusBarDataColor = (ColorPickerPreference) findPreference(STATUS_BAR_DATA_COLOR);
+        int DataColor = Settings.System.getInt(getActivity().getContentResolver(),
+                        Settings.System.STATUS_BAR_DATA_COLOR, -1);
+        mStatusBarDataColor.setNewPreviewColor(DataColor);
+        mStatusBarDataColor.setOnPreferenceChangeListener(this);
+
+        mStatusBarAirplaneColor = (ColorPickerPreference) findPreference(STATUS_BAR_AIRPLANE_COLOR);
+        int AirplaneColor = Settings.System.getInt(getActivity().getContentResolver(),
+                        Settings.System.STATUS_BAR_AIRPLANE_COLOR, -1);
+        mStatusBarAirplaneColor.setNewPreviewColor(AirplaneColor);
+        mStatusBarAirplaneColor.setOnPreferenceChangeListener(this);
+
+        mStatusBarVolumeColor = (ColorPickerPreference) findPreference(STATUS_BAR_VOLUME_COLOR);
+        int VolColor = Settings.System.getInt(getActivity().getContentResolver(),
+                         Settings.System.STATUS_BAR_VOLUME_COLOR, -1);
+        mStatusBarVolumeColor.setNewPreviewColor(VolColor);
+        mStatusBarVolumeColor.setOnPreferenceChangeListener(this);
 
         mCustomStatusBarCarrierLabel = (PreferenceScreen) findPreference(CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
@@ -227,6 +259,26 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.STATUSBAR_SIGNAL_TEXT_COLOR, intHex);
             return true;
+        } else if ( preference == mStatusBarWifiColor) {
+    		int wificolor = ((Integer)newValue).intValue();
+    		Settings.System.putInt(getContentResolver(),
+                		Settings.System.STATUS_BAR_WIFI_COLOR, wificolor);
+            return true;
+    	} else if ( preference == mStatusBarDataColor) {
+    		int datacolor = ((Integer)newValue).intValue();
+            Settings.System.putInt(getContentResolver(),
+                Settings.System.STATUS_BAR_DATA_COLOR, datacolor);
+    	    return true;
+    	} else if ( preference == mStatusBarAirplaneColor) {
+            int airplanecolor = ((Integer)newValue).intValue();
+            Settings.System.putInt(getContentResolver(),
+                Settings.System.STATUS_BAR_AIRPLANE_COLOR, airplanecolor);
+    	    return true;
+        } else if ( preference == mStatusBarVolumeColor ) {
+    		int volcolor = ((Integer)newValue).intValue();
+            Settings.System.putInt(getContentResolver(),
+                Settings.System.STATUS_BAR_VOLUME_COLOR, volcolor);
+    	    return true;
         }
         return false;
     }
