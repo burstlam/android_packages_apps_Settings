@@ -1259,4 +1259,8 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="overscroll_summary">Choose how scrollable objects look when they overshoot</string>
     <string name="overscroll_weight_title">Overscrolling weight</string>
     <string name="overscroll_weight_summary">Select the weight of the scrollable objects</string>
+
+    <!-- Force Multi Pane-->
+    <string name="force_multi_pane">Force multi-pane</string>
+    <string name="force_multi_pane_summary">Force use multi-pane layout in system settings</string>
 </resources>

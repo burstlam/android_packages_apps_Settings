@@ -7,6 +7,11 @@
 		android:key="category_system"
 		android:title="@string/interface_settings_animation_title">
 
+        <CheckBoxPreference
+            android:key="force_multi_pane"
+            android:title="@string/force_multi_pane"
+            android:summary="@string/force_multi_pane_summary" />
+
         <Preference
             android:key="lcd_density_setup"
             android:title="@string/lcd_density_title"

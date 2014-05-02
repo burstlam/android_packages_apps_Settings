@@ -67,6 +67,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private static final String RECENT_PANEL_LEFTY_MODE = "recent_panel_lefty_mode";
     private static final String RECENT_PANEL_SCALE = "recent_panel_scale";
     private static final String RECENT_PANEL_EXPANDED_MODE = "recent_panel_expanded_mode";
+    private static final String FORCE_MULTI_PANE = "force_multi_pane";
 
     private ListPreference mRecentStyle;
     private CheckBoxPreference mRecentClearAll;
@@ -76,6 +77,7 @@ public class UserInterface extends SettingsPreferenceFragment implements
     private CheckBoxPreference mRecentPanelLeftyMode;
     private ListPreference mRecentPanelScale;
     private ListPreference mRecentPanelExpandedMode;
+    private CheckBoxPreference mMultiPane;
 
     private Preference mRamBar;
     Preference mLcdDensity;
@@ -130,6 +132,11 @@ public class UserInterface extends SettingsPreferenceFragment implements
         final boolean recentLeftyMode = Settings.System.getInt(getContentResolver(),
                 Settings.System.RECENT_PANEL_GRAVITY, Gravity.RIGHT) == Gravity.LEFT;
         mRecentPanelLeftyMode.setChecked(recentLeftyMode);
+
+        mMultiPane = (CheckBoxPreference) prefSet.findPreference(FORCE_MULTI_PANE);
+        mMultiPane.setOnPreferenceChangeListener(this);
+        mMultiPane.setChecked(Settings.System.getInt(resolver,
+                Settings.System.FORCE_MULTI_PANE, 0) == 1);
 
         mRecentPanelScale = (ListPreference) findPreference(RECENT_PANEL_SCALE);
         mRecentPanelScale.setOnPreferenceChangeListener(this);
@@ -259,6 +266,9 @@ public class UserInterface extends SettingsPreferenceFragment implements
             int value = Integer.parseInt((String) newValue);
             Settings.System.putInt(getContentResolver(),
             Settings.System.RECENT_PANEL_EXPANDED_MODE, value);
+        } else if (preference == mMultiPane) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(resolver, Settings.System.FORCE_MULTI_PANE, value ? 1 : 0);
         }
         return true;
     }
