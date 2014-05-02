@@ -90,6 +90,12 @@
             android:key="category_battery_saver_radio"
             android:title="@string/battery_saver_radio_title" >
 
+        <PreferenceScreen
+            android:key="connection_manager"
+            android:id="@+id/telo_radio_settings"
+            android:fragment="com.android.settings.vanir.TeloRadioSettings"
+            android:title="@string/telo_radio_settings_title" />
+
         <CheckBoxPreference
              android:key="pref_battery_saver_mode_data"
              android:persistent="false"
