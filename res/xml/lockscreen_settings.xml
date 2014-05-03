@@ -26,6 +26,11 @@
             android:title="@string/Lockscreen_notifications_header"
             android:fragment="com.android.settings.ActiveNotifications" />
 
+        <CheckBoxPreference
+            android:key="notification_peek"
+            android:title="@string/notification_peek_title"
+            android:summary="@string/notification_peek_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
