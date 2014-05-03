@@ -38,10 +38,8 @@ public class LockscreenUI extends SettingsPreferenceFragment
     private static final String LOCKSCREEN_GENERAL_CATEGORY = "lockscreen_general_category";
     private static final String KEY_LOCKSCREEN_BUTTONS = "lockscreen_buttons";
     private static final String KEY_LOCKSCREEN_DOUBLE_TAP_SLEEP_GESTURE = "lockscreen_double_tap_sleep_gesture";
-    private static final String KEY_NOTIFICATION_PEEK = "notification_peek";
 
     private CheckBoxPreference mDoubleTapSleep;
-    private CheckBoxPreference mNotificationPeek;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,14 +54,9 @@ public class LockscreenUI extends SettingsPreferenceFragment
                 findPreference(LOCKSCREEN_GENERAL_CATEGORY);
 
         mDoubleTapSleep = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_DOUBLE_TAP_SLEEP_GESTURE);
-        mDoubleTapSleep.setChecked(Settings.System.getInt(resolver,
-                Settings.System.LOCKSCREEN_DOUBLE_TAP_SLEEP_GESTURE, 0) == 1);
+        mDoubleTapSleep.setChecked((Settings.System.getInt(resolver,
+                Settings.System.LOCKSCREEN_DOUBLE_TAP_SLEEP_GESTURE, 0) == 1));
         mDoubleTapSleep.setOnPreferenceChangeListener(this);
-
-        mNotificationPeek = (CheckBoxPreference) findPreference(KEY_NOTIFICATION_PEEK);
-        mNotificationPeek.setChecked(Settings.System.getInt(resolver,
-                Settings.System.PEEK_STATE, 0) == 1);
-        mNotificationPeek.setOnPreferenceChangeListener(this);
 
         // Remove lockscreen button actions if device doesn't have hardware keys
         if (!hasButtons()) {
@@ -94,10 +87,6 @@ public class LockscreenUI extends SettingsPreferenceFragment
         if (preference == mDoubleTapSleep) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(resolver, Settings.System.LOCKSCREEN_DOUBLE_TAP_SLEEP_GESTURE, value ? 1 : 0);
-            return true;
-        } else if (preference == mNotificationPeek) {
-            boolean value = (Boolean) newValue;
-            Settings.System.putInt(resolver, Settings.System.PEEK_STATE, value ? 1 : 0);
             return true;
         }
         return false;

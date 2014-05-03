@@ -1357,8 +1357,4 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="status_bar_data_color">StatusBar data icon Color</string>
     <string name="status_bar_airplain_color">StatusBar airplane mode Color</string>
     <string name="status_bar_volume_color">StatusBar volume icon Color</string>
-
-    <!--Notification peek-->
-    <string name="notification_peek_title">Notification peek</string>
-    <string name="notification_peek_summary">Show latest notification after picking up your device</string>
 </resources>
