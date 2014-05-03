@@ -19,6 +19,7 @@ package com.android.settings.slim;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -108,6 +109,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mHideSignal;
     private ColorPickerPreference mSignalColor;
 
+    private static final int MENU_RESET = Menu.FIRST;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,6 +185,64 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         mCustomStatusBarCarrierLabel = (PreferenceScreen) findPreference(CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.add(0, MENU_RESET, 0, R.string.reset_default_message)
+                .setIcon(R.drawable.ic_settings_backup)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_RESET:
+                resetToDefault();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void resetToDefault() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle(R.string.shortcut_action_reset);
+        alertDialog.setMessage(R.string.progressbar_reset_message);
+        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                StatusBarReset();
+            }
+        });
+        alertDialog.setNegativeButton(R.string.cancel, null);
+        alertDialog.create().show();
+    }
+
+    private void StatusBarReset() {
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER, 0);
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_HIDE_SIGNAL_BARS, 0);
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_SIGNAL_TEXT, 0);
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_BRIGHTNESS_SLIDER, 0);
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT_STATUS_ICON_COLOR);
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUSBAR_SIGNAL_TEXT_COLOR, DEFAULT_STATUS_ICON_COLOR);
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_AIRPLANE_COLOR, DEFAULT_STATUS_ICON_COLOR);
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_DATA_COLOR, DEFAULT_STATUS_ICON_COLOR);
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_VOLUME_COLOR, DEFAULT_STATUS_ICON_COLOR);
+        Settings.System.putInt(getContentResolver(), Settings.System.STATUS_BAR_WIFI_COLOR, DEFAULT_STATUS_ICON_COLOR);
+
+        mStatusBarCarrier.setChecked(false);
+        mHideSignal.setChecked(false);
+        mDbmStyletyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.STATUSBAR_SIGNAL_TEXT,
+                0)));
+        mStatusbarSliderPreference.setChecked(false);
+        mCarrierColorPicker.setNewPreviewColor(DEFAULT_STATUS_ICON_COLOR);
+        mSignalColor.setNewPreviewColor(DEFAULT_STATUS_ICON_COLOR);
+        mStatusBarWifiColor.setNewPreviewColor(DEFAULT_STATUS_ICON_COLOR);
+        mStatusBarDataColor.setNewPreviewColor(DEFAULT_STATUS_ICON_COLOR);
+        mStatusBarAirplaneColor.setNewPreviewColor(DEFAULT_STATUS_ICON_COLOR);
+        mStatusBarVolumeColor.setNewPreviewColor(DEFAULT_STATUS_ICON_COLOR);
     }
 
     private void updateCustomLabelTextSummary() {
