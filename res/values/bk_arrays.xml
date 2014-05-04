@@ -860,4 +860,21 @@
         <item>120000</item>
         <item>300000</item>
     </string-array>
+
+    <!-- PEEK pickup timeout -->
+    <string-array name="peek_pickup_timeout_values" translatable="false">
+        <item>10000</item>
+        <item>30000</item>
+        <item>45000</item>
+        <item>60000</item>
+        <item>120000</item>
+    </string-array>
+
+    <string-array name="peek_pickup_timeout_entries" translatable="false">
+        <item>@string/peek_pickup_10s</item>
+        <item>@string/peek_pickup_30s</item>
+        <item>@string/peek_pickup_45s</item>
+        <item>@string/peek_pickup_60s</item>
+        <item>@string/peek_pickup_120s</item>
+    </string-array>
 </resources>

@@ -41,6 +41,7 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
 
     private static final String KEY_ENABLED = "ad_enable";
     private static final String KEY_LOCKSCREEN_NOTIFICATIONS = "lock_enable";
+    private static final String KEY_NOTIFICATION_PEEK = "notification_peek";
     private static final String KEY_POCKET_MODE = "pocket_mode";
     private static final String KEY_HIDE_LOW_PRIORITY = "hide_low_priority";
     private static final String KEY_HIDE_NON_CLEARABLE = "hide_non_clearable";
@@ -61,6 +62,7 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
 
     private CheckBoxPreference mEnabledPref;
     private CheckBoxPreference mLockNotif;
+    private CheckBoxPreference mNotificationPeek;
     private ListPreference mPocketModePref;
     private CheckBoxPreference mHideLowPriority;
     private CheckBoxPreference mHideNonClearable;
@@ -122,6 +124,10 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
         mLockNotif = (CheckBoxPreference) prefs.findPreference(KEY_LOCKSCREEN_NOTIFICATIONS);
         mLockNotif.setChecked((Settings.System.getInt(cr,
                 Settings.System.LOCKSCREEN_NOTIFICATIONS, 0) == 1));
+
+        mNotificationPeek = (CheckBoxPreference) findPreference(KEY_NOTIFICATION_PEEK);
+        mNotificationPeek.setChecked((Settings.System.getInt(cr,
+                Settings.System.PEEK_STATE, 0) == 1));
 
         mPocketModePref = (ListPreference) prefs.findPreference(KEY_POCKET_MODE);
         if (!DeviceUtils.deviceSupportsProximitySensor(mContext)) {
@@ -192,6 +198,7 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
         mPocketModePref.setEnabled(mActiveNotifications);
         mLockNotif.setEnabled(mActiveNotifications);
         mEnabledPref.setEnabled(mActiveNotifications);
+        mNotificationPeek.setEnabled(mActiveNotifications);
         mHideLowPriority.setEnabled(mActiveNotifications);
         mHideNonClearable.setEnabled(mActiveNotifications);
         mDismissAll.setEnabled(!mHideNonClearable.isChecked() && mActiveNotifications);
@@ -201,16 +208,19 @@ public class ActiveNotifications extends SettingsPreferenceFragment implements
         mNotifAppsPref.setEnabled(mActiveNotifications);
         mExcludedAppsPref.setEnabled(mActiveNotifications);
     }
-        
+       
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         ContentResolver cr = getActivity().getContentResolver();
         if (preference == mEnabledPref) {
-            Settings.System.putInt(getContentResolver(),
+            Settings.System.putInt(cr,
                     Settings.System.ENABLE_ACTIVE_DISPLAY, mEnabledPref.isChecked() ? 1 : 0);
         } else if (preference == mLockNotif) {
-            Settings.System.putInt(mContext.getContentResolver(),
+            Settings.System.putInt(cr,
                     Settings.System.LOCKSCREEN_NOTIFICATIONS, mLockNotif.isChecked() ? 1 : 0);
+        } else if (preference == mNotificationPeek) {
+            Settings.System.putInt(cr,
+                    Settings.System.PEEK_STATE, mNotificationPeek.isChecked() ? 1 : 0);
         } else if (preference == mHideLowPriority) {
             Settings.System.putInt(cr, Settings.System.ACTIVE_NOTIFICATIONS_HIDE_LOW_PRIORITY,
                     mHideLowPriority.isChecked() ? 1 : 0);

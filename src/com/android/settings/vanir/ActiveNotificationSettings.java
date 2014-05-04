@@ -22,6 +22,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.os.PowerManager;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -65,6 +66,9 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     private static final String KEY_SHAKE_LONGTHRESHOLD = "ad_shake_long_threshold";
     private static final String KEY_SHAKE_TIMEOUT = "ad_shake_timeout";
 
+    //peek
+    private static final String KEY_PEEK_PICKUP_TIMEOUT = "peek_pickup_timeout";
+
     private ContentResolver mResolver;
     private Context mContext;
 
@@ -88,6 +92,8 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
     private ListPreference mRedisplayPref;
     private int mMinimumBacklight;
     private int mMaximumBacklight;
+
+    private ListPreference mPeekPickupTimeout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -238,6 +244,13 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
             mWakeOnNotification.setEnabled(true);
             mWakeOnNotification.setSummary(R.string.wake_on_notification_summary);
         }
+
+        mPeekPickupTimeout = (ListPreference) prefSet.findPreference(KEY_PEEK_PICKUP_TIMEOUT);
+        int peekTimeout = Settings.System.getIntForUser(getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT, 0, UserHandle.USER_CURRENT);
+        mPeekPickupTimeout.setValue(String.valueOf(peekTimeout));
+        mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntry());
+        mPeekPickupTimeout.setOnPreferenceChangeListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -310,6 +323,13 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
                     (float)mContext.getResources().getDimensionPixelSize(R.dimen.notification_row_min_height));
             mNotificationsHeight.setMaxValue(max);
             return true;
+        } else if (preference == mPeekPickupTimeout) {
+            int peekTimeout = Integer.valueOf((String) newValue);
+            Settings.System.putIntForUser(getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT,
+                    peekTimeout, UserHandle.USER_CURRENT);
+            updatePeekTimeoutOptions(newValue);
+            return true;
         }
         return false;
     }
@@ -357,5 +377,13 @@ public class ActiveNotificationSettings extends SettingsPreferenceFragment imple
 
     private boolean is24Hour() {
         return DateFormat.is24HourFormat(mContext);
+    }
+
+    private void updatePeekTimeoutOptions(Object newValue) {
+        int index = mPeekPickupTimeout.findIndexOfValue((String) newValue);
+        int value = Integer.valueOf((String) newValue);
+        Settings.Secure.putInt(getActivity().getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT, value);
+        mPeekPickupTimeout.setSummary(mPeekPickupTimeout.getEntries()[index]);
     }
 }
