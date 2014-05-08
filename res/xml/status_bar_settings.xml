@@ -23,12 +23,6 @@
     <PreferenceCategory
         android:title="@string/status_bar_style_title">
 
-        <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
-            android:key="force_translucent_status_bar"
-            android:title="@string/force_translucent_status_bar_title"
-            android:summary="@string/force_translucent_status_bar_summary"
-            android:defaultValue="false" />
-
         <PreferenceScreen
             android:fragment="com.android.settings.slim.StatusBarClockStyle"
             android:key="clock_style_pref"

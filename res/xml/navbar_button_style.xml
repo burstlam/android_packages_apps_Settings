@@ -18,7 +18,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
+     <net.margaritov.preference.colorpicker.ColorPickerPreference
          android:key="nav_button_glow_color"
          android:title="@string/navigation_bar_glow_tint_title"
          android:defaultValue="0xffffffff" />
@@ -27,12 +27,6 @@
          android:key="nav_button_color"
          android:title="@string/shortcuts_color_title"
          android:defaultValue="0xffffffff" />
-
-    <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
-        android:key="force_translucent_nav_bar"
-        android:title="@string/force_translucent_nav_bar_title"
-        android:summary="@string/force_translucent_nav_bar_summary"
-        android:defaultValue="false" />
 
     <ListPreference
          android:entries="@array/icon_color_mode_entries"
