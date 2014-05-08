@@ -877,4 +877,19 @@
         <item>@string/peek_pickup_60s</item>
         <item>@string/peek_pickup_120s</item>
     </string-array>
+
+    <string-array name="app_circlebar_trigger_width_entries" translatable="false">
+        <item>@string/trigger_width_size_8_dp</item>
+        <item>@string/trigger_width_size_10_dp</item>
+        <item>@string/trigger_width_size_12_dp</item>
+        <item>@string/trigger_width_size_15_dp</item>
+    </string-array>
+
+    <string-array name="app_circlebar_trigger_width_values" translatable="false">
+        <item>8</item>
+        <item>10</item>
+        <item>12</item>
+        <item>15</item>
+    </string-array>
+
 </resources>

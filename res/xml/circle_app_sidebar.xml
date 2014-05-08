@@ -32,4 +32,12 @@
             android:title="@string/app_circle_bar_included_apps_title"
             android:summary="@string/app_circle_bar_included_apps_summary"
             android:dependency="enable_app_circle_bar" />
+
+        <ListPreference
+            android:key="app_circle_bar_trigger_width"
+            android:dialogTitle="@string/app_circle_bar_trigger_width_title"
+            android:title="@string/app_circle_bar_trigger_width_title"
+            android:summary="@string/app_circle_bar_trigger_width_summary"
+            android:entries="@array/app_circlebar_trigger_width_entries"
+            android:entryValues="@array/app_circlebar_trigger_width_values" />
 </PreferenceScreen>

@@ -1035,6 +1035,13 @@ Paranoid PIE control is wavely based on simple navigation to expanded desktop. S
     <string name="app_circle_bar_summary">Show circle app launcher after touching right side of screen</string>
     <string name="app_circle_bar_included_apps_title">Included apps</string>
     <string name="app_circle_bar_included_apps_summary">Apps will show in app circle bar</string>
+    <string name="app_circle_bar_trigger_width_title">Custom Trigger Width</string>
+    <string name="app_circle_bar_trigger_width_summary">Set custom app circle bar trigger width</string>
+    <string name="trigger_width_size_8_dp">8dp</string>
+    <string name="trigger_width_size_10_dp">10dp</string>
+    <string name="trigger_width_size_12_dp">12dp</string>
+    <string name="trigger_width_size_15_dp">15dp</string>
+
 
 
     <!-- Toggle switch title for enabling battery saver connections. [CHAR LIMIT=32] -->

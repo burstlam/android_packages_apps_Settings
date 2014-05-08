@@ -49,7 +49,9 @@ public class CircleAppSidebar extends SettingsPreferenceFragment implements
     private static final String TAG = "CircleAppSidebar";
 
     private static final String PREF_INCLUDE_APP_CIRCLE_BAR_KEY = "app_circle_bar_included_apps";
+    private static final String PREF_APP_CIRCLE_BAR_TRIGGER_WIDTH_KEY = "app_circle_bar_trigger_width";
     private AppMultiSelectListPreference mIncludedAppCircleBar;
+    private ListPreference mTriggerWidth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,12 @@ public class CircleAppSidebar extends SettingsPreferenceFragment implements
         Set<String> includedApps = getIncludedApps();
         if (includedApps != null) mIncludedAppCircleBar.setValues(includedApps);
         mIncludedAppCircleBar.setOnPreferenceChangeListener(this);
+
+        mTriggerWidth = (ListPreference) prefSet.findPreference(PREF_APP_CIRCLE_BAR_TRIGGER_WIDTH_KEY);
+        int width = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.APP_CIRCLE_SIDEBAR_TRIGGER_WIDTH, 15);
+        mTriggerWidth.setValue(String.valueOf(width));
+        mTriggerWidth.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -75,6 +83,11 @@ public class CircleAppSidebar extends SettingsPreferenceFragment implements
         ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mIncludedAppCircleBar) {
             storeIncludedApps((Set<String>) objValue);
+            return true;
+        } else if (preference == mTriggerWidth) {
+            int width = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.APP_CIRCLE_SIDEBAR_TRIGGER_WIDTH, width);
             return true;
         }
         return false;
